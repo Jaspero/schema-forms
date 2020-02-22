@@ -1,0 +1,16 @@
+<div class="mat-form-field-wrapper">
+  <p class="fs-small fg-secondary" *ngIf="cData.label">{{cData.label}}</p>
+
+  <div
+    class="fb-draggable-list"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)">
+    <div
+      class="fb-draggable-list-item"
+      *ngFor="let item of cData.options; index as index"
+      [cdkDragDisabled]="item.disabled"
+      cdkDrag>
+      {{index + 1}}. {{item.name}}
+    </div>
+  </div>
+</div>

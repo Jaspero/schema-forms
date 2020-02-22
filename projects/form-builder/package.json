@@ -1,0 +1,14 @@
+{
+  "name": "form-builder",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.0.2",
+    "@angular/core": "^9.0.2",
+    "@angular/material": "^9.0.1",
+    "@jaspero/ng-helpers": "^3.4.0",
+    "@ngneat/transloco": "^1.1.1",
+    "tinymce": "^5.2.0",
+    "json-pointer": "^0.6.0",
+    "tslib": "^1.10.0"
+  }
+}
