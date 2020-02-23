@@ -56,34 +56,38 @@ export class SegmentComponent<T = any> implements OnInit {
       this.segment.entryValue
     );
 
+    const array = this.segment.array as string;
+
     /**
      * Add array items if necessary
      */
-    if (this.segment.array && this.segment.entryValue) {
+    if (array && this.segment.entryValue) {
       let values;
 
       try {
-        values = get(this.segment.entryValue, this.segment.array);
+        values = get(this.segment.entryValue, array);
       } catch (e) {}
 
       if (values) {
         values.forEach(() => this.addArrayItem(false));
 
-        (this.pointers[this.segment.array].control as FormControl).patchValue(
+        (this.pointers[array].control as FormControl).patchValue(
           values
         );
 
         for (let i = 0; i < values.length; i++) {
-          this.sData.parser.loadHooks(this.pointers[this.segment.array].arrayPointers[i]);
+          // @ts-ignore
+          this.sData.parser.loadHooks(this.pointers[array].arrayPointers[i]);
         }
       }
     }
   }
 
   addArrayItem(loadHook = true) {
-    this.sData.parser.addArrayItem(this.segment.array, loadHook);
+    const array = this.segment.array as string;
+    this.sData.parser.addArrayItem(array, loadHook);
 
-    const arrayPointers = this.pointers[this.segment.array].arrayPointers;
+    const arrayPointers = this.pointers[array].arrayPointers as Pointers[];
 
     this.arrayFields.push(
       Object.entries(arrayPointers[arrayPointers.length - 1])
@@ -94,7 +98,7 @@ export class SegmentComponent<T = any> implements OnInit {
               pointer,
               this.sData.definitions,
               true,
-              this.segment.array
+              array
             )
         )
         .sort((a, b) => {
@@ -107,7 +111,7 @@ export class SegmentComponent<T = any> implements OnInit {
   }
 
   removeArrayItem(index: number) {
-    this.sData.parser.removeArrayItem(this.segment.array, index);
+    this.sData.parser.removeArrayItem(this.segment.array as string, index);
     this.arrayFields.splice(index, 1);
   }
 }

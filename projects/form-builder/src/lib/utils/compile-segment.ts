@@ -19,7 +19,7 @@ export function compileSegment(
   injector: Injector,
   entryValue: any
 ) {
-  const classes = [];
+  const classes: string[] = [];
 
   let fields: CompiledField[] | string[] = [];
 
@@ -52,6 +52,7 @@ export function compileSegment(
     /**
      * If it's an array fields are parsed
      */
+    // @ts-ignore
     fields = segment.array ? (segment.fields || []).map(fi => segment.array + fi) : (segment.fields || []).map(key =>
       parser.field(key, parser.pointers[key], definitions)
     );

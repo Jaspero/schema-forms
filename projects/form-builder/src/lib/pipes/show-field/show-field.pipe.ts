@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {CompiledField} from '../interfaces/compiled-field.interface';
-import {Parser} from '../utils/parser';
+import {CompiledField} from '../../interfaces/compiled-field.interface';
+import {Parser} from '../../utils/parser';
 
 @Pipe({
   name: 'showField'

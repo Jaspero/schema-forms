@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {FormBuilderData} from 'form-builder';
 
 @Component({
   selector: 'sc-root',
@@ -7,27 +8,95 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  exampleOne = {
+  exampleOne: FormBuilderData = {
     schema: {
-
+      properties: {
+        title: {
+          type: 'string'
+        },
+        description: {
+          type: 'string'
+        }
+      }
     },
     definitions: {
-
+      title: {
+        label: 'Title'
+      },
+      description: {
+        label: 'Description',
+        component: {
+          type: 'textarea'
+        }
+      }
     },
-    segments: {
-
-    }
+    segments: [{
+      fields: [
+        '/title',
+        '/description'
+      ]
+    }]
   };
 
-  exampleTwo = {
+  exampleTwo: FormBuilderData = {
     schema: {
-
+      properties: {
+        title: {
+          type: 'string'
+        },
+        description: {
+          type: 'string'
+        },
+        content: {
+          type: 'string'
+        }
+      }
     },
     definitions: {
-
+      title: {
+        label: 'Title'
+      },
+      description: {
+        label: 'Description',
+        component: {
+          type: 'textarea'
+        }
+      },
+      content: {
+        label: 'Content',
+        component: {
+          type: 'wysiwyg'
+        }
+      }
     },
-    segments: {
+    segments: [{
+      fields: [
+        '/title',
+        '/description',
+        '/content'
+      ]
+    }]
+  };
 
+  updateComponent() {
+    this.exampleTwo = {
+      schema: {
+        properties: {
+          title: {
+            type: 'string'
+          }
+        }
+      },
+      definitions: {
+        title: {
+          label: 'Title'
+        }
+      },
+      segments: [{
+        fields: [
+          '/title'
+        ]
+      }]
     }
   }
 }

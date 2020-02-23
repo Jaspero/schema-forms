@@ -97,7 +97,7 @@ export class Parser {
     definition: StringPropertyDefinition,
     required: boolean
   ) {
-    const controlValidation = [];
+    const controlValidation: any[] = [];
     const validation: any = {};
 
     if (required) {
@@ -131,7 +131,7 @@ export class Parser {
     required: boolean
   ) {
     const validation: any = {};
-    const controlValidation = [];
+    const controlValidation: any[] = [];
 
     if (required) {
       controlValidation.push(Validators.required);
@@ -169,7 +169,7 @@ export class Parser {
     definition: BooleanPropertyDefinition,
     required: boolean
   ) {
-    const controlValidation = [];
+    const controlValidation: any[] = [];
     const validation: any = {};
 
     if (required) {

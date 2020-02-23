@@ -44,18 +44,20 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
   tabs: CompiledSegmentTab[];
   selectedTabChange?: SelectedTabChange;
 
+  get configuration() {
+    return this.segment.configuration as TabsConfiguration;
+  }
+
   ngOnInit() {
     super.ngOnInit();
 
-    const configuration = this.segment.configuration as TabsConfiguration;
-
-    if (configuration.selectedTabChange) {
+    if (this.configuration.selectedTabChange) {
       this.selectedTabChange = safeEval(
-        configuration.selectedTabChange as string
+        this.configuration.selectedTabChange as string
       );
     }
 
-    this.tabs = configuration.tabs.map(
+    this.tabs = this.configuration.tabs.map(
       tab => ({
         ...tab,
         fields: (tab.fields || []).map(key =>

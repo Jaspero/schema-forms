@@ -9,3 +9,5 @@ export * from './lib/services/storage.service';
 
 export * from './lib/utils/role';
 export * from './lib/utils/storage-url';
+
+export * from './lib/interfaces/form-builder-data.interface';

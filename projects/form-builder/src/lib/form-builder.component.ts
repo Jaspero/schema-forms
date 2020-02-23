@@ -1,11 +1,9 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {OnChange} from '@jaspero/ng-helpers';
-import {JSONSchema7} from 'json-schema';
 import {SegmentType} from './enums/segment-type.enum';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
-import {ModuleDefinitions} from './interfaces/module-definitions.interface';
-import {ModuleInstanceSegment} from './interfaces/module-instance-segment.interface';
+import {FormBuilderData} from './interfaces/form-builder-data.interface';
 import {State} from './interfaces/state.interface';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
@@ -28,12 +26,7 @@ export class FormBuilderComponent {
     this.render();
   })
   @Input()
-  data: {
-    value?: any,
-    schema: JSONSchema7,
-    definitions?: ModuleDefinitions,
-    segments?: ModuleInstanceSegment[];
-  };
+  data: FormBuilderData;
 
   @OnChange(function(value) {
     if (this.form) {

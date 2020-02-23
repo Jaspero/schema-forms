@@ -3,10 +3,12 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {FormBuilderModule} from 'form-builder';
+import {DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from 'form-builder';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
+import {MockDbService} from './mock/mock-db.service';
+import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
 
 @NgModule({
@@ -34,6 +36,22 @@ import {translocoLoader} from './transloco.loader';
     /**
      * FormBuilder
      */
+    {
+      provide: ROLE,
+      useValue: 'admin'
+    },
+    {
+      provide: STORAGE_URL,
+      useValue: ''
+    },
+    {
+      provide: StorageService,
+      useClass: MockStorageService
+    },
+    {
+      provide: DbService,
+      useClass: MockDbService
+    }
   ],
   bootstrap: [AppComponent]
 })

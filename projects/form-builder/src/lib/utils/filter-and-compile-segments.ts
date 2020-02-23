@@ -1,6 +1,6 @@
 import {Injector} from '@angular/core';
-import {ModuleInstanceSegment} from '../../../shared/interfaces/module-instance-segment.interface';
-import {ModuleDefinitions} from '../../../shared/interfaces/module.interface';
+import {ModuleDefinitions} from '../interfaces/module-definitions.interface';
+import {ModuleInstanceSegment} from '../interfaces/module-instance-segment.interface';
 import {compileSegment} from './compile-segment';
 import {Parser} from './parser';
 
@@ -25,6 +25,7 @@ export function filterAndCompileSegments(
 
       if (compiled) {
         acc.push(
+          // @ts-ignore
           compiled
         );
       }

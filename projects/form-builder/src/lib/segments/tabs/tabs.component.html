@@ -9,10 +9,10 @@
 <p *ngIf="segment.description">{{segment.description}}</p>
 
 <mat-tab-group
-  [selectedIndex]="segment.configuration.selectedIndex"
-  [dynamicHeight]="segment.configuration.dynamicHeight"
-  [disableRipple]="segment.configuration.disableRipple"
-  [attr.mat-align-tabs]="segment.configuration.alignment"
+  [selectedIndex]="configuration.selectedIndex"
+  [dynamicHeight]="configuration.dynamicHeight"
+  [disableRipple]="configuration.disableRipple"
+  [attr.mat-align-tabs]="configuration.alignment"
   (selectedTabChange)="tabChange($event)">
 
   <mat-tab
