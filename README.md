@@ -1,6 +1,16 @@
-# SchemaForms
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![CircleCI](https://circleci.com/gh/Jaspero/form-builder.svg?style=svg)](https://circleci.com/gh/Jaspero/form-builder)
+[![NPM Version](https://img.shields.io/npm/v/@jaspero/form-builder.svg)](https://www.npmjs.com/package/@jaspero/form-builder)
+
+# @jaspero/form-builder
 
 ## Installation
+
+To install this library, run:
+
+```bash
+$ npm install --save @jaspero/form-builder
+```
 
 ### Provide services and values
 
@@ -43,3 +53,7 @@ __tinymce__: A WYSIWYG editor.
 In order to make the generated forms customizable, this library doesn't provide
 any default styles. This means that the styles need to be loaded in the root of your application.
 A good starting point are the example styles provided here.
+
+## License
+
+MIT © [Jaspero Ltd](mailto:info@jaspero.co)

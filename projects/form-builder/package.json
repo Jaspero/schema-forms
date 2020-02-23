@@ -1,6 +1,14 @@
 {
-  "name": "form-builder",
+  "name": "@jaspero/form-builder",
   "version": "0.0.1",
+  "author": {
+    "name": "Jaspero Ltd",
+    "email": "info@jaspero.co"
+  },
+  "keywords": [
+    "Angular"
+  ],
+  "homepage": "https://jaspero.co",
   "peerDependencies": {
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
