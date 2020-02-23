@@ -11,6 +11,7 @@
     "test": "ls",
     "test:app": "ls",
     "lint": "ng lint form-builder",
+    "lint:fix": "ng lint form-builder --fix",
     "e2e": "ng e2e",
     "semantic-release": "semantic-release"
   },
