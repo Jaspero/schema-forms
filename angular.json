@@ -157,7 +157,8 @@
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/form-builder/tsconfig.lib.prod.json"
+              "tsConfig": "projects/form-builder/tsconfig.lib.prod.json",
+              "project": "projects/form-builder/ng-package.prod.json"
             }
           }
         },
