@@ -1,6 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, Input} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Injector,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {OnChange} from '@jaspero/ng-helpers';
 import {SegmentType} from './enums/segment-type.enum';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
@@ -14,7 +22,7 @@ import {ROLE} from './utils/role';
   templateUrl: './form-builder.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormBuilderComponent {
+export class FormBuilderComponent implements OnChanges {
   constructor(
     private injector: Injector,
     @Inject(ROLE)
@@ -22,17 +30,9 @@ export class FormBuilderComponent {
     private cdr: ChangeDetectorRef
   ) { }
 
-  @OnChange(function() {
-    this.render();
-  })
   @Input()
   data: FormBuilderData;
 
-  @OnChange(function(value) {
-    if (this.form) {
-      this.form.patchValue(value);
-    }
-  })
   @Input()
   value: any;
 
@@ -45,6 +45,16 @@ export class FormBuilderComponent {
   form: FormGroup;
   parser: Parser;
   segments: CompiledSegment[];
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.data) {
+      this.render();
+    }
+
+    if (changes.value && this.form) {
+      this.form.patchValue(changes.value.currentValue);
+    }
+  }
 
   private render() {
     const value = this.data.value || {};
