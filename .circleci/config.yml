@@ -8,8 +8,8 @@ job_defaults: &job_defaults
     NPM_VERSION: "6.9.0"
   working_directory: ~/project/repo
 
-cache_key: &cache_key ng-helpers-deps-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
-dist_key: &dist_key ng-helpers-dist-{{ .Revision }}
+cache_key: &cache_key form-builder-deps-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+dist_key: &dist_key form-builder-dist-{{ .Revision }}
 
 jobs:
   install:
