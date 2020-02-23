@@ -5,5 +5,7 @@
     [attr.autocomplete]="cData.autocomplete"
     [rows]="cData.rows"
     [cols]="cData.cols"
-    [formControl]="cData.control"></textarea>
+    [formControl]="cData.control">
+  </textarea>
+  <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | jpSanitize"></mat-hint>
 </mat-form-field>
