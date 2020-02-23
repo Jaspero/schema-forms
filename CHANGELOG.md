@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Jaspero/schema-forms/compare/v1.0.0...v1.1.0) (2020-02-23)
+
+
+### Features
+
+* publishing publicly ([62a1b42](https://github.com/Jaspero/schema-forms/commit/62a1b4286a5d3fd6740bc7cc7ed7e76975190c33))
+
 # 1.0.0 (2020-02-23)
 
 
