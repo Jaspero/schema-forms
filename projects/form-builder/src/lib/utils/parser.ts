@@ -74,6 +74,7 @@ export interface Pointers {
   [key: string]: Pointer;
 }
 
+// @dynamic
 export class Parser {
   constructor(
     public schema: any,
