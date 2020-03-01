@@ -401,11 +401,11 @@ export class Parser {
         this.loadHooks(properties.pointers);
       }
       // @ts-ignore
-      target.arrayPointers.push(properties.pointers);
-      control.push(properties.form);
+      target.arrayPointers.unshift(properties.pointers);
+      control.insert(0, properties.form);
     } else {
       // TODO: Different SchemaType
-      control.push(new FormControl(''));
+      control.insert(0, new FormControl(''));
     }
   }
 
