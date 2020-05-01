@@ -5,17 +5,17 @@ import {SegmentType} from '../enums/segment-type.enum';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {CompiledCondition, ConditionAction, ConditionEvaluate, ConditionType} from '../interfaces/condition.interface';
-import {ModuleDefinitions} from '../interfaces/module-definitions.interface';
-import {ModuleInstanceSegment} from '../interfaces/module-instance-segment.interface';
+import {Definitions} from '../interfaces/definitions.interface';
+import {Segment} from '../interfaces/segment.interface';
 import {SegmentComponent} from '../segment/segment.component';
 import {createSegmentInjector} from './create-segment-injector';
 import {Parser} from './parser';
 import {safeEval} from './safe-eval';
 
 export function compileSegment(
-  segment: ModuleInstanceSegment,
+  segment: Segment,
   parser: Parser,
-  definitions: ModuleDefinitions,
+  definitions: Definitions,
   injector: Injector,
   entryValue: any
 ) {

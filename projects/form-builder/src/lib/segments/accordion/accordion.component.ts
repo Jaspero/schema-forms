@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {CompiledField} from '../../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../../interfaces/compiled-segment.interface';
-import {ModuleInstanceSegment} from '../../interfaces/module-instance-segment.interface';
+import {Segment} from '../../interfaces/segment.interface';
 import {SegmentComponent} from '../../segment/segment.component';
 import {filterAndCompileSegments} from '../../utils/filter-and-compile-segments';
 
@@ -9,7 +9,7 @@ interface SegmentAccord {
   title?: string;
   description?: string;
   fields?: string[];
-  nestedSegments?: ModuleInstanceSegment[];
+  nestedSegments?: Segment[];
   expanded?: boolean;
 }
 

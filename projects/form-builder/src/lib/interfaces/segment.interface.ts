@@ -1,14 +1,14 @@
 import {SegmentType} from '../enums/segment-type.enum';
 import {CompiledCondition, Condition} from './condition.interface';
 
-export interface ModuleInstanceSegment<C = any> {
+export interface Segment<C = any> {
   fields: string[] | any[];
   array?: string;
   type?: SegmentType;
   title?: string;
   subTitle?: string;
   description?: string;
-  nestedSegments?: ModuleInstanceSegment<C>[];
+  nestedSegments?: Segment<C>[];
   columnsDesktop?: number;
   columnsTablet?: number;
   columnsMobile?: number;

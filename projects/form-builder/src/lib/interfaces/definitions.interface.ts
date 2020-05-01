@@ -1,7 +1,7 @@
 import {ComponentDefinition} from './component-definition.interface';
 import {State} from './state.interface';
 
-export interface ModuleDefinition {
+export interface Definition {
   component?: ComponentDefinition;
   formatOnSave?: string;
   formatOnCreate?: string;
@@ -15,6 +15,6 @@ export interface ModuleDefinition {
   disableOn?: State;
 }
 
-export interface ModuleDefinitions {
-  [key: string]: ModuleDefinition;
+export interface Definitions {
+  [key: string]: Definition;
 }

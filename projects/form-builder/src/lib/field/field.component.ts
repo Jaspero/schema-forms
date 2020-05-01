@@ -8,5 +8,7 @@ import {COMPONENT_DATA} from '../utils/create-component-injector';
   template: ''
 })
 export class FieldComponent<T extends FieldData> {
-  constructor(@Inject(COMPONENT_DATA) public cData: T) {}
+  constructor(
+    @Inject(COMPONENT_DATA) public cData: T
+  ) {}
 }

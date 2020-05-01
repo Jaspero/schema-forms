@@ -1,4 +1,3 @@
-
 import {ComponentType} from '../enums/component-type.enum';
 import {SchemaType} from '../enums/schema-type.enum';
 

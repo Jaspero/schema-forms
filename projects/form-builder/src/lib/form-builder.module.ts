@@ -1,7 +1,7 @@
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
@@ -42,6 +42,7 @@ import {TextareaComponent} from './fields/textarea/textarea.component';
 import {ToggleComponent} from './fields/toggle/toggle.component';
 import {WysiwygComponent} from './fields/wysiwyg/wysiwyg.component';
 import {FormBuilderComponent} from './form-builder.component';
+import {FormBuilderService} from './form-builder.service';
 import {ShowFieldPipe} from './pipes/show-field/show-field.pipe';
 import {SegmentComponent} from './segment/segment.component';
 import {AccordionComponent} from './segments/accordion/accordion.component';
@@ -138,4 +139,13 @@ import {TabsComponent} from './segments/tabs/tabs.component';
   ],
   exports: [FormBuilderComponent]
 })
-export class FormBuilderModule { }
+export class FormBuilderModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: FormBuilderModule,
+      providers: [
+        FormBuilderService
+      ]
+    }
+  }
+}

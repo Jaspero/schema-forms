@@ -6,10 +6,11 @@ import {SchemaType} from '../enums/schema-type.enum';
 import {FieldComponent} from '../field/field.component';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {Control} from '../interfaces/control.type';
-import {ModuleDefinitions} from '../interfaces/module-definitions.interface';
+import {Definitions} from '../interfaces/definitions.interface';
 import {State} from '../interfaces/state.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
 import {createComponentInjector} from './create-component-injector';
+import {CustomFields} from './custom-fields';
 import {safeEval} from './safe-eval';
 import {schemaToComponent} from './schema-to-component';
 
@@ -80,7 +81,8 @@ export class Parser {
     public schema: any,
     public injector: Injector,
     public state: State,
-    public definitions: ModuleDefinitions = {}
+    public definitions: Definitions = {},
+    public customFields: CustomFields = {}
   ) {}
 
   form: FormGroup;
@@ -330,7 +332,7 @@ export class Parser {
   field(
     pointerKey: string,
     pointer: Pointer,
-    definitions: ModuleDefinitions = {},
+    definitions: Definitions = {},
     single = true,
     arrayRoot?: string
   ): CompiledField {
@@ -355,9 +357,16 @@ export class Parser {
       definition.component = schemaToComponent(type);
     }
 
-    const portal = new ComponentPortal<FieldComponent<any>>(
+    // @ts-ignore
+    const component = COMPONENT_TYPE_COMPONENT_MAP[definition.component.type] || this.customFields[definition.component.type];
+
+    if (!component) {
       // @ts-ignore
-      COMPONENT_TYPE_COMPONENT_MAP[definition.component.type],
+      throw new Error(`Couldn't find a component defined for type: ${definition.component.type}`);
+    }
+
+    const portal = new ComponentPortal<FieldComponent<any>>(
+      component,
       null,
       createComponentInjector(this.injector, {
         control,
@@ -515,7 +524,7 @@ export class Parser {
 
   private getFromDefinitions(
     key: string,
-    definitions: ModuleDefinitions = this.definitions
+    definitions: Definitions = this.definitions
   ) {
     return definitions[Parser.standardizeKey(key)];
   }

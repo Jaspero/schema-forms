@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
-import {ModuleDefinitions} from '../interfaces/module-definitions.interface';
+import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointers} from '../utils/parser';
@@ -12,7 +12,7 @@ import {ROLE} from '../utils/role';
 export interface SegmentData {
   segment: CompiledSegment;
   parser: Parser;
-  definitions: ModuleDefinitions;
+  definitions: Definitions;
 }
 
 @Component({

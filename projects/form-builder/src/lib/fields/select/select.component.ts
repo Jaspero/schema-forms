@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
-import {Option} from '../../interfaces/option.inteface';
+import {Option} from '../../interfaces/option.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 import {DbService} from '../../services/db.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';

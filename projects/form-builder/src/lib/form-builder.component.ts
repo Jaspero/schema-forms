@@ -13,6 +13,7 @@ import {SegmentType} from './enums/segment-type.enum';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
 import {State} from './interfaces/state.interface';
+import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
 import {ROLE} from './utils/role';
@@ -27,6 +28,8 @@ export class FormBuilderComponent implements OnChanges {
     private injector: Injector,
     @Inject(ROLE)
     private role: string,
+    @Inject(CUSTOM_FIELDS)
+    private customFields: CustomFields,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -64,7 +67,8 @@ export class FormBuilderComponent implements OnChanges {
       this.data.schema,
       this.injector,
       this.state,
-      definitions
+      definitions,
+      this.customFields
     );
 
     this.form = this.parser.buildForm(

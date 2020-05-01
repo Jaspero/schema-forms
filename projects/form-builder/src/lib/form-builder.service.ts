@@ -4,9 +4,7 @@ import {TranslocoService} from '@ngneat/transloco';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class FormBuilderService {
   constructor(
     private transloco: TranslocoService,

@@ -16,7 +16,7 @@ $ npm install --save @jaspero/form-builder
 
 1. Provide necessary services
   - StorageService - Used for storing files when `FileComponent`, `ImageComponent` or `GalleryComponent` are used.
-  - DbService - Used for fetching reference relations from your server in runtime
+  - DbService - Used for fetching referenced relations from your server in runtime
 2. Provide necessary values
   - STORAGE_URL - Root URL for fetching files from your server
   - ROLE - Segments and fields can be conditionally shown/hidden if the value of the role

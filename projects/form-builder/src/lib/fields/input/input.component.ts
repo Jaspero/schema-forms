@@ -1,20 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
-import {COMPONENT_DATA} from '../../utils/create-component-injector';
-import {safeEval} from '../../utils/safe-eval';
+import {getHsd, HSD} from '../../utils/get-hsd';
 
 interface InputData extends FieldData {
   type: 'text' | 'number' | 'email';
   autocomplete?: string;
-  suffix?: {
-    type?: 'html' | 'static' | 'dynamic';
-    value: string;
-  };
-  prefix?: {
-    type?: 'html' | 'static' | 'dynamic';
-    value: string;
-  };
+  suffix?: HSD;
+  prefix?: HSD;
 }
 
 @Component({
@@ -24,53 +18,12 @@ interface InputData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputComponent extends FieldComponent<InputData> implements OnInit {
-  constructor(
-    @Inject(COMPONENT_DATA) public cData: InputData,
-    private cdr: ChangeDetectorRef
-  ) {
-    super(cData);
-  }
 
-  prefix: string;
-  suffix: string;
+  prefix$: Observable<string>;
+  suffix$: Observable<string>;
 
   ngOnInit() {
-    ['prefix', 'suffix'].forEach(key => {
-      if (this.cData[key]) {
-
-        let item: any;
-
-        switch (this.cData[key].type) {
-          case 'dynamic':
-            item = safeEval(this.cData[key].value);
-
-            if (item) {
-              this.cData.form.valueChanges.subscribe(value => {
-                this[key] = item(
-                  this.cData.control.value,
-                  value
-                );
-                this.cdr.markForCheck();
-              });
-            }
-
-            break;
-          case 'static':
-            item = safeEval(this.cData[key].value);
-
-            if (item) {
-              this[key] = item(
-                this.cData.control.value,
-                this.cData.form.getRawValue()
-              );
-            }
-            break;
-          case 'html':
-          default:
-            this[key] = this.cData[key].value;
-            break;
-        }
-      }
-    });
+    this.prefix$ = getHsd('prefix', this.cData);
+    this.suffix$ = getHsd('suffix', this.cData);
   }
 }

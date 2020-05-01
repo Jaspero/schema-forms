@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
-import {Option} from '../../interfaces/option.inteface';
+import {Option} from '../../interfaces/option.interface';
 
 interface RadioData extends FieldData {
   options: Option[];

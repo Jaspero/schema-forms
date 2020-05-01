@@ -1,14 +1,14 @@
 import {Injector} from '@angular/core';
-import {ModuleDefinitions} from '../interfaces/module-definitions.interface';
-import {ModuleInstanceSegment} from '../interfaces/module-instance-segment.interface';
+import {Definitions} from '../interfaces/definitions.interface';
+import {Segment} from '../interfaces/segment.interface';
 import {compileSegment} from './compile-segment';
 import {Parser} from './parser';
 
 export function filterAndCompileSegments(
   role: string,
-  segments: ModuleInstanceSegment[],
+  segments: Segment[],
   parser: Parser,
-  definitions: ModuleDefinitions,
+  definitions: Definitions,
   injector: Injector,
   value: any
 ) {

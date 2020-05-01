@@ -1,13 +1,18 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {Observable} from 'rxjs';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
+import {getHsd, HSD} from '../../utils/get-hsd';
 
 interface ChipsData extends FieldData {
   selectable: boolean;
   removable: boolean;
   addOnBlur: boolean;
   unique: boolean;
+  autocomplete?: string;
+  suffix?: HSD;
+  prefix?: HSD;
 }
 
 @Component({
@@ -21,10 +26,14 @@ export class ChipsComponent extends FieldComponent<ChipsData>
 
   data: string[] = [];
   removable: boolean;
+  prefix$: Observable<string>;
+  suffix$: Observable<string>;
 
   ngOnInit() {
     this.data = this.cData.control.value;
     this.removable = this.cData.hasOwnProperty('removable') ? this.cData.removable : true;
+    this.prefix$ = getHsd('prefix', this.cData);
+    this.suffix$ = getHsd('suffix', this.cData);
   }
 
   add(event: MatChipInputEvent) {
