@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Jaspero/schema-forms/compare/v1.2.0...v1.3.0) (2020-05-02)
+
+
+### Features
+
+* STORAGE_URL is optional ([2f8f2ad](https://github.com/Jaspero/schema-forms/commit/2f8f2ad9bb7abdc4c17e87064139822aa4838af9))
+
 # [1.2.0](https://github.com/Jaspero/schema-forms/compare/v1.1.0...v1.2.0) (2020-05-02)
 
 
