@@ -5,7 +5,7 @@ import {compileSegment} from './compile-segment';
 import {Parser} from './parser';
 
 export function filterAndCompileSegments(
-  role: string,
+  role = '',
   segments: Segment[],
   parser: Parser,
   definitions: Definitions,

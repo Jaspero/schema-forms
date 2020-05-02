@@ -20,7 +20,7 @@ import {translocoLoader} from './transloco.loader';
     BrowserAnimationsModule,
     HttpClientModule,
     TranslocoModule,
-    FormBuilderModule
+    FormBuilderModule.forRoot()
   ],
   providers: [
     {

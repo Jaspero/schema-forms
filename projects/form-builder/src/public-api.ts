@@ -30,4 +30,5 @@ export * from './lib/enums/segment-type.enum';
  */
 export * from './lib/utils/role';
 export * from './lib/utils/storage-url';
+export * from './lib/utils/custom-fields';
 export {COMPONENT_DATA} from './lib/utils/create-component-injector';

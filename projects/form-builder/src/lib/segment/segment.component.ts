@@ -1,4 +1,4 @@
-import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
+import {Component, HostBinding, Inject, Injector, OnInit, Optional} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
 import {CompiledField} from '../interfaces/compiled-field.interface';
@@ -23,6 +23,7 @@ export class SegmentComponent<T = any> implements OnInit {
   constructor(
     @Inject(SEGMENT_DATA) public sData: SegmentData,
     public injector: Injector,
+    @Optional()
     @Inject(ROLE)
     public role: string
   ) {}

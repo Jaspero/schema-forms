@@ -6,6 +6,7 @@ import {
   Injector,
   Input,
   OnChanges,
+  Optional,
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
@@ -26,8 +27,10 @@ import {ROLE} from './utils/role';
 export class FormBuilderComponent implements OnChanges {
   constructor(
     private injector: Injector,
+    @Optional()
     @Inject(ROLE)
     private role: string,
+    @Optional()
     @Inject(CUSTOM_FIELDS)
     private customFields: CustomFields,
     private cdr: ChangeDetectorRef
