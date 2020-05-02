@@ -15,7 +15,7 @@ interface DateData extends FieldData {
   touchUi?: boolean;
   startView?: 'month' | 'year' | 'multi-year';
   format?: 'number' | string;
-  autocomplete: string;
+  autocomplete?: string;
 }
 
 @Component({

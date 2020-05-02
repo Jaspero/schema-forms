@@ -12,6 +12,6 @@
     </mat-option>
   </mat-autocomplete>
   <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | jpSanitize"></mat-hint>
-  <span *ngIf="cData.suffix" matSuffix [innerHTML]="suffix$ | async | jpSanitize"></span>
-  <span *ngIf="cData.prefix" matPrefix [innerHTML]="prefix$ | async | jpSanitize"></span>
+  <span *ngIf="cData.suffix" matSuffix [innerHTML]="((suffix$ | async) || '') | jpSanitize"></span>
+  <span *ngIf="cData.prefix" matPrefix [innerHTML]="((prefix$ | async) || '') | jpSanitize"></span>
 </mat-form-field>

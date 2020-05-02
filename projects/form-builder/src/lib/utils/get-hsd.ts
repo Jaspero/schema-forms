@@ -11,7 +11,7 @@ export interface HSD {
 export function getHsd(
   key: string,
   data: FieldData
-): Observable<any> {
+): Observable<string> {
   if (data[key]) {
 
     let item: any;
@@ -49,5 +49,5 @@ export function getHsd(
     }
   }
 
-  return of(false);
+  return of('');
 }
