@@ -22,7 +22,7 @@ interface AutocompleteData extends FieldData {
     orderBy?: string;
     filter?: WhereFilter;
   };
-  autocomplete?: string;
+  autocomplete: string;
   suffix?: HSD;
   prefix?: HSD;
 }

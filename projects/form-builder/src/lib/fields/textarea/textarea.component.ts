@@ -7,7 +7,7 @@ import {getHsd, HSD} from '../../utils/get-hsd';
 interface TextareaData extends FieldData {
   rows?: number;
   cols?: number;
-  autocomplete?: string;
+  autocomplete: string;
   suffix?: HSD;
   prefix?: HSD;
 }

@@ -35,7 +35,7 @@ interface SelectData extends FieldData {
       method: string;
     }
   };
-  autocomplete?: string;
+  autocomplete: string;
 }
 
 @Component({

@@ -6,7 +6,7 @@ import {getHsd, HSD} from '../../utils/get-hsd';
 
 interface InputData extends FieldData {
   type: 'text' | 'number' | 'email';
-  autocomplete?: string;
+  autocomplete: string;
   suffix?: HSD;
   prefix?: HSD;
 }

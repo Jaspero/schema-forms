@@ -4,7 +4,7 @@
   </mat-label>
   <input
     matInput
-    [attr.autocomplete]="cData.autocomplete"
+    [attr.autocomplete]="cData.autocomplete || 'off'"
     [matDatepicker]="picker"
     [placeholder]="cData.placeholder"
     [formControl]="entryControl">

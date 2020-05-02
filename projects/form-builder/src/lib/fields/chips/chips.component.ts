@@ -10,7 +10,7 @@ interface ChipsData extends FieldData {
   removable: boolean;
   addOnBlur: boolean;
   unique: boolean;
-  autocomplete?: string;
+  autocomplete: string;
   suffix?: HSD;
   prefix?: HSD;
 }
