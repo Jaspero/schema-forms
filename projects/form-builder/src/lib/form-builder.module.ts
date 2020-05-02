@@ -146,6 +146,6 @@ export class FormBuilderModule {
       providers: [
         FormBuilderService
       ]
-    }
+    };
   }
 }

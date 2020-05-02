@@ -2,8 +2,8 @@
   <mat-label>{{cData.label}}</mat-label>
   <input
     matInput
-    [placeholder]="cData['placeholder']"
     type="url"
+    [placeholder]="cData['placeholder']"
     [class.disabled]="disInput"
     [formControl]="imageUrl">
   <div matSuffix class="fb-image-suffix">
@@ -22,6 +22,7 @@
       <mat-icon (click)="remove()">highlight_off</mat-icon>
     </button>
   </div>
+  <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | jpSanitize"></mat-hint>
 </mat-form-field>
 
 <input #file type="file" hidden (change)="filesImage($event.target)">

@@ -29,7 +29,7 @@ export function getHsd(
                   value
                 )
               )
-            )
+            );
         }
 
         break;
@@ -49,5 +49,5 @@ export function getHsd(
     }
   }
 
-  return of(false)
+  return of(false);
 }

@@ -11,6 +11,7 @@ import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {getHsd, HSD} from '../../utils/get-hsd';
 
 interface AutocompleteData extends FieldData {
   dataSet: Array<{name: string; value: any}>;
@@ -21,6 +22,9 @@ interface AutocompleteData extends FieldData {
     orderBy?: string;
     filter?: WhereFilter;
   };
+  autocomplete?: string;
+  suffix?: HSD;
+  prefix?: HSD;
 }
 
 @Component({
@@ -40,8 +44,14 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
 
   filteredSet$: Observable<Array<{name: string; value: string}>>;
   loading$ = new BehaviorSubject(true);
+  prefix$: Observable<string>;
+  suffix$: Observable<string>;
 
   ngOnInit() {
+
+    this.prefix$ = getHsd('prefix', this.cData);
+    this.suffix$ = getHsd('suffix', this.cData);
+
     let dataSet$: Observable<Array<{name: string; value: string}>>;
 
     if (this.cData.populate) {
