@@ -6,7 +6,7 @@
     <input
       matInput
       type="number"
-      [attr.autocomplete]="cData.autocomplete"
+      [attr.autocomplete]="cData.autocomplete || 'on'"
       [placeholder]="cData.placeholder"
       [formControl]="cData.control">
     <span *ngIf="cData.suffix" matSuffix [innerHTML]="suffix$ | async | jpSanitize"></span>
@@ -18,7 +18,7 @@
     <span *ngIf="cData.prefix" matPrefix [innerHTML]="prefix$ | async | jpSanitize"></span>
     <input
         matInput
-        [attr.autocomplete]="cData.autocomplete"
+        [attr.autocomplete]="cData.autocomplete || 'on'"
         [attr.type]="cData.type"
         [placeholder]="cData.placeholder"
         [formControl]="cData.control">

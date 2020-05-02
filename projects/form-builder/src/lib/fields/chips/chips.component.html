@@ -12,7 +12,7 @@
     </mat-chip>
     <input
       matInput
-      [attr.autocomplete]="cData.autocomplete"
+      [attr.autocomplete]="cData.autocomplete || 'on'"
       [placeholder]="cData.placeholder"
       (matChipInputTokenEnd)="add($event)"
       [matChipInputFor]="chipList">

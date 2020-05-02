@@ -3,7 +3,7 @@
   <input
     matInput
     [placeholder]="cData.placeholder"
-    [attr.autocomplete]="cData.autocomplete"
+    [attr.autocomplete]="cData.autocomplete || 'on'"
     [formControl]="cData.control"
     [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
