@@ -2,14 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Inject,
   Injector,
   Input,
   OnChanges,
+  OnDestroy,
   Optional,
+  Output,
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
 import {SegmentType} from './enums/segment-type.enum';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
@@ -24,7 +28,7 @@ import {ROLE} from './utils/role';
   templateUrl: './form-builder.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormBuilderComponent implements OnChanges {
+export class FormBuilderComponent implements OnChanges, OnDestroy {
   constructor(
     private injector: Injector,
     @Optional()
@@ -48,9 +52,14 @@ export class FormBuilderComponent implements OnChanges {
   @Input()
   state: State = State.Create;
 
+  @Output()
+  valueChanges = new EventEmitter<any>();
+
   form: FormGroup;
   parser: Parser;
   segments: CompiledSegment[];
+
+  private changeSubscription: Subscription;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data) {
@@ -59,6 +68,12 @@ export class FormBuilderComponent implements OnChanges {
 
     if (changes.value && this.form) {
       this.form.patchValue(changes.value.currentValue);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.changeSubscription) {
+      this.changeSubscription.unsubscribe();
     }
   }
 
@@ -95,6 +110,15 @@ export class FormBuilderComponent implements OnChanges {
       this.injector,
       value
     );
+
+    if (this.changeSubscription) {
+      this.changeSubscription.unsubscribe();
+    }
+
+    this.form.valueChanges
+      .subscribe(value => {
+        this.valueChanges.emit(value);
+      });
 
     this.cdr.markForCheck();
   }
