@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/Jaspero/schema-forms/compare/v1.1.0...v1.2.0) (2020-05-02)
+
+
+### Features
+
+* added autocomplete and hint attributes where missing ([41b228f](https://github.com/Jaspero/schema-forms/commit/41b228f17fc57a5de3d1d5dbcfd9416aa67b9326))
+* renaming interfaces for better understanding; added suffix, prefix, hint and placeholder to textarea and chips; ([e035a38](https://github.com/Jaspero/schema-forms/commit/e035a382d956529b58fdc2cdd41f98b1c43bf81c))
+
 # [1.1.0](https://github.com/Jaspero/schema-forms/compare/v1.0.0...v1.1.0) (2020-02-23)
 
 
