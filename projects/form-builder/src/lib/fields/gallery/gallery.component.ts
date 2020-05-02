@@ -15,7 +15,7 @@ import {
   Component,
   ElementRef,
   Inject,
-  OnInit,
+  OnInit, Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -51,6 +51,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
+    @Optional()
     @Inject(STORAGE_URL)
     private storageUrl: string,
     private dialog: MatDialog,
