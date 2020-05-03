@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Jaspero/schema-forms/compare/v1.4.0...v1.5.0) (2020-05-03)
+
+
+### Features
+
+* added parse-template utility; exporting safe-eval, format-generated-images and clone-abstract-control utilities; minor syntax adjustments on a few fields; ([ca30489](https://github.com/Jaspero/schema-forms/commit/ca304890d66b3ec178fb3e9fefd30f0e3deb45b8))
+
 # [1.4.0](https://github.com/Jaspero/schema-forms/compare/v1.3.0...v1.4.0) (2020-05-03)
 
 
