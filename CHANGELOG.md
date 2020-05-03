@@ -1,3 +1,11 @@
+## [1.7.3](https://github.com/Jaspero/schema-forms/compare/v1.7.2...v1.7.3) (2020-05-03)
+
+
+### Bug Fixes
+
+* **form-builder:** connected saveAndProcess ([c3fd61f](https://github.com/Jaspero/schema-forms/commit/c3fd61fc8bdc3e0a83c0089fd1810ebe98545ac8))
+* **form-builder:** linting errors ([f0f06c1](https://github.com/Jaspero/schema-forms/commit/f0f06c150a169defe066c36f8c4c60cec4da8a90))
+
 ## [1.7.2](https://github.com/Jaspero/schema-forms/compare/v1.7.1...v1.7.2) (2020-05-03)
 
 
