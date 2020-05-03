@@ -120,7 +120,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     return this.save(
       collectionId,
       documentId
-    )
+    );
   }
 
   private render() {
