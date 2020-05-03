@@ -141,13 +141,13 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     }
 
     this.changeSubscription = this.form.valueChanges
-      .subscribe(value => {
-        this.valueChanges.emit(value);
+      .subscribe(val => {
+        this.valueChanges.emit(val);
       });
 
     this.statusSubscription = this.form.statusChanges
-      .subscribe(value => {
-        this.validityChanges.emit(value === 'VALID')
+      .subscribe(val => {
+        this.validityChanges.emit(val === 'VALID');
       });
 
     this.cdr.markForCheck();
