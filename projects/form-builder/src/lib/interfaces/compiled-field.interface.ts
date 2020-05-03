@@ -1,7 +1,7 @@
 import {ComponentPortal} from '@angular/cdk/portal';
 import {FieldComponent} from '../field/field.component';
 import {Control} from './control.type';
-import {State} from './state.interface';
+import {State} from '../enums/state.enum';
 
 export interface CompiledField {
   pointer: string;

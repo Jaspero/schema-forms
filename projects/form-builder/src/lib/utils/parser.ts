@@ -3,11 +3,11 @@ import {Injector} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {COMPONENT_TYPE_COMPONENT_MAP} from '../consts/component-type-component-map.const';
 import {SchemaType} from '../enums/schema-type.enum';
+import {State} from '../enums/state.enum';
 import {FieldComponent} from '../field/field.component';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {Control} from '../interfaces/control.type';
 import {Definitions} from '../interfaces/definitions.interface';
-import {State} from '../interfaces/state.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
 import {createComponentInjector} from './create-component-injector';
 import {CustomFields} from './custom-fields';
@@ -443,8 +443,8 @@ export class Parser {
   }
 
   preSaveHooks(
-    currentState: number,
-    statesToProcess = [0, 1, 2],
+    currentState: State,
+    statesToProcess = [State.Create, State.Edit],
     pointers = this.pointers
   ) {
 
@@ -465,7 +465,7 @@ export class Parser {
         }
 
         if (statesToProcess.includes(currentState)) {
-          if (currentState === 1 && entry.formatOnEdit) {
+          if (currentState === State.Edit && entry.formatOnEdit) {
             value = entry.formatOnEdit(value, preSaveData);
           } else if (entry.formatOnCreate) {
             value = entry.formatOnCreate(value, preSaveData);

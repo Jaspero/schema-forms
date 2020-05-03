@@ -15,9 +15,9 @@ import {
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {SegmentType} from './enums/segment-type.enum';
+import {State} from './enums/state.enum';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
-import {State} from './interfaces/state.interface';
 import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
@@ -49,9 +49,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input()
   id: string;
 
-  @Input()
-  state: State = State.Create;
-
   @Output()
   valueChanges = new EventEmitter<any>();
 
@@ -59,11 +56,17 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   parser: Parser;
   segments: CompiledSegment[];
 
+  state: State;
+
   private changeSubscription: Subscription;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data) {
       this.render();
+    }
+
+    if (changes.id) {
+      this.state = changes.id.currentValue ? State.Edit : State.Create;
     }
 
     if (changes.value && this.form) {
@@ -75,6 +78,14 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     if (this.changeSubscription) {
       this.changeSubscription.unsubscribe();
     }
+  }
+
+  save() {
+    this.parser.preSaveHooks(
+      this.state
+    );
+
+    return this.form.getRawValue();
   }
 
   private render() {

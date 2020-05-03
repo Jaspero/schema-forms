@@ -1,5 +1,5 @@
 import {ComponentDefinition} from './component-definition.interface';
-import {State} from './state.interface';
+import {State} from '../enums/state.enum';
 
 export interface Definition {
   component?: ComponentDefinition;
