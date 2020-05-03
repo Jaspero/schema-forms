@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/Jaspero/schema-forms/compare/v1.6.0...v1.7.0) (2020-05-03)
+
+
+### Features
+
+* parse-template doesn't break when entry value is undefined; added component-type.enum export; ([3f9e651](https://github.com/Jaspero/schema-forms/commit/3f9e651b12b7e753dcfe130779b8e51ff2a362e2))
+
 # [1.6.0](https://github.com/Jaspero/schema-forms/compare/v1.5.0...v1.6.0) (2020-05-03)
 
 
