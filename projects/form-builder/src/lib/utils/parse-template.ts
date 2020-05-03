@@ -1,6 +1,6 @@
 export function parseTemplate(
-  value: string,
-  obj: any
+  value = '',
+  obj: any = {}
 ) {
 
   if (!value.includes('{{')) {

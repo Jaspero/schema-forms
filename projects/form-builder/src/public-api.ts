@@ -27,6 +27,7 @@ export * from './lib/interfaces/form-builder-data.interface';
 /**
  * Enums
  */
+export * from './lib/enums/component-type.enum';
 export * from './lib/enums/schema-type.enum';
 export * from './lib/enums/segment-type.enum';
 export * from './lib/enums/state.enum';
