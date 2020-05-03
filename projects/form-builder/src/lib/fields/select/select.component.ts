@@ -90,7 +90,7 @@ export class SelectComponent extends FieldComponent<SelectData>
                 return (mapResults ? mapResults(it) : [it]).map((doc: any) => ({
                   value: doc[populate.valueKey || 'id'],
                   name: parseTemplate(
-                    doc[populate.nameKey || 'name'],
+                    populate.nameKey || 'name',
                     doc
                   )
                 }));
@@ -112,7 +112,7 @@ export class SelectComponent extends FieldComponent<SelectData>
               }
 
               return docs.map(doc => ({
-                value: populate.valueKey || 'id',
+                value: doc[populate.valueKey || 'id'],
                 name: parseTemplate(
                   populate.nameKey || 'name',
                   doc
