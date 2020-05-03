@@ -8,6 +8,10 @@ export * from './lib/services/db.service';
 export * from './lib/services/storage.service';
 
 export * from './lib/utils/parser';
+export * from './lib/utils/parse-template';
+export * from './lib/utils/safe-eval';
+export * from './lib/utils/format-generated-images';
+export * from './lib/utils/clone-abstract-control';
 
 /**
  * Interfaces

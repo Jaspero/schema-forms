@@ -57,7 +57,8 @@ export class ImageComponent extends FieldComponent<ImageData>
     this.fileEl.nativeElement.click();
   }
 
-  filesImage(el: HTMLInputElement) {
+  filesImage(event: Event) {
+    const el = event.target as HTMLInputElement;
     this.value = Array.from(el.files as FileList)[0] as File;
 
     el.value = '';
