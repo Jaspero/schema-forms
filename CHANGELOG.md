@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Jaspero/schema-forms/compare/v1.5.0...v1.6.0) (2020-05-03)
+
+
+### Features
+
+* exporting switch-item-location ([787dc48](https://github.com/Jaspero/schema-forms/commit/787dc487fbacbe810883f075116a2aa10ac55048))
+
 # [1.5.0](https://github.com/Jaspero/schema-forms/compare/v1.4.0...v1.5.0) (2020-05-03)
 
 
