@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/Jaspero/schema-forms/compare/v1.3.0...v1.4.0) (2020-05-03)
+
+
+### Features
+
+* added validityChange ([2dc2d2c](https://github.com/Jaspero/schema-forms/commit/2dc2d2cf63910c554a247134aedd842e977aadd5))
+* connected valueChanges output ([500ad9c](https://github.com/Jaspero/schema-forms/commit/500ad9c5eb7772d2423f36e5995259fa827c4838))
+* simplified status logic; added save method; ([4147b1f](https://github.com/Jaspero/schema-forms/commit/4147b1fb9ba7ac3733aaa662e2414ac1dd54e438))
+
 # [1.3.0](https://github.com/Jaspero/schema-forms/compare/v1.2.0...v1.3.0) (2020-05-02)
 
 
