@@ -13,9 +13,10 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs';
+import {forkJoin, of, Subscription} from 'rxjs';
 import {SegmentType} from './enums/segment-type.enum';
 import {State} from './enums/state.enum';
+import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
 import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
@@ -26,7 +27,8 @@ import {ROLE} from './utils/role';
 @Component({
   selector: 'fb-form-builder',
   templateUrl: './form-builder.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [FormBuilderService]
 })
 export class FormBuilderComponent implements OnChanges, OnDestroy {
   constructor(
@@ -37,7 +39,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     @Optional()
     @Inject(CUSTOM_FIELDS)
     private customFields: CustomFields,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private service: FormBuilderService
   ) { }
 
   @Input()
@@ -88,12 +91,36 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     }
   }
 
-  save() {
+  process() {
     this.parser.preSaveHooks(
       this.state
     );
 
     return this.form.getRawValue();
+  }
+
+  save(
+    collectionId: string,
+    documentId: string
+  ) {
+
+    const toExec = this.service.saveComponents.map(comp =>
+      comp.save(collectionId, documentId)
+    );
+
+    return toExec.length ? forkJoin(toExec) : of({});
+  }
+
+  saveAndProcess(
+    collectionId: string,
+    documentId: string
+  ) {
+    this.process();
+
+    return this.save(
+      collectionId,
+      documentId
+    )
   }
 
   private render() {
