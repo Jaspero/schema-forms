@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/Jaspero/schema-forms/compare/v1.7.0...v1.7.1) (2020-05-03)
+
+
+### Bug Fixes
+
+* **select:** forwarding key for template properly ([7499147](https://github.com/Jaspero/schema-forms/commit/7499147c00c0e8329c833400d38b367ab471b7ef))
+
 # [1.7.0](https://github.com/Jaspero/schema-forms/compare/v1.6.0...v1.7.0) (2020-05-03)
 
 
