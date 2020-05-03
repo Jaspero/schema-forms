@@ -52,6 +52,9 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Output()
   valueChanges = new EventEmitter<any>();
 
+  @Output()
+  validityChanges = new EventEmitter<boolean>();
+
   form: FormGroup;
   parser: Parser;
   segments: CompiledSegment[];
@@ -59,6 +62,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   state: State;
 
   private changeSubscription: Subscription;
+  private statusSubscription: Subscription;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data) {
@@ -77,6 +81,10 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   ngOnDestroy() {
     if (this.changeSubscription) {
       this.changeSubscription.unsubscribe();
+    }
+
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
     }
   }
 
@@ -128,9 +136,18 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       this.changeSubscription.unsubscribe();
     }
 
-    this.form.valueChanges
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
+
+    this.changeSubscription = this.form.valueChanges
       .subscribe(value => {
         this.valueChanges.emit(value);
+      });
+
+    this.statusSubscription = this.form.statusChanges
+      .subscribe(value => {
+        this.validityChanges.emit(value === 'VALID')
       });
 
     this.cdr.markForCheck();
