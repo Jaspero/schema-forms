@@ -45,7 +45,7 @@
     "@jaspero/ng-helpers": "3.4.0",
     "@ngneat/transloco": "1.1.1",
     "json-pointer": "0.6.0",
-    "rxjs": "6.5.4",
+    "rxjs": "6.5.5",
     "tinymce": "5.2.0",
     "tslib": "1.10.0",
     "zone.js": "0.10.3"
