@@ -33,6 +33,7 @@
   "dependencies": {
     "@angular/animations": "9.0.2",
     "@angular/cdk": "9.0.1",
+    "@angular/common": "^9.1.9",
     "@angular/compiler": "9.0.2",
     "@angular/core": "9.0.2",
     "@angular/forms": "9.0.2",
