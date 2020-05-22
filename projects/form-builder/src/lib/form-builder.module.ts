@@ -138,4 +138,5 @@ import {TabsComponent} from './segments/tabs/tabs.component';
   ],
   exports: [FormBuilderComponent]
 })
-export class FormBuilderModule {}
+export class FormBuilderModule {
+}

@@ -8,34 +8,57 @@ import {FormBuilderData} from 'form-builder';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  exampleOne: FormBuilderData = {
+  // exampleOne: FormBuilderData = {
+  //   schema: {
+  //     properties: {
+  //       title: {
+  //         type: 'string'
+  //       },
+  //       description: {
+  //         type: 'string'
+  //       }
+  //     }
+  //   },
+  //   definitions: {
+  //     title: {
+  //       label: 'Title'
+  //     },
+  //     description: {
+  //       label: 'Description',
+  //       component: {
+  //         type: 'textarea'
+  //       }
+  //     }
+  //   },
+  //   segments: [
+  //     {
+  //       fields: [
+  //         '/title',
+  //         '/description'
+  //       ]
+  //     }]
+  // };
+
+  exampleOne = {
     schema: {
       properties: {
-        title: {
-          type: 'string'
-        },
-        description: {
-          type: 'string'
+        photos: {
+          type: 'array'
         }
       }
     },
     definitions: {
-      title: {
-        label: 'Title'
-      },
-      description: {
-        label: 'Description',
+      photos: {
         component: {
-          type: 'textarea'
-        }
+          type: 'gallery',
+          configuration: {
+            allowServerUpload: true,
+            allowUrl: true
+          }
+        },
+        label: 'Photos'
       }
-    },
-    segments: [{
-      fields: [
-        '/title',
-        '/description'
-      ]
-    }]
+    }
   };
 
   exampleTwo: FormBuilderData = {
@@ -97,6 +120,6 @@ export class AppComponent {
           '/title'
         ]
       }]
-    }
+    };
   }
 }

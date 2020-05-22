@@ -81,6 +81,7 @@ export class WysiwygComponent extends FieldComponent<FieldData>
   private registerTiny() {
     tinymce.init({
       target: this.textarea.nativeElement,
+      branding: false,
       height: 420,
       plugins: [
         'code',

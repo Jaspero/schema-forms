@@ -10,6 +10,7 @@ import {AppComponent} from './app.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {translocoLoader} from './transloco.loader';
     BrowserAnimationsModule,
     HttpClientModule,
     TranslocoModule,
-    FormBuilderModule.forRoot()
+    FormBuilderModule,
+    MatSnackBarModule
   ],
   providers: [
     {
