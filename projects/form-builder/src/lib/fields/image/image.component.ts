@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {from, of} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
@@ -31,6 +23,13 @@ interface ImageData extends FieldData {
 })
 export class ImageComponent extends FieldComponent<ImageData>
   implements OnInit {
+  @ViewChild('file', {static: true})
+  fileEl: ElementRef<HTMLInputElement>;
+  value: File | null;
+  imageUrl: FormControl;
+  disInput = false;
+  imageSrc: string;
+
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
     private storage: StorageService,
@@ -39,14 +38,6 @@ export class ImageComponent extends FieldComponent<ImageData>
   ) {
     super(cData);
   }
-
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-
-  value: File | null;
-  imageUrl: FormControl;
-  disInput = false;
-  imageSrc: string;
 
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);

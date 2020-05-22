@@ -8,42 +8,17 @@ import {FormBuilderData} from 'form-builder';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  // exampleOne: FormBuilderData = {
-  //   schema: {
-  //     properties: {
-  //       title: {
-  //         type: 'string'
-  //       },
-  //       description: {
-  //         type: 'string'
-  //       }
-  //     }
-  //   },
-  //   definitions: {
-  //     title: {
-  //       label: 'Title'
-  //     },
-  //     description: {
-  //       label: 'Description',
-  //       component: {
-  //         type: 'textarea'
-  //       }
-  //     }
-  //   },
-  //   segments: [
-  //     {
-  //       fields: [
-  //         '/title',
-  //         '/description'
-  //       ]
-  //     }]
-  // };
-
-  exampleOne = {
+  exampleOne: FormBuilderData = {
     schema: {
       properties: {
         photos: {
           type: 'array'
+        },
+        title: {
+          type: 'string'
+        },
+        description: {
+          type: 'string'
         }
       }
     },
@@ -57,8 +32,25 @@ export class AppComponent {
           }
         },
         label: 'Photos'
+      },
+      title: {
+        label: 'Title'
+      },
+      description: {
+        label: 'Description',
+        component: {
+          type: 'textarea'
+        }
       }
-    }
+    },
+    segments: [
+      {
+        fields: [
+          '/photos',
+          '/title',
+          '/description'
+        ]
+      }]
   };
 
   exampleTwo: FormBuilderData = {

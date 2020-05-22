@@ -1,11 +1,4 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragMove,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray
-} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {HttpClient} from '@angular/common/http';
 import {
@@ -15,12 +8,13 @@ import {
   Component,
   ElementRef,
   Inject,
-  OnInit, Optional,
+  OnInit,
+  Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {forkJoin, from, of} from 'rxjs';
+import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
@@ -32,6 +26,9 @@ import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {STORAGE_URL} from '../../utils/storage-url';
 import {switchItemLocations} from '../../utils/switch-item-locations';
 import {readFile} from './read-file';
+import {IMAGE_MAX_SIZE, IMAGE_TYPES} from '../../consts/image-restriction.const';
+import {TranslocoService} from '@ngneat/transloco';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 interface GalleryData extends FieldData {
   allowUrl?: boolean;
@@ -48,6 +45,24 @@ interface GalleryData extends FieldData {
 export class GalleryComponent extends FieldComponent<GalleryData>
   implements OnInit, AfterViewInit {
 
+  @ViewChild(CdkDropListGroup, {static: true})
+  listGroup: CdkDropListGroup<CdkDropList>;
+  @ViewChild(CdkDropList, {static: true})
+  placeholder: CdkDropList;
+  @ViewChild('modal', {static: true})
+  modalTemplate: TemplateRef<any>;
+  @ViewChild('imagesSort', {static: true})
+  imagesSort: TemplateRef<any>;
+  @ViewChild('file', {static: true})
+  fileEl: ElementRef<HTMLInputElement>;
+  public target: CdkDropList | null;
+  public targetIndex: number;
+  public source: CdkDropList | null;
+  public sourceIndex: number;
+  public activeContainer: any;
+  files: File[] = [];
+  toRemove: any[] = [];
+
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -59,34 +74,12 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     private http: HttpClient,
     private storage: StorageService,
     private formBuilderService: FormBuilderService,
-    private viewportRuler: ViewportRuler
+    private viewportRuler: ViewportRuler,
+    private transloco: TranslocoService,
+    private snackBar: MatSnackBar
   ) {
     super(cData);
   }
-
-  @ViewChild(CdkDropListGroup, {static: true})
-  listGroup: CdkDropListGroup<CdkDropList>;
-
-  @ViewChild(CdkDropList, {static: true})
-  placeholder: CdkDropList;
-
-  @ViewChild('modal', {static: true})
-  modalTemplate: TemplateRef<any>;
-
-  @ViewChild('imagesSort', {static: true})
-  imagesSort: TemplateRef<any>;
-
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-
-  public target: CdkDropList | null;
-  public targetIndex: number;
-  public source: CdkDropList | null;
-  public sourceIndex: number;
-  public activeContainer: any;
-
-  files: File[] = [];
-  toRemove: any[] = [];
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
@@ -112,10 +105,23 @@ export class GalleryComponent extends FieldComponent<GalleryData>
         withCredentials: false,
         responseType: 'blob'
       })
-      .pipe(this.formBuilderService.notify({
-        error: 'FIELDS.GALLERY.UPLOAD_ERROR',
-        success: null
-      }))
+      .pipe(
+        switchMap((blob: Blob) => {
+          const type = blob.type.split('/')[1].toLowerCase();
+          if (!IMAGE_TYPES.includes(type)) {
+            return throwError('Invalid Image Format');
+          }
+
+          if (blob.size > IMAGE_MAX_SIZE) {
+            return throwError('Image exceeding allowed size');
+          }
+
+          return of(blob);
+        }),
+        this.formBuilderService.notify({
+          error: 'FIELDS.GALLERY.UPLOAD_ERROR',
+          success: null
+        }))
       .subscribe(res => {
         const urlCreator = window.URL || (window as any).webkitURL;
         const value = this.cData.control.value;
@@ -157,6 +163,33 @@ export class GalleryComponent extends FieldComponent<GalleryData>
 
   filesUploaded(el: HTMLInputElement | FileList) {
     const files = Array.from((el instanceof FileList ? el : el.files) as FileList);
+
+    for (const file of files) {
+      const type = file.type.split('/')[1].toLowerCase();
+      if (!IMAGE_TYPES.includes(type)) {
+        this.snackBar.open(
+          this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE'),
+          this.transloco.translate('GENERAL.DISMISS'),
+          {
+            panelClass: 'snack-bar-error',
+            duration: 5000
+          }
+        );
+        return throwError('Invalid Image Format');
+      }
+
+      if (file.size > IMAGE_MAX_SIZE) {
+        this.snackBar.open(
+          this.transloco.translate('FIELDS.GALLERY.EXCEED_SIZE'),
+          this.transloco.translate('GENERAL.DISMISS'),
+          {
+            panelClass: 'snack-bar-error',
+            duration: 5000
+          }
+        );
+        return throwError('Image exceeding allowed size');
+      }
+    }
 
     forkJoin(
       files.map(file =>
@@ -331,7 +364,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
                   moduleId,
                   documentId,
                   ...this.cData.generatedImages &&
-                    formatGeneratedImages(this.cData.generatedImages)
+                  formatGeneratedImages(this.cData.generatedImages)
                 }
               })
             ).pipe(
