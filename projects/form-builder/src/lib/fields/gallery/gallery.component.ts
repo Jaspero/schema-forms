@@ -168,7 +168,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       const type = file.type.split('/')[1].toLowerCase();
       if (!IMAGE_TYPES.includes(type)) {
         this.snackBar.open(
-          this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE'),
+          this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE_FORMAT'),
           this.transloco.translate('GENERAL.DISMISS'),
           {
             panelClass: 'snack-bar-error',

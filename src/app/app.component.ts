@@ -11,6 +11,9 @@ export class AppComponent {
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
+        File: {
+          type: 'string'
+        },
         photos: {
           type: 'array'
         },
@@ -23,6 +26,16 @@ export class AppComponent {
       }
     },
     definitions: {
+      File: {
+        component: {
+          configuration: {
+            emptyLabel: '',
+            preventClear: false
+          },
+          type: 'file'
+        },
+        label: 'FILE'
+      },
       photos: {
         component: {
           type: 'gallery',
@@ -46,6 +59,7 @@ export class AppComponent {
     segments: [
       {
         fields: [
+          '/File',
           '/photos',
           '/title',
           '/description'
