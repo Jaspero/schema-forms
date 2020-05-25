@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/Jaspero/schema-forms/compare/v1.7.3...v1.8.0) (2020-05-25)
+
+
+### Features
+
+* File Restrictions [#5](https://github.com/Jaspero/schema-forms/issues/5) ([ce84d09](https://github.com/Jaspero/schema-forms/commit/ce84d092dd213954f2f987dc0d0918ca6b663888))
+* Image Restrictions ([2df2a72](https://github.com/Jaspero/schema-forms/commit/2df2a7281c0cbdb8cdc8678e672469c2e242db8a))
+* ImageComponent Restriction ([a67c893](https://github.com/Jaspero/schema-forms/commit/a67c89396d6382f64a3f59f3a6ba593452d1b126))
+
 ## [1.7.3](https://github.com/Jaspero/schema-forms/compare/v1.7.2...v1.7.3) (2020-05-03)
 
 
