@@ -7,10 +7,6 @@
     <button mat-button *ngIf="cData.allowServerUpload" (click)="openSortImages()">{{'FIELDS.GALLERY.SORT_IMAGES' | transloco}}</button>
   </div>
 
-  <!--<div *ngFor="let file of files">-->
-  <!--<upload-task [file]="file"></upload-task>-->
-  <!--</div>-->
-
   <!--Upload from disk-->
   <input #file type="file" multiple hidden (change)="filesUploaded($event.target)">
 

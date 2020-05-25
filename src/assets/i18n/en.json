@@ -1,0 +1,9 @@
+{
+  "FIELDS": {
+    "GALLERY": {
+      "ENTER_URL": "Enter URL",
+      "CHOOSE_FILES": "Choose Files",
+      "SORT_IMAGES": "Sort Images"
+    }
+  }
+}

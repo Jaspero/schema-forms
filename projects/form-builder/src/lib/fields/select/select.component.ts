@@ -49,15 +49,15 @@ interface SelectData extends FieldData {
 })
 export class SelectComponent extends FieldComponent<SelectData>
   implements OnInit {
+  dataSet$: Observable<Option[]>;
+  loading$ = new BehaviorSubject(true);
+
   constructor(
     @Inject(COMPONENT_DATA) public cData: SelectData,
     private dbService: DbService
   ) {
     super(cData);
   }
-
-  dataSet$: Observable<Option[]>;
-  loading$ = new BehaviorSubject(true);
 
   ngOnInit() {
     if (this.cData.populate) {
