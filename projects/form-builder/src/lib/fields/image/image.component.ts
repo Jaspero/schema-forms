@@ -9,13 +9,17 @@ import {GeneratedImage} from '../../interfaces/generated-image.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
-import {IMAGE_MAX_SIZE, IMAGE_TYPES} from '../../consts/image-restriction.const';
 import {TranslocoService} from '@ngneat/transloco';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {parseSize} from '../../utils/parse-size';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
   generatedImages?: GeneratedImage[];
+  allowedImageTypes?: string[];
+  forbiddenImageTypes?: string[];
+  minSize?: string | number;
+  maxSize?: string | number;
 }
 
 @Component({
@@ -33,6 +37,11 @@ export class ImageComponent extends FieldComponent<ImageData>
   disInput = false;
   imageSrc: string;
 
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
+
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
     private storage: StorageService,
@@ -47,6 +56,22 @@ export class ImageComponent extends FieldComponent<ImageData>
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);
     this.formBuilderService.saveComponents.push(this);
+
+    this.allowedImageTypes = this.cData.allowedImageTypes || [];
+    this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
+    this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
+    this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+  }
+
+  errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
+    this.snackBar.open(
+      this.transloco.translate(message),
+      this.transloco.translate(dismiss),
+      {
+        panelClass: 'snack-bar-error',
+        duration: 5000
+      }
+    );
   }
 
   openFileUpload() {
@@ -57,27 +82,23 @@ export class ImageComponent extends FieldComponent<ImageData>
     const el = event.target as HTMLInputElement;
     const image = Array.from(el.files as FileList)[0] as File;
 
-    if (!IMAGE_TYPES.includes(image.type)) {
-      this.snackBar.open(
-        this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE_FORMAT'),
-        this.transloco.translate('GENERAL.DISMISS'),
-        {
-          panelClass: 'snack-bar-error',
-          duration: 5000
-        }
-      );
+    if (!this.allowedImageTypes.includes(image.type) && !!this.allowedImageTypes.length) {
+      this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
       return throwError('Invalid Image Format');
     }
 
-    if (image.size > IMAGE_MAX_SIZE) {
-      this.snackBar.open(
-        this.transloco.translate('FIELDS.GALLERY.EXCEED_SIZE'),
-        this.transloco.translate('GENERAL.DISMISS'),
-        {
-          panelClass: 'snack-bar-error',
-          duration: 5000
-        }
-      );
+    if (this.forbiddenImageTypes.includes(image.type)) {
+      this.errorSnack('FIELDS.GALLERY.FORBIDDEN_IMAGE_FORMAT');
+      return throwError('Forbidden Image Format');
+    }
+
+    if (image.size < this.minSizeBytes) {
+      this.errorSnack('FIELDS.GALLERY.BELOW_SIZE');
+      return throwError('Image below minimal allowed size');
+    }
+
+    if (image.size > this.maxSizeBytes && !!this.maxSizeBytes) {
+      this.errorSnack('FIELDS.GALLERY.EXCEED_SIZE');
       return throwError('Image exceeding allowed size');
     }
 

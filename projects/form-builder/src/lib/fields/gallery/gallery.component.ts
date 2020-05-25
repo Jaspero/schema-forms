@@ -26,14 +26,18 @@ import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {STORAGE_URL} from '../../utils/storage-url';
 import {switchItemLocations} from '../../utils/switch-item-locations';
 import {readFile} from './read-file';
-import {IMAGE_MAX_SIZE, IMAGE_TYPES} from '../../consts/image-restriction.const';
 import {TranslocoService} from '@ngneat/transloco';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {parseSize} from '../../utils/parse-size';
 
 interface GalleryData extends FieldData {
   allowUrl?: boolean;
   allowServerUpload?: boolean;
   generatedImages?: GeneratedImage[];
+  allowedImageTypes?: string[];
+  forbiddenImageTypes?: string[];
+  minSize?: string | number;
+  maxSize?: string | number;
 }
 
 @Component({
@@ -63,6 +67,11 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   files: File[] = [];
   toRemove: any[] = [];
 
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
+
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -83,6 +92,11 @@ export class GalleryComponent extends FieldComponent<GalleryData>
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
+
+    this.allowedImageTypes = this.cData.allowedImageTypes || [];
+    this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
+    this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
+    this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
   }
 
   ngAfterViewInit() {
@@ -108,11 +122,19 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       .pipe(
         switchMap((blob: Blob) => {
           const type = blob.type.split('/')[1].toLowerCase();
-          if (!IMAGE_TYPES.includes(type)) {
+          if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
             return throwError('Invalid Image Format');
           }
 
-          if (blob.size > IMAGE_MAX_SIZE) {
+          if (this.forbiddenImageTypes.includes(type)) {
+            return throwError('Forbidden Image Format');
+          }
+
+          if (blob.size < this.minSizeBytes) {
+            return throwError('Image below minimal allowed size');
+          }
+
+          if (blob.size > this.maxSizeBytes && !!this.maxSizeBytes) {
             return throwError('Image exceeding allowed size');
           }
 
@@ -161,32 +183,39 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     this.cdr.detectChanges();
   }
 
+  errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
+    this.snackBar.open(
+      this.transloco.translate(message),
+      this.transloco.translate(dismiss),
+      {
+        panelClass: 'snack-bar-error',
+        duration: 5000
+      }
+    );
+  }
+
   filesUploaded(el: HTMLInputElement | FileList) {
     const files = Array.from((el instanceof FileList ? el : el.files) as FileList);
 
     for (const file of files) {
       const type = file.type.split('/')[1].toLowerCase();
-      if (!IMAGE_TYPES.includes(type)) {
-        this.snackBar.open(
-          this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE_FORMAT'),
-          this.transloco.translate('GENERAL.DISMISS'),
-          {
-            panelClass: 'snack-bar-error',
-            duration: 5000
-          }
-        );
+      if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
+        this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
         return throwError('Invalid Image Format');
       }
 
-      if (file.size > IMAGE_MAX_SIZE) {
-        this.snackBar.open(
-          this.transloco.translate('FIELDS.GALLERY.EXCEED_SIZE'),
-          this.transloco.translate('GENERAL.DISMISS'),
-          {
-            panelClass: 'snack-bar-error',
-            duration: 5000
-          }
-        );
+      if (this.forbiddenImageTypes.includes(type)) {
+        this.errorSnack('FIELDS.GALLERY.FORBIDDEN_IMAGE_FORMAT');
+        return throwError('Forbidden Image Format');
+      }
+
+      if (file.size < this.minSizeBytes) {
+        this.errorSnack('FIELDS.GALLERY.BELOW_SIZE');
+        return throwError('Image below minimal allowed size');
+      }
+
+      if (file.size > this.maxSizeBytes && !!this.maxSizeBytes) {
+        this.errorSnack('FIELDS.GALLERY.EXCEED_SIZE');
         return throwError('Image exceeding allowed size');
       }
     }

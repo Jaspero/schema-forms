@@ -30,7 +30,10 @@ export class AppComponent {
         component: {
           configuration: {
             emptyLabel: '',
-            preventClear: false
+            preventClear: false,
+            minSize: '10kb',
+            maxSize: '50mb',
+            forbiddenFileTypes: ['application/pdf'],
           },
           type: 'file'
         },
@@ -41,7 +44,10 @@ export class AppComponent {
           type: 'gallery',
           configuration: {
             allowServerUpload: true,
-            allowUrl: true
+            allowUrl: true,
+            minSize: '10kb',
+            maxSize: '2mb',
+            allowedImageTypes: ['jpg', 'jpeg', 'png'],
           }
         },
         label: 'Photos'

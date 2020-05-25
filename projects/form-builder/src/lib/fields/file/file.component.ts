@@ -6,13 +6,17 @@ import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
-import {ALLOWED_FILE_TYPES, FILE_MAX_SIZE, FORBIDDEN_FILE_TYPES} from '../../consts/file-restriction.const';
 import {TranslocoService} from '@ngneat/transloco';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {parseSize} from '../../utils/parse-size';
 
 interface FileData extends FieldData {
   emptyLabel?: string;
   preventClear?: boolean;
+  allowedFileTypes?: string[];
+  forbiddenFileTypes?: string[];
+  minSize?: string | number;
+  maxSize?: string | number;
 }
 
 @Component({
@@ -28,6 +32,11 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
   name: string;
   emptyLabel: string;
 
+  allowedFileTypes: string[];
+  forbiddenFileTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
+
   constructor(
     @Inject(COMPONENT_DATA) public cData: FileData,
     private storage: StorageService,
@@ -40,7 +49,6 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.cData.control.value) {
       this.name = this.cData.control.value;
     }
@@ -48,47 +56,45 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'FIELDS.FILE.EMPTY') as string;
 
     this.formBuilderService.saveComponents.push(this);
+
+    this.allowedFileTypes = this.cData.allowedFileTypes || [];
+    this.forbiddenFileTypes = this.cData.forbiddenFileTypes || [];
+    this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
+    this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+  }
+
+  errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
+    this.snackBar.open(
+      this.transloco.translate(message),
+      this.transloco.translate(dismiss),
+      {
+        panelClass: 'snack-bar-error',
+        duration: 5000
+      }
+    );
   }
 
   fileChange(ev: Event) {
     const el = ev.target as HTMLInputElement;
     const file = Array.from(el.files as FileList)[0] as File;
 
-    if (!ALLOWED_FILE_TYPES.includes('*')) {
-      if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-        this.snackBar.open(
-          this.transloco.translate('FIELDS.FILE.INVALID_FILE_FORMAT'),
-          this.transloco.translate('GENERAL.DISMISS'),
-          {
-            panelClass: 'snack-bar-error',
-            duration: 5000
-          }
-        );
-        return throwError('Invalid File Format');
-      }
+    if (!this.allowedFileTypes.includes(file.type) && !!this.allowedFileTypes.length) {
+      this.errorSnack('FIELDS.FILE.INVALID_FILE_FORMAT');
+      return throwError('Invalid File Format');
     }
 
-    if (FORBIDDEN_FILE_TYPES.includes(file.type)) {
-      this.snackBar.open(
-        this.transloco.translate('FIELDS.FILE.FORBIDDEN_FILE_FORMAT'),
-        this.transloco.translate('GENERAL.DISMISS'),
-        {
-          panelClass: 'snack-bar-error',
-          duration: 5000
-        }
-      );
+    if (this.forbiddenFileTypes.includes(file.type)) {
+      this.errorSnack('FIELDS.FILE.FORBIDDEN_FILE_FORMAT');
       return throwError('Forbidden File Format');
     }
 
-    if (file.size > FILE_MAX_SIZE) {
-      this.snackBar.open(
-        this.transloco.translate('FIELDS.FILE.EXCEED_SIZE'),
-        this.transloco.translate('GENERAL.DISMISS'),
-        {
-          panelClass: 'snack-bar-error',
-          duration: 5000
-        }
-      );
+    if (file.size < this.minSizeBytes) {
+      this.errorSnack('FIELDS.FILE.BELOW_SIZE');
+      return throwError('File below minimal allowed size');
+    }
+
+    if (file.size > this.maxSizeBytes && !!this.maxSizeBytes) {
+      this.errorSnack('FIELDS.FILE.EXCEED_SIZE');
       return throwError('File exceeding allowed size');
     }
 
