@@ -45,7 +45,6 @@ export class FormBuilderService {
         }),
         catchError(err => {
           if (finalOptions.error) {
-            console.log(err);
             this.snackBar.open(
               this.transloco.translate(finalOptions.error),
               this.transloco.translate('GENERAL.DISMISS'),

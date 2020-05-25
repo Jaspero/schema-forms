@@ -11,7 +11,7 @@
   <input #file type="file" multiple hidden (change)="filesUploaded($event.target)">
 
   <!--Uploaded images list-->
-  <ng-container class="fb-gallery-container">
+  <ng-container>
     <div class="fb-gallery-list" cdkDropListGroup>
 
       <div class="fb-gallery-list-placeholder" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped()"></div>

@@ -9,7 +9,6 @@ export const parseSize = (size: string | number): number => {
   const num = parseFloat(size);
   const unit = size.replace(/[0-9]/g, '').toLowerCase();
 
-  console.log(num, unit);
   switch (unit) {
     case 'kb': {
       return num * KB;
