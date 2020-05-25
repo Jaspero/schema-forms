@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {from, of} from 'rxjs';
+import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
@@ -9,6 +9,9 @@ import {GeneratedImage} from '../../interfaces/generated-image.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
+import {IMAGE_MAX_SIZE, IMAGE_TYPES} from '../../consts/image-restriction.const';
+import {TranslocoService} from '@ngneat/transloco';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
@@ -34,7 +37,9 @@ export class ImageComponent extends FieldComponent<ImageData>
     @Inject(COMPONENT_DATA) public cData: ImageData,
     private storage: StorageService,
     private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
+    private formBuilderService: FormBuilderService,
+    private transloco: TranslocoService,
+    private snackBar: MatSnackBar
   ) {
     super(cData);
   }
@@ -50,10 +55,33 @@ export class ImageComponent extends FieldComponent<ImageData>
 
   filesImage(event: Event) {
     const el = event.target as HTMLInputElement;
-    this.value = Array.from(el.files as FileList)[0] as File;
+    const image = Array.from(el.files as FileList)[0] as File;
 
-    el.value = '';
+    if (!IMAGE_TYPES.includes(image.type)) {
+      this.snackBar.open(
+        this.transloco.translate('FIELDS.GALLERY.INVALID_IMAGE_FORMAT'),
+        this.transloco.translate('GENERAL.DISMISS'),
+        {
+          panelClass: 'snack-bar-error',
+          duration: 5000
+        }
+      );
+      return throwError('Invalid Image Format');
+    }
 
+    if (image.size > IMAGE_MAX_SIZE) {
+      this.snackBar.open(
+        this.transloco.translate('FIELDS.GALLERY.EXCEED_SIZE'),
+        this.transloco.translate('GENERAL.DISMISS'),
+        {
+          panelClass: 'snack-bar-error',
+          duration: 5000
+        }
+      );
+      return throwError('Image exceeding allowed size');
+    }
+
+    this.value = image;
     this.disInput = true;
     this.imageUrl.setValue(this.value.name);
 
@@ -63,6 +91,7 @@ export class ImageComponent extends FieldComponent<ImageData>
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(this.value);
+    el.value = '';
   }
 
   remove() {
