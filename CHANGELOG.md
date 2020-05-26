@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/Jaspero/schema-forms/compare/v1.8.0...v1.8.1) (2020-05-26)
+
+
+### Bug Fixes
+
+* z-index overlap on preview ([9c66443](https://github.com/Jaspero/schema-forms/commit/9c6644369a8dec033b7cbc48de47a9ea5efaed03))
+
 # [1.8.0](https://github.com/Jaspero/schema-forms/compare/v1.7.3...v1.8.0) (2020-05-25)
 
 
