@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/Jaspero/schema-forms/compare/v1.9.0...v1.10.0) (2020-05-27)
+
+
+### Features
+
+* added service export to public-api ([20dfbab](https://github.com/Jaspero/schema-forms/commit/20dfbab10d80db0fc246346eb1f8e0f2c4e6d782))
+
 # [1.9.0](https://github.com/Jaspero/schema-forms/compare/v1.8.1...v1.9.0) (2020-05-27)
 
 
