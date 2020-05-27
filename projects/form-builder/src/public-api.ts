@@ -4,6 +4,8 @@
 export * from './lib/form-builder.component';
 export * from './lib/form-builder.module';
 
+export * from './lib/field/field.component';
+
 export * from './lib/services/db.service';
 export * from './lib/services/storage.service';
 
