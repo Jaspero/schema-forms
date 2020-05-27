@@ -1,3 +1,27 @@
+## [1.8.1](https://github.com/Jaspero/schema-forms/compare/v1.8.0...v1.8.1) (2020-05-26)
+
+
+### Bug Fixes
+
+* z-index overlap on preview ([9c66443](https://github.com/Jaspero/schema-forms/commit/9c6644369a8dec033b7cbc48de47a9ea5efaed03))
+
+# [1.8.0](https://github.com/Jaspero/schema-forms/compare/v1.7.3...v1.8.0) (2020-05-25)
+
+
+### Features
+
+* File Restrictions [#5](https://github.com/Jaspero/schema-forms/issues/5) ([ce84d09](https://github.com/Jaspero/schema-forms/commit/ce84d092dd213954f2f987dc0d0918ca6b663888))
+* Image Restrictions ([2df2a72](https://github.com/Jaspero/schema-forms/commit/2df2a7281c0cbdb8cdc8678e672469c2e242db8a))
+* ImageComponent Restriction ([a67c893](https://github.com/Jaspero/schema-forms/commit/a67c89396d6382f64a3f59f3a6ba593452d1b126))
+
+## [1.7.3](https://github.com/Jaspero/schema-forms/compare/v1.7.2...v1.7.3) (2020-05-03)
+
+
+### Bug Fixes
+
+* **form-builder:** connected saveAndProcess ([c3fd61f](https://github.com/Jaspero/schema-forms/commit/c3fd61fc8bdc3e0a83c0089fd1810ebe98545ac8))
+* **form-builder:** linting errors ([f0f06c1](https://github.com/Jaspero/schema-forms/commit/f0f06c150a169defe066c36f8c4c60cec4da8a90))
+
 ## [1.7.2](https://github.com/Jaspero/schema-forms/compare/v1.7.1...v1.7.2) (2020-05-03)
 
 

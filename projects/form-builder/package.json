@@ -10,9 +10,9 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@angular/common": "^9.0.2",
-    "@angular/core": "^9.0.2",
-    "@angular/material": "^9.0.1",
+    "@angular/common": "^9.1.9",
+    "@angular/core": "9.1.9",
+    "@angular/material": "9.2.4",
     "@jaspero/ng-helpers": "^3.4.0",
     "@ngneat/transloco": "^1.1.1",
     "tinymce": "^5.2.0",

@@ -1,14 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Inject,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {from, of} from 'rxjs';
+import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
@@ -17,10 +9,17 @@ import {GeneratedImage} from '../../interfaces/generated-image.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
+import {TranslocoService} from '@ngneat/transloco';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {parseSize} from '../../utils/parse-size';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
   generatedImages?: GeneratedImage[];
+  allowedImageTypes?: string[];
+  forbiddenImageTypes?: string[];
+  minSize?: string | number;
+  maxSize?: string | number;
 }
 
 @Component({
@@ -31,26 +30,48 @@ interface ImageData extends FieldData {
 })
 export class ImageComponent extends FieldComponent<ImageData>
   implements OnInit {
-  constructor(
-    @Inject(COMPONENT_DATA) public cData: ImageData,
-    private storage: StorageService,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
-  ) {
-    super(cData);
-  }
-
   @ViewChild('file', {static: true})
   fileEl: ElementRef<HTMLInputElement>;
-
   value: File | null;
   imageUrl: FormControl;
   disInput = false;
   imageSrc: string;
 
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
+
+  constructor(
+    @Inject(COMPONENT_DATA) public cData: ImageData,
+    private storage: StorageService,
+    private cdr: ChangeDetectorRef,
+    private formBuilderService: FormBuilderService,
+    private transloco: TranslocoService,
+    private snackBar: MatSnackBar
+  ) {
+    super(cData);
+  }
+
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);
     this.formBuilderService.saveComponents.push(this);
+
+    this.allowedImageTypes = this.cData.allowedImageTypes || [];
+    this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
+    this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
+    this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+  }
+
+  errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
+    this.snackBar.open(
+      this.transloco.translate(message),
+      this.transloco.translate(dismiss),
+      {
+        panelClass: 'snack-bar-error',
+        duration: 5000
+      }
+    );
   }
 
   openFileUpload() {
@@ -59,10 +80,29 @@ export class ImageComponent extends FieldComponent<ImageData>
 
   filesImage(event: Event) {
     const el = event.target as HTMLInputElement;
-    this.value = Array.from(el.files as FileList)[0] as File;
+    const image = Array.from(el.files as FileList)[0] as File;
 
-    el.value = '';
+    if (!this.allowedImageTypes.includes(image.type) && !!this.allowedImageTypes.length) {
+      this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
+      return throwError('Invalid Image Format');
+    }
 
+    if (this.forbiddenImageTypes.includes(image.type)) {
+      this.errorSnack('FIELDS.GALLERY.FORBIDDEN_IMAGE_FORMAT');
+      return throwError('Forbidden Image Format');
+    }
+
+    if (image.size < this.minSizeBytes) {
+      this.errorSnack('FIELDS.GALLERY.BELOW_SIZE');
+      return throwError('Image below minimal allowed size');
+    }
+
+    if (image.size > this.maxSizeBytes && !!this.maxSizeBytes) {
+      this.errorSnack('FIELDS.GALLERY.EXCEED_SIZE');
+      return throwError('Image exceeding allowed size');
+    }
+
+    this.value = image;
     this.disInput = true;
     this.imageUrl.setValue(this.value.name);
 
@@ -72,6 +112,7 @@ export class ImageComponent extends FieldComponent<ImageData>
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(this.value);
+    el.value = '';
   }
 
   remove() {

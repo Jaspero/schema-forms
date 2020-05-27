@@ -11,6 +11,12 @@ export class AppComponent {
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
+        File: {
+          type: 'string'
+        },
+        photos: {
+          type: 'array'
+        },
         title: {
           type: 'string'
         },
@@ -20,6 +26,32 @@ export class AppComponent {
       }
     },
     definitions: {
+      File: {
+        component: {
+          configuration: {
+            emptyLabel: '',
+            preventClear: false,
+            minSize: '10kb',
+            maxSize: '50mb',
+            forbiddenFileTypes: ['application/pdf'],
+          },
+          type: 'file'
+        },
+        label: 'FILE'
+      },
+      photos: {
+        component: {
+          type: 'gallery',
+          configuration: {
+            allowServerUpload: true,
+            allowUrl: true,
+            minSize: '10kb',
+            maxSize: '2mb',
+            allowedImageTypes: ['jpg', 'jpeg', 'png'],
+          }
+        },
+        label: 'Photos'
+      },
       title: {
         label: 'Title'
       },
@@ -30,12 +62,15 @@ export class AppComponent {
         }
       }
     },
-    segments: [{
-      fields: [
-        '/title',
-        '/description'
-      ]
-    }]
+    segments: [
+      {
+        fields: [
+          '/File',
+          '/photos',
+          '/title',
+          '/description'
+        ]
+      }]
   };
 
   exampleTwo: FormBuilderData = {
@@ -97,6 +132,6 @@ export class AppComponent {
           '/title'
         ]
       }]
-    }
+    };
   }
 }
