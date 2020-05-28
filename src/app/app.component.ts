@@ -22,6 +22,9 @@ export class AppComponent {
         },
         description: {
           type: 'string'
+        },
+        address: {
+          type: 'string'
         }
       }
     },
@@ -33,7 +36,7 @@ export class AppComponent {
             preventClear: false,
             minSize: '10kb',
             maxSize: '50mb',
-            forbiddenFileTypes: ['application/pdf'],
+            forbiddenFileTypes: ['application/pdf']
           },
           type: 'file'
         },
@@ -47,7 +50,7 @@ export class AppComponent {
             allowUrl: true,
             minSize: '10kb',
             maxSize: '2mb',
-            allowedImageTypes: ['jpg', 'jpeg', 'png'],
+            allowedImageTypes: ['jpg', 'jpeg', 'png']
           }
         },
         label: 'Photos'
@@ -60,6 +63,24 @@ export class AppComponent {
         component: {
           type: 'textarea'
         }
+      },
+      address: {
+        component: {
+          configuration: {
+            dataSet: [
+              {
+                name: 'Croatia',
+                value: 'hr'
+              },
+              {
+                name: 'USA',
+                value: 'us'
+              }
+            ]
+          },
+          type: 'select'
+        },
+        label: 'Address'
       }
     },
     segments: [
@@ -68,7 +89,8 @@ export class AppComponent {
           '/File',
           '/photos',
           '/title',
-          '/description'
+          '/description',
+          '/address'
         ]
       }]
   };

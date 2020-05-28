@@ -14,6 +14,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslocoService} from '@ngneat/transloco';
 import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
@@ -22,13 +24,12 @@ import {FieldData} from '../../interfaces/field-data.interface';
 import {GeneratedImage} from '../../interfaces/generated-image.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
+import {parseSize} from '../../utils/parse-size';
 import {STORAGE_URL} from '../../utils/storage-url';
 import {switchItemLocations} from '../../utils/switch-item-locations';
 import {readFile} from './read-file';
-import {TranslocoService} from '@ngneat/transloco';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {parseSize} from '../../utils/parse-size';
 
 interface GalleryData extends FieldData {
   allowUrl?: boolean;
@@ -48,30 +49,6 @@ interface GalleryData extends FieldData {
 })
 export class GalleryComponent extends FieldComponent<GalleryData>
   implements OnInit, AfterViewInit {
-
-  @ViewChild(CdkDropListGroup, {static: true})
-  listGroup: CdkDropListGroup<CdkDropList>;
-  @ViewChild(CdkDropList, {static: true})
-  placeholder: CdkDropList;
-  @ViewChild('modal', {static: true})
-  modalTemplate: TemplateRef<any>;
-  @ViewChild('imagesSort', {static: true})
-  imagesSort: TemplateRef<any>;
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-  public target: CdkDropList | null;
-  public targetIndex: number;
-  public source: CdkDropList | null;
-  public sourceIndex: number;
-  public activeContainer: any;
-  files: File[] = [];
-  toRemove: any[] = [];
-
-  allowedImageTypes: string[];
-  forbiddenImageTypes: string[];
-  minSizeBytes: number;
-  maxSizeBytes: number;
-
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -89,6 +66,29 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   ) {
     super(cData);
   }
+
+  @ViewChild(CdkDropListGroup, {static: true})
+  listGroup: CdkDropListGroup<CdkDropList>;
+  @ViewChild(CdkDropList, {static: true})
+  placeholder: CdkDropList;
+  @ViewChild('modal', {static: true})
+  modalTemplate: TemplateRef<any>;
+  @ViewChild('imagesSort', {static: true})
+  imagesSort: TemplateRef<any>;
+  @ViewChild('file', {static: true})
+  fileEl: ElementRef<HTMLInputElement>;
+  target: CdkDropList | null;
+  targetIndex: number;
+  source: CdkDropList | null;
+  sourceIndex: number;
+  activeContainer: any;
+  files: File[] = [];
+  toRemove: any[] = [];
+
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
@@ -196,9 +196,14 @@ export class GalleryComponent extends FieldComponent<GalleryData>
 
   filesUploaded(el: HTMLInputElement | FileList) {
     const files = Array.from((el instanceof FileList ? el : el.files) as FileList);
-
     for (const file of files) {
+      Object.defineProperty(file, 'name', {
+        writable: true,
+        value: formatFileName(file.name)
+      });
+
       const type = file.type.split('/')[1].toLowerCase();
+
       if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
         this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
         return throwError('Invalid Image Format');
