@@ -49,30 +49,6 @@ interface GalleryData extends FieldData {
 })
 export class GalleryComponent extends FieldComponent<GalleryData>
   implements OnInit, AfterViewInit {
-
-  @ViewChild(CdkDropListGroup, {static: true})
-  listGroup: CdkDropListGroup<CdkDropList>;
-  @ViewChild(CdkDropList, {static: true})
-  placeholder: CdkDropList;
-  @ViewChild('modal', {static: true})
-  modalTemplate: TemplateRef<any>;
-  @ViewChild('imagesSort', {static: true})
-  imagesSort: TemplateRef<any>;
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-  public target: CdkDropList | null;
-  public targetIndex: number;
-  public source: CdkDropList | null;
-  public sourceIndex: number;
-  public activeContainer: any;
-  files: File[] = [];
-  toRemove: any[] = [];
-
-  allowedImageTypes: string[];
-  forbiddenImageTypes: string[];
-  minSizeBytes: number;
-  maxSizeBytes: number;
-
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -90,6 +66,29 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   ) {
     super(cData);
   }
+
+  @ViewChild(CdkDropListGroup, {static: true})
+  listGroup: CdkDropListGroup<CdkDropList>;
+  @ViewChild(CdkDropList, {static: true})
+  placeholder: CdkDropList;
+  @ViewChild('modal', {static: true})
+  modalTemplate: TemplateRef<any>;
+  @ViewChild('imagesSort', {static: true})
+  imagesSort: TemplateRef<any>;
+  @ViewChild('file', {static: true})
+  fileEl: ElementRef<HTMLInputElement>;
+  target: CdkDropList | null;
+  targetIndex: number;
+  source: CdkDropList | null;
+  sourceIndex: number;
+  activeContainer: any;
+  files: File[] = [];
+  toRemove: any[] = [];
+
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
@@ -229,21 +228,17 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     forkJoin(
       files.map(file =>
         readFile(file).pipe(
-          map(data => {
-            console.log(data);
-            return ({
-              data,
-              pushToLive: file,
-              live: false
-            });
-          })
+          map(data => ({
+            data,
+            pushToLive: file,
+            live: false
+          }))
         )
       )
     ).subscribe(
       fls => {
         const value = this.cData.control.value;
         value.push(...fls);
-        console.log(value);
         this.cData.control.setValue(value);
 
         if (!(el instanceof FileList)) {
