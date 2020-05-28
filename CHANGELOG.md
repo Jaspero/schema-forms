@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/Jaspero/schema-forms/compare/v1.10.0...v1.10.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* **parser:** array items inserted properly :bug: ([2742fd3](https://github.com/Jaspero/schema-forms/commit/2742fd358901038b61deec409f43d5f7007a2716))
+
 # [1.10.0](https://github.com/Jaspero/schema-forms/compare/v1.9.0...v1.10.0) (2020-05-27)
 
 
