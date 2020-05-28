@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
@@ -8,9 +10,8 @@ import {FieldData} from '../../interfaces/field-data.interface';
 import {GeneratedImage} from '../../interfaces/generated-image.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
-import {TranslocoService} from '@ngneat/transloco';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {parseSize} from '../../utils/parse-size';
 
 interface ImageData extends FieldData {
@@ -81,6 +82,11 @@ export class ImageComponent extends FieldComponent<ImageData>
   filesImage(event: Event) {
     const el = event.target as HTMLInputElement;
     const image = Array.from(el.files as FileList)[0] as File;
+
+    Object.defineProperty(image, 'name', {
+      writable: true,
+      value: formatFileName(image.name)
+    });
 
     if (!this.allowedImageTypes.includes(image.type) && !!this.allowedImageTypes.length) {
       this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');

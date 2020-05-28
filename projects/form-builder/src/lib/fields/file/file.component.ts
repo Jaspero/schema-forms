@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
@@ -6,8 +8,7 @@ import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
-import {TranslocoService} from '@ngneat/transloco';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {formatFileName} from '../../utils/format-file-name';
 import {parseSize} from '../../utils/parse-size';
 
 interface FileData extends FieldData {
@@ -77,6 +78,11 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
   fileChange(ev: Event) {
     const el = ev.target as HTMLInputElement;
     const file = Array.from(el.files as FileList)[0] as File;
+
+    Object.defineProperty(file, 'name', {
+      writable: true,
+      value: formatFileName(file.name)
+    });
 
     if (!this.allowedFileTypes.includes(file.type) && !!this.allowedFileTypes.length) {
       this.errorSnack('FIELDS.FILE.INVALID_FILE_FORMAT');
