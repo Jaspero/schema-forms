@@ -411,7 +411,7 @@ export class Parser {
       }
       // @ts-ignore
       target.arrayPointers.unshift(properties.pointers);
-      control.insert(0, properties.form);
+      control.controls.unshift(properties.form);
     } else {
       // TODO: Different SchemaType
       control.insert(0, new FormControl(''));
