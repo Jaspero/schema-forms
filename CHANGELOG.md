@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/Jaspero/schema-forms/compare/v1.10.1...v1.11.0) (2020-05-29)
+
+
+### Features
+
+* **radio, slider:** added missing hint's ([6a87c94](https://github.com/Jaspero/schema-forms/commit/6a87c94cf29c715fe17f6729d6165d5cbca34777))
+
 ## [1.10.1](https://github.com/Jaspero/schema-forms/compare/v1.10.0...v1.10.1) (2020-05-28)
 
 
