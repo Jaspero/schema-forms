@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/Jaspero/schema-forms/compare/v1.11.0...v1.11.1) (2020-05-29)
+
+
+### Bug Fixes
+
+* **segment:** array handling :bug: ([16e9870](https://github.com/Jaspero/schema-forms/commit/16e9870ee7b9eec612815cb06184dd10ad76842f))
+
 # [1.11.0](https://github.com/Jaspero/schema-forms/compare/v1.10.1...v1.11.0) (2020-05-29)
 
 
