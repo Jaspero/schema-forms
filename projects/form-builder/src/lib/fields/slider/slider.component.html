@@ -7,4 +7,7 @@
     [min]="startAt"
     [max]="endAt">
   </mat-slider>
+  <p class="fs-small fg-secondary" *ngIf="cData.hint">
+    {{cData.hint}}
+  </p>
 </div>
