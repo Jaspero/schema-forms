@@ -414,7 +414,7 @@ export class Parser {
       control.controls.unshift(properties.form);
     } else {
       // TODO: Different SchemaType
-      control.insert(0, new FormControl(''));
+      control.controls.unshift(new FormControl(''));
     }
   }
 
