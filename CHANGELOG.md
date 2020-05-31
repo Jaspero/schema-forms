@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/Jaspero/schema-forms/compare/v1.11.1...v1.11.2) (2020-05-31)
+
+
+### Bug Fixes
+
+* **parser:** loadHooks called before form is initialized ([1dc0d00](https://github.com/Jaspero/schema-forms/commit/1dc0d002af128386ebdb506e08f36d03c6ade3a7))
+
 ## [1.11.1](https://github.com/Jaspero/schema-forms/compare/v1.11.0...v1.11.1) (2020-05-29)
 
 
