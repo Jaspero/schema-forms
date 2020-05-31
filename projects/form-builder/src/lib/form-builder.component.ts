@@ -135,14 +135,14 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       this.customFields
     );
 
-    this.parser.loadHooks();
-
     this.form = this.parser.buildForm(
       value,
       [],
       '/',
       false
     );
+
+    this.parser.loadHooks();
 
     this.segments = filterAndCompileSegments(
       this.role,

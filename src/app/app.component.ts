@@ -11,6 +11,9 @@ export class AppComponent {
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
+        createdOn: {
+          type: 'number'
+        },
         File: {
           type: 'string'
         },
@@ -29,6 +32,19 @@ export class AppComponent {
       }
     },
     definitions: {
+      createdOn: {
+        label: 'Datum',
+        formatOnLoad: `(value) => {
+          console.log('value', value);
+          return value || Date.now()
+        }`,
+        component: {
+          type: 'input',
+          configuration: {
+            type: 'number'
+          }
+        }
+      },
       File: {
         component: {
           configuration: {
@@ -90,7 +106,8 @@ export class AppComponent {
           '/photos',
           '/title',
           '/description',
-          '/address'
+          '/address',
+          '/createdOn'
         ]
       }]
   };
