@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/Jaspero/schema-forms/compare/v1.11.2...v1.12.0) (2020-05-31)
+
+
+### Features
+
+* **form-builder:** state is now explicitly defined through an @Input() ([ec1f5d8](https://github.com/Jaspero/schema-forms/commit/ec1f5d81e8ee2f105b60229dd9850efeffdcc1e3))
+
 ## [1.11.2](https://github.com/Jaspero/schema-forms/compare/v1.11.1...v1.11.2) (2020-05-31)
 
 
