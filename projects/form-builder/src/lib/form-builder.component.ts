@@ -62,7 +62,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   parser: Parser;
   segments: CompiledSegment[];
 
-  state: State;
+  @Input()
+  state: State = State.Create;
 
   private changeSubscription: Subscription;
   private statusSubscription: Subscription;
@@ -70,10 +71,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data) {
       this.render();
-    }
-
-    if (changes.id) {
-      this.state = changes.id.currentValue ? State.Edit : State.Create;
     }
 
     if (changes.value && this.form) {
