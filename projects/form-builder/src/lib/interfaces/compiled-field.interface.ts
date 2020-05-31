@@ -15,5 +15,5 @@ export interface CompiledField {
    */
   placeholder: string;
   label: string;
-  onlyOn?: State;
+  onlyOn?: State | State[];
 }

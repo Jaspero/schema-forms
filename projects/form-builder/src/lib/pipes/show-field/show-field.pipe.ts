@@ -8,7 +8,13 @@ import {Parser} from '../../utils/parser';
 export class ShowFieldPipe implements PipeTransform {
   transform(fields: CompiledField[], parser: Parser): CompiledField[] {
     return fields.filter(
-      field => !field.onlyOn || field.onlyOn === parser.state
+      field =>
+        !field.onlyOn ||
+        (
+          Array.isArray(field.onlyOn) ?
+            field.onlyOn.includes(parser.state) :
+            field.onlyOn === parser.state
+        )
     );
   }
 }

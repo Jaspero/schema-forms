@@ -128,6 +128,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       this.data.schema,
       this.injector,
       this.state,
+      this.role,
       definitions,
       this.customFields
     );

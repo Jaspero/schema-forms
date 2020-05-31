@@ -12,6 +12,7 @@ export interface FieldData {
   form: FormGroup;
   control: FormControl;
   label: string;
+  width?: number;
   hint?: string;
   placeholder?: string;
 }

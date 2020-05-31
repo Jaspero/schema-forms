@@ -81,6 +81,7 @@ export class Parser {
     public schema: any,
     public injector: Injector,
     public state: State,
+    public role: string,
     public definitions: Definitions = {},
     public customFields: CustomFields = {}
   ) {}
@@ -342,7 +343,24 @@ export class Parser {
       ...this.getFromDefinitions(pointerKey, definitions)
     };
 
-    if (definition.disableOn && definition.disableOn === this.state) {
+    if (
+      (
+        definition.disableOn &&
+        (
+          Array.isArray(definition.disableOn) ?
+            definition.disableOn.includes(this.state)
+            : definition.disableOn === this.state
+        )
+      ) ||
+      (
+        definition.disableForRoles &&
+        (
+          Array.isArray(definition.disableForRoles) ?
+            definition.disableForRoles.includes(this.role)
+            : definition.disableForRoles === this.role
+        )
+      )
+    ) {
       control.disable();
     }
 

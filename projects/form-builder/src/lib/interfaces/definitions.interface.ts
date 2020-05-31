@@ -11,8 +11,10 @@ export interface Definition {
   hint?: string;
   defaultValue?: any;
   placeholder?: string;
-  onlyOn?: State;
-  disableOn?: State;
+  onlyOn?: State | State[];
+  disableOn?: State | State[];
+  disableForRoles?: string | string[];
+  width?: number;
 }
 
 export interface Definitions {

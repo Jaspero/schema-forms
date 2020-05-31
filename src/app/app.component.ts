@@ -34,10 +34,7 @@ export class AppComponent {
     definitions: {
       createdOn: {
         label: 'Datum',
-        formatOnLoad: `(value) => {
-          console.log('value', value);
-          return value || Date.now()
-        }`,
+        formatOnLoad: `(value) => value || Date.now()`,
         component: {
           type: 'input',
           configuration: {
@@ -72,7 +69,8 @@ export class AppComponent {
         label: 'Photos'
       },
       title: {
-        label: 'Title'
+        label: 'Title',
+        disableForRoles: ['admin']
       },
       description: {
         label: 'Description',
