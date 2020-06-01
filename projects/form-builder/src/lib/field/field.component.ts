@@ -24,7 +24,7 @@ export class FieldComponent<T extends FieldData> {
       classes.push(`s-fb-field-${this.cData.columnsMobile}`);
     }
 
-    this.class = classes.join(' ')
+    this.class = classes.join(' ');
   }
 
   @HostBinding('class')
