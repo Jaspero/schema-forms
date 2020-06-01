@@ -430,9 +430,13 @@ export class Parser {
       // @ts-ignore
       target.arrayPointers.unshift(properties.pointers);
       control.controls.unshift(properties.form);
+
+      return properties.pointers;
     } else {
       // TODO: Different SchemaType
-      control.controls.unshift(new FormControl(''));
+      const cont = new FormControl('');
+      control.controls.unshift(cont);
+      return cont;
     }
   }
 

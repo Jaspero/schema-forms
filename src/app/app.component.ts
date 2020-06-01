@@ -28,6 +28,20 @@ export class AppComponent {
         },
         address: {
           type: 'string'
+        },
+        age: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'string'
+              },
+              age: {
+                type: 'number'
+              }
+            }
+          }
         }
       }
     },
@@ -97,7 +111,7 @@ export class AppComponent {
           type: 'select'
         },
         label: 'Address'
-      }
+      },
     },
     segments: [
       {
@@ -109,7 +123,15 @@ export class AppComponent {
           '/address',
           '/createdOn'
         ]
-      }]
+      },
+      {
+        array: '/age',
+        fields: [
+          '/age',
+          '/name'
+        ]
+      }
+    ]
   };
 
   exampleTwo: FormBuilderData = {

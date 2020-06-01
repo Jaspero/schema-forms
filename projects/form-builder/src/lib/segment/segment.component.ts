@@ -86,28 +86,18 @@ export class SegmentComponent<T = any> implements OnInit {
 
   addArrayItem(loadHook = true) {
     const array = this.segment.array as string;
-    this.sData.parser.addArrayItem(array, loadHook);
-
-    const arrayPointers = this.pointers[array].arrayPointers as Pointers[];
+    const pointers = this.sData.parser.addArrayItem(array, loadHook);
 
     this.arrayFields.unshift(
-      Object.entries(arrayPointers[0])
-        .map(
-          ([key, pointer]) =>
-            this.sData.parser.field(
-              key,
-              pointer,
-              this.sData.definitions,
-              true,
-              array
-            )
+      (this.segment.fields as string[]).map(key =>
+        this.sData.parser.field(
+          key,
+          pointers[key],
+          this.sData.definitions,
+          true,
+          array
         )
-        .sort((a, b) => {
-          const originalIndexA = (this.segment.fields || []).findIndex(fi => fi === a.pointer);
-          const originalIndexB = (this.segment.fields || []).findIndex(fi => fi === b.pointer);
-
-          return originalIndexA - originalIndexB;
-        })
+      )
     );
   }
 
