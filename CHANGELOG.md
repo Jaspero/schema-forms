@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/Jaspero/schema-forms/compare/v1.13.0...v1.14.0) (2020-06-01)
+
+
+### Features
+
+* **fields:** enable setting widths for fields ([8226c7e](https://github.com/Jaspero/schema-forms/commit/8226c7ef8f3152992e61316fc3c54b536b20dcf1))
+
 # [1.13.0](https://github.com/Jaspero/schema-forms/compare/v1.12.0...v1.13.0) (2020-06-01)
 
 
