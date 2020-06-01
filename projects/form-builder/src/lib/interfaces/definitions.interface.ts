@@ -14,7 +14,9 @@ export interface Definition {
   onlyOn?: State | State[];
   disableOn?: State | State[];
   disableForRoles?: string | string[];
-  width?: number;
+  columnsDesktop?: number;
+  columnsTablet?: number;
+  columnsMobile?: number;
 }
 
 export interface Definitions {

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormBuilderData} from 'form-builder';
+import {FormBuilderData, SegmentType} from 'form-builder';
 
 @Component({
   selector: 'sc-root',
@@ -70,7 +70,9 @@ export class AppComponent {
       },
       title: {
         label: 'Title',
-        disableForRoles: ['admin']
+        disableForRoles: ['admin'],
+        columnsDesktop: 8,
+        columnsMobile: 12
       },
       description: {
         label: 'Description',
@@ -142,6 +144,7 @@ export class AppComponent {
       }
     },
     segments: [{
+      type: SegmentType.Empty,
       fields: [
         '/title',
         '/description',

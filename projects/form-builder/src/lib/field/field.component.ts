@@ -11,7 +11,20 @@ export class FieldComponent<T extends FieldData> {
   constructor(
     @Inject(COMPONENT_DATA) public cData: T
   ) {
-    this.class = `fb-field-${this.cData.width || 12}`
+
+    const classes = [
+      `fb-field-${this.cData.columnsDesktop || 12}`
+    ];
+
+    if (this.cData.columnsTablet) {
+      classes.push(`m-fb-field-${this.cData.columnsTablet}`);
+    }
+
+    if (this.cData.columnsMobile) {
+      classes.push(`s-fb-field-${this.cData.columnsMobile}`);
+    }
+
+    this.class = classes.join(' ')
   }
 
   @HostBinding('class')

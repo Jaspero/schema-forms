@@ -12,7 +12,9 @@ export interface FieldData {
   form: FormGroup;
   control: FormControl;
   label: string;
-  width?: number;
+  columnsDesktop?: number;
+  columnsMobile?: number;
+  columnsTablet?: number;
   hint?: string;
   placeholder?: string;
 }
