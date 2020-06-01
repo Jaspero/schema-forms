@@ -1,3 +1,16 @@
+# [1.13.0](https://github.com/Jaspero/schema-forms/compare/v1.12.0...v1.13.0) (2020-06-01)
+
+
+### Bug Fixes
+
+* **form-builder:** lint issues ([373a715](https://github.com/Jaspero/schema-forms/commit/373a715b510b1c193eb334953f35065e46de8111))
+
+
+### Features
+
+* **form-builder:** added options for defining mobile and tablet widths on fields; ([f56957a](https://github.com/Jaspero/schema-forms/commit/f56957adac75eb5c53a612870345582105e8d668))
+* added disableForRoles and width to definitions :zap: ([4c3b47c](https://github.com/Jaspero/schema-forms/commit/4c3b47c084d3291f797c57dea7d283797d9c231a))
+
 # [1.12.0](https://github.com/Jaspero/schema-forms/compare/v1.11.2...v1.12.0) (2020-05-31)
 
 
