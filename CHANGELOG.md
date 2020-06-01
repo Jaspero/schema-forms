@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/Jaspero/schema-forms/compare/v1.14.0...v1.15.0) (2020-06-01)
+
+
+### Features
+
+* **segments:** optimized how array fields are populated closes [#11](https://github.com/Jaspero/schema-forms/issues/11) ([2857d0f](https://github.com/Jaspero/schema-forms/commit/2857d0f22f4a862ac3e0184de4038ded1fa2fef9))
+
 # [1.14.0](https://github.com/Jaspero/schema-forms/compare/v1.13.0...v1.14.0) (2020-06-01)
 
 
