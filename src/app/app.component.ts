@@ -125,6 +125,16 @@ export class AppComponent {
         ]
       },
       {
+        title: 'Card Array Segment',
+        array: '/age',
+        fields: [
+          '/age',
+          '/name'
+        ]
+      },
+      {
+        title: 'Empty Array Segment',
+        type: SegmentType.Empty,
         array: '/age',
         fields: [
           '/age',

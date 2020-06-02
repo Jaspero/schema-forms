@@ -15,7 +15,7 @@
       <p class="mat-form-field-wrapper" *ngIf="segment.description">{{segment.description}}</p>
 
       <ng-container *ngIf="segment.array; else regular">
-        <div *ngFor="let fields of arrayFields; index as index; last as last">
+        <ng-container *ngFor="let fields of arrayFields; index as index; last as last">
           <ng-container *ngFor="let field of fields | showField:sData.parser">
             <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
           </ng-container>
@@ -23,7 +23,7 @@
             <button mat-button color="warn" (click)="removeArrayItem(index)">{{'GENERAL.REMOVE' | transloco}}</button>
           </div>
           <hr *ngIf="!last" class="m-y-m">
-        </div>
+        </ng-container>
       </ng-container>
 
       <ng-template #regular>
