@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/Jaspero/schema-forms/compare/v1.15.0...v1.16.0) (2020-06-02)
+
+
+### Features
+
+* **segments:** adjusted card and empty styles for fb-field ([356388b](https://github.com/Jaspero/schema-forms/commit/356388b47e36ac3713fda1b1e51b14e985a6b46f))
+
 # [1.15.0](https://github.com/Jaspero/schema-forms/compare/v1.14.0...v1.15.0) (2020-06-01)
 
 
