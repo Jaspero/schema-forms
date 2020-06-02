@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/Jaspero/schema-forms/compare/v1.16.0...v1.16.1) (2020-06-02)
+
+
+### Bug Fixes
+
+* **fields:** button wasn't aligned, hr wasn't full width ([f44f007](https://github.com/Jaspero/schema-forms/commit/f44f007b7f498f2c5605752f7eb083f3f5bea890))
+
 # [1.16.0](https://github.com/Jaspero/schema-forms/compare/v1.15.0...v1.16.0) (2020-06-02)
 
 
