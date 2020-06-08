@@ -19,6 +19,10 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/imagetools';
 import 'tinymce/plugins/fullscreen';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/table';
 import {FormBuilderComponent} from '../../form-builder.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {StorageService} from '../../services/storage.service';
@@ -26,16 +30,22 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 
 declare const tinymce: any;
 
+export interface WysiwygData extends FieldData {
+  menubar?: string;
+  toolbar?: string;
+  height?: number;
+}
+
 @Component({
   selector: 'fb-wysiwyg',
   templateUrl: './wysiwyg.component.html',
   styleUrls: ['./wysiwyg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WysiwygComponent extends FieldComponent<FieldData>
+export class WysiwygComponent extends FieldComponent<WysiwygData>
   implements OnInit, AfterViewInit {
   constructor(
-    @Inject(COMPONENT_DATA) public cData: FieldData,
+    @Inject(COMPONENT_DATA) public cData: WysiwygData,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private storage: StorageService,
@@ -82,16 +92,21 @@ export class WysiwygComponent extends FieldComponent<FieldData>
     tinymce.init({
       target: this.textarea.nativeElement,
       branding: false,
-      height: 420,
+      height: this.cData.height || 420,
       plugins: [
         'code',
         'print',
         'wordcount',
         'link',
+        'lists',
+        'advlist',
+        'autolink',
         'image',
         'imagetools',
-        'fullscreen'
+        'fullscreen',
+        'table'
       ],
+      menubar: this.cData.menubar || 'edit insert view format table tools help',
       image_advtab: true,
 
       /**
@@ -99,7 +114,7 @@ export class WysiwygComponent extends FieldComponent<FieldData>
        */
       default_link_target: '_blank',
       readonly: this.cData.control.disabled,
-      toolbar: [
+      toolbar: this.cData.toolbar || [
         'undo redo',
         'insert',
         'styleselect',
@@ -110,7 +125,7 @@ export class WysiwygComponent extends FieldComponent<FieldData>
         'link',
         'image',
         'youTube',
-        'fullscreen'
+        'fullscreen',
       ].join(' | '),
 
       images_upload_handler: (blobInfo: any, success: any, failure: any) => {

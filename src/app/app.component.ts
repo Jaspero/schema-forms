@@ -91,7 +91,7 @@ export class AppComponent {
       description: {
         label: 'Description',
         component: {
-          type: 'textarea'
+          type: 'wysiwyg'
         }
       },
       address: {
