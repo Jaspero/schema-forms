@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/Jaspero/schema-forms/compare/v1.16.1...v1.17.0) (2020-06-08)
+
+
+### Features
+
+* **fields:** extended default options for wysiwyg; allow forwarding of height, menubar and toolbar; ([3568ada](https://github.com/Jaspero/schema-forms/commit/3568ada024ff638ae94f67c4b78f5d17798f6c09))
+
 ## [1.16.1](https://github.com/Jaspero/schema-forms/compare/v1.16.0...v1.16.1) (2020-06-02)
 
 
