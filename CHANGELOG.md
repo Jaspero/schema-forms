@@ -1,3 +1,16 @@
+# [1.18.0](https://github.com/Jaspero/schema-forms/compare/v1.17.0...v1.18.0) (2020-06-18)
+
+
+### Bug Fixes
+
+* lint issues ([8eabff7](https://github.com/Jaspero/schema-forms/commit/8eabff75c6797d9fb5b5ae6fb698e8f3fa21b68e))
+* removed console logs ([94113ff](https://github.com/Jaspero/schema-forms/commit/94113ff55d258d681ffb6bbdde587240821f909a))
+
+
+### Features
+
+* added roles option to fields to allow for showing fields to only specific users; simplified filterAndCompileSegments() to not require role param; ([bf333b0](https://github.com/Jaspero/schema-forms/commit/bf333b00df78099921319a2ff0dd4a4d784fac59))
+
 # [1.17.0](https://github.com/Jaspero/schema-forms/compare/v1.16.1...v1.17.0) (2020-06-08)
 
 
