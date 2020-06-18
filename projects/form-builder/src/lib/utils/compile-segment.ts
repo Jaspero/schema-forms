@@ -73,7 +73,7 @@ export function compileSegment(
         ) {
           acc.push(
             parser.field(key, parser.pointers[key], definitions)
-          )
+          );
         }
 
         return acc;
