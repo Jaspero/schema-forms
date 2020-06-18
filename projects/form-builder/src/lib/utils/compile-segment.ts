@@ -59,7 +59,6 @@ export function compileSegment(
         (segment.fields || [])
     )
       .reduce((acc: CompiledField[], key: string) => {
-        console.log(key);
         const definition = parser.getFromDefinitions(key, definitions);
 
         if (
