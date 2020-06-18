@@ -5,7 +5,6 @@ import {compileSegment} from './compile-segment';
 import {Parser} from './parser';
 
 export function filterAndCompileSegments(
-  role = '',
   segments: Segment[],
   parser: Parser,
   definitions: Definitions,
@@ -13,7 +12,7 @@ export function filterAndCompileSegments(
   value: any
 ) {
   return segments.reduce((acc, cur) => {
-    if (!cur.authorization || cur.authorization.includes(role)) {
+    if (!cur.authorization || cur.authorization.includes(parser.role)) {
 
       const compiled = compileSegment(
         cur,

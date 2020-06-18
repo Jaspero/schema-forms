@@ -143,7 +143,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     this.parser.loadHooks();
 
     this.segments = filterAndCompileSegments(
-      this.role,
       this.data.segments ||
       [{
         title: '',

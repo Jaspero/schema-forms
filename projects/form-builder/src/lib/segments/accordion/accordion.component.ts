@@ -45,7 +45,6 @@ export class AccordionComponent extends SegmentComponent implements OnInit {
           )
         ),
         nestedSegments: filterAndCompileSegments(
-          this.role,
           accord.nestedSegments || [],
           this.sData.parser,
           this.sData.definitions,

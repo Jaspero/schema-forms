@@ -1,4 +1,4 @@
-import {Component, HostBinding, Inject, Injector, OnInit, Optional} from '@angular/core';
+import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
 import {CompiledField} from '../interfaces/compiled-field.interface';
@@ -7,7 +7,6 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointers} from '../utils/parser';
-import {ROLE} from '../utils/role';
 
 export interface SegmentData {
   segment: CompiledSegment;
@@ -22,10 +21,7 @@ export interface SegmentData {
 export class SegmentComponent<T = any> implements OnInit {
   constructor(
     @Inject(SEGMENT_DATA) public sData: SegmentData,
-    public injector: Injector,
-    @Optional()
-    @Inject(ROLE)
-    public role: string
+    public injector: Injector
   ) {}
 
   segment: CompiledSegment<T>;
@@ -49,7 +45,6 @@ export class SegmentComponent<T = any> implements OnInit {
      * Each segment compiles all nested segments
      */
     this.nestedSegments = filterAndCompileSegments(
-      this.role,
       this.sData.segment.nestedSegments || [],
       this.sData.parser,
       this.sData.definitions,

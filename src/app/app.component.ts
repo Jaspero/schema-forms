@@ -29,20 +29,20 @@ export class AppComponent {
         address: {
           type: 'string'
         },
-        age: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string'
-              },
-              age: {
-                type: 'number'
-              }
-            }
-          }
-        }
+        // age: {
+        //   type: 'array',
+        //   items: {
+        //     type: 'object',
+        //     properties: {
+        //       name: {
+        //         type: 'string'
+        //       },
+        //       age: {
+        //         type: 'number'
+        //       }
+        //     }
+        //   }
+        // }
       }
     },
     definitions: {
@@ -54,7 +54,8 @@ export class AppComponent {
           configuration: {
             type: 'number'
           }
-        }
+        },
+        roles: 'user'
       },
       File: {
         component: {
@@ -124,23 +125,23 @@ export class AppComponent {
           '/createdOn'
         ]
       },
-      {
-        title: 'Card Array Segment',
-        array: '/age',
-        fields: [
-          '/age',
-          '/name'
-        ]
-      },
-      {
-        title: 'Empty Array Segment',
-        type: SegmentType.Empty,
-        array: '/age',
-        fields: [
-          '/age',
-          '/name'
-        ]
-      }
+      // {
+      //   title: 'Card Array Segment',
+      //   array: '/age',
+      //   fields: [
+      //     '/age',
+      //     '/name'
+      //   ]
+      // },
+      // {
+      //   title: 'Empty Array Segment',
+      //   type: SegmentType.Empty,
+      //   array: '/age',
+      //   fields: [
+      //     '/age',
+      //     '/name'
+      //   ]
+      // }
     ]
   };
 

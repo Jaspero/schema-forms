@@ -52,10 +52,32 @@ export function compileSegment(
     /**
      * If it's an array fields are parsed
      */
-    // @ts-ignore
-    fields = segment.array ? (segment.fields || []).map(fi => segment.array + fi) : (segment.fields || []).map(key =>
-      parser.field(key, parser.pointers[key], definitions)
-    );
+    fields = (
+      segment.array ?
+        // @ts-ignore
+        (segment.fields || []).map(fi => segment.array + fi) :
+        (segment.fields || [])
+    )
+      .reduce((acc: CompiledField[], key: string) => {
+        console.log(key);
+        const definition = parser.getFromDefinitions(key, definitions);
+
+        if (
+          !definition ||
+          !definition.roles ||
+          (
+            typeof definition.roles === 'string' ?
+              definition.roles === parser.role :
+              definition.roles.includes(parser.role)
+          )
+        ) {
+          acc.push(
+            parser.field(key, parser.pointers[key], definitions)
+          )
+        }
+
+        return acc;
+      }, []);
   }
 
   const compiledSegment = {

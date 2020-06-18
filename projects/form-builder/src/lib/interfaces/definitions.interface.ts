@@ -14,6 +14,12 @@ export interface Definition {
   onlyOn?: State | State[];
   disableOn?: State | State[];
   disableForRoles?: string | string[];
+
+  /**
+   * If provided only users with the appropriate
+   * role see the field
+   */
+  roles?: string | string[];
   columnsDesktop?: number;
   columnsTablet?: number;
   columnsMobile?: number;

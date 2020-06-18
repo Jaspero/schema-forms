@@ -68,7 +68,6 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
           )
         ),
         nestedSegments: filterAndCompileSegments(
-          this.role,
           tab.nestedSegments || [],
           this.sData.parser,
           this.sData.definitions,

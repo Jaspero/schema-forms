@@ -507,6 +507,13 @@ export class Parser {
     });
   }
 
+  getFromDefinitions(
+    key: string,
+    definitions: Definitions = this.definitions
+  ) {
+    return definitions[Parser.standardizeKey(key)];
+  }
+
   /**
    * TODO:
    * - Handle contains case
@@ -542,12 +549,5 @@ export class Parser {
         arrayPointers: []
       };
     }
-  }
-
-  private getFromDefinitions(
-    key: string,
-    definitions: Definitions = this.definitions
-  ) {
-    return definitions[Parser.standardizeKey(key)];
   }
 }
