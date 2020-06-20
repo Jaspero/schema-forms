@@ -337,6 +337,12 @@ export class Parser {
     single = true,
     arrayRoot?: string
   ): CompiledField {
+
+    if (!pointer) {
+      console.log('Pointers: ', this.pointers);
+      throw new Error(`Couldn't find pointer for ${pointerKey}.`);
+    }
+
     const {key, type, control, validation} = pointer;
     const definition = {
       label: key,
@@ -433,7 +439,6 @@ export class Parser {
 
       return properties.pointers;
     } else {
-      // TODO: Different SchemaType
       const cont = new FormControl('');
       control.controls.unshift(cont);
       return cont;
@@ -520,11 +525,7 @@ export class Parser {
    * - Handle items or contains as array not object
    */
   private buildArray(base: string, definition: ArrayPropertyDefinition) {
-    if (
-      !definition.items ||
-      (definition.items.type !== SchemaType.Array &&
-        definition.items.type !== SchemaType.Object)
-    ) {
+    if (!definition.items) {
       return {
         control: new FormControl([]),
         ...(definition.items

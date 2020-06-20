@@ -50,33 +50,34 @@ export function compileSegment(
   if (segment.fields) {
 
     /**
-     * If it's an array fields are parsed
+     * If it's an array fields aren' parsed
      */
-    fields = (
-      segment.array ?
+    if (segment.array) {
+      // @ts-ignore
+      fields = (segment.fields || []).map(fi => segment.array + fi);
+    } else {
+      fields = (segment.fields || [])
         // @ts-ignore
-        (segment.fields || []).map(fi => segment.array + fi) :
-        (segment.fields || [])
-    )
-      .reduce((acc: CompiledField[], key: string) => {
-        const definition = parser.getFromDefinitions(key, definitions);
+        .reduce((acc: CompiledField[], key: string) => {
+          const definition = parser.getFromDefinitions(key, definitions);
 
-        if (
-          !definition ||
-          !definition.roles ||
-          (
-            typeof definition.roles === 'string' ?
-              definition.roles === parser.role :
-              definition.roles.includes(parser.role)
-          )
-        ) {
-          acc.push(
-            parser.field(key, parser.pointers[key], definitions)
-          );
-        }
+          if (
+            !definition ||
+            !definition.roles ||
+            (
+              typeof definition.roles === 'string' ?
+                definition.roles === parser.role :
+                definition.roles.includes(parser.role)
+            )
+          ) {
+            acc.push(
+              parser.field(key, parser.pointers[key], definitions)
+            );
+          }
 
-        return acc;
-      }, []);
+          return acc;
+        }, []);
+    }
   }
 
   const compiledSegment = {

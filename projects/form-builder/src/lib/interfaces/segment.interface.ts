@@ -2,7 +2,7 @@ import {SegmentType} from '../enums/segment-type.enum';
 import {CompiledCondition, Condition} from './condition.interface';
 
 export interface Segment<C = any> {
-  fields: string[] | any[];
+  fields?: string[] | any[];
   array?: string;
   type?: SegmentType;
   title?: string;

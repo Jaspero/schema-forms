@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormBuilderData, SegmentType} from 'form-builder';
+import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
+import {FormBuilderComponent, FormBuilderData, SegmentType} from 'form-builder';
 
 @Component({
   selector: 'sc-root',
@@ -7,7 +7,11 @@ import {FormBuilderData, SegmentType} from 'form-builder';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+
+  @ViewChildren(FormBuilderComponent)
+  formComponents: QueryList<FormBuilderComponent>;
+
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
@@ -112,7 +116,7 @@ export class AppComponent {
           type: 'select'
         },
         label: 'Address'
-      },
+      }
     },
     segments: [
       {
@@ -124,7 +128,7 @@ export class AppComponent {
           '/address',
           '/createdOn'
         ]
-      },
+      }
       // {
       //   title: 'Card Array Segment',
       //   array: '/age',
@@ -185,6 +189,94 @@ export class AppComponent {
       ]
     }]
   };
+
+  arrayExamples = {
+    schema: {
+      properties: {
+        zips: {
+          type: 'array',
+          items: {
+            type: 'string'
+          }
+        },
+        ages: {
+          type: 'array',
+          items: {
+            type: 'number'
+          }
+        },
+        chips: {
+          type: 'array'
+        },
+        addresses: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              city: {
+                type: 'string'
+              },
+              address: {
+                type: 'string'
+              }
+            }
+          }
+        }
+      }
+    },
+    segments: [
+      {
+        title: 'Strings',
+        array: '/zips'
+      },
+      {
+        title: 'Numbers',
+        array: '/ages'
+      },
+      {
+        title: 'As chips',
+        fields: [
+          '/chips'
+        ]
+      },
+      {
+        title: 'Objects',
+        array: '/addresses',
+        fields: [
+          '/city',
+          '/address'
+        ]
+      }
+    ],
+    definitions: {
+      zips: {
+        label: 'Zip',
+        component: {
+          type: 'input'
+        }
+      },
+      ages: {
+        label: 'Age',
+        component: {
+          type: 'input',
+          configuration: {
+            type: 'number'
+          }
+        }
+      },
+      'addresses/city': {
+        label: 'City'
+      }
+    }
+  };
+
+  ngAfterViewInit() {
+    this.formComponents.forEach(log => {
+      log.form.valueChanges.subscribe(value => {
+        console.log('change', value)
+      })
+    })
+  }
 
   updateComponent() {
     this.exampleTwo = {

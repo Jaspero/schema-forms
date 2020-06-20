@@ -81,10 +81,12 @@ export class SegmentComponent<T = any> implements OnInit {
 
   addArrayItem(loadHook = true) {
     const array = this.segment.array as string;
-    const pointers = this.sData.parser.addArrayItem(array, loadHook);
+    const pointers: any = this.sData.parser.addArrayItem(array, loadHook);
 
-    this.arrayFields.unshift(
-      (this.segment.fields as string[]).map(key =>
+    let fields: CompiledField[];
+
+    if (this.segment.fields && this.segment.fields.length) {
+      fields = (this.segment.fields as string[]).map(key =>
         this.sData.parser.field(
           key,
           pointers[key],
@@ -92,7 +94,20 @@ export class SegmentComponent<T = any> implements OnInit {
           true,
           array
         )
-      )
+      );
+    } else {
+      fields = [this.sData.parser.field(
+        array,
+        {
+          ...this.pointers[array],
+          control: pointers
+        },
+        this.sData.definitions
+      )];
+    }
+
+    this.arrayFields.unshift(
+      fields
     );
   }
 
