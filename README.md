@@ -54,6 +54,121 @@ In order to make the generated forms customizable, this library doesn't provide
 any default styles. This means that the styles need to be loaded in the root of your application.
 A good starting point are the example styles provided here.
 
+## Composing Forms
+
+### Definitions
+
+This configuration is used for defining addition field based options. Changing the label or
+what component is used to represent the field in the form. The `Definitions` interface looks like this:
+
+| Property     | Type   | Description                                                                                                                                              | Default                                        |
+| ------------ | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| label        | string | Label of the field                                                                                                                                       | uses the name of the property                  |
+| hint         | string | Shows a hint below the field if defined                                                                                                                  | -                                              |
+| defaultValue | any    | What the value of the field should be if empty                                                                                                           | -                                              |
+| component    | object | `{type: string, configuration: any}` - The `type` defines the field to use and the `configuration` is used for any additional component specific options | What ever is the default for the property type |
+
+#### Component Types
+
+| Name  | Selector | Description    | Configuration Options               |
+| ----- | -------- | -------------- | ----------------------------------- |
+| Input | input    | A simple input | `{type: 'text', 'number', 'email'}` |
+
+#### Example
+
+```JSON
+{
+  "name": {
+    "label": "Name",
+    "defaultValue": "John"
+  },
+  "age": {
+    "label": "Age",
+    "component": {
+      "type": "slider"
+    }
+  }
+}
+```
+
+### Adding custom fields
+
+1. Create a new component that extends `FieldComponent`. You should inject `COMPONENT_DATA` in order to receive `FieldData`, most importantly the underlining `FormControl`.
+2. Map the newly added component through the `CUSTOM_FIELDS` provider e.g. 
+    ```ts
+    providers: [{
+        provide: CUSTOM_FIELDS
+        useValue: {
+            'new-component': NewComponent
+        }
+    }]
+    ```
+3. You can now use the new field in a forms `definitions`.
+
+### Handling Array
+
+The form builder supports both arrays of primitives and object arrays.
+
+#### Object Arrays
+
+The following is required to render an object array:
+
+1. An object array defined in the schema:
+    ```json
+    {
+      "addresses": {
+       "type": "array",
+       "items": {
+         "type": "object",
+         "properties": {
+           "city": {
+             "type": "string"
+           },
+           "address": {
+             "type": "string"
+           }
+         }
+       }
+      }
+    }
+    ```
+2. A dedicated segment with an array property:
+    ```json
+    {
+      "segments": [{
+        "array": "/addresses",
+        "fields": [
+          "/city",
+          "/address"
+        ] 
+      }]
+    }
+    ```
+3. You can also optionally define options for each field in the definitions:
+    ```json
+    {
+      "definitions": {
+        "addresses/city": {
+          "label": "City"
+        }  
+      }    
+    } 
+    ```
+
+#### Primitive Arrays
+
+Primitive arrays can be displayed in two variations as a dedicated segment or
+as a field. 
+
+If the property is defined with out an `items` value. It's expected to be used as a field. 
+In that case the following components can be used:
+
+- **select** in combination with `{multiple: true}`
+- **chips**
+- **draggable-list**
+
+If an items value is defined then it's expected to be rendered as its own segments.
+
 ## License
 
 MIT © [Jaspero Ltd](mailto:info@jaspero.co)
