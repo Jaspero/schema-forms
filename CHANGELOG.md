@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/Jaspero/schema-forms/compare/v1.18.0...v1.19.0) (2020-06-20)
+
+
+### Features
+
+* advanced support for arrays closes [#13](https://github.com/Jaspero/schema-forms/issues/13) ([5ae5abe](https://github.com/Jaspero/schema-forms/commit/5ae5abe2902f83d3d916e5f9b172f9fbb11ed4c5))
+
 # [1.18.0](https://github.com/Jaspero/schema-forms/compare/v1.17.0...v1.18.0) (2020-06-18)
 
 
