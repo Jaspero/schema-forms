@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/Jaspero/schema-forms/compare/v1.19.0...v1.20.0) (2020-06-21)
+
+
+### Features
+
+* arrows for reordering array items closes [#14](https://github.com/Jaspero/schema-forms/issues/14) ([e3c491f](https://github.com/Jaspero/schema-forms/commit/e3c491f71b095d5d1fc6ffc3667965468035e629))
+
 # [1.19.0](https://github.com/Jaspero/schema-forms/compare/v1.18.0...v1.19.0) (2020-06-20)
 
 
