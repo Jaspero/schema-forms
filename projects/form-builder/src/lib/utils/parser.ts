@@ -1,3 +1,4 @@
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -443,6 +444,32 @@ export class Parser {
       control.controls.unshift(cont);
       return cont;
     }
+  }
+
+  moveArrayItem(
+    pointer: string,
+    fromIndex: number,
+    toIndex: number
+  ) {
+    const target = this.pointers[pointer];
+    const control = this.pointers[pointer].control as FormArray;
+
+    if (
+      target.arrayType === SchemaType.Array ||
+      target.arrayType === SchemaType.Object
+    ) {
+      moveItemInArray(
+        target.arrayPointers as any[],
+        fromIndex,
+        toIndex
+      );
+    }
+
+    moveItemInArray(
+      control.controls,
+      fromIndex,
+      toIndex
+    );
   }
 
   removeArrayItem(pointer: string, index: number) {

@@ -1,3 +1,4 @@
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
@@ -108,6 +109,28 @@ export class SegmentComponent<T = any> implements OnInit {
 
     this.arrayFields.unshift(
       fields
+    );
+  }
+
+  moveArray(up: boolean, fromIndex: number) {
+    let toIndex: number;
+
+    if (up) {
+      toIndex = fromIndex === 0 ? this.arrayFields.length - 1 : fromIndex - 1;
+    } else {
+      toIndex = fromIndex === (this.arrayFields.length - 1) ? 0 : fromIndex + 1;
+    }
+
+    moveItemInArray(
+      this.arrayFields,
+      fromIndex,
+      toIndex
+    );
+
+    this.sData.parser.moveArrayItem(
+      this.segment.array as string,
+      fromIndex,
+      toIndex
     );
   }
 

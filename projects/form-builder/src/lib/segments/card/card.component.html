@@ -20,7 +20,17 @@
             <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
           </ng-container>
           <div class="ta-right fb-field-12">
-            <button mat-button color="warn" (click)="removeArrayItem(index)">{{'GENERAL.REMOVE' | transloco}}</button>
+            <button mat-icon-button (click)="moveArray(true, index)">
+              <mat-icon>arrow_upward</mat-icon>
+            </button>
+            &nbsp;
+            <button mat-icon-button (click)="moveArray(false, index)">
+              <mat-icon>arrow_downward</mat-icon>
+            </button>
+            &nbsp;
+            <button mat-icon-button color="warn" (click)="removeArrayItem(index)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
           </div>
           <hr *ngIf="!last" class="fb-field-12 m-y-m nested-divider">
         </ng-container>
