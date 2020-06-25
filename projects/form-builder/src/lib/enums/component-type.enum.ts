@@ -13,5 +13,6 @@ export enum ComponentType {
   Wysiwyg = 'wysiwyg',
   Chips = 'chips',
   Draggable = 'draggable',
-  Textarea = 'textarea'
+  Textarea = 'textarea',
+  Color = 'color'
 }

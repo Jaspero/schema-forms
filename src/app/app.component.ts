@@ -32,7 +32,7 @@ export class AppComponent implements AfterViewInit {
         },
         address: {
           type: 'string'
-        },
+        }
         // age: {
         //   type: 'array',
         //   items: {
@@ -51,15 +51,18 @@ export class AppComponent implements AfterViewInit {
     },
     definitions: {
       createdOn: {
-        label: 'Datum',
         formatOnLoad: `(value) => value || Date.now()`,
         component: {
-          type: 'input',
+          type: 'date',
           configuration: {
-            type: 'number'
+            includeTime: true,
+            labels: {
+              date: 'Datum',
+              hours: 'Sati',
+              minutes: 'Minute'
+            }
           }
         },
-        roles: 'user'
       },
       File: {
         component: {
@@ -72,7 +75,8 @@ export class AppComponent implements AfterViewInit {
           },
           type: 'file'
         },
-        label: 'FILE'
+        label: 'FILE',
+        roles: 'user'
       },
       photos: {
         component: {
@@ -121,12 +125,12 @@ export class AppComponent implements AfterViewInit {
     segments: [
       {
         fields: [
+          '/createdOn',
           '/File',
           '/photos',
           '/title',
           '/description',
-          '/address',
-          '/createdOn'
+          '/address'
         ]
       }
       // {
@@ -273,9 +277,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
       log.form.valueChanges.subscribe(value => {
-        console.log('change', value)
-      })
-    })
+        console.log('change', value);
+      });
+    });
   }
 
   updateComponent() {

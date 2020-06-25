@@ -1,12 +1,11 @@
 import {DatePipe} from '@angular/common';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
-import {cloneAbstractControl} from '../../utils/clone-abstract-control';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 
 interface DateData extends FieldData {
@@ -16,6 +15,12 @@ interface DateData extends FieldData {
   startView?: 'month' | 'year' | 'multi-year';
   format?: 'number' | string;
   autocomplete?: string;
+  includeTime?: boolean;
+  labels?: {
+    date: string;
+    hours: string;
+    minutes: string;
+  };
 }
 
 @Component({
@@ -26,39 +31,40 @@ interface DateData extends FieldData {
 })
 export class DateFieldComponent extends FieldComponent<DateData>
   implements OnInit {
+  startDate: Date;
+
+  form: FormGroup;
+
   constructor(
     @Inject(COMPONENT_DATA) public cData: DateData,
     private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
+    private formBuilderService: FormBuilderService,
+    private fb: FormBuilder
   ) {
     super(cData);
   }
-
-  startDate: Date;
-  entryControl: FormControl;
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
     this.startDate = this.cData.startAt
       ? new Date(this.cData.startAt)
       : new Date();
-    this.entryControl = cloneAbstractControl(this.cData.control);
 
-    /**
-     * Dirty hack for getting numbers to display properly might need revisiting
-     */
-    if (
-      typeof this.entryControl.value === 'number' ||
-      typeof this.entryControl.value === 'string'
-    ) {
-      this.entryControl.setValue(new Date(this.entryControl.value));
-    }
+    const date = new Date(this.cData.control.value);
+    this.form = this.fb.group({
+      date: [date],
+      hours: [date.getHours() || '12', [Validators.min(0), Validators.max(24)]],
+      minutes: [date.getMinutes() || '0', [Validators.min(0), Validators.max(59)]]
+    });
   }
 
   save() {
     return of({}).pipe(
       tap(() => {
-        let value = this.entryControl.value;
+        const form = this.form.getRawValue();
+        let value = form.date;
+        value.setHours(form.hours);
+        value.setMinutes(form.minutes);
 
         if (value) {
           if (this.cData.format) {
