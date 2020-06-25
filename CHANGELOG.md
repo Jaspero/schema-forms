@@ -1,3 +1,11 @@
+# [1.21.0](https://github.com/Jaspero/schema-forms/compare/v1.20.0...v1.21.0) (2020-06-25)
+
+
+### Features
+
+* Extended date-field.component to include time ([8003112](https://github.com/Jaspero/schema-forms/commit/8003112fd1e78ff6d29b1d9d238710dc9aebb59f))
+* Extended date-field.component to include time ([08b865c](https://github.com/Jaspero/schema-forms/commit/08b865cbcce83bb8a25cccafc8a9d28d1b2cec87))
+
 # [1.20.0](https://github.com/Jaspero/schema-forms/compare/v1.19.0...v1.20.0) (2020-06-21)
 
 
