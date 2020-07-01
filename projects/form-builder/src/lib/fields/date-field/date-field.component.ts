@@ -1,12 +1,13 @@
 import {DatePipe} from '@angular/common';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {cloneAbstractControl} from '../../utils/clone-abstract-control';
 
 interface DateData extends FieldData {
   startYear?: number;
@@ -16,11 +17,10 @@ interface DateData extends FieldData {
   format?: 'number' | string;
   autocomplete?: string;
   includeTime?: boolean;
-  labels?: {
-    date: string;
-    hours: string;
-    minutes: string;
-  };
+  labelHours?: string;
+  labelMinutes?: string;
+  placeholderHours?: string;
+  placeholderMinutes?: string;
 }
 
 @Component({
@@ -31,18 +31,19 @@ interface DateData extends FieldData {
 })
 export class DateFieldComponent extends FieldComponent<DateData>
   implements OnInit {
-  startDate: Date;
-
-  form: FormGroup;
-
   constructor(
     @Inject(COMPONENT_DATA) public cData: DateData,
     private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService,
-    private fb: FormBuilder
+    private formBuilderService: FormBuilderService
   ) {
     super(cData);
   }
+
+  form: FormGroup;
+  startDate: Date;
+  entryControl: FormControl;
+  hoursControl: FormControl;
+  minutesControl: FormControl;
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
@@ -51,20 +52,37 @@ export class DateFieldComponent extends FieldComponent<DateData>
       : new Date();
 
     const date = new Date(this.cData.control.value);
-    this.form = this.fb.group({
-      date: [date],
-      hours: [date.getHours() || '12', [Validators.min(0), Validators.max(24)]],
-      minutes: [date.getMinutes() || '0', [Validators.min(0), Validators.max(59)]]
-    });
+
+    this.entryControl = cloneAbstractControl(this.cData.control);
+    this.hoursControl = new FormControl(
+      {value: date.getHours() || 0, disabled: this.cData.control.disabled},
+      [Validators.min(0), Validators.max(23)]
+    );
+    this.minutesControl = new FormControl(
+      {value: date.getMinutes() || 0, disabled: this.cData.control.disabled},
+      [Validators.min(0), Validators.max(59)]
+    );
+
+    /**
+     * Dirty hack for getting numbers to display properly might need revisiting
+     */
+    if (
+      typeof this.entryControl.value === 'number' ||
+      typeof this.entryControl.value === 'string'
+    ) {
+      this.entryControl.setValue(new Date(this.entryControl.value));
+    }
   }
 
   save() {
     return of({}).pipe(
       tap(() => {
-        const form = this.form.getRawValue();
-        let value = form.date;
-        value.setHours(form.hours);
-        value.setMinutes(form.minutes);
+        let value = this.entryControl.value;
+
+        if (this.cData.includeTime) {
+          value.setHours(this.hoursControl.value || 0);
+          value.setMinutes(this.minutesControl.value || 0);
+        }
 
         if (value) {
           if (this.cData.format) {

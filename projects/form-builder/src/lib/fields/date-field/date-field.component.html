@@ -1,19 +1,19 @@
-<form class="flex jc-between" [formGroup]="form">
-  <div class="flex-4">
+<div class="grid nogutter">
+  <div class="{{!cData.includeTime ? 'col-12' : 'col-8'}}">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>
-        {{cData?.labels?.date || 'Date'}}
+        {{cData.label || 'Date'}}
       </mat-label>
       <input
         matInput
         [attr.autocomplete]="cData.autocomplete || 'off'"
         [matDatepicker]="picker"
         [placeholder]="cData.placeholder"
-        formControlName="date">
+        [formControl]="entryControl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker
         #picker
-        [touchUi]="cData.touchUi || true"
+        [touchUi]="cData.touchUi || false"
         [startView]="cData.startView || 'month'"
         [startAt]="startDate">
       </mat-datepicker>
@@ -21,17 +21,17 @@
     </mat-form-field>
   </div>
   <ng-container *ngIf="cData.includeTime">
-    <div class="flex-1 m-x-xs">
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label>{{cData?.labels?.hours || 'Hours'}}</mat-label>
-        <input matInput type="number" placeholder="HH" formControlName="hours">
+    <div class="col-2">
+      <mat-form-field class="w-full" class="w-full" appearance="outline">
+        <mat-label>{{cData.labelHours || 'Hours'}}</mat-label>
+        <input matInput type="number" [placeholder]="cData.placeholderHours || 'HH'" [formControl]="hoursControl">
       </mat-form-field>
     </div>
-    <div class="flex-1">
-      <mat-form-field appearance="outline">
-        <mat-label>{{cData?.labels?.minutes || 'Minutes'}}</mat-label>
-        <input matInput type="number" placeholder="MM" formControlName="minutes">
+    <div class="col-2">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>{{cData.labelMinutes || 'Minutes'}}</mat-label>
+        <input matInput type="number" [placeholder]="cData.placeholderMinutes || 'MM'" [formControl]="minutesControl">
       </mat-form-field>
     </div>
   </ng-container>
-</form>
+</div>
