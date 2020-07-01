@@ -106,7 +106,7 @@ export class SegmentComponent<T = any> implements OnInit {
           this.sData.definitions,
           true,
           array
-        )
+        );
       });
     } else {
       fields = [this.sData.parser.field(
