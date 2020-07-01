@@ -17,7 +17,8 @@ export function compileSegment(
   parser: Parser,
   definitions: Definitions,
   injector: Injector,
-  entryValue: any
+  entryValue: any,
+  parent = ''
 ) {
   const classes: string[] = [];
 
@@ -147,7 +148,8 @@ export function compileSegment(
       createSegmentInjector(injector, {
         segment: compiledSegment,
         parser,
-        definitions
+        definitions,
+        ...parent && {parent},
       })
     ),
     ...compiledSegment

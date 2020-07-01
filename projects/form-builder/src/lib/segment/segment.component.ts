@@ -13,6 +13,7 @@ export interface SegmentData {
   segment: CompiledSegment;
   parser: Parser;
   definitions: Definitions;
+  parent?: string;
 }
 
 @Component({
@@ -28,6 +29,7 @@ export class SegmentComponent<T = any> implements OnInit {
   segment: CompiledSegment<T>;
   pointers: Pointers;
   nestedSegments: CompiledSegment<T>[];
+  nestedArraySegments: Array<CompiledSegment[]> = [];
   arrayFields: Array<CompiledField[]> = [];
 
   @HostBinding('class')
@@ -82,20 +84,30 @@ export class SegmentComponent<T = any> implements OnInit {
 
   addArrayItem(loadHook = true) {
     const array = this.segment.array as string;
-    const pointers: any = this.sData.parser.addArrayItem(array, loadHook);
+    const pointers: any = this.sData.parser.addArrayItem(
+      (this.sData.parent || '') + array,
+      loadHook,
+      this.sData.parent ? {
+        pointer: this.sData.parent,
+        index: 0
+      } : undefined
+    );
 
     let fields: CompiledField[];
 
     if (this.segment.fields && this.segment.fields.length) {
-      fields = (this.segment.fields as string[]).map(key =>
-        this.sData.parser.field(
+      fields = (this.segment.fields as string[]).map(key => {
+
+        key = (this.sData.parent || '') + key;
+
+        return this.sData.parser.field(
           key,
           pointers[key],
           this.sData.definitions,
           true,
           array
         )
-      );
+      });
     } else {
       fields = [this.sData.parser.field(
         array,
@@ -109,6 +121,17 @@ export class SegmentComponent<T = any> implements OnInit {
 
     this.arrayFields.unshift(
       fields
+    );
+
+    this.nestedArraySegments.unshift(
+      this.nestedSegments = filterAndCompileSegments(
+        this.sData.segment.nestedSegments || [],
+        this.sData.parser,
+        this.sData.definitions,
+        this.injector,
+        this.segment.entryValue,
+        this.segment.array
+      )
     );
   }
 
@@ -127,15 +150,33 @@ export class SegmentComponent<T = any> implements OnInit {
       toIndex
     );
 
-    this.sData.parser.moveArrayItem(
-      this.segment.array as string,
+    moveItemInArray(
+      this.nestedArraySegments,
       fromIndex,
       toIndex
+    );
+
+    this.sData.parser.moveArrayItem(
+      (this.sData.parent || '') + this.segment.array as string,
+      fromIndex,
+      toIndex,
+      this.sData.parent ? {
+        pointer: this.sData.parent,
+        index: 0
+      } : undefined
     );
   }
 
   removeArrayItem(index: number) {
-    this.sData.parser.removeArrayItem(this.segment.array as string, index);
+    this.sData.parser.removeArrayItem(
+      (this.sData.parent || '') + this.segment.array as string,
+      index,
+      this.sData.parent ? {
+        pointer: this.sData.parent,
+        index: 0
+      } : undefined
+    );
+    this.nestedArraySegments.splice(index, 1);
     this.arrayFields.splice(index, 1);
   }
 }

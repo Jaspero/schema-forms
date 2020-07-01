@@ -19,6 +19,11 @@
           <ng-container *ngFor="let field of fields | showField:sData.parser">
             <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
           </ng-container>
+
+          <div class="fb-field-12" *ngFor="let nested of (nestedArraySegments[index] || [])">
+            <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
+          </div>
+
           <div class="ta-right fb-field-12">
             <button mat-icon-button (click)="moveArray(true, index)">
               <mat-icon>arrow_upward</mat-icon>
@@ -40,11 +45,11 @@
         <ng-container *ngFor="let field of fields | showField:sData.parser">
           <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
         </ng-container>
-      </ng-template>
 
-      <ng-container *ngFor="let nested of (segment.nestedSegments || [])">
-        <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
-      </ng-container>
+        <ng-container *ngFor="let nested of nestedSegments">
+          <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
+        </ng-container>
+      </ng-template>
     </div>
   </mat-card-content>
 </mat-card>

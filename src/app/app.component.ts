@@ -225,6 +225,31 @@ export class AppComponent implements AfterViewInit {
               }
             }
           }
+        },
+        nAddresses: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              city: {
+                type: 'string'
+              },
+              nnAddresses: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    address: {
+                      type: 'string'
+                    },
+                    some: {
+                      type: 'string'
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -250,6 +275,22 @@ export class AppComponent implements AfterViewInit {
           '/city',
           '/address'
         ]
+      },
+      {
+        title: 'Nested Arrays',
+        array: '/nAddresses',
+        fields: [
+          '/city'
+        ],
+        nestedSegments: [{
+          type: 'empty',
+          title: 'Addresses',
+          array: '/nnAddresses',
+          fields: [
+            '/address',
+            '/some'
+          ]
+        }]
       }
     ],
     definitions: {

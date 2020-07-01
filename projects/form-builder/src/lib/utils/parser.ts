@@ -416,9 +416,17 @@ export class Parser {
     };
   }
 
-  addArrayItem(pointer: string, loadHooks = false) {
-    const target = this.pointers[pointer];
-    const control = this.pointers[pointer].control as FormArray;
+  addArrayItem(
+    pointer: string,
+    loadHooks = false,
+    parentArray?: {
+      index: number,
+      pointer: string
+    }
+  ) {
+    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
+    const target = pointers[pointer];
+    const control = pointers[pointer].control as FormArray;
 
     if (
       target.arrayType === SchemaType.Array ||
@@ -449,10 +457,15 @@ export class Parser {
   moveArrayItem(
     pointer: string,
     fromIndex: number,
-    toIndex: number
+    toIndex: number,
+    parentArray?: {
+      index: number,
+      pointer: string
+    }
   ) {
-    const target = this.pointers[pointer];
-    const control = this.pointers[pointer].control as FormArray;
+    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
+    const target = pointers[pointer];
+    const control = pointers[pointer].control as FormArray;
 
     if (
       target.arrayType === SchemaType.Array ||
@@ -472,10 +485,17 @@ export class Parser {
     );
   }
 
-  removeArrayItem(pointer: string, index: number) {
-    // @ts-ignore
-    this.pointers[pointer].arrayPointers.splice(index, 1);
-    (this.pointers[pointer].control as FormArray).removeAt(index);
+  removeArrayItem(
+    pointer: string,
+    index: number,
+    parentArray?: {
+      index: number,
+      pointer: string
+    }
+  ) {
+    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
+    pointers[pointer].arrayPointers.splice(index, 1);
+    (pointers[pointer].control as FormArray).removeAt(index);
   }
 
   loadHooks(pointers = this.pointers) {
