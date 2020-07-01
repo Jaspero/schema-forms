@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/Jaspero/schema-forms/compare/v1.21.0...v1.21.1) (2020-07-01)
+
+
+### Bug Fixes
+
+* date field corrections ([2c049d0](https://github.com/Jaspero/schema-forms/commit/2c049d06ec877fa546aa4aa1bdb468e13045064e))
+
 # [1.21.0](https://github.com/Jaspero/schema-forms/compare/v1.20.0...v1.21.0) (2020-06-25)
 
 
