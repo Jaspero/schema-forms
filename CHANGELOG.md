@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/Jaspero/schema-forms/compare/v1.21.1...v1.22.0) (2020-07-01)
+
+
+### Features
+
+* support for nested arrays :tada: ([a930095](https://github.com/Jaspero/schema-forms/commit/a93009543465c7642826b245c12344bf86f8d1b9))
+
 ## [1.21.1](https://github.com/Jaspero/schema-forms/compare/v1.21.0...v1.21.1) (2020-07-01)
 
 
