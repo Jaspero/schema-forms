@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/Jaspero/schema-forms/compare/v1.22.0...v1.23.0) (2020-07-05)
+
+
+### Features
+
+* **select:** connected dynamicFilter property :zap: ([ae985ce](https://github.com/Jaspero/schema-forms/commit/ae985ce3e73b044ea076ba53d491651931c08f52))
+
 # [1.22.0](https://github.com/Jaspero/schema-forms/compare/v1.21.1...v1.22.0) (2020-07-01)
 
 
