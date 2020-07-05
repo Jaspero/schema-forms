@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit, Optional} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
@@ -6,6 +6,7 @@ import {FieldData} from '../../interfaces/field-data.interface';
 import {Option} from '../../interfaces/option.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
 import {DbService} from '../../services/db.service';
+import {ADDITIONAL_CONTEXT} from '../../utils/additional-context';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {parseTemplate} from '../../utils/parse-template';
 import {ROLE} from '../../utils/role';
@@ -31,7 +32,7 @@ interface Populate {
 
   /**
    * A stringified function that receives
-   * an object with {fieldData: SelectData, value: form.getRawValue(), role: string}
+   * an object with {fieldData: SelectData, value: form.getRawValue(), role: string, additionalContext?: any}
    * and should return a WhereFilter.
    * This doesn't work in combination with the dependency property
    */
@@ -65,7 +66,10 @@ export class SelectComponent extends FieldComponent<SelectData>
     @Inject(COMPONENT_DATA) public cData: SelectData,
     private dbService: DbService,
     @Inject(ROLE)
-    private role: string
+    private role: string,
+    @Optional()
+    @Inject(ADDITIONAL_CONTEXT)
+    private additionalContext: any
   ) {
     super(cData);
   }
@@ -158,7 +162,8 @@ export class SelectComponent extends FieldComponent<SelectData>
           filter = safeEval(populate.dynamicFilter)({
             fieldData: this.cData,
             value: this.cData.form.getRawValue(),
-            role: this.role
+            role: this.role,
+            additionalContext: this.additionalContext
           });
         }
 
