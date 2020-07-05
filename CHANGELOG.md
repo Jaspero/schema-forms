@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/Jaspero/schema-forms/compare/v1.24.0...v1.24.1) (2020-07-05)
+
+
+### Bug Fixes
+
+* date field not full width [#20](https://github.com/Jaspero/schema-forms/issues/20) ([56a0b81](https://github.com/Jaspero/schema-forms/commit/56a0b81f45ecdb72ec6b1bd1324719aa9bb8729a))
+
 # [1.24.0](https://github.com/Jaspero/schema-forms/compare/v1.23.0...v1.24.0) (2020-07-05)
 
 
