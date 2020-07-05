@@ -8,6 +8,7 @@ import {WhereFilter} from '../../interfaces/where-filter.interface';
 import {DbService} from '../../services/db.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {parseTemplate} from '../../utils/parse-template';
+import {ROLE} from '../../utils/role';
 import {safeEval} from '../../utils/safe-eval';
 
 interface Populate {
@@ -27,6 +28,14 @@ interface Populate {
    * it represents the id of the document
    */
   filter?: WhereFilter | string;
+
+  /**
+   * A stringified function that receives
+   * an object with {fieldData: SelectData, value: form.getRawValue(), role: string}
+   * and should return a WhereFilter.
+   * This doesn't work in combination with the dependency property
+   */
+  dynamicFilter?: string;
 
   dependency?: {
     key: string;
@@ -54,7 +63,9 @@ export class SelectComponent extends FieldComponent<SelectData>
 
   constructor(
     @Inject(COMPONENT_DATA) public cData: SelectData,
-    private dbService: DbService
+    private dbService: DbService,
+    @Inject(ROLE)
+    private role: string
   ) {
     super(cData);
   }
@@ -140,10 +151,21 @@ export class SelectComponent extends FieldComponent<SelectData>
             )
           );
       } else {
+
+        let filter: WhereFilter = populate.filter as WhereFilter;
+
+        if (populate.dynamicFilter) {
+          filter = safeEval(populate.dynamicFilter)({
+            fieldData: this.cData,
+            value: this.cData.form.getRawValue(),
+            role: this.role
+          });
+        }
+
         this.dataSet$ = documentsMethod({
           collection: populate.collection,
           orderBy: populate.orderBy,
-          filter: populate.filter
+          filter
         } as any);
       }
     } else {
