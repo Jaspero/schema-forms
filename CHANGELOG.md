@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/Jaspero/schema-forms/compare/v1.23.0...v1.24.0) (2020-07-05)
+
+
+### Features
+
+* Added additional-context for injection in eval functions; ([388e593](https://github.com/Jaspero/schema-forms/commit/388e5934909ee8c33296596fbae6d4e00c095194))
+
 # [1.23.0](https://github.com/Jaspero/schema-forms/compare/v1.22.0...v1.23.0) (2020-07-05)
 
 
