@@ -1,3 +1,11 @@
+# [1.25.0](https://github.com/Jaspero/schema-forms/compare/v1.24.1...v1.25.0) (2020-07-07)
+
+
+### Features
+
+* bump :package: json ([efbb5d7](https://github.com/Jaspero/schema-forms/commit/efbb5d7840dd83f139a63e6b704c93a81a23a9ff))
+* bump angular to v10 ([a68b14d](https://github.com/Jaspero/schema-forms/commit/a68b14d0ad121be1b6cfb7b7e09af1bfc88aaef2))
+
 ## [1.24.1](https://github.com/Jaspero/schema-forms/compare/v1.24.0...v1.24.1) (2020-07-05)
 
 
