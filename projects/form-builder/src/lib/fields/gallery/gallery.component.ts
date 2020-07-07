@@ -309,43 +309,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     }
   }
 
-  dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
-    if (drop === this.placeholder) {
-      return true;
-    }
-
-    if (drop !== this.activeContainer) {
-      return false;
-    }
-
-    const phElement = this.placeholder.element.nativeElement;
-    const sourceElement = drag.dropContainer.element.nativeElement as any;
-    const dropElement = drop.element.nativeElement as any;
-
-    const dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
-    const dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
-
-    if (!this.source) {
-      this.sourceIndex = dragIndex;
-      this.source = drag.dropContainer;
-
-      phElement.style.width = sourceElement.clientWidth + 'px';
-      phElement.style.height = sourceElement.clientHeight + 'px';
-
-      sourceElement.parentElement.removeChild(sourceElement);
-    }
-
-    this.targetIndex = dropIndex;
-    this.target = drop;
-
-    phElement.style.display = '';
-    dropElement.parentElement.insertBefore(phElement, (dropIndex > dragIndex
-      ? dropElement.nextSibling : dropElement));
-
-    this.placeholder.enter(drag, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
-    return false;
-  }
-
   /** Determines the point of the page that was touched by the user. */
   getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
     // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.

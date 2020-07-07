@@ -43,7 +43,7 @@
     "@angular/router": "10.0.2",
     "@jaspero/form-builder": "1.24.1",
     "@jaspero/ng-helpers": "4.0.2",
-    "@ngneat/transloco": "1.1.1",
+    "@ngneat/transloco": "2.17.3",
     "json-pointer": "0.6.0",
     "rxjs": "6.6.0",
     "tinymce": "5.2.2",

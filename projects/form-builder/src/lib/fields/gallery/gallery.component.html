@@ -14,12 +14,11 @@
   <ng-container>
     <div class="fb-gallery-list" cdkDropListGroup>
 
-      <div class="fb-gallery-list-placeholder" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped()"></div>
+      <div class="fb-gallery-list-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
 
       <div
         cdkDropList
         class="fb-gallery-list-image"
-        [cdkDropListEnterPredicate]="dropListEnterPredicate"
         (cdkDropListDropped)="dropListDropped()"
         *ngFor="let val of cData.control.value; index as index">
 
