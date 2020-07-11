@@ -38,8 +38,17 @@ interface Populate {
    */
   dynamicFilter?: string;
 
+  /**
+   * Use this property if the field depends on changes
+   * of a different field in the form
+   */
   dependency?: {
     key: string;
+
+    /**
+     * A method for defining query dynamically
+     * (value) => {collection: string; orderBy: string; filter: WhereFilter | string}
+     */
     method: string;
   };
 }
@@ -123,7 +132,12 @@ export class SelectComponent extends FieldComponent<SelectData>
           .pipe(
             map(docs => {
               if (mapResults) {
-                docs = mapResults(docs);
+                docs = mapResults(docs, {
+                  fieldData: this.cData,
+                  value: this.cData.form.getRawValue(),
+                  role: this.role,
+                  additionalContext: this.additionalContext
+                });
               }
 
               return docs.map(doc => ({
@@ -150,7 +164,12 @@ export class SelectComponent extends FieldComponent<SelectData>
             ),
             switchMap(value =>
               documentsMethod(
-                gm(value)
+                gm(value, {
+                  fieldData: this.cData,
+                  value: this.cData.form.getRawValue(),
+                  role: this.role,
+                  additionalContext: this.additionalContext
+                })
               )
             )
           );
