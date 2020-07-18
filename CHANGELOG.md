@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/Jaspero/schema-forms/compare/v1.26.0...v1.26.1) (2020-07-18)
+
+
+### Bug Fixes
+
+* setHours only if value exists ([353299e](https://github.com/Jaspero/schema-forms/commit/353299ea9e3def6f8387c2bc9a27e51828f8355e))
+
 # [1.26.0](https://github.com/Jaspero/schema-forms/compare/v1.25.0...v1.26.0) (2020-07-11)
 
 
