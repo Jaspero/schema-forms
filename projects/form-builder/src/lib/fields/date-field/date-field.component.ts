@@ -79,12 +79,12 @@ export class DateFieldComponent extends FieldComponent<DateData>
       tap(() => {
         let value = this.entryControl.value;
 
-        if (this.cData.includeTime) {
-          value.setHours(this.hoursControl.value || 0);
-          value.setMinutes(this.minutesControl.value || 0);
-        }
-
         if (value) {
+          if (this.cData.includeTime) {
+            value.setHours(this.hoursControl.value || 0);
+            value.setMinutes(this.minutesControl.value || 0);
+          }
+
           if (this.cData.format) {
             if (this.cData.format === 'number') {
               value = value.getTime();

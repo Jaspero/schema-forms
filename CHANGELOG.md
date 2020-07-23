@@ -1,3 +1,17 @@
+## [1.26.1](https://github.com/Jaspero/schema-forms/compare/v1.26.0...v1.26.1) (2020-07-18)
+
+
+### Bug Fixes
+
+* setHours only if value exists ([353299e](https://github.com/Jaspero/schema-forms/commit/353299ea9e3def6f8387c2bc9a27e51828f8355e))
+
+# [1.26.0](https://github.com/Jaspero/schema-forms/compare/v1.25.0...v1.26.0) (2020-07-11)
+
+
+### Features
+
+* **select:** provide additional data to dependency.method and mapResults methods ([7c5e4de](https://github.com/Jaspero/schema-forms/commit/7c5e4de3c2a146786b414820aabd23f8fd5c1bb2))
+
 # [1.25.0](https://github.com/Jaspero/schema-forms/compare/v1.24.1...v1.25.0) (2020-07-07)
 
 
