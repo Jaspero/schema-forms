@@ -2,13 +2,13 @@
   <div class="p-l-0 {{!cData.includeTime ? 'col-12' : 'col-8'}}">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>
-        {{cData.label || 'Date'}}
+        {{cData.label | transloco}}
       </mat-label>
       <input
         matInput
         [attr.autocomplete]="cData.autocomplete || 'off'"
         [matDatepicker]="picker"
-        [placeholder]="cData.placeholder"
+        [placeholder]="cData.placeholder | transloco"
         [formControl]="entryControl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker
@@ -23,13 +23,13 @@
   <ng-container *ngIf="cData.includeTime">
     <div class="col-2">
       <mat-form-field class="w-full" class="w-full" appearance="outline">
-        <mat-label>{{cData.labelHours || 'Hours'}}</mat-label>
+        <mat-label>{{(cData.labelHours || 'HOURS') | transloco}}</mat-label>
         <input matInput type="number" [placeholder]="cData.placeholderHours || 'HH'" [formControl]="hoursControl">
       </mat-form-field>
     </div>
     <div class="col-2 p-r-0">
       <mat-form-field class="w-full" appearance="outline">
-        <mat-label>{{cData.labelMinutes || 'Minutes'}}</mat-label>
+        <mat-label>{{(cData.labelMinutes || 'MINUTES') | transloco}}</mat-label>
         <input matInput type="number" [placeholder]="cData.placeholderMinutes || 'MM'" [formControl]="minutesControl">
       </mat-form-field>
     </div>

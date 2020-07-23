@@ -1,9 +1,9 @@
 <mat-form-field appearance="outline" class="w-full">
-  <mat-label>{{cData.label}}</mat-label>
+  <mat-label>{{cData.label | transloco}}</mat-label>
   <input
     matInput
     type="url"
-    [placeholder]="cData.placeholder"
+    [placeholder]="cData.placeholder | transloco"
     [class.disabled]="disInput"
     [formControl]="imageUrl">
   <div matSuffix class="fb-image-suffix">

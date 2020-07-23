@@ -1,7 +1,7 @@
 <mat-form-field class="w-full" appearance="outline" [class.mat-form-field-has-hint]="cData.hint">
-  <mat-label>{{cData.label}}</mat-label>
+  <mat-label>{{cData.label | transloco}}</mat-label>
   <mat-select
-    [placeholder]="cData.placeholder"
+    [placeholder]="cData.placeholder | transloco"
     [formControl]="cData.control"
     [multiple]="cData.multiple"
     [attr.autocomplite]="cData.autocomplete || 'off'">

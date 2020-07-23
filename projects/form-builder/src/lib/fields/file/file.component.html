@@ -2,16 +2,16 @@
   <fieldset class="fb-file">
     <input #file type="file" hidden (change)="fileChange($event)">
 
-    <legend class="fb-file-legend">{{cData.label}}</legend>
+    <legend class="fb-file-legend">{{cData.label | transloco}}</legend>
 
     <div class="fb-file-field">
       <span class="fb-file-field-name">{{name || (emptyLabel | transloco)}}</span>
 
       <div class="fb-file-field-actions">
         <ng-container *ngIf="!cData.preventClear && name">
-          <button mat-button (click)="clear()">Remove</button>|
+          <button mat-button (click)="clear()">{{'REMOVE' | transloco}}</button>|
         </ng-container>
-        <button mat-button (click)="file.click()">Add</button>
+        <button mat-button (click)="file.click()">{{'ADD' | transloco}}</button>
       </div>
     </div>
   </fieldset>
