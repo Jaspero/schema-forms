@@ -1,3 +1,15 @@
+# [1.27.0](https://github.com/Jaspero/schema-forms/compare/v1.26.1...v1.27.0) (2020-07-24)
+
+
+### Bug Fixes
+
+* set default values for labels, placeholders and hints ([4413384](https://github.com/Jaspero/schema-forms/commit/4413384a00e27276ecb05b11553eae74d7cd701b))
+
+
+### Features
+
+* Added tranloco for labels, hints and placeholders in all fields ([12a307f](https://github.com/Jaspero/schema-forms/commit/12a307fdac4e3bd1003997ebef064f6bdefa5caa))
+
 ## [1.26.1](https://github.com/Jaspero/schema-forms/compare/v1.26.0...v1.26.1) (2020-07-18)
 
 
