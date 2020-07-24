@@ -1,5 +1,5 @@
 <div class="mat-form-field-wrapper">
-  <p class="fs-small fg-secondary" *ngIf="cData.label">{{cData.label | transloco}}</p>
+  <p class="fs-small fg-secondary" *ngIf="cData.label">{{(cData.label || '') | transloco}}</p>
   <mat-radio-group [formControl]="cData.control">
     <mat-radio-button
       *ngFor="let option of cData.options"
@@ -9,6 +9,6 @@
     </mat-radio-button>
   </mat-radio-group>
   <p class="fs-small fg-secondary" *ngIf="cData.hint">
-    {{cData.hint | transloco}}
+    {{(cData.hint | transloco) | transloco}}
   </p>
 </div>

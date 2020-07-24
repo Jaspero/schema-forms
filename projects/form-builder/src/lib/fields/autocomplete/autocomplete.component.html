@@ -1,8 +1,8 @@
 <mat-form-field appearance="outline" class="w-full">
-  <mat-label>{{cData.label | transloco}}</mat-label>
+  <mat-label>{{(cData.label || '') | transloco}}</mat-label>
   <input
     matInput
-    [placeholder]="cData.placeholder | transloco"
+    [placeholder]="(cData.placeholder || '') | transloco"
     [attr.autocomplete]="cData.autocomplete || 'on'"
     [formControl]="cData.control"
     [matAutocomplete]="auto">

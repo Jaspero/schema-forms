@@ -2,13 +2,13 @@
   <div class="p-l-0 {{!cData.includeTime ? 'col-12' : 'col-8'}}">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>
-        {{cData.label | transloco}}
+        {{(cData.label || '') | transloco}}
       </mat-label>
       <input
         matInput
         [attr.autocomplete]="cData.autocomplete || 'off'"
         [matDatepicker]="picker"
-        [placeholder]="cData.placeholder | transloco"
+        [placeholder]="(cData.placeholder || '') | transloco"
         [formControl]="entryControl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker

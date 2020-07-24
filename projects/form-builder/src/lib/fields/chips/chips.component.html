@@ -1,5 +1,5 @@
 <mat-form-field class="w-full" appearance="outline">
-  <mat-label>{{cData.label | transloco}}</mat-label>
+  <mat-label>{{(cData.label || '') | transloco}}</mat-label>
   <mat-chip-list #chipList>
     <mat-chip
       *ngFor="let chip of data"
@@ -12,7 +12,7 @@
     <input
       matInput
       [attr.autocomplete]="cData.autocomplete || 'on'"
-      [placeholder]="cData.placeholder | transloco"
+      [placeholder]="(cData.placeholder || '') | transloco"
       (matChipInputTokenEnd)="add($event)"
       [matChipInputFor]="chipList">
   </mat-chip-list>

@@ -2,7 +2,7 @@
   <fieldset class="fb-file">
     <input #file type="file" hidden (change)="fileChange($event)">
 
-    <legend class="fb-file-legend">{{cData.label | transloco}}</legend>
+    <legend class="fb-file-legend">{{(cData.label || '') | transloco}}</legend>
 
     <div class="fb-file-field">
       <span class="fb-file-field-name">{{name || (emptyLabel | transloco)}}</span>
