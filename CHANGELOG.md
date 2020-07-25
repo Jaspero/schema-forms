@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/Jaspero/schema-forms/compare/v1.27.0...v1.28.0) (2020-07-25)
+
+
+### Features
+
+* added class property to FieldDate making it possible to append custom classes to a field ([c03e9fc](https://github.com/Jaspero/schema-forms/commit/c03e9fce7abe167417e367444a967b432909833c))
+
 # [1.27.0](https://github.com/Jaspero/schema-forms/compare/v1.26.1...v1.27.0) (2020-07-24)
 
 
