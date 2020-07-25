@@ -24,6 +24,10 @@ export class FieldComponent<T extends FieldData> {
       classes.push(`s-fb-field-${this.cData.columnsMobile}`);
     }
 
+    if (this.cData.class) {
+      classes.push(this.cData.class);
+    }
+
     this.class = classes.join(' ');
   }
 

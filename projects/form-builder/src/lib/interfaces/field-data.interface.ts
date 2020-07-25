@@ -17,4 +17,5 @@ export interface FieldData {
   columnsTablet?: number;
   hint?: string;
   placeholder?: string;
+  class?: string;
 }
