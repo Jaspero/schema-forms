@@ -1,3 +1,10 @@
+## [1.28.2](https://github.com/Jaspero/schema-forms/compare/v1.28.1...v1.28.2) (2020-07-25)
+
+
+### Bug Fixes
+
+* **image:** sanitize url for image preview closes [#17](https://github.com/Jaspero/schema-forms/issues/17) ([6948467](https://github.com/Jaspero/schema-forms/commit/6948467c619c2ff59982f352832b4ebd28b4e335))
+
 ## [1.28.1](https://github.com/Jaspero/schema-forms/compare/v1.28.0...v1.28.1) (2020-07-25)
 
 
