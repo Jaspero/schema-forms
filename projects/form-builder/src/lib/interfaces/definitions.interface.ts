@@ -14,6 +14,7 @@ export interface Definition {
   onlyOn?: State | State[];
   disableOn?: State | State[];
   disableForRoles?: string | string[];
+  class?: string;
 
   /**
    * If provided only users with the appropriate
