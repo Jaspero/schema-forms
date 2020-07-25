@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/Jaspero/schema-forms/compare/v1.28.0...v1.28.1) (2020-07-25)
+
+
+### Bug Fixes
+
+* missing class property in definition ([08c6a34](https://github.com/Jaspero/schema-forms/commit/08c6a34636007488a2a45e3854b9f002358d9741))
+
 # [1.28.0](https://github.com/Jaspero/schema-forms/compare/v1.27.0...v1.28.0) (2020-07-25)
 
 
