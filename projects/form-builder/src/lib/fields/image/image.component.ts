@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
@@ -31,28 +32,29 @@ interface ImageData extends FieldData {
 })
 export class ImageComponent extends FieldComponent<ImageData>
   implements OnInit {
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-  value: File | null;
-  imageUrl: FormControl;
-  disInput = false;
-  imageSrc: string;
-
-  allowedImageTypes: string[];
-  forbiddenImageTypes: string[];
-  minSizeBytes: number;
-  maxSizeBytes: number;
-
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
     private storage: StorageService,
     private cdr: ChangeDetectorRef,
     private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private domSanitizer: DomSanitizer
   ) {
     super(cData);
   }
+
+  @ViewChild('file', {static: true})
+  fileEl: ElementRef<HTMLInputElement>;
+  value: File | null;
+  imageUrl: FormControl;
+  disInput = false;
+  imageSrc: SafeResourceUrl;
+
+  allowedImageTypes: string[];
+  forbiddenImageTypes: string[];
+  minSizeBytes: number;
+  maxSizeBytes: number;
 
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);
@@ -114,7 +116,9 @@ export class ImageComponent extends FieldComponent<ImageData>
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.imageSrc = reader.result as string;
+      this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
+        reader.result as string
+      );
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(this.value);
