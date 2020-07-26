@@ -9,6 +9,7 @@ import {GalleryComponent} from '../fields/gallery/gallery.component';
 import {ImageComponent} from '../fields/image/image.component';
 import {InputComponent} from '../fields/input/input.component';
 import {RadioComponent} from '../fields/radio/radio.component';
+import {RangeComponent} from '../fields/range/range.component';
 import {SelectComponent} from '../fields/select/select.component';
 import {SliderComponent} from '../fields/slider/slider.component';
 import {TextareaComponent} from '../fields/textarea/textarea.component';
@@ -26,6 +27,7 @@ export const COMPONENT_TYPE_COMPONENT_MAP = {
   [ComponentType.Checkbox]: CheckboxComponent,
   [ComponentType.Autocomplete]: AutocompleteComponent,
   [ComponentType.Date]: DateFieldComponent,
+  [ComponentType.Range]: RangeComponent,
   [ComponentType.Slider]: SliderComponent,
   [ComponentType.Wysiwyg]: WysiwygComponent,
   [ComponentType.Draggable]: DraggableListComponent,

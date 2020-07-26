@@ -7,6 +7,7 @@ export enum ComponentType {
   Toggle = 'toggle',
   Checkbox = 'checkbox',
   Date = 'date',
+  Range = 'range',
   Radio = 'radio',
   Slider = 'slider',
   Autocomplete = 'autocomplete',
