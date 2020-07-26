@@ -35,9 +35,10 @@ export class RangeComponent extends FieldComponent<RangeData> implements OnInit 
   }
 
   ngOnInit(): void {
+    this.formBuilderService.saveComponents.push(this);
+
     this.min = new Date(this.cData.min || 0);
     this.max = new Date(this.cData.max || Date.now() * 2);
-    this.formBuilderService.saveComponents.push(this);
     this.entryControl = cloneAbstractControl(this.cData.control);
 
     this.start = new FormControl(
