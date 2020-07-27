@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/Jaspero/schema-forms/compare/v1.28.2...v1.29.0) (2020-07-27)
+
+
+### Features
+
+* new field: Date Range picker [#19](https://github.com/Jaspero/schema-forms/issues/19) ([be58885](https://github.com/Jaspero/schema-forms/commit/be58885da9dd61b7ad889d97175771efea582c87))
+
 ## [1.28.2](https://github.com/Jaspero/schema-forms/compare/v1.28.1...v1.28.2) (2020-07-25)
 
 
