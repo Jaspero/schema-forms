@@ -1,0 +1,17 @@
+<div class="mat-form-field-wrapper">
+  <p class="fs-small fg-secondary" *ngIf="cData.label">{{(cData.label || '') | transloco}}</p>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" [formControl]="start" [min]="min">
+      <input matEndDate placeholder="End date" [formControl]="end" [max]="max">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <p class="fs-small fg-secondary" *ngIf="cData.hint">
+    {{(cData.hint | transloco) | transloco}}
+  </p>
+</div>

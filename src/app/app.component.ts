@@ -15,6 +15,9 @@ export class AppComponent implements AfterViewInit {
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
+        between: {
+          type: 'object'
+        },
         createdOn: {
           type: 'number'
         },
@@ -33,23 +36,18 @@ export class AppComponent implements AfterViewInit {
         address: {
           type: 'string'
         }
-        // age: {
-        //   type: 'array',
-        //   items: {
-        //     type: 'object',
-        //     properties: {
-        //       name: {
-        //         type: 'string'
-        //       },
-        //       age: {
-        //         type: 'number'
-        //       }
-        //     }
-        //   }
-        // }
       }
     },
     definitions: {
+      between: {
+        component: {
+          type: 'range',
+          configuration: {
+            min: 1595725862491,
+            max: 1595785862491
+          }
+        }
+      },
       createdOn: {
         formatOnLoad: `(value) => value || Date.now()`,
         component: {
@@ -125,6 +123,7 @@ export class AppComponent implements AfterViewInit {
     segments: [
       {
         fields: [
+          '/between',
           '/createdOn',
           '/File',
           '/photos',

@@ -37,6 +37,7 @@ import {GalleryComponent} from './fields/gallery/gallery.component';
 import {ImageComponent} from './fields/image/image.component';
 import {InputComponent} from './fields/input/input.component';
 import {RadioComponent} from './fields/radio/radio.component';
+import {RangeComponent} from './fields/range/range.component';
 import {SelectComponent} from './fields/select/select.component';
 import {SliderComponent} from './fields/slider/slider.component';
 import {TextareaComponent} from './fields/textarea/textarea.component';
@@ -63,6 +64,7 @@ import {TabsComponent} from './segments/tabs/tabs.component';
     CheckboxComponent,
     ChipsComponent,
     DateFieldComponent,
+    RangeComponent,
     DraggableListComponent,
     FileComponent,
     GalleryComponent,
