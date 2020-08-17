@@ -18,9 +18,9 @@ export class DraggableListComponent extends FieldComponent<DragData>
   implements OnInit {
   ngOnInit() {
     if (this.cData.control.value.length) {
-      this.cData.options.sort((optionOne, optionTwo) => {
-        const indexOne = this.cData.control.value.indexOf(optionOne);
-        const indexTwo = this.cData.control.value.indexOf(optionTwo);
+      this.cData.options = this.cData.options.sort((optionOne, optionTwo) => {
+        const indexOne = this.cData.control.value.indexOf(optionOne.value);
+        const indexTwo = this.cData.control.value.indexOf(optionTwo.value);
         return indexTwo - indexOne;
       });
     }
@@ -32,7 +32,9 @@ export class DraggableListComponent extends FieldComponent<DragData>
       event.previousIndex,
       event.currentIndex
     );
+  }
 
+  private update() {
     this.cData.control.setValue(
       this.cData.options.map(val => {
         return val.value;
