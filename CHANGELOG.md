@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/Jaspero/schema-forms/compare/v1.29.0...v1.29.1) (2020-08-17)
+
+
+### Bug Fixes
+
+* **draggable-list:** properly sorting on load ([647ce7b](https://github.com/Jaspero/schema-forms/commit/647ce7b739f09177d18e57908d3e0fa01f9424ef))
+
 # [1.29.0](https://github.com/Jaspero/schema-forms/compare/v1.28.2...v1.29.0) (2020-07-27)
 
 
