@@ -5,13 +5,15 @@
     "ng": "ng",
     "start": "ng serve",
     "dev": "concurrently \"npm start\" \"ng build form-builder --watch\"",
-    "build": "ng build --prod form-builder",
-    "postbuild": "cp ./README.md ./dist/@jaspero/form-builder && cp LICENSE ./dist/@jaspero/form-builder",
-    "build:lib": "ng build form-builder",
+    "build:form-builder": "ng build --prod form-builder && cp ./README.md ./dist/@jaspero/form-builder && cp LICENSE ./dist/@jaspero/form-builder",
+    "build:page-builder": "ng build --prod page-builder && cp ./README.md ./dist/@jaspero/fb-page-builder && cp LICENSE ./dist/@jaspero/fb-page-builder",
+    "build": "npm run build:form-builder && npm run build:page-builder",
+    "build:dev:form-builder": "ng build form-builder",
+    "build:dev:page-builder": "ng build page-builder",
     "test": "ls",
     "test:app": "ls",
-    "lint": "ng lint form-builder",
-    "lint:fix": "ng lint form-builder --fix",
+    "lint": "ng lint form-builder && ng lint page-builder",
+    "lint:fix": "ng lint form-builder --fix && ng lint page-builder --fix",
     "e2e": "ng e2e",
     "semantic-release": "semantic-release"
   },
@@ -89,7 +91,14 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/npm",
-      "@semantic-release/github",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "dist/**"
+          ]
+        }
+      ],
       "@semantic-release/git"
     ]
   }

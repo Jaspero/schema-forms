@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
-import {FormBuilderComponent, FormBuilderData, SegmentType} from 'form-builder';
+import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
 
 @Component({
   selector: 'sc-root',

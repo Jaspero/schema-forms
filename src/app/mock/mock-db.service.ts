@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {DbService} from 'form-builder';
+import {Injectable} from '@angular/core';
+import {DbService} from '@jaspero/form-builder';
 import {Observable, of} from 'rxjs';
 
 @Injectable()

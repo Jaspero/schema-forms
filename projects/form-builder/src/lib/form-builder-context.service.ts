@@ -1,4 +1,4 @@
-import {Component, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CustomFields} from './utils/custom-fields';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class FormBuilderContextService {
 
   registerField(
     name: string,
-    component: Component
+    component: any
   ) {
     if (this.fields.hasOwnProperty(name)) {
       throw new Error(`Field with ${name} already registered.`);

@@ -27,6 +27,10 @@
       "form-builder": [
         "dist/form-builder/form-builder",
         "dist/form-builder"
+      ],
+      "page-builder": [
+        "dist/page-builder/page-builder",
+        "dist/page-builder"
       ]
     }
   },

@@ -1,5 +1,5 @@
 {
-  "name": "@jaspero/form-builder",
+  "name": "@jaspero/fb-page-builder",
   "version": "0.0.1",
   "author": {
     "name": "Jaspero Ltd",
@@ -10,6 +10,7 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
+    "@jaspero/form-builder": "^1.29.1",
     "@angular/common": "^10.0.2",
     "@angular/core": "^10.0.2",
     "@angular/forms": "^10.0.8",
@@ -19,11 +20,6 @@
     "@jaspero/ng-helpers": "^4.0.2",
     "@ngneat/transloco": "^2.18.4",
     "tinymce": "^5.4.1",
-    "tslib": "^2.0.0",
-    "rxjs": "^6.6.2"
-  },
-  "dependencies": {
-    "json-pointer": "^0.6.0",
-    "json-schema": "^0.2.5"
+    "tslib": "^2.0.0"
   }
 }

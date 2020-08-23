@@ -144,7 +144,7 @@ import {TabsComponent} from './segments/tabs/tabs.component';
   exports: [FormBuilderComponent]
 })
 export class FormBuilderModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<FormBuilderModule> {
     return {
       ngModule: FormBuilderModule,
       providers: [FormBuilderContextService]

@@ -3,7 +3,8 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService, CUSTOM_FIELDS} from 'form-builder';
+import {DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService, CUSTOM_FIELDS} from '@jaspero/form-builder';
+import {PageBuilderModule} from '@jaspero/fb-page-builder';
 import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
@@ -21,8 +22,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     HttpClientModule,
     TranslocoModule,
-    FormBuilderModule,
-    MatSnackBarModule
+    FormBuilderModule.forRoot(),
+    PageBuilderModule,
+    MatSnackBarModule,
   ],
   providers: [
     {
