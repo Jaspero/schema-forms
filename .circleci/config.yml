@@ -89,6 +89,10 @@ workflows:
   build-release:
     jobs:
       - install
+        filters:
+          branches:
+            only:
+              - master
       - lint:
           requires:
             - install

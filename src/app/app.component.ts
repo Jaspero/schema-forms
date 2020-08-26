@@ -314,6 +314,54 @@ export class AppComponent implements AfterViewInit {
     }
   };
 
+  pageBuilderExample = {
+    segments: [{
+      type: 'empty',
+      fields: [
+        '/blocks'
+      ]
+    }],
+    schema: {
+      properties: {
+        blocks: {
+          type: 'array'
+        }
+      }
+    },
+    definitions: {
+      blocks: {
+        component: {
+          type: 'pb-blocks',
+          configuration: {
+            blocks: [{
+              id: 'text',
+              label: 'Text',
+              form: {
+                segments: [{
+                  fields: [
+                    '/title'
+                  ]
+                }],
+                schema: {
+                  properties: {
+                    title: {
+                      type: 'string'
+                    }
+                  }
+                },
+                definitions: {
+                  title: {
+                    label: 'Title'
+                  }
+                }
+              }
+            }]
+          }
+        }
+      }
+    }
+  };
+
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
       log.form.valueChanges.subscribe(value => {

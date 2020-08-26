@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {
   COMPONENT_DATA,
   FieldComponent,
@@ -14,10 +15,12 @@ interface Block {
   label: string;
   id: string;
   form: FormBuilderData;
+  preview?: string;
 }
 
 interface BlocksData extends FieldData {
   blocks: Block[];
+  style?: string;
 }
 
 @Component({
@@ -30,7 +33,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
-    private service: FormBuilderService
+    private service: FormBuilderService,
+    private el: ElementRef,
+    @Inject(DOCUMENT)
+    private document: any
   ) {
     super(cData);
   }
@@ -46,9 +52,19 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   ngOnInit() {
 
     const {
-      blocks,
+      blocks = [],
+      style,
       control
     } = this.cData;
+
+    if (style) {
+      const styleEl = this.document.createElement('style');
+      styleEl.type = 'text/css';
+      styleEl.appendChild(
+        this.document.createTextNode(style)
+      );
+      this.el.nativeElement.appendChild(styleEl);
+    }
 
     const {
       selection,
@@ -98,10 +114,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           component: {
             type: 'select',
             configuration: {
-              dataSet: blocks.map(block => ({
-                name: block.label,
-                id: block.id
-              }))
+              dataSet
             }
           }
         },
@@ -109,7 +122,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           component: {
             type: 'pb-block',
             configuration: {
-              selection: blocks
+              selection
             }
           }
         }
