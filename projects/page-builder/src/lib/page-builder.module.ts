@@ -1,8 +1,13 @@
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {Compiler, COMPILER_OPTIONS, CompilerFactory, NgModule} from '@angular/core';
+import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
+
+export function createCompiler(compilerFactory: CompilerFactory) {
+  return compilerFactory.createCompiler();
+}
 
 @NgModule({
   declarations: [
@@ -12,6 +17,23 @@ import {BlocksComponent} from './blocks/blocks.component';
   imports: [
     CommonModule,
     FormBuilderModule
+  ],
+  providers: [
+    {
+      provide: COMPILER_OPTIONS,
+      useValue: {},
+      multi: true
+    },
+    {
+      provide: CompilerFactory,
+      useClass: JitCompilerFactory,
+      deps: [COMPILER_OPTIONS]
+    },
+    {
+      provide: Compiler,
+      useFactory: createCompiler,
+      deps: [CompilerFactory]
+    },
   ]
 })
 export class PageBuilderModule {

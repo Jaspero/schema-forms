@@ -71,7 +71,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       dataSet
     } = blocks.reduce((acc, cur) => {
 
-      acc.selection[cur.id] = cur.form;
+      acc.selection[cur.id] = {
+        form: cur.form,
+        preview: cur.preview
+      };
       // @ts-ignore
       acc.dataSet.push({name: cur.label, value: cur.id});
 
@@ -143,5 +146,4 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         })
       );
   }
-
 }

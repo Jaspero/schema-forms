@@ -336,15 +336,24 @@ export class AppComponent implements AfterViewInit {
             blocks: [{
               id: 'text',
               label: 'Text',
+              preview: `<button mat-flat-button>{{data.title}}</button>`,
               form: {
                 segments: [{
                   fields: [
-                    '/title'
+                    '/title',
+                    '/subTitle',
+                    '/imagePosition'
                   ]
                 }],
                 schema: {
                   properties: {
                     title: {
+                      type: 'string'
+                    },
+                    subTitle: {
+                      type: 'string'
+                    },
+                    imagePosition: {
                       type: 'string'
                     }
                   }

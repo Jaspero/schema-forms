@@ -1,11 +1,13 @@
+import {CommonModule} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Compiler,
   Component,
-  Inject,
+  Inject, NgModule,
   OnDestroy,
-  OnInit,
-  ViewChild
+  OnInit, Optional,
+  ViewChild, ViewContainerRef
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {
@@ -17,9 +19,15 @@ import {
 } from '@jaspero/form-builder';
 import {of, Subscription} from 'rxjs';
 import {startWith, switchMap} from 'rxjs/operators';
+import {FbPageBuilderOptions} from '../options.interface';
+import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 
 interface BlockData extends FieldData {
-  selection: {[key: string]: FormBuilderData}
+  selection: {[key: string]: {
+      form: FormBuilderData,
+      preview?: string
+    }
+  }
 }
 
 @Component({
@@ -30,17 +38,28 @@ interface BlockData extends FieldData {
 })
 export class BlockComponent extends FieldComponent<BlockData> implements OnInit, OnDestroy {
   constructor(
-    @Inject(COMPONENT_DATA) public cData: BlockData,
+    @Inject(COMPONENT_DATA)
+    public cData: BlockData,
+    @Optional()
+    @Inject(FB_PAGE_BUILDER_OPTIONS)
+    private options: FbPageBuilderOptions,
     private service: FormBuilderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private compiler: Compiler
   ) {
     super(cData);
   }
 
+  @ViewChild('el', {static: true, read: ViewContainerRef})
+  vc: ViewContainerRef;
+
   @ViewChild(FormBuilderComponent, {static: false})
   formBuilderComponent: FormBuilderComponent;
 
-  selection: FormBuilderData;
+  selection: {
+    form: FormBuilderData,
+    preview?: string
+  };
 
   private typeListener: Subscription;
 
@@ -54,12 +73,31 @@ export class BlockComponent extends FieldComponent<BlockData> implements OnInit,
       .subscribe(value => {
         this.selection = this.cData.selection[value];
         if (this.selection) {
-          this.selection.value = this.cData.control.value;
+          this.selection.form.value = this.cData.control.value;
         }
         this.cdr.markForCheck();
       });
 
     this.service.saveComponents.push(this);
+  }
+
+  preview() {
+    const tmpCmp = Component({template: this.selection.preview})(class {});
+    const tmpModule = NgModule({
+      declarations: [tmpCmp],
+      imports: [
+        CommonModule,
+        ...(this.options && this.options.previewModules) || []
+      ]
+    })(class A { });
+
+    this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
+      .then((factories) => {
+        const f = factories.componentFactories[0];
+        this.vc.clear();
+        const cmpRef = this.vc.createComponent(f);
+        cmpRef.instance.data = this.formBuilderComponent.form.getRawValue();
+      });
   }
 
   ngOnDestroy() {

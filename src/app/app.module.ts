@@ -1,9 +1,10 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PageBuilderModule} from '@jaspero/fb-page-builder';
+import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
 import {CUSTOM_FIELDS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {environment} from '../environments/environment';
@@ -59,6 +60,12 @@ import {translocoLoader} from './transloco.loader';
     {
       provide: CUSTOM_FIELDS,
       useValue: {}
+    },
+    {
+      provide: FB_PAGE_BUILDER_OPTIONS,
+      useValue: {
+        previewModules: [MatButtonModule]
+      }
     }
   ],
   bootstrap: [AppComponent]

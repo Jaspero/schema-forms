@@ -44,6 +44,7 @@
     "@angular/platform-browser-dynamic": "10.0.14",
     "@angular/router": "10.0.14",
     "@jaspero/form-builder": "^1.29.0",
+    "@jaspero/fb-page-builder": "0.0.1",
     "@jaspero/ng-helpers": "4.0.2",
     "@ngneat/transloco": "2.19.1",
     "json-pointer": "^0.6.0",
