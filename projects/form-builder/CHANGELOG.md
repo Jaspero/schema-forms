@@ -1,3 +1,11 @@
+# @jaspero/form-builder [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.3.0...@jaspero/form-builder@2.4.0) (2020-08-29)
+
+
+### Features
+
+* adjusted package root for semantic releases ([0c2b333](https://github.com/Jaspero/schema-forms/commit/0c2b3339ceec5c0a5d7c7372bbfd1280994953e1))
+* adjusted package root for semantic releases ([8df93e3](https://github.com/Jaspero/schema-forms/commit/8df93e3cf97a99345aa05c06413f3b21577fc6a3))
+
 # @jaspero/form-builder [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.1.0...@jaspero/form-builder@2.2.0) (2020-08-29)
 
 
