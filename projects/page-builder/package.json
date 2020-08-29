@@ -12,6 +12,10 @@
   "peerDependencies": {
     "@jaspero/form-builder": "2.1.0"
   },
+  "files": [
+    "src/",
+    "CHANGELOG.md"
+  ],
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-page-builder",
     "branch": "master",
