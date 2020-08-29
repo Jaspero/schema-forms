@@ -29,5 +29,23 @@
   "devDependencies": {
     "@types/json-pointer": "1.0.30",
     "@types/json-schema": "7.0.5"
+  },
+  "release": {
+    "pkgRoot": "../../dist/@jaspero/form-builder",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "../../dist/**"
+          ]
+        }
+      ],
+      "@semantic-release/git"
+    ]
   }
 }

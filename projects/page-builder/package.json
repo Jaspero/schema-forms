@@ -11,5 +11,23 @@
   "homepage": "https://jaspero.co",
   "peerDependencies": {
     "@jaspero/form-builder": "^1.29.1"
+  },
+  "release": {
+    "pkgRoot": "../../dist/@jaspero/fb-page-builder",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "../../dist/**"
+          ]
+        }
+      ],
+      "@semantic-release/git"
+    ]
   }
 }
