@@ -1,3 +1,15 @@
+# @jaspero/form-builder [2.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@1.29.1...@jaspero/form-builder@2.0.0) (2020-08-29)
+
+
+### Features
+
+* moved changelogs to individual projects ([9b887c4](https://github.com/Jaspero/schema-forms/commit/9b887c48660f2b2aa03ea1909bb33870f2aa994b))
+
+
+### BREAKING CHANGES
+
+* Aligning core library and plugin versions
+
 ## [1.29.1](https://github.com/Jaspero/schema-forms/compare/v1.29.0...v1.29.1) (2020-08-17)
 
 
