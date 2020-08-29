@@ -17,7 +17,7 @@
     "CHANGELOG.md"
   ],
   "release": {
-    "pkgRoot": "dist/@jaspero/fb-page-builder",
+    "pkgRoot": "../../dist/@jaspero/fb-page-builder",
     "branch": "master",
     "verifyConditions": [
       "@semantic-release/changelog",

@@ -35,7 +35,7 @@
     "CHANGELOG.md"
   ],
   "release": {
-    "pkgRoot": "dist/@jaspero/form-builder",
+    "pkgRoot": "../../dist/@jaspero/form-builder",
     "branch": "master",
     "verifyConditions": [
       "@semantic-release/changelog",
