@@ -30,10 +30,6 @@
     "@types/json-pointer": "1.0.30",
     "@types/json-schema": "7.0.5"
   },
-  "files": [
-    "src/",
-    "CHANGELOG.md"
-  ],
   "release": {
     "pkgRoot": "../../dist/@jaspero/form-builder",
     "branch": "master",
