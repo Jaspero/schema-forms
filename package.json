@@ -80,7 +80,7 @@
     "karma-jasmine": "2.0.1",
     "karma-jasmine-html-reporter": "1.4.2",
     "lint-staged": "10.0.7",
-    "multi-semantic-release": "^2.4.5",
+    "@qiwi/multi-semantic-release": "3.8.3",
     "ng-packagr": "10.0.4",
     "protractor": "^7.0.0",
     "semantic-release": "17.0.4",
