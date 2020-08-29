@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.1.0...@jaspero/fb-page-builder@2.2.0) (2020-08-29)
+
+
+### Features
+
+* **page-builder:** option for providing a style along with a template for each block; ([7d1ac64](https://github.com/Jaspero/schema-forms/commit/7d1ac64649ae54cd62b5e64e2d989e714f9f9b7e))
+
 # @jaspero/fb-page-builder [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.0.0...@jaspero/fb-page-builder@2.1.0) (2020-08-29)
 
 
