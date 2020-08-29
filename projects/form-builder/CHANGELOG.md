@@ -1,3 +1,10 @@
+# @jaspero/form-builder [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.1.0...@jaspero/form-builder@2.2.0) (2020-08-29)
+
+
+### Features
+
+* added files property to package.json's ([2bd8ef9](https://github.com/Jaspero/schema-forms/commit/2bd8ef9ab0253fd0273a96c9f941651ea704819d))
+
 # @jaspero/form-builder [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.0.0...@jaspero/form-builder@2.1.0) (2020-08-29)
 
 
