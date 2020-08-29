@@ -15,7 +15,8 @@ interface Block {
   label: string;
   id: string;
   form: FormBuilderData;
-  preview?: string;
+  previewTemplate?: string;
+  previewStyle?: string;
 }
 
 interface BlocksData extends FieldData {
@@ -73,7 +74,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
       acc.selection[cur.id] = {
         form: cur.form,
-        preview: cur.preview
+        previewTemplate: cur.previewTemplate,
+        previewStyle: cur.previewStyle
       };
       // @ts-ignore
       acc.dataSet.push({name: cur.label, value: cur.id});

@@ -57,8 +57,9 @@ export class BlockComponent extends FieldComponent<BlockData> implements OnInit,
   formBuilderComponent: FormBuilderComponent;
 
   selection: {
-    form: FormBuilderData,
-    preview?: string
+    form: FormBuilderData;
+    previewTemplate?: string;
+    previewStyle?: string;
   };
 
   private typeListener: Subscription;
@@ -82,7 +83,12 @@ export class BlockComponent extends FieldComponent<BlockData> implements OnInit,
   }
 
   preview() {
-    const tmpCmp = Component({template: this.selection.preview})(class {});
+    const tmpCmp = Component({
+      template: this.selection.previewTemplate,
+      ...this.selection.previewStyle && {
+        styles: [this.selection.previewStyle]
+      }
+    })(class {});
     const tmpModule = NgModule({
       declarations: [tmpCmp],
       imports: [
