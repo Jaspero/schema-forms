@@ -1,3 +1,19 @@
+# @jaspero/fb-page-builder [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.4.0...@jaspero/fb-page-builder@2.5.0) (2020-08-29)
+
+
+### Features
+
+* removed files property in package.json's ([984fe36](https://github.com/Jaspero/schema-forms/commit/984fe361e758f1aa678be9f09498414662fdba3f))
+* removed files property in packages ([ae39faf](https://github.com/Jaspero/schema-forms/commit/ae39faf1ff8a552492f114d6338a2e943a3587d0))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 2.5.0
+
 # @jaspero/fb-page-builder [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.3.0...@jaspero/fb-page-builder@2.4.0) (2020-08-29)
 
 

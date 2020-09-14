@@ -1,3 +1,10 @@
+# @jaspero/form-builder [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.4.0...@jaspero/form-builder@2.5.0) (2020-08-29)
+
+
+### Features
+
+* removed files property in packages ([ae39faf](https://github.com/Jaspero/schema-forms/commit/ae39faf1ff8a552492f114d6338a2e943a3587d0))
+
 # @jaspero/form-builder [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.3.0...@jaspero/form-builder@2.4.0) (2020-08-29)
 
 
