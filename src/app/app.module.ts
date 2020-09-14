@@ -5,6 +5,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 import {CUSTOM_FIELDS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {environment} from '../environments/environment';
@@ -24,6 +25,7 @@ import {translocoLoader} from './transloco.loader';
     TranslocoModule,
     FormBuilderModule.forRoot(),
     PageBuilderModule,
+    TinymceModule,
 
     MatSnackBarModule
   ],

@@ -31,6 +31,10 @@
       "page-builder": [
         "dist/page-builder/page-builder",
         "dist/page-builder"
+      ],
+      "tinymce": [
+        "dist/tinymce/tinymce",
+        "dist/tinymce"
       ]
     }
   },

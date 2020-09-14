@@ -98,7 +98,7 @@ export class AppComponent implements AfterViewInit {
       description: {
         label: 'Description',
         component: {
-          type: 'wysiwyg'
+          type: 'tinymce'
         }
       },
       address: {

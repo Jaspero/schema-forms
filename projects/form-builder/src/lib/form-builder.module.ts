@@ -42,7 +42,6 @@ import {SelectComponent} from './fields/select/select.component';
 import {SliderComponent} from './fields/slider/slider.component';
 import {TextareaComponent} from './fields/textarea/textarea.component';
 import {ToggleComponent} from './fields/toggle/toggle.component';
-import {WysiwygComponent} from './fields/wysiwyg/wysiwyg.component';
 import {FormBuilderContextService} from './form-builder-context.service';
 import {FormBuilderComponent} from './form-builder.component';
 import {ShowFieldPipe} from './pipes/show-field/show-field.pipe';
@@ -76,7 +75,6 @@ import {TabsComponent} from './segments/tabs/tabs.component';
     SliderComponent,
     TextareaComponent,
     ToggleComponent,
-    WysiwygComponent,
 
     /**
      * Segments

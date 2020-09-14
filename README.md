@@ -21,33 +21,7 @@ $ npm install --save @jaspero/form-builder
   - STORAGE_URL - Root URL for fetching files from your server
   - ROLE - Segments and fields can be conditionally shown/hidden if the value of the role
   matches what is expected in the schema
-
-### Third party dependencies
-
-__tinymce__: A WYSIWYG editor. 
-
-1. Install tinymce `npm i --save tinymce`
-2. Add the following to the `assets` array in `angular.json`
-```
-{
-  "glob": "**/*",
-  "input": "node_modules/tinymce/themes/silver",
-  "output": "/themes/silver"
-},
-{
-  "glob": "**/*",
-  "input": "node_modules/tinymce/skins/ui/oxide",
-  "output": "/skins/ui/oxide"
-},
-{
-  "glob": "**/*",
-  "input": "node_modules/tinymce/skins/content/default",
-  "output": "/skins/content/default"
-}
-```
-3. Add the tinymce script to the `scripts` array in `angular.json`
-`"./node_modules/tinymce/tinymce.min.js"`
-
+  
 ### Styles
 
 In order to make the generated forms customizable, this library doesn't provide
@@ -168,6 +142,124 @@ In that case the following components can be used:
 - **draggable-list**
 
 If an items value is defined then it's expected to be rendered as its own segments.
+
+## Plugins
+
+### Official plugins
+
+#### TinyMCE WYSIWYG Editor
+
+This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor.
+
+##### Set up
+
+1. Install tinymce `npm i --save tinymce`
+2. Add the following to the `assets` array in `angular.json`
+    ```json
+    {
+        "glob": "**/*",
+        "input": "node_modules/tinymce/themes/silver",
+        "output": "/themes/silver"
+    },
+    {
+        "glob": "**/*",
+        "input": "node_modules/tinymce/skins/ui/oxide",
+        "output": "/skins/ui/oxide"
+    },
+    {
+        "glob": "**/*",
+        "input": "node_modules/tinymce/skins/content/default",
+        "output": "/skins/content/default"
+    },
+    {
+        "glob": "**/*",
+        "input": "node_modules/tinymce/plugins",
+        "output": "/plugins"
+    },
+    {
+        "glob": "**/*",
+        "input": "node_modules/tinymce/icons",
+        "output": "/icons"
+    }
+    ```
+3. Add the tinymce script to the `scripts` array in `angular.json`
+    `"./node_modules/tinymce/tinymce.min.js"`
+
+#### Page Builder
+
+## Development
+
+### Creating a plugin
+
+1. Run `ng g library [plugin-name]`
+2. Add `@jaspero/` prefix in the projects `package.json`
+3. Add a `release` property as well. Example from `tincymce` plugin.
+    ```json
+      "release": {
+        "pkgRoot": "../../dist/@jaspero/fb-tinymce",
+        "branch": "master",
+        "verifyConditions": [
+          "@semantic-release/changelog",
+          "@semantic-release/npm",
+          "@semantic-release/git"
+        ],
+        "prepare": [
+          "@semantic-release/changelog",
+          "@semantic-release/npm",
+          "@semantic-release/git"
+        ],
+        "publish": [
+          "@semantic-release/npm",
+          [
+            "@semantic-release/github",
+            {
+              "assets": [
+                "dist/@jaspero/fb-tinymce"
+              ]
+            }
+          ]
+        ],
+        "plugins": [
+          "@semantic-release/commit-analyzer",
+          "@semantic-release/release-notes-generator"
+        ]
+      }
+    ```
+4. Create `ng-package.prod.json` example from tinymce
+    ```json
+    {
+      "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+      "dest": "../../dist/@jaspero/fb-tinymce",
+      "lib": {
+        "entryFile": "src/public-api.ts"
+      }
+    }
+    ```
+5. In `angular.json` extend the `architect.configurations.production` with `ng-package.prod.json`
+    ```json
+     "configurations": {
+       "production": {
+         "tsConfig": "projects/page-builder/tsconfig.lib.prod.json",
+         "project": "projects/page-builder/ng-package.prod.json"
+       }
+    }
+    ```
+6. If you need to register fields do it in the plugins module like this:
+    ```typescript
+    export class TinymceModule {
+      constructor(
+        private ctx: FormBuilderContextService
+      ) {
+        this.ctx.registerField(
+          'tinymce',
+          TinymceComponent
+        );
+      }
+    }
+    ```
+7. Add build scripts for the library in to the root `package.json`
+8. Build the library and publish an initial version manually. This is required because since it's a scoped
+package it needs to be explicitly flagged as public. You can do this by running `npm publish --access public` in `dist/@jaspero/[package-name]`.
 
 ## License
 

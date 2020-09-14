@@ -40,6 +40,16 @@
                 "glob": "**/*",
                 "input": "node_modules/tinymce/skins/content/default",
                 "output": "/skins/content/default"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/plugins",
+                "output": "/plugins"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/icons",
+                "output": "/icons"
               }
             ],
             "styles": [
@@ -217,6 +227,47 @@
             "tsConfig": [
               "projects/page-builder/tsconfig.lib.json",
               "projects/page-builder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "tinymce": {
+      "projectType": "library",
+      "root": "projects/tinymce",
+      "sourceRoot": "projects/tinymce/src",
+      "prefix": "fb-tm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/tinymce/tsconfig.lib.json",
+            "project": "projects/tinymce/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tinymce/tsconfig.lib.prod.json",
+              "project": "projects/tinymce/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/tinymce/src/test.ts",
+            "tsConfig": "projects/tinymce/tsconfig.spec.json",
+            "karmaConfig": "projects/tinymce/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/tinymce/tsconfig.lib.json",
+              "projects/tinymce/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

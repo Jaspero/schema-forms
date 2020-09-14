@@ -14,7 +14,6 @@ import {SelectComponent} from '../fields/select/select.component';
 import {SliderComponent} from '../fields/slider/slider.component';
 import {TextareaComponent} from '../fields/textarea/textarea.component';
 import {ToggleComponent} from '../fields/toggle/toggle.component';
-import {WysiwygComponent} from '../fields/wysiwyg/wysiwyg.component';
 
 
 export const COMPONENT_TYPE_COMPONENT_MAP = {
@@ -29,7 +28,6 @@ export const COMPONENT_TYPE_COMPONENT_MAP = {
   [ComponentType.Date]: DateFieldComponent,
   [ComponentType.Range]: RangeComponent,
   [ComponentType.Slider]: SliderComponent,
-  [ComponentType.Wysiwyg]: WysiwygComponent,
   [ComponentType.Draggable]: DraggableListComponent,
   [ComponentType.Radio]: RadioComponent,
   [ComponentType.Chips]: ChipsComponent,

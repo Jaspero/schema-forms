@@ -10,42 +10,37 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, StorageService} from '@jaspero/form-builder';
 import {filter, take} from 'rxjs/operators';
-import {FieldComponent} from '../../field/field.component';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
-import 'tinymce/plugins/print';
-import 'tinymce/plugins/wordcount';
-import 'tinymce/plugins/link';
+import 'tinymce/plugins/fullscreen';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/imagetools';
-import 'tinymce/plugins/fullscreen';
+import 'tinymce/plugins/link';
 import 'tinymce/plugins/lists';
-import 'tinymce/plugins/autolink';
-import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/print';
 import 'tinymce/plugins/table';
-import {FormBuilderComponent} from '../../form-builder.component';
-import {FieldData} from '../../interfaces/field-data.interface';
-import {StorageService} from '../../services/storage.service';
-import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import 'tinymce/plugins/wordcount';
 
 declare const tinymce: any;
 
-export interface WysiwygData extends FieldData {
+export interface TinyData extends FieldData {
   menubar?: string;
   toolbar?: string;
   height?: number;
 }
 
 @Component({
-  selector: 'fb-wysiwyg',
-  templateUrl: './wysiwyg.component.html',
-  styleUrls: ['./wysiwyg.component.scss'],
+  selector: 'fb-tm-tinymce',
+  templateUrl: './tinymce.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WysiwygComponent extends FieldComponent<WysiwygData>
+export class TinymceComponent extends FieldComponent<TinyData>
   implements OnInit, AfterViewInit {
   constructor(
-    @Inject(COMPONENT_DATA) public cData: WysiwygData,
+    @Inject(COMPONENT_DATA) public cData: TinyData,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private storage: StorageService,
@@ -192,3 +187,4 @@ export class WysiwygComponent extends FieldComponent<WysiwygData>
     });
   }
 }
+

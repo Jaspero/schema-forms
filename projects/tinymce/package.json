@@ -1,5 +1,5 @@
 {
-  "name": "@jaspero/form-builder",
+  "name": "@jaspero/fb-tinymce",
   "version": "0.0.1",
   "author": {
     "name": "Jaspero Ltd",
@@ -10,27 +10,11 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@angular/common": "^10.0.2",
-    "@angular/core": "^10.0.2",
-    "@angular/forms": "^10.0.8",
-    "@angular/animations": "^10.0.8",
-    "@angular/platform-browser": "^10.0.8",
-    "@angular/material": "^10.0.1",
-    "@jaspero/ng-helpers": "^4.0.2",
-    "@ngneat/transloco": "^2.18.4",
-    "tslib": "^2.0.0",
-    "rxjs": "^6.6.2"
-  },
-  "dependencies": {
-    "json-pointer": "0.6.0",
-    "json-schema": "0.2.5"
-  },
-  "devDependencies": {
-    "@types/json-pointer": "1.0.30",
-    "@types/json-schema": "7.0.5"
+    "@jaspero/form-builder": "2.4.2",
+    "tinymce": "^5.4.2"
   },
   "release": {
-    "pkgRoot": "../../dist/@jaspero/form-builder",
+    "pkgRoot": "../../dist/@jaspero/fb-tinymce",
     "branch": "master",
     "verifyConditions": [
       "@semantic-release/changelog",
@@ -48,7 +32,7 @@
         "@semantic-release/github",
         {
           "assets": [
-            "dist/@jaspero/form-builder"
+            "dist/@jaspero/fb-tinymce"
           ]
         }
       ]
