@@ -8,7 +8,7 @@
     "build:form-builder": "ng build --prod form-builder && cp ./README.md ./dist/@jaspero/form-builder && cp LICENSE ./dist/@jaspero/form-builder",
     "build:page-builder": "ng build --prod page-builder && cp ./README.md ./dist/@jaspero/fb-page-builder && cp LICENSE ./dist/@jaspero/fb-page-builder",
     "build:tinymce": "ng build --prod tinymce && cp ./README.md ./dist/@jaspero/fb-tinymce && cp LICENSE ./dist/@jaspero/fb-tinymce",
-    "build": "npm run build:form-builder && npm run build:page-builder",
+    "build": "npm run build:form-builder && npm run build:page-builder && npm run build:tinymce",
     "build:dev:form-builder": "ng build form-builder",
     "build:dev:page-builder": "ng build page-builder",
     "build:dev:tinymce": "ng build tinymce",
