@@ -1,1 +1,8 @@
+<button class="p-b" mat-stroked-button (click)="preview()">Preview</button>
 <fb-form-builder *ngIf="formBuilder.value" [data]="formBuilder"></fb-form-builder>
+
+<ng-template #previewDialog>
+  <mat-dialog-content>
+    <div #el></div>
+  </mat-dialog-content>
+</ng-template>

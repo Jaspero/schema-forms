@@ -1,5 +1,16 @@
-import {DOCUMENT} from '@angular/common';
-import {ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {CommonModule, DOCUMENT} from '@angular/common';
+import {
+  ChangeDetectionStrategy, Compiler,
+  Component,
+  ElementRef,
+  Inject, NgModule,
+  OnInit, Optional,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import {FormArray} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
   FieldComponent,
@@ -10,6 +21,9 @@ import {
 } from '@jaspero/form-builder';
 import {of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import {BlockComponent} from '../block/block.component';
+import {FbPageBuilderOptions} from '../options.interface';
+import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 
 interface Block {
   label: string;
@@ -37,21 +51,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private service: FormBuilderService,
     private el: ElementRef,
     @Inject(DOCUMENT)
-    private document: any
+    private document: any,
+    @Optional()
+    @Inject(FB_PAGE_BUILDER_OPTIONS)
+    private options: FbPageBuilderOptions,
+    private dialog: MatDialog,
+    private compiler: Compiler
   ) {
     super(cData);
   }
 
+  @ViewChild('previewDialog', {static: true})
+  previewDialogTemplate: TemplateRef<any>;
+
+  @ViewChild('el', {static: false, read: ViewContainerRef})
+  vc: ViewContainerRef;
+
   @ViewChild(FormBuilderComponent, {static: false})
   formBuilderComponent: FormBuilderComponent;
-
-  @ViewChild('presetDialog', {static: true})
-  presetDialogTemplate: TemplateRef<any>;
 
   formBuilder: FormBuilderData;
 
   ngOnInit() {
-
     const {
       blocks = [],
       style,
@@ -135,6 +156,48 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       value: {blocks: control.value || []}
     };
     this.service.saveComponents.push(this);
+  }
+
+  preview() {
+    this.dialog.open(
+      this.previewDialogTemplate,
+      {
+        width: '80%'
+      }
+    )
+      .afterOpened()
+      .subscribe(() => {
+
+        const blocks: BlockComponent[] = this.formBuilderComponent['service'].saveComponents
+          .filter(block => block.selection)
+          .sort((one, two) =>
+            (one.cData.form.controls.blocks.controls.indexOf(one.cData.control.parent)) -
+            (two.cData.form.controls.blocks.controls.indexOf(two.cData.control.parent))
+          );
+
+        const tmpModule = NgModule({
+          declarations: blocks.map(block =>
+            Component({
+              template: block.selection.previewTemplate,
+              ...block.selection.previewStyle && {
+                styles: [block.selection.previewStyle]
+              }
+            })(class {})
+          ),
+          imports: [
+            CommonModule,
+            ...(this.options && this.options.previewModules) || []
+          ]
+        })(class A { });
+
+        this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
+          .then((factories) => {
+            factories.componentFactories.forEach((f, index) => {
+              const cmpRef = this.vc.createComponent(f);
+              cmpRef.instance.data = blocks[index].formBuilderComponent.form.getRawValue();
+            })
+          });
+      })
   }
 
   save(moduleId: string, documentId: string) {

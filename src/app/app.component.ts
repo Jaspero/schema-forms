@@ -333,38 +333,52 @@ export class AppComponent implements AfterViewInit {
         component: {
           type: 'pb-blocks',
           configuration: {
-            blocks: [{
-              id: 'text',
-              label: 'Text',
-              preview: `<button mat-flat-button>{{data.title}}</button>`,
-              form: {
-                segments: [{
-                  fields: [
-                    '/title',
-                    '/subTitle',
-                    '/imagePosition'
-                  ]
-                }],
-                schema: {
-                  properties: {
+            blocks: [
+              {
+                id: 'banner',
+                label: 'Banner',
+                previewTemplate: `<button mat-flat-button>{{data.title}}</button>`,
+                form: {
+                  segments: [{
+                    fields: [
+                      '/title',
+                      '/subTitle',
+                      '/imagePosition'
+                    ]
+                  }],
+                  schema: {
+                    properties: {
+                      title: {
+                        type: 'string'
+                      },
+                      subTitle: {
+                        type: 'string'
+                      },
+                      imagePosition: {
+                        type: 'string'
+                      }
+                    }
+                  },
+                  definitions: {
                     title: {
-                      type: 'string'
-                    },
-                    subTitle: {
-                      type: 'string'
-                    },
-                    imagePosition: {
-                      type: 'string'
+                      label: 'Title'
                     }
                   }
-                },
-                definitions: {
-                  title: {
-                    label: 'Title'
-                  }
                 }
-              }
-            }]
+              },
+              {
+                id: 'space',
+                label: 'Space',
+                previewTemplate: `<hr>`,
+                form: {
+                  segments: [],
+                  schema: {
+                    properties: {}
+                  },
+                  definitions: {}
+                }
+              },
+            ]
           }
         }
       }

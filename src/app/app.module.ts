@@ -35,7 +35,11 @@ import {translocoLoader} from './transloco.loader';
       useValue: {
         listenToLangChange: true,
         defaultLang: 'en',
-        prodMode: environment.production
+        prodMode: environment.production,
+        missingHandler: {
+          logMissingKey: false,
+          allowEmpty: true
+        }
       } as TranslocoConfig
     },
     translocoLoader,

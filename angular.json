@@ -58,6 +58,20 @@
             ],
             "scripts": [
               "./node_modules/tinymce/tinymce.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "json-pointer",
+              "tinymce/plugins/wordcount",
+              "tinymce/plugins/table",
+              "tinymce/plugins/lists",
+              "tinymce/plugins/print",
+              "tinymce/plugins/link",
+              "tinymce/plugins/image",
+              "tinymce/plugins/imagetools",
+              "tinymce/plugins/fullscreen",
+              "tinymce/plugins/code",
+              "tinymce/plugins/autolink",
+              "tinymce/plugins/advlist"
             ]
           },
           "configurations": {

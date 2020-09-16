@@ -184,6 +184,23 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
     ```
 3. Add the tinymce script to the `scripts` array in `angular.json`
     `"./node_modules/tinymce/tinymce.min.js"`
+4. You can optionally add/extend your commonjs dependencies whitelist to get rid of console warnings
+    ```json
+        "allowedCommonJsDependencies": [
+          "json-pointer",
+          "tinymce/plugins/wordcount",
+          "tinymce/plugins/table",
+          "tinymce/plugins/lists",
+          "tinymce/plugins/print",
+          "tinymce/plugins/link",
+          "tinymce/plugins/image",
+          "tinymce/plugins/imagetools",
+          "tinymce/plugins/fullscreen",
+          "tinymce/plugins/code",
+          "tinymce/plugins/autolink",
+          "tinymce/plugins/advlist"
+        ]
+    ``` 
 
 #### Page Builder
 
