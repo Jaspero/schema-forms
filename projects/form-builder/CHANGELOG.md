@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.0...@jaspero/form-builder@3.0.1) (2020-09-19)
+
+
+### Bug Fixes
+
+* **form-builder:** removing components from saveComponents when they get destroyed ([7bc484b](https://github.com/Jaspero/schema-forms/commit/7bc484ba7fa39ba6d3c09357ebc11b4eb94e5e4f))
+
 # @jaspero/form-builder [3.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@2.5.0...@jaspero/form-builder@3.0.0) (2020-09-15)
 
 
