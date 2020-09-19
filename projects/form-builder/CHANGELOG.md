@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.1...@jaspero/form-builder@3.0.2) (2020-09-19)
+
+
+### Bug Fixes
+
+* **parser:** using insert() for adding array items ([5ac4843](https://github.com/Jaspero/schema-forms/commit/5ac4843cb028cc451350e992f3abb1bc21a16479))
+
 ## @jaspero/form-builder [3.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.0...@jaspero/form-builder@3.0.1) (2020-09-19)
 
 
