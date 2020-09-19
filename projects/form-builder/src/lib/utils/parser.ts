@@ -444,12 +444,12 @@ export class Parser {
       }
       // @ts-ignore
       target.arrayPointers.unshift(properties.pointers);
-      control.controls.unshift(properties.form);
+      control.insert(0, properties.form)
 
       return properties.pointers;
     } else {
       const cont = new FormControl('');
-      control.controls.unshift(cont);
+      control.insert(0, cont);
       return cont;
     }
   }
