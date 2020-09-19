@@ -168,7 +168,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       .afterOpened()
       .subscribe(() => {
 
-        const blocks: BlockComponent[] = this.formBuilderComponent['service'].saveComponents
+        // @ts-ignore
+        const blocks: BlockComponent[] = this.formBuilderComponent.service.saveComponents
           .filter(block => block.selection)
           .sort((one, two) =>
             (one.cData.form.controls.blocks.controls.indexOf(one.cData.control.parent)) -
