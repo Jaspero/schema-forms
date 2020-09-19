@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [2.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.5.1...@jaspero/fb-page-builder@2.6.0) (2020-09-19)
+
+
+### Bug Fixes
+
+* **page-builder:** added ts-ignore for referencing private property service in BlocksComponent ([19d6ceb](https://github.com/Jaspero/schema-forms/commit/19d6cebcd4bad350ff662b0dce4487c1cc02bf97))
+
+
+### Features
+
+* **page-builder:** added preview ([13bf776](https://github.com/Jaspero/schema-forms/commit/13bf7766b77996cab9ddbc899a7dbdae8b27df3d))
+
 ## @jaspero/fb-page-builder [2.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.5.0...@jaspero/fb-page-builder@2.5.1) (2020-09-15)
 
 
