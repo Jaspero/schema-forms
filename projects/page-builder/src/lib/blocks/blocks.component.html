@@ -1,8 +1,25 @@
-<button class="p-b" mat-stroked-button (click)="preview()">Preview</button>
-<fb-form-builder *ngIf="formBuilder.value" [data]="formBuilder"></fb-form-builder>
+<div class="be-i">
 
-<ng-template #previewDialog>
-  <mat-dialog-content>
-    <div #el></div>
-  </mat-dialog-content>
-</ng-template>
+  <div class="be-i-i">
+    <div #ipi></div>
+  </div>
+
+  <div class="be-i-b">
+    <button mat-stroked-button (click)="open()">Start Page Builder</button>
+  </div>
+</div>
+
+<div class="be-e" [class.active]="isOpen">
+  <div class="be-e-s">
+    <div class="be-e-s-b">
+      <fb-form-builder *ngIf="formBuilder.value" [data]="formBuilder"></fb-form-builder>
+    </div>
+    <div class="be-e-s-a">
+      <button mat-stroked-button (click)="close()">Close Page Builder</button>
+    </div>
+  </div>
+
+  <div class="be-e-p">
+    <div #ipe></div>
+  </div>
+</div>

@@ -53,32 +53,50 @@ export class BlockComponent extends FieldComponent<BlockData> implements OnInit,
     previewStyle?: string;
   };
 
-  private typeListener: Subscription;
+  private typeSub: Subscription;
+  private formSub: Subscription;
 
   ngOnInit() {
     const typeControl = this.cData.control.parent.get('type') as FormControl;
 
-    this.typeListener = typeControl.valueChanges
+    this.typeSub = typeControl.valueChanges
       .pipe(
         startWith(typeControl.value)
       )
       .subscribe(value => {
         this.selection = this.cData.selection[value];
+
         if (this.selection) {
           this.selection.form.value = this.cData.control.value;
         }
+
         this.cdr.markForCheck();
+
+        if (this.formSub) {
+          this.formSub.unsubscribe();
+        }
+
+        if (this.selection) {
+          if (this.formBuilderComponent) {
+            this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(v => {
+              this.cData.control.setValue(v);
+            })
+          } else {
+            this.cData.control.setValue({});
+          }
+        }
       });
 
     this.service.saveComponents.push(this);
   }
 
   ngOnDestroy() {
-    this.service.saveComponents.splice(
-      this.service.saveComponents.indexOf(this),
-      1
-    );
-    this.typeListener.unsubscribe();
+    this.service.removeComponent(this);
+    this.typeSub.unsubscribe();
+
+    if (this.formSub) {
+      this.formSub.unsubscribe();
+    }
   }
 
   save(moduleId: string, documentId: string) {

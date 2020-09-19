@@ -4,9 +4,61 @@
   position: relative;
 }
 
-.p-b {
-  position: absolute;
-  top: 30px;
-  z-index: 1;
-  right: 80px;
+.be-i {
+  border: solid 1px var(--panel-tertiary);
+
+  &-i {
+    pointer-events: none;
+    overflow: hidden;
+    height: 300px;
+    filter: blur(6px);
+  }
+
+  &-b {
+    border-top: solid 1px var(--panel-tertiary);
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+.be-e {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: white;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &-s {
+    width: 400px;
+    border-right: solid 1px var(--panel-tertiary);
+
+    &-b {
+      height: calc(100% - 50px);
+      overflow-y: auto;
+    }
+
+    &-a {
+      border-top: solid 1px var(--panel-tertiary);
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &-p {
+    height: 100%;
+    width: calc(100% - 400px);
+    pointer-events: none;
+  }
 }
