@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [2.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.6.1...@jaspero/fb-page-builder@2.7.0) (2020-09-19)
+
+
+### Features
+
+* **page-builder:** page builder is now full width ([8229d83](https://github.com/Jaspero/schema-forms/commit/8229d83e7829462fe4e2617055683798ff3a465d))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.0.2
+
 ## @jaspero/fb-page-builder [2.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.6.0...@jaspero/fb-page-builder@2.6.1) (2020-09-19)
 
 
