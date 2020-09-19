@@ -18,6 +18,17 @@ export class FormBuilderService {
    */
   saveComponents: any[] = [];
 
+  removeComponent(component) {
+    const index = this.saveComponents.indexOf(component);
+
+    if (index !== -1) {
+      this.saveComponents.splice(
+        index,
+        1
+      )
+    }
+  }
+
   notify(
     options: {
       success?: string | null;

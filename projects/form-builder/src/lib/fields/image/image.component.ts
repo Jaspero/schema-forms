@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
@@ -31,7 +31,7 @@ interface ImageData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageComponent extends FieldComponent<ImageData>
-  implements OnInit {
+  implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
     private storage: StorageService,
@@ -64,6 +64,10 @@ export class ImageComponent extends FieldComponent<ImageData>
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+  }
+
+  ngOnDestroy() {
+    this.formBuilderService.removeComponent(this);
   }
 
   errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {

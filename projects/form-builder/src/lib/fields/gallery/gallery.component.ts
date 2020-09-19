@@ -1,4 +1,4 @@
-import {CdkDrag, CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {HttpClient} from '@angular/common/http';
 import {
@@ -7,7 +7,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Inject,
+  Inject, OnDestroy,
   OnInit,
   Optional,
   TemplateRef,
@@ -48,7 +48,7 @@ interface GalleryData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GalleryComponent extends FieldComponent<GalleryData>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -105,6 +105,10 @@ export class GalleryComponent extends FieldComponent<GalleryData>
 
     phElement.style.display = 'none';
     parentElement.removeChild(phElement);
+  }
+
+  ngOnDestroy() {
+    this.formBuilderService.removeComponent(this);
   }
 
   openUploadDialog() {

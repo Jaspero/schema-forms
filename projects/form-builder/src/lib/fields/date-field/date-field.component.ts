@@ -1,5 +1,5 @@
 import {DatePipe} from '@angular/common';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -30,7 +30,7 @@ interface DateData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateFieldComponent extends FieldComponent<DateData>
-  implements OnInit {
+  implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: DateData,
     private cdr: ChangeDetectorRef,
@@ -72,6 +72,10 @@ export class DateFieldComponent extends FieldComponent<DateData>
     ) {
       this.entryControl.setValue(new Date(this.entryControl.value));
     }
+  }
+
+  ngOnDestroy() {
+    this.formBuilderService.removeComponent(this);
   }
 
   save() {
