@@ -444,7 +444,7 @@ export class Parser {
       }
       // @ts-ignore
       target.arrayPointers.unshift(properties.pointers);
-      control.insert(0, properties.form)
+      control.insert(0, properties.form);
 
       return properties.pointers;
     } else {
@@ -478,11 +478,9 @@ export class Parser {
       );
     }
 
-    moveItemInArray(
-      control.controls,
-      fromIndex,
-      toIndex
-    );
+    const currentGroup = control.at(fromIndex);
+    control.removeAt(fromIndex);
+    control.insert(toIndex, currentGroup)
   }
 
   removeArrayItem(

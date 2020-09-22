@@ -11,7 +11,6 @@ export enum ComponentType {
   Radio = 'radio',
   Slider = 'slider',
   Autocomplete = 'autocomplete',
-  Wysiwyg = 'wysiwyg',
   Chips = 'chips',
   Draggable = 'draggable',
   Textarea = 'textarea'
