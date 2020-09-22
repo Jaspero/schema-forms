@@ -10,7 +10,7 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.0.2"
+    "@jaspero/form-builder": "3.0.3"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-page-builder",

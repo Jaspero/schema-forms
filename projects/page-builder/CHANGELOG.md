@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [2.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.7.0...@jaspero/fb-page-builder@2.8.0) (2020-09-22)
+
+
+### Features
+
+* **page-builder:** real time change detection working ([863d321](https://github.com/Jaspero/schema-forms/commit/863d3213d7dc8ad81f028401fe04079059b8431d))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.0.3
+
 # @jaspero/fb-page-builder [2.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.6.1...@jaspero/fb-page-builder@2.7.0) (2020-09-19)
 
 
