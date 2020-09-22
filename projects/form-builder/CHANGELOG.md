@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.2...@jaspero/form-builder@3.0.3) (2020-09-22)
+
+
+### Bug Fixes
+
+* **form-builder:** moveArrayItem() now uses FormArray methods in order to properly trigger valueChanges ([d750a2d](https://github.com/Jaspero/schema-forms/commit/d750a2d78bbcbd117742c7b4c664894bf6f39dc7))
+
 ## @jaspero/form-builder [3.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.1...@jaspero/form-builder@3.0.2) (2020-09-19)
 
 
