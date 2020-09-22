@@ -1,26 +1,25 @@
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, Compiler,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Compiler,
   Component,
+  ComponentRef,
   ElementRef,
-  Inject, NgModule, OnDestroy,
-  OnInit, Optional,
+  Inject,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  Optional,
   TemplateRef,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {
-  COMPONENT_DATA,
-  FieldComponent,
-  FieldData,
-  FormBuilderComponent,
-  FormBuilderData,
-  FormBuilderService
-} from '@jaspero/form-builder';
-import {of, Subscription} from 'rxjs';
-import {debounceTime, switchMap} from 'rxjs/operators';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
+import {merge, of, Subscription} from 'rxjs';
+import {debounceTime, switchMap, tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
@@ -78,6 +77,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   isOpen = false;
 
   private formSub: Subscription;
+  private componentSub: Subscription;
+  private compRefs: ComponentRef<any>[];
 
   ngOnInit() {
     const {
@@ -175,6 +176,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     if (this.formSub) {
       this.formSub.unsubscribe();
     }
+
+    if (this.componentSub) {
+      this.componentSub.unsubscribe();
+    }
   }
 
   open() {
@@ -185,9 +190,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       .pipe(
         debounceTime(500)
       )
-      .subscribe((v) => {
-        console.log(v);
-        this.preview(this.vce);
+      .subscribe(() => {
+
+        if (this.componentSub) {
+          this.componentSub.unsubscribe();
+        }
+
+        this.componentSub = merge(
+          ...this.preview(this.vce)
+            .map((block, index) =>
+              block.formBuilderComponent.form.valueChanges
+                .pipe(
+                  tap(value => {
+                    if (this.compRefs && this.compRefs[index]) {
+                      this.compRefs[index].instance.data = value;
+                      this.compRefs[index].changeDetectorRef.markForCheck();
+                    }
+                  })
+                )
+            )
+        )
+          .subscribe()
+
       })
   }
 
@@ -225,12 +249,15 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
-        factories.componentFactories.forEach((f, index) => {
+        this.compRefs = factories.componentFactories.map((f, index) => {
           const cmpRef = vc.createComponent(f);
           cmpRef.instance.data = blocks[index].formBuilderComponent.form.getRawValue();
+          return cmpRef;
         });
         this.cdr.markForCheck();
       });
+
+    return blocks;
   }
 
   save(moduleId: string, documentId: string) {

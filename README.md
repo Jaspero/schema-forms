@@ -153,8 +153,10 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
 
 ##### Set up
 
-1. Install tinymce `npm i --save tinymce`
-2. Add the following to the `assets` array in `angular.json`
+1. Install the plugin `npm i --save @jaspero/fb-tinymce`
+2. Add the plugin module `TinymceModule` to your module
+3. Install tinymce `npm i --save tinymce`
+4. Add the following to the `assets` array in `angular.json`
     ```json
     {
         "glob": "**/*",
@@ -182,9 +184,9 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
         "output": "/icons"
     }
     ```
-3. Add the tinymce script to the `scripts` array in `angular.json`
+5. Add the tinymce script to the `scripts` array in `angular.json`
     `"./node_modules/tinymce/tinymce.min.js"`
-4. You can optionally add/extend your commonjs dependencies whitelist to get rid of console warnings
+6. You can optionally add/extend your commonjs dependencies whitelist to get rid of console warnings
     ```json
         "allowedCommonJsDependencies": [
           "json-pointer",
@@ -203,6 +205,11 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
     ``` 
 
 #### Page Builder
+
+##### Set up
+
+1. Install the plugin `npm i --save @jaspero/fb-page-builder`
+2. Add the plugin module `PageBuilderModule` to your module
 
 ## Development
 
