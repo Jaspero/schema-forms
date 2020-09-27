@@ -174,6 +174,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   }
 
+  previewBlock(block: Block) {
+
+  }
+
+  addBlock(block: Block) {
+
+  }
+
   closeAdd() {
 
   }

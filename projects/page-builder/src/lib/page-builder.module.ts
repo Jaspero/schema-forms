@@ -5,6 +5,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
+import {StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
@@ -25,6 +26,8 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+
+    StopPropagationModule,
 
     TranslocoModule
   ],

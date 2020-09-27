@@ -16,11 +16,20 @@
 
       <div class="be-e-s-b-i add" (click)="openAdd()">
         <mat-icon>add_box</mat-icon>
-        <span>{{'PB.ADD' | transloco}}</span>
+        <span>{{'PB.OPEN_ADD' | transloco}}</span>
       </div>
     </div>
     <div class="be-e-s-a">
       <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
+    </div>
+
+    <div class="b-e-s-a">
+      <div class="b-e-s-a-i" *ngFor="let block of cData.blocks" (click)="previewBlock(block)">
+        {{block.label | transloco}}
+        <button mat-button (jpStopPropagation)="addBlock(block)">
+          {{'PB.ADD' | transloco}}
+        </button>
+      </div>
     </div>
   </div>
 
