@@ -23,7 +23,8 @@ interface BlockData extends FieldData {
   selection: {
     [key: string]: {
       form: FormBuilderData,
-      preview?: string
+      previewTemplate?: string;
+      previewStyle?: string;
     }
   }
 }

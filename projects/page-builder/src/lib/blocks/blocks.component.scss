@@ -45,6 +45,13 @@
     &-b {
       height: calc(100% - 50px);
       overflow-y: auto;
+
+      &-i {
+
+        &.add {
+          color: var(--primary)
+        }
+      }
     }
 
     &-a {

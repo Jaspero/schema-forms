@@ -1,4 +1,4 @@
-import {CommonModule, DOCUMENT} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -6,7 +6,6 @@ import {
   Compiler,
   Component,
   ComponentRef,
-  ElementRef,
   Inject,
   NgModule,
   OnDestroy,
@@ -14,7 +13,8 @@ import {
   Optional,
   TemplateRef,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
@@ -30,6 +30,7 @@ interface Block {
   form: FormBuilderData;
   previewTemplate?: string;
   previewStyle?: string;
+  previewValue?: any;
 }
 
 interface BlocksData extends FieldData {
@@ -48,9 +49,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
     private service: FormBuilderService,
-    private el: ElementRef,
-    @Inject(DOCUMENT)
-    private document: any,
     @Optional()
     @Inject(FB_PAGE_BUILDER_OPTIONS)
     private options: FbPageBuilderOptions,
@@ -83,18 +81,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   ngOnInit() {
     const {
       blocks = [],
-      style,
       control
     } = this.cData;
-
-    if (style) {
-      const styleEl = this.document.createElement('style');
-      styleEl.type = 'text/css';
-      styleEl.appendChild(
-        this.document.createTextNode(style)
-      );
-      this.el.nativeElement.appendChild(styleEl);
-    }
 
     const {
       selection,
@@ -182,6 +170,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
   }
 
+  openAdd() {
+
+  }
+
+  closeAdd() {
+
+  }
+
   open() {
     this.isOpen = true;
     this.preview(this.vce);
@@ -235,7 +231,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         Component({
           template: block.selection.previewTemplate,
           ...block.selection.previewStyle && {
-            styles: [block.selection.previewStyle]
+            styles: [
+              ...this.cData.style ? [this.cData.style] : [],
+              block.selection.previewStyle
+            ],
+            encapsulation: ViewEncapsulation.ShadowDom
           }
         })(class {})
       ),

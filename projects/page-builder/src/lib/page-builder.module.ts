@@ -2,8 +2,10 @@ import {CommonModule} from '@angular/common';
 import {Compiler, COMPILER_OPTIONS, CompilerFactory, NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
+import {TranslocoModule} from '@ngneat/transloco';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
 
@@ -21,7 +23,10 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     FormBuilderModule,
 
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+
+    TranslocoModule
   ],
   providers: [
     {

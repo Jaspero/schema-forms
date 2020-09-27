@@ -5,7 +5,7 @@
   </div>
 
   <div class="be-i-b">
-    <button mat-stroked-button (click)="open()">Start Page Builder</button>
+    <button mat-stroked-button (click)="open()">{{'PB.START' | transloco}}</button>
   </div>
 </div>
 
@@ -13,9 +13,14 @@
   <div class="be-e-s">
     <div class="be-e-s-b">
       <fb-form-builder *ngIf="formBuilder.value" [data]="formBuilder"></fb-form-builder>
+
+      <div class="be-e-s-b-i add" (click)="openAdd()">
+        <mat-icon>add_box</mat-icon>
+        <span>{{'PB.ADD' | transloco}}</span>
+      </div>
     </div>
     <div class="be-e-s-a">
-      <button mat-stroked-button (click)="close()">Close Page Builder</button>
+      <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
     </div>
   </div>
 
