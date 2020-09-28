@@ -1,28 +1,27 @@
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component,
-  ComponentRef,
+  Component, ComponentRef,
   Inject,
   NgModule,
   OnDestroy,
   OnInit,
   Optional,
-  TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
-import {merge, of, Subscription} from 'rxjs';
-import {debounceTime, switchMap, tap} from 'rxjs/operators';
-import {BlockComponent} from '../block/block.component';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
+import {of} from 'rxjs';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
+import {Selected} from '../selected.interface';
+import {TopBlock} from '../top-block.interface';
 
 interface Block {
   label: string;
@@ -31,6 +30,7 @@ interface Block {
   previewTemplate?: string;
   previewStyle?: string;
   previewValue?: any;
+  icon?: string;
 }
 
 interface BlocksData extends FieldData {
@@ -59,23 +59,21 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     super(cData);
   }
 
-  @ViewChild('previewDialog', {static: true})
-  previewDialogTemplate: TemplateRef<any>;
-
   @ViewChild('ipi', {static: true, read: ViewContainerRef})
   vci: ViewContainerRef;
 
   @ViewChild('ipe', {static: true, read: ViewContainerRef})
   vce: ViewContainerRef;
 
-  @ViewChild(FormBuilderComponent, {static: false})
-  formBuilderComponent: FormBuilderComponent;
+  state = 'blocks';
+  selected: Selected | null;
+  selectedIndex: number;
+  selection: {[key: string]: Selected};
+  blocks: TopBlock[];
+  previewed: number | undefined;
 
-  formBuilder: FormBuilderData;
   isOpen = false;
 
-  private formSub: Subscription;
-  private componentSub: Subscription;
   private compRefs: ComponentRef<any>[];
 
   ngOnInit() {
@@ -84,73 +82,22 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       control
     } = this.cData;
 
-    const {
-      selection,
-      dataSet
-    } = blocks.reduce((acc, cur) => {
-
-      acc.selection[cur.id] = {
-        form: cur.form,
-        previewTemplate: cur.previewTemplate,
-        previewStyle: cur.previewStyle
-      };
-      // @ts-ignore
-      acc.dataSet.push({name: cur.label, value: cur.id});
-
+    this.selection = blocks.reduce((acc, cur) => {
+      acc[cur.id] = cur;
       return acc;
-    }, {
-      selection: {},
-      dataSet: []
+    }, {});
+
+    this.blocks = control.value.map(it => {
+      const item = this.selection[it.type];
+      return {
+        value: it.value,
+        type: it.type,
+        icon: item.icon,
+        label: item.label,
+        visible: true
+      } as TopBlock;
     });
 
-    this.formBuilder = {
-      schema: {
-        properties: {
-          blocks: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: {
-                  type: 'string'
-                },
-                options: {
-                  type: 'string'
-                }
-              }
-            }
-          }
-        }
-      },
-      segments: [{
-        title: 'Segments',
-        array: '/blocks',
-        fields: [
-          '/type',
-          '/options'
-        ]
-      }],
-      definitions: {
-        'blocks/type': {
-          label: 'Type',
-          component: {
-            type: 'select',
-            configuration: {
-              dataSet
-            }
-          }
-        },
-        'blocks/options': {
-          component: {
-            type: 'pb-block',
-            configuration: {
-              selection
-            }
-          }
-        }
-      },
-      value: {blocks: control.value || []}
-    };
     this.service.saveComponents.push(this);
   }
 
@@ -160,63 +107,116 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   ngOnDestroy() {
     this.service.removeComponent(this);
-
-    if (this.formSub) {
-      this.formSub.unsubscribe();
-    }
-
-    if (this.componentSub) {
-      this.componentSub.unsubscribe();
-    }
   }
 
   openAdd() {
-
+    this.state = 'add';
+    this.cdr.markForCheck();
   }
 
-  previewBlock(block: Block) {
+  previewBlock(block: Block, index: number) {
 
+    if (this.previewed !== undefined) {
+      this.compRefs[this.compRefs.length - 1].destroy();
+      this.compRefs.splice(this.compRefs.length - 1, 1);
+    }
+
+    this.compiler.compileModuleAndAllComponentsAsync(
+      this.tempModule([{
+        value: block.previewValue || {},
+        type: block.id,
+        icon: block.icon,
+        label: block.label,
+        visible: true
+      }])
+    )
+      .then((factories) => {
+        this.compRefs.push(
+          ...factories.componentFactories.map(f => {
+            const cmpRef = this.vce.createComponent(f);
+            cmpRef.instance.data = block.previewValue || {};
+            return cmpRef;
+          })
+        );
+      });
+
+    this.previewed = index;
+    this.cdr.markForCheck();
   }
 
   addBlock(block: Block) {
-
+    this.blocks.push({
+      value: block.previewValue || {},
+      type: block.id,
+      icon: block.icon,
+      label: block.label,
+      visible: true
+    });
+    this.previewed = undefined;
+    this.state = '';
+    this.cdr.markForCheck();
   }
 
   closeAdd() {
+    this.state = '';
 
+    if (this.previewed !== undefined) {
+      this.compRefs[this.compRefs.length - 1].destroy();
+      this.compRefs.splice(this.compRefs.length - 1, 1);
+    }
+
+    this.previewed = undefined;
+
+    this.cdr.markForCheck();
+  }
+
+  moveBlocks(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+    this.preview(this.vce);
+  }
+
+  /**
+   * TODO:
+   * Run save operations
+   */
+  removeBlock() {
+    this.state = '';
+    this.blocks.splice(this.selectedIndex, 1);
+    this.compRefs[this.selectedIndex].destroy();
+    this.compRefs.splice(this.selectedIndex, 1);
+    this.cdr.markForCheck();
+  }
+
+  toggleVisible(index: number) {
+
+  }
+
+  selectBlock(block: TopBlock, index: number) {
+    this.selectedIndex = index;
+    this.selected = {
+      ...this.selection[block.type],
+      value: block.value
+    };
+    this.state = 'inner';
+    this.cdr.markForCheck();
+  }
+
+  optionsChanged(data: any) {
+    this.compRefs[this.selectedIndex].instance.data = data;
+    this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
+  }
+
+  closeBlock() {
+    this.selected = null;
+    // @ts-ignore
+    this.selectedIndex = undefined;
+    this.state = '';
+    this.cdr.markForCheck();
   }
 
   open() {
     this.isOpen = true;
     this.preview(this.vce);
-
-    this.formSub = this.formBuilderComponent.form.valueChanges
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe(() => {
-
-        if (this.componentSub) {
-          this.componentSub.unsubscribe();
-        }
-
-        this.componentSub = merge(
-          ...this.preview(this.vce)
-            .map((block, index) =>
-              block.formBuilderComponent.form.valueChanges
-                .pipe(
-                  tap(value => {
-                    if (this.compRefs && this.compRefs[index]) {
-                      this.compRefs[index].instance.data = value;
-                      this.compRefs[index].changeDetectorRef.markForCheck();
-                    }
-                  })
-                )
-            )
-        )
-          .subscribe()
-
-      })
   }
 
   close() {
@@ -226,32 +226,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   preview(vc: ViewContainerRef) {
-    // @ts-ignore
-    const blocks: BlockComponent[] = this.formBuilderComponent.service.saveComponents
-      .filter(block => block.selection)
-      .sort((one, two) =>
-        (one.cData.form.controls.blocks.controls.indexOf(one.cData.control.parent)) -
-        (two.cData.form.controls.blocks.controls.indexOf(two.cData.control.parent))
-      );
-
-    const tmpModule = NgModule({
-      declarations: blocks.map(block =>
-        Component({
-          template: block.selection.previewTemplate,
-          ...block.selection.previewStyle && {
-            styles: [
-              ...this.cData.style ? [this.cData.style] : [],
-              block.selection.previewStyle
-            ],
-            encapsulation: ViewEncapsulation.ShadowDom
-          }
-        })(class {})
-      ),
-      imports: [
-        CommonModule,
-        ...(this.options && this.options.previewModules) || []
-      ]
-    })(class A { });
+    const tmpModule = this.tempModule(this.blocks);
 
     vc.clear();
 
@@ -259,24 +234,44 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       .then((factories) => {
         this.compRefs = factories.componentFactories.map((f, index) => {
           const cmpRef = vc.createComponent(f);
-          cmpRef.instance.data = blocks[index].formBuilderComponent.form.getRawValue();
+          cmpRef.instance.data = this.blocks[index].value;
           return cmpRef;
         });
         this.cdr.markForCheck();
       });
-
-    return blocks;
   }
 
+  tempModule(blocks: TopBlock[]) {
+    return  NgModule({
+      declarations: blocks.map(block =>
+        this.createPreviewComponent(block)
+      ),
+      imports: [
+        CommonModule,
+        ...(this.options && this.options.previewModules) || []
+      ]
+    })(class A { });
+  }
+
+  createPreviewComponent(block: TopBlock) {
+    const type = this.selection[block.type];
+    return Component({
+      template: type.previewTemplate,
+      ...type.previewStyle && {
+        styles: [
+          ...this.cData.style ? [this.cData.style] : [],
+          type.previewStyle
+        ],
+        encapsulation: ViewEncapsulation.ShadowDom
+      }
+    })(class {})
+  }
+
+  /**
+   * TODO: Save each blocks options
+   */
   save(moduleId: string, documentId: string) {
-    return this.formBuilderComponent.save(moduleId, documentId)
-      .pipe(
-        switchMap(() => {
-          this.cData.control.setValue(
-            this.formBuilderComponent.form.getRawValue().blocks
-          );
-          return of(true);
-        })
-      );
+    this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
+    return of(true);
   }
 }

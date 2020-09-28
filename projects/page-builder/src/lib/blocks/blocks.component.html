@@ -11,8 +11,15 @@
 
 <div class="be-e" [class.active]="isOpen">
   <div class="be-e-s">
-    <div class="be-e-s-b">
-      <fb-form-builder *ngIf="formBuilder.value" [data]="formBuilder"></fb-form-builder>
+    <div class="be-e-s-b" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
+      <div class="be-e-s-b-i" *ngFor="let block of blocks; index as index" cdkDrag (click)="selectBlock(block, index)">
+        <mat-icon *ngIf="block.icon">{{block.icon}}</mat-icon>
+        <span>{{block.label}}</span>
+
+        <mat-icon (click)="toggleVisible(index)">visibility</mat-icon>
+        <!--visibility_off-->
+        <mat-icon>drag_indicator</mat-icon>
+      </div>
 
       <div class="be-e-s-b-i add" (click)="openAdd()">
         <mat-icon>add_box</mat-icon>
@@ -23,14 +30,33 @@
       <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
     </div>
 
-    <div class="b-e-s-a">
-      <div class="b-e-s-a-i" *ngFor="let block of cData.blocks" (click)="previewBlock(block)">
+    <div class="be-e-s-e" [class.active]="state === 'inner'">
+
+      <button mat-icon-button (click)="closeBlock()">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <fb-pb-block
+        [selected]="selected"
+        (remove)="removeBlock()"
+        (optionsChanged)="optionsChanged($event)">
+      </fb-pb-block>
+    </div>
+
+    <div class="be-e-s-s" [class.active]="state === 'add'">
+
+      <button mat-icon-button (click)="closeAdd()">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <div class="be-e-s-s-i" *ngFor="let block of cData.blocks; index as index" (click)="previewBlock(block, index)">
         {{block.label | transloco}}
-        <button mat-button (jpStopPropagation)="addBlock(block)">
+        <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
           {{'PB.ADD' | transloco}}
         </button>
       </div>
     </div>
+
   </div>
 
   <div class="be-e-p">

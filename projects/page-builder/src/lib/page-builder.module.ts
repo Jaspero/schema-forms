@@ -1,3 +1,4 @@
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {Compiler, COMPILER_OPTIONS, CompilerFactory, NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -26,6 +27,7 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    DragDropModule,
 
     StopPropagationModule,
 

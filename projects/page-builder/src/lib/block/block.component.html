@@ -1,1 +1,3 @@
-<fb-form-builder *ngIf="selection" [data]="selection.form"></fb-form-builder>
+<fb-form-builder *ngIf="formData" [data]="formData"></fb-form-builder>
+
+<button mat-button (click)="remove.emit()">Remove</button>
