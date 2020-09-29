@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "dev": "concurrently \"npm start\" \"ng build form-builder --watch\"",
+    "dev:full": "concurrently \"npm start\" \"ng build form-builder --watch\" \"ng build page-builder --watch\" \"ng build tinymce --watch\" \"bash watch-files.sh\"",
     "build:form-builder": "ng build --prod form-builder && cp ./README.md ./dist/@jaspero/form-builder && cp LICENSE ./dist/@jaspero/form-builder",
     "build:page-builder": "ng build --prod page-builder && cp ./README.md ./dist/@jaspero/fb-page-builder && cp LICENSE ./dist/@jaspero/fb-page-builder",
     "build:tinymce": "ng build --prod tinymce && cp ./README.md ./dist/@jaspero/fb-tinymce && cp LICENSE ./dist/@jaspero/fb-tinymce",
