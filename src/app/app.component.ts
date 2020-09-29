@@ -337,7 +337,18 @@ export class AppComponent implements AfterViewInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<button mat-flat-button>{{data.title}}</button>`,
+                previewTemplate: `<h1>{{data.title}}</h1><p>{{data.subTitle}}</p>`,
+                previewValue: {
+                  title: 'Some title',
+                  subTitle: 'A total subtitle'
+                },
+                previewStyle: `
+                  @media only screen and (max-width: 600px) {
+                    h1 {
+                      color: red;
+                    }
+                  }
+                `,
                 form: {
                   segments: [{
                     fields: [

@@ -1,11 +1,11 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component, ComponentRef,
+  Component,
+  ComponentRef, ElementRef,
   Inject,
   NgModule,
   OnDestroy,
@@ -44,7 +44,7 @@ interface BlocksData extends FieldData {
   styleUrls: ['./blocks.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlocksComponent extends FieldComponent<BlocksData> implements OnInit, AfterViewInit, OnDestroy {
+export class BlocksComponent extends FieldComponent<BlocksData> implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
@@ -59,11 +59,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     super(cData);
   }
 
-  @ViewChild('ipi', {static: true, read: ViewContainerRef})
-  vci: ViewContainerRef;
-
-  @ViewChild('ipe', {static: true, read: ViewContainerRef})
+  @ViewChild('ipe', {static: false, read: ViewContainerRef})
   vce: ViewContainerRef;
+
+  @ViewChild('iframe', {static: false})
+  iframeEl: ElementRef<HTMLIFrameElement>;
 
   state = 'blocks';
   selected: Selected | null;
@@ -104,10 +104,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.service.saveComponents.push(this);
   }
 
-  ngAfterViewInit() {
-    this.preview(this.vci);
-  }
-
   ngOnDestroy() {
     this.service.removeComponent(this);
   }
@@ -115,6 +111,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   openAdd() {
     this.state = 'add';
     this.cdr.markForCheck();
+  }
+
+  iframeLoaded() {
+
   }
 
   previewBlock(block: Block, index: number) {
@@ -134,10 +134,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       }])
     )
       .then((factories) => {
+        const doc = (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as any;
         this.compRefs.push(
           ...factories.componentFactories.map(f => {
             const cmpRef = this.vce.createComponent(f);
             cmpRef.instance.data = block.previewValue || {};
+
+            doc.body.appendChild(cmpRef.location.nativeElement);
+
             return cmpRef;
           })
         );
@@ -175,7 +179,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   moveBlocks(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
-    this.preview(this.vce);
+    this.preview();
   }
 
   /**
@@ -219,24 +223,26 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   open() {
     this.isOpen = true;
-    this.preview(this.vce);
+
+    this.cdr.detectChanges();
+
+    this.preview();
   }
 
   close() {
     this.isOpen = false;
-    this.vce.clear();
-    this.preview(this.vci);
   }
 
-  preview(vc: ViewContainerRef) {
+  preview() {
     const tmpModule = this.tempModule(this.blocks);
 
-    vc.clear();
+    if (this.vce.length)
+    this.vce.clear();
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
         this.compRefs = factories.componentFactories.map((f, index) => {
-          const cmpRef = vc.createComponent(f);
+          const cmpRef = this.vce.createComponent(f);
           cmpRef.instance.data = this.blocks[index].value;
           return cmpRef;
         });

@@ -10,7 +10,7 @@
         <ul class="pb-sidebar-list" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
           <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag>
             <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>
-            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon ? block.icon : "tab"}}</mat-icon>
+            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>
             <span class="pb-sidebar-list-item-label">{{block.label}}</span>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>visibility</mat-icon>
@@ -28,7 +28,7 @@
       <!--inner-->
       <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
         <div class="pb-sidebar-inner-title">
-          <span>{{selected}}</span>
+          <span>{{selected?.label}}</span>
           <button mat-icon-button (click)="closeBlock()">
             <mat-icon>close</mat-icon>
           </button>
@@ -79,6 +79,7 @@
 
     <main class="pb-preview" [class.fullscreen]="fullscreen">
       <div class="pb-preview-inner" [class.fullscreen]="fullscreen" [class.desktop]="desktop" [class.mobile]="mobile">
+        <iframe #iframe (load)="iframeLoaded()"></iframe>
         <div #ipe></div>
       </div>
     </main>
