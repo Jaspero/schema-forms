@@ -1,65 +1,86 @@
-<div class="be-i">
-
-  <div class="be-i-i">
-    <div #ipi></div>
-  </div>
-
-  <div class="be-i-b">
+<section class="pb">
+  <article class="pb-intro">
+    <p><b>Page Builder</b><br>Create and edit contents of your web page.</p>
     <button mat-stroked-button (click)="open()">{{'PB.START' | transloco}}</button>
-  </div>
-</div>
+  </article>
 
-<div class="be-e" [class.active]="isOpen">
-  <div class="be-e-s">
-    <div class="be-e-s-b" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
-      <div class="be-e-s-b-i" *ngFor="let block of blocks; index as index" cdkDrag (click)="selectBlock(block, index)">
-        <mat-icon *ngIf="block.icon">{{block.icon}}</mat-icon>
-        <span>{{block.label}}</span>
+  <ng-container *ngIf="isOpen">
+    <aside class="pb-sidebar" [class.fullscreen]="fullscreen">
+      <ng-container *ngIf="blocks.length">
+        <ul class="pb-sidebar-list" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
+          <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag>
+            <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>
+            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon ? block.icon : "tab"}}</mat-icon>
+            <span class="pb-sidebar-list-item-label">{{block.label}}</span>
+            <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <mat-icon class="pb-sidebar-list-item-drag" cdkDragHandle>drag_indicator</mat-icon>
+          </li>
+        </ul>
+      </ng-container>
 
-        <mat-icon (click)="toggleVisible(index)">visibility</mat-icon>
-        <!--visibility_off-->
-        <mat-icon>drag_indicator</mat-icon>
-      </div>
+      <button class="pb-sidebar-new" (click)="openAdd()" matRipple>
+        <mat-icon class="pb-sidebar-new-icon">add_circle_outline</mat-icon>
+        <span class="pb-sidebar-new-label">{{'PB.OPEN_ADD' | transloco}}</span>
+      </button>
 
-      <div class="be-e-s-b-i add" (click)="openAdd()">
-        <mat-icon>add_box</mat-icon>
-        <span>{{'PB.OPEN_ADD' | transloco}}</span>
-      </div>
-    </div>
-    <div class="be-e-s-a">
+      <!--inner-->
+      <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
+        <div class="pb-sidebar-inner-title">
+          <span>{{selected}}</span>
+          <button mat-icon-button (click)="closeBlock()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <fb-pb-block
+          [selected]="selected"
+          (remove)="removeBlock()"
+          (optionsChanged)="optionsChanged($event)">
+        </fb-pb-block>
+      </article>
+
+      <article class="pb-sidebar-add" *ngIf="state === 'add'">
+        <div class="pb-sidebar-add-title">
+          <span>{{'PB.OPEN_ADD' | transloco}}</span>
+          <button mat-icon-button (click)="closeAdd()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="pb-sidebar-add-block" matRipple *ngFor="let block of cData.blocks; index as index" (click)="previewBlock(block, index)">
+          {{block.label | transloco}}
+          <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
+            {{'PB.ADD' | transloco}}
+          </button>
+        </div>
+      </article>
+
+    </aside>
+
+    <header class="pb-header" [class.fullscreen]="fullscreen">
+      <span class="pb-header-space"></span>
+
+      <mat-button-toggle-group>
+        <mat-button-toggle value="left" aria-label="Phone view">
+          <mat-icon>smartphone</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="center" aria-label="Desktop view">
+          <mat-icon>desktop_windows</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="right" aria-label="Fullscreen">
+          <mat-icon>fullscreen</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
       <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
-    </div>
+    </header>
 
-    <div class="be-e-s-e" [class.active]="state === 'inner'">
-
-      <button mat-icon-button (click)="closeBlock()">
-        <mat-icon>close</mat-icon>
-      </button>
-
-      <fb-pb-block
-        [selected]="selected"
-        (remove)="removeBlock()"
-        (optionsChanged)="optionsChanged($event)">
-      </fb-pb-block>
-    </div>
-
-    <div class="be-e-s-s" [class.active]="state === 'add'">
-
-      <button mat-icon-button (click)="closeAdd()">
-        <mat-icon>close</mat-icon>
-      </button>
-
-      <div class="be-e-s-s-i" *ngFor="let block of cData.blocks; index as index" (click)="previewBlock(block, index)">
-        {{block.label | transloco}}
-        <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
-          {{'PB.ADD' | transloco}}
-        </button>
+    <main class="pb-preview" [class.fullscreen]="fullscreen">
+      <div class="pb-preview-inner" [class.fullscreen]="fullscreen" [class.desktop]="desktop" [class.mobile]="mobile">
+        <div #ipe></div>
       </div>
-    </div>
-
-  </div>
-
-  <div class="be-e-p">
-    <div #ipe></div>
-  </div>
-</div>
+    </main>
+  </ng-container>
+</section>

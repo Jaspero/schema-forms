@@ -73,6 +73,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   previewed: number | undefined;
 
   isOpen = false;
+  fullscreen = false;
+  desktop = false;
+  mobile = false;
 
   private compRefs: ComponentRef<any>[];
 
