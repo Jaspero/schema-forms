@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [2.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.8.0...@jaspero/fb-page-builder@2.9.0) (2020-10-06)
+
+
+### Features
+
+* **page-builder:** added blocks to add section ([262dc0c](https://github.com/Jaspero/schema-forms/commit/262dc0c56a19f447dd0997b3c2300ecd67237fe4))
+* **page-builder:** added shadow dom encapsulation for blocks ([6052a9b](https://github.com/Jaspero/schema-forms/commit/6052a9b11a3cc2be171eb3b7d2ffd6cd2c1894db))
+* **page-builder:** connected single block editing :tada: ([a83e7f3](https://github.com/Jaspero/schema-forms/commit/a83e7f32d03578b9437250a7355396b00f26efb4))
+* **page-builder:** connected skipOpen, sorting only moves elements instead of rebuilding preview ([928e2d2](https://github.com/Jaspero/schema-forms/commit/928e2d2b6908d72da30b5965fcb0e0c0636bae1a))
+* **page-builder:** connected visibility toggle, styles and styleUrls ([ed78afa](https://github.com/Jaspero/schema-forms/commit/ed78afa4a39f346af0ea515213c36d718bbe84d6))
+* **page-builder:** rendering components in iframe ([250ad99](https://github.com/Jaspero/schema-forms/commit/250ad99cbc78a71829a0ae8fb52503062354c206))
+
 # @jaspero/fb-page-builder [2.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.7.0...@jaspero/fb-page-builder@2.8.0) (2020-09-22)
 
 
