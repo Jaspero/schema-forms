@@ -333,7 +333,7 @@ export class AppComponent implements AfterViewInit {
         component: {
           type: 'pb-blocks',
           configuration: {
-            style: `
+            styles: `
               h3 {
                 color: green;
               }
@@ -348,6 +348,9 @@ export class AppComponent implements AfterViewInit {
                   subTitle: 'A total subtitle'
                 },
                 previewStyle: `
+                  h1 {
+                    color: blue;
+                  }
                   @media only screen and (max-width: 600px) {
                     h1 {
                       color: red;
@@ -386,6 +389,7 @@ export class AppComponent implements AfterViewInit {
                 id: 'space',
                 label: 'Space',
                 previewTemplate: `<hr>`,
+                skipOpen: true,
                 form: {
                   segments: [],
                   schema: {

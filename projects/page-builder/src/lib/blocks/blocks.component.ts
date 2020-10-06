@@ -27,6 +27,13 @@ interface Block {
   label: string;
   id: string;
   form: FormBuilderData;
+
+  /**
+   * Prevents automatically opening
+   * the block for editing. This is useful
+   * on blocks that don't have any configuration.
+   */
+  skipOpen?: boolean;
   previewTemplate?: string;
   previewStyle?: string;
   previewValue?: any;
@@ -180,16 +187,24 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   addBlock(block: Block) {
-    this.blocks.push({
+
+    const topBlock = {
       value: block.previewValue || {},
       type: block.id,
       icon: block.icon,
       label: block.label,
       visible: true
-    });
+    };
+
     this.previewed = undefined;
-    this.state = '';
-    this.cdr.markForCheck();
+    this.blocks.push(topBlock);
+
+    if (block.skipOpen) {
+      this.state = '';
+      this.cdr.markForCheck();
+    } else {
+      this.selectBlock(topBlock, this.blocks.length - 1);
+    }
   }
 
   closeAdd() {
@@ -206,8 +221,23 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   moveBlocks(event: CdkDragDrop<string[]>) {
+    this.swapElements(
+      this.compRefs[event.previousIndex].location.nativeElement,
+      this.compRefs[event.currentIndex].location.nativeElement
+    );
+
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
-    this.preview();
+    moveItemInArray(this.compRefs, event.previousIndex, event.currentIndex);
+  }
+
+  swapElements(previous, current) {
+    const parent = this.iFrameDoc.body;
+
+    if (current.nextSibling) {
+      parent.insertBefore(previous, current);
+    } else {
+      parent.appendChild(previous);
+    }
   }
 
   /**
@@ -306,8 +336,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     return Component({
       template: type.previewTemplate,
       ...type.previewStyle && {
-        styles: [type.previewStyle],
-        // encapsulation: ViewEncapsulation.ShadowDom
+        styles: [type.previewStyle]
       }
     })(class {})
   }
