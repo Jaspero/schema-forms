@@ -333,11 +333,16 @@ export class AppComponent implements AfterViewInit {
         component: {
           type: 'pb-blocks',
           configuration: {
+            style: `
+              h3 {
+                color: green;
+              }
+            `,
             blocks: [
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<h1>{{data.title}}</h1><p>{{data.subTitle}}</p>`,
+                previewTemplate: `<h1>{{data.title}}</h1><p>{{data.subTitle}}</p><h3>some sub title</h3>`,
                 previewValue: {
                   title: 'Some title',
                   subTitle: 'A total subtitle'

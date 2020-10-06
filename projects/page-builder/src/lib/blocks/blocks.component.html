@@ -5,15 +5,15 @@
   </article>
 
   <ng-container *ngIf="isOpen">
-    <aside class="pb-sidebar" [class.fullscreen]="fullscreen">
+    <aside class="pb-sidebar" [class.fullscreen]="isFullscreen">
       <ng-container *ngIf="blocks.length">
         <ul class="pb-sidebar-list" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
-          <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag>
+          <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y">
             <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>
             <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>
             <span class="pb-sidebar-list-item-label">{{block.label}}</span>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
-              <mat-icon>visibility</mat-icon>
+              <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
             <mat-icon class="pb-sidebar-list-item-drag" cdkDragHandle>drag_indicator</mat-icon>
           </li>
@@ -59,17 +59,17 @@
 
     </aside>
 
-    <header class="pb-header" [class.fullscreen]="fullscreen">
+    <header class="pb-header" [class.fullscreen]="isFullscreen">
       <span class="pb-header-space"></span>
 
-      <mat-button-toggle-group>
-        <mat-button-toggle value="left" aria-label="Phone view">
+      <mat-button-toggle-group [(value)]="view">
+        <mat-button-toggle value="mobile" aria-label="Phone view">
           <mat-icon>smartphone</mat-icon>
         </mat-button-toggle>
-        <mat-button-toggle value="center" aria-label="Desktop view">
+        <mat-button-toggle value="desktop" aria-label="Desktop view">
           <mat-icon>desktop_windows</mat-icon>
         </mat-button-toggle>
-        <mat-button-toggle value="right" aria-label="Fullscreen">
+        <mat-button-toggle value="fullscreen" aria-label="Fullscreen">
           <mat-icon>fullscreen</mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>
@@ -77,8 +77,8 @@
       <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
     </header>
 
-    <main class="pb-preview" [class.fullscreen]="fullscreen">
-      <div class="pb-preview-inner" [class.fullscreen]="fullscreen" [class.desktop]="desktop" [class.mobile]="mobile">
+    <main class="pb-preview" [class.fullscreen]="isFullscreen">
+      <div class="pb-preview-inner" [ngClass]="view">
         <iframe #iframe (load)="iframeLoaded()"></iframe>
         <div #ipe></div>
       </div>

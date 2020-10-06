@@ -5,15 +5,15 @@ import {
   ChangeDetectorRef,
   Compiler,
   Component,
-  ComponentRef, ElementRef,
+  ComponentRef,
+  ElementRef,
   Inject,
   NgModule,
   OnDestroy,
   OnInit,
   Optional,
   ViewChild,
-  ViewContainerRef,
-  ViewEncapsulation
+  ViewContainerRef
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
@@ -35,7 +35,8 @@ interface Block {
 
 interface BlocksData extends FieldData {
   blocks: Block[];
-  style?: string;
+  styles?: string | string[];
+  styleUrls?: string | string[];
 }
 
 @Component({
@@ -73,11 +74,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   previewed: number | undefined;
 
   isOpen = false;
-  fullscreen = false;
-  desktop = false;
-  mobile = false;
+  view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
 
   private compRefs: ComponentRef<any>[];
+
+  get isFullscreen() {
+    return this.view === 'fullscreen';
+  }
+
+  get iFrameDoc() {
+    return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
+  }
 
   ngOnInit() {
     const {
@@ -115,6 +122,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   iframeLoaded() {
 
+    if (this.cData.styleUrls) {
+      const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
+
+      for (const url of urls) {
+        const lEl = this.iFrameDoc.createElement('link');
+        lEl.href = url;
+        lEl.rel = 'stylesheet';
+        lEl.type = 'text/css';
+        this.iFrameDoc.head.appendChild(lEl);
+      }
+    }
+
+    if (this.cData.styles) {
+
+      const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
+
+      for (const style of styles) {
+        const sEl = this.iFrameDoc.createElement('style');
+        sEl.innerHTML = style;
+        this.iFrameDoc.head.appendChild(sEl);
+      }
+    }
   }
 
   previewBlock(block: Block, index: number) {
@@ -134,13 +163,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       }])
     )
       .then((factories) => {
-        const doc = (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as any;
         this.compRefs.push(
           ...factories.componentFactories.map(f => {
             const cmpRef = this.vce.createComponent(f);
             cmpRef.instance.data = block.previewValue || {};
 
-            doc.body.appendChild(cmpRef.location.nativeElement);
+            this.iFrameDoc.body.appendChild(cmpRef.location.nativeElement);
 
             return cmpRef;
           })
@@ -196,6 +224,16 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   toggleVisible(index: number) {
 
+    const el = this.compRefs[index].location.nativeElement;
+    const block = this.blocks[index];
+
+    if (block.visible || block.visible === undefined) {
+      el.style.display = 'none';
+      block.visible = false;
+    } else {
+      el.style.display = 'unset';
+      block.visible = true;
+    }
   }
 
   selectBlock(block: TopBlock, index: number) {
@@ -209,6 +247,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   optionsChanged(data: any) {
+    this.blocks[this.selectedIndex].value = data;
     this.compRefs[this.selectedIndex].instance.data = data;
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
@@ -251,7 +290,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   tempModule(blocks: TopBlock[]) {
-    return  NgModule({
+    return NgModule({
       declarations: blocks.map(block =>
         this.createPreviewComponent(block)
       ),
@@ -267,11 +306,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     return Component({
       template: type.previewTemplate,
       ...type.previewStyle && {
-        styles: [
-          ...this.cData.style ? [this.cData.style] : [],
-          type.previewStyle
-        ],
-        encapsulation: ViewEncapsulation.ShadowDom
+        styles: [type.previewStyle],
+        // encapsulation: ViewEncapsulation.ShadowDom
       }
     })(class {})
   }
