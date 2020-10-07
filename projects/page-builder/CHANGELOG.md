@@ -1,3 +1,23 @@
+# @jaspero/fb-page-builder [2.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.9.0...@jaspero/fb-page-builder@2.10.0) (2020-10-07)
+
+
+### Bug Fixes
+
+* temporary fix for accessing private field ([203a695](https://github.com/Jaspero/schema-forms/commit/203a69542ab1082eb808e1bc7e0b56ba9f1030b2))
+
+
+### Features
+
+* **page-builder:** connected saving blocks and preview ([a868920](https://github.com/Jaspero/schema-forms/commit/a8689206b36e64992eb7b3845987478d0ff1d212))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.1.0
+
 # @jaspero/fb-page-builder [2.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.8.0...@jaspero/fb-page-builder@2.9.0) (2020-10-06)
 
 
