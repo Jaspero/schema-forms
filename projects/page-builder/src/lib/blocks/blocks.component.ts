@@ -330,7 +330,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         .bind(
           this.blockComponent.formBuilderComponent
         ),
-      components: [...this.blockComponent.formBuilderComponent.service.saveComponents]
+      components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
     };
     this.selected = null;
     // @ts-ignore
@@ -357,7 +357,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         save: this.blockComponent.formBuilderComponent
           .save
           .bind(this.blockComponent.formBuilderComponent),
-        components: [...this.blockComponent.formBuilderComponent.service.saveComponents]
+        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
       }
     }
 
