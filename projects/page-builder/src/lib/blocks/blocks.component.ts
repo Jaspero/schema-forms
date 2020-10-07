@@ -16,8 +16,11 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderData, FormBuilderService} from '@jaspero/form-builder';
-import {of} from 'rxjs';
+import {DomSanitizer} from '@angular/platform-browser';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderData, FormBuilderService, safeEval} from '@jaspero/form-builder';
+import {forkJoin, Observable, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {BlockComponent} from '../block/block.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {Selected} from '../selected.interface';
@@ -37,6 +40,14 @@ interface Block {
   previewTemplate?: string;
   previewStyle?: string;
   previewValue?: any;
+
+  /**
+   * Used for formatting the entry value for
+   * the preview
+   *
+   * (value: any, utils: {ds: DomSanitizer}) => any
+   */
+  previewFormat?: string;
   icon?: string;
 }
 
@@ -62,7 +73,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private options: FbPageBuilderOptions,
     private dialog: MatDialog,
     private compiler: Compiler,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private domSanitizer: DomSanitizer
   ) {
     super(cData);
   }
@@ -73,12 +85,21 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   @ViewChild('iframe', {static: false})
   iframeEl: ElementRef<HTMLIFrameElement>;
 
+  @ViewChild(BlockComponent, {static: false})
+  blockComponent: BlockComponent;
+
   state = 'blocks';
   selected: Selected | null;
   selectedIndex: number;
   selection: {[key: string]: Selected};
   blocks: TopBlock[];
   previewed: number | undefined;
+  toProcess: {
+    [key: string]: {
+      save: (c: string, d: string, comp: any[]) => Observable<any>;
+      components: any[];
+    }
+  } = {};
 
   isOpen = false;
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
@@ -107,6 +128,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.blocks = control.value.map(it => {
       const item = this.selection[it.type];
       return {
+        id: this.randomId(),
         value: it.value,
         type: it.type,
         icon: item.icon,
@@ -162,6 +184,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(
       this.tempModule([{
+        id: this.randomId(),
         value: block.previewValue || {},
         type: block.id,
         icon: block.icon,
@@ -173,6 +196,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         this.compRefs.push(
           ...factories.componentFactories.map(f => {
             const cmpRef = this.vce.createComponent(f);
+
             cmpRef.instance.data = block.previewValue || {};
 
             this.iFrameDoc.body.appendChild(cmpRef.location.nativeElement);
@@ -189,6 +213,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   addBlock(block: Block) {
 
     const topBlock = {
+      id: this.randomId(),
       value: block.previewValue || {},
       type: block.id,
       icon: block.icon,
@@ -245,6 +270,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
    * Run save operations
    */
   removeBlock() {
+    delete this.toProcess[(this.selected as Selected).id];
+    this.selected = null;
     this.state = '';
     this.blocks.splice(this.selectedIndex, 1);
     this.compRefs[this.selectedIndex].destroy();
@@ -270,6 +297,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.selectedIndex = index;
     this.selected = {
       ...this.selection[block.type],
+      id: block.id,
       value: block.value
     };
     this.state = 'inner';
@@ -277,12 +305,33 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   optionsChanged(data: any) {
+
+    const selected = this.selected as Selected;
+
+    if (selected.previewFormat) {
+      const format = safeEval(selected.previewFormat);
+
+      if (format) {
+        data = format(data, {
+          ds: this.domSanitizer
+        });
+      }
+    }
+
     this.blocks[this.selectedIndex].value = data;
     this.compRefs[this.selectedIndex].instance.data = data;
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
 
   closeBlock() {
+    this.toProcess[(this.selected as Selected).id] = {
+      save: this.blockComponent.formBuilderComponent
+        .save
+        .bind(
+          this.blockComponent.formBuilderComponent
+        ),
+      components: [...this.blockComponent.formBuilderComponent.service.saveComponents]
+    };
     this.selected = null;
     // @ts-ignore
     this.selectedIndex = undefined;
@@ -299,6 +348,19 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   close() {
+
+    /**
+     * If we're in a single block edit
+     */
+    if (this.selected) {
+      this.toProcess[this.selected.id] = {
+        save: this.blockComponent.formBuilderComponent
+          .save
+          .bind(this.blockComponent.formBuilderComponent),
+        components: [...this.blockComponent.formBuilderComponent.service.saveComponents]
+      }
+    }
+
     this.isOpen = false;
   }
 
@@ -341,11 +403,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     })(class {})
   }
 
-  /**
-   * TODO: Save each blocks options
-   */
   save(moduleId: string, documentId: string) {
-    this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
-    return of(true);
+    const items = Object.entries(this.toProcess);
+
+    if (items.length) {
+      return forkJoin(items.map(it => it[1].save(moduleId, documentId, it[1].components)))
+        .pipe(
+          tap((value) => {
+            this.cData.control.setValue(
+              this.blocks.map(block => ({
+                value: this.toProcess[block.id] ?
+                  value[items.findIndex(it => it[0] === block.id)] :
+                  block.value,
+                type: block.type
+              }))
+            );
+          })
+        )
+    } else {
+      this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
+      return of(true);
+    }
+  }
+
+  private randomId() {
+    return `${Date.now()}-${Math.random()}`;
   }
 }

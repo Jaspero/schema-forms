@@ -6,6 +6,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TinymceModule} from '@jaspero/fb-tinymce';
 import {CUSTOM_FIELDS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
+import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {FB_PAGE_BUILDER_OPTIONS} from '../../projects/page-builder/src/lib/options.token';
 import {PageBuilderModule} from '../../projects/page-builder/src/lib/page-builder.module';
@@ -71,7 +72,7 @@ import {translocoLoader} from './transloco.loader';
     {
       provide: FB_PAGE_BUILDER_OPTIONS,
       useValue: {
-        previewModules: [MatButtonModule]
+        previewModules: [MatButtonModule, SanitizeModule]
       }
     }
   ],

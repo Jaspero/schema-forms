@@ -342,7 +342,11 @@ export class AppComponent implements AfterViewInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<h1>{{data.title}}</h1><p>{{data.subTitle}}</p><h3>some sub title</h3>`,
+                previewTemplate: `
+                    <h1>{{data.title}}</h1>
+                    <p>{{data.subTitle}}</p>
+                    <img [src]="data.image | jpSanitize:'resourceUrl'" alt="">
+                    <h3>some sub title</h3>`,
                 previewValue: {
                   title: 'Some title',
                   subTitle: 'A total subtitle'
@@ -362,7 +366,9 @@ export class AppComponent implements AfterViewInit {
                     fields: [
                       '/title',
                       '/subTitle',
-                      '/imagePosition'
+                      '/image',
+                      '/imagePosition',
+                      '/date'
                     ]
                   }],
                   schema: {
@@ -373,7 +379,13 @@ export class AppComponent implements AfterViewInit {
                       subTitle: {
                         type: 'string'
                       },
+                      image: {
+                        type: 'string'
+                      },
                       imagePosition: {
+                        type: 'string'
+                      },
+                      date: {
                         type: 'string'
                       }
                     }
@@ -381,6 +393,21 @@ export class AppComponent implements AfterViewInit {
                   definitions: {
                     title: {
                       label: 'Title'
+                    },
+                    image: {
+                      label: 'Image',
+                      component: {
+                        type: 'image'
+                      }
+                    },
+                    date: {
+                      label: 'Date',
+                      component: {
+                        type: 'date',
+                        configuration: {
+                          format: 'number'
+                        }
+                      }
                     }
                   }
                 }
@@ -433,5 +460,9 @@ export class AppComponent implements AfterViewInit {
         ]
       }]
     };
+  }
+
+  save() {
+    this.formComponents.toArray()[0].save('example', 'example-id').subscribe()
   }
 }

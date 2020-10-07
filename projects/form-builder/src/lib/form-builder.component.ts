@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {forkJoin, of, Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {SegmentType} from './enums/segment-type.enum';
 import {State} from './enums/state.enum';
 import {FormBuilderContextService} from './form-builder-context.service';
@@ -33,6 +34,7 @@ import {ROLE} from './utils/role';
 })
 export class FormBuilderComponent implements OnChanges, OnDestroy {
   constructor(
+    public service: FormBuilderService,
     private injector: Injector,
     @Optional()
     @Inject(ROLE)
@@ -41,7 +43,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     @Inject(CUSTOM_FIELDS)
     private customFields: CustomFields,
     private cdr: ChangeDetectorRef,
-    private service: FormBuilderService,
     private ctx: FormBuilderContextService
   ) { }
 
@@ -100,14 +101,23 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   save(
     collectionId: string,
-    documentId: string
+    documentId: string,
+    overrideComponents?: any[]
   ) {
-
-    const toExec = this.service.saveComponents.map(comp =>
+    const toExec = (overrideComponents || this.service.saveComponents).map(comp =>
       comp.save(collectionId, documentId)
     );
 
-    return toExec.length ? forkJoin(toExec) : of({});
+    return (
+      toExec.length ?
+        forkJoin(toExec) :
+        of({})
+    )
+      .pipe(
+        map(() =>
+          this.form.getRawValue()
+        )
+      );
   }
 
   saveAndProcess(

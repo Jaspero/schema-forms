@@ -6,6 +6,7 @@ export interface Selected {
   form: FormBuilderData;
   previewTemplate?: string;
   previewStyle?: string;
+  previewFormat?: string;
   icon?: string;
   value?: any;
 }

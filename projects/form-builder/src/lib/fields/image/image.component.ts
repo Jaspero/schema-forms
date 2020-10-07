@@ -123,9 +123,16 @@ export class ImageComponent extends FieldComponent<ImageData>
       this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
         reader.result as string
       );
+
+      /**
+       * Set value in case it's needed for previews
+       */
+      this.cData.control.setValue(reader.result);
+
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(this.value);
+
     el.value = '';
   }
 
