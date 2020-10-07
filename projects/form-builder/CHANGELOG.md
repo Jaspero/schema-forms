@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.3...@jaspero/form-builder@3.1.0) (2020-10-07)
+
+
+### Features
+
+* **page-builder:** connected saving blocks and preview ([a868920](https://github.com/Jaspero/schema-forms/commit/a8689206b36e64992eb7b3845987478d0ff1d212))
+
 ## @jaspero/form-builder [3.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.0.2...@jaspero/form-builder@3.0.3) (2020-09-22)
 
 
