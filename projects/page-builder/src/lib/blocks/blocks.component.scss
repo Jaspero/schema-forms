@@ -9,6 +9,7 @@
 
   &-sidebar {
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: var(--sidebar-width);
@@ -148,6 +149,7 @@
 
   &-header {
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: var(--sidebar-width);
     display: flex;
@@ -172,6 +174,7 @@
 
   &-preview {
     position: fixed;
+    z-index: 9999;
     top: var(--header-height);
     left: var(--sidebar-width);
     width: calc(100vw - var(--sidebar-width));
