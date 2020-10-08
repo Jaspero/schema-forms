@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.10.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.10.0...@jaspero/fb-page-builder@2.10.1) (2020-10-08)
+
+
+### Bug Fixes
+
+* sidebar, preview and header z-index 9999 ([b7a5504](https://github.com/Jaspero/schema-forms/commit/b7a55047c6ba3fd0c2d6405c7859d7adc1576160))
+
 # @jaspero/fb-page-builder [2.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.9.0...@jaspero/fb-page-builder@2.10.0) (2020-10-07)
 
 
