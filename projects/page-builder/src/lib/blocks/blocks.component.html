@@ -79,7 +79,7 @@
 
     <main class="pb-preview" [class.fullscreen]="isFullscreen">
       <div class="pb-preview-inner" [ngClass]="view">
-        <iframe #iframe (load)="iframeLoaded()"></iframe>
+        <iframe #iframe (loadeddata)="iframeLoaded()"></iframe>
         <div #ipe></div>
       </div>
     </main>

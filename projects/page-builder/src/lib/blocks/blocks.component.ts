@@ -375,6 +375,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         this.compRefs = factories.componentFactories.map((f, index) => {
           const cmpRef = this.vce.createComponent(f);
           cmpRef.instance.data = this.blocks[index].value;
+          this.iFrameDoc.body.appendChild(cmpRef.location.nativeElement);
           return cmpRef;
         });
         this.cdr.markForCheck();
