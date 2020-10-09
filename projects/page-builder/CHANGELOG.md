@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.10.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.10.1...@jaspero/fb-page-builder@2.10.2) (2020-10-08)
+
+
+### Bug Fixes
+
+* insert component to iframe and replaced iframe load event with loadeddata ([6acbb3c](https://github.com/Jaspero/schema-forms/commit/6acbb3c9102bfc1c9cb3eef6bd83e1337865d75e))
+
 ## @jaspero/fb-page-builder [2.10.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.10.0...@jaspero/fb-page-builder@2.10.1) (2020-10-08)
 
 
