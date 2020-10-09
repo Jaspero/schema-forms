@@ -1,5 +1,6 @@
 import {Component, HostBinding, Inject} from '@angular/core';
 import {FieldData} from '../interfaces/field-data.interface';
+import {FormControl} from '@angular/forms';
 import {COMPONENT_DATA} from '../utils/create-component-injector';
 
 // @dynamic
@@ -7,7 +8,7 @@ import {COMPONENT_DATA} from '../utils/create-component-injector';
   selector: 'fb-field',
   template: ''
 })
-export class FieldComponent<T extends FieldData> {
+export class FieldComponent<T extends FieldData<C>, C = FormControl> {
   constructor(
     @Inject(COMPONENT_DATA) public cData: T
   ) {
