@@ -1,5 +1,5 @@
 export interface TopBlock {
-  id: string;
+  id: number;
   type: string;
   visible: boolean;
   icon?: string;

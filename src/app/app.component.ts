@@ -342,11 +342,7 @@ export class AppComponent implements AfterViewInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `
-                    <h1>{{data.title}}</h1>
-                    <p>{{data.subTitle}}</p>
-                    <img [src]="data.image | jpSanitize:'resourceUrl'" alt="">
-                    <h3>some sub title</h3>`,
+                previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
                 previewValue: {
                   title: 'Some title',
                   subTitle: 'A total subtitle'

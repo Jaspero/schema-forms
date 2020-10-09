@@ -1,7 +1,7 @@
 import {FormBuilderData} from '@jaspero/form-builder';
 
 export interface Selected {
-  id: string;
+  id: number;
   label?: string;
   form: FormBuilderData;
   previewTemplate?: string;

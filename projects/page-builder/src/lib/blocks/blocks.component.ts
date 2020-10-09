@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component,
+  Component, ComponentFactory,
   ComponentRef,
   ElementRef,
   Inject,
@@ -25,6 +25,7 @@ import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {Selected} from '../selected.interface';
 import {TopBlock} from '../top-block.interface';
+import {uniqueId, UniqueId} from '../utils/unique-id';
 
 interface Block {
   label: string;
@@ -103,6 +104,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   isOpen = false;
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
+  counter: UniqueId;
 
   private compRefs: ComponentRef<any>[];
 
@@ -115,6 +117,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   ngOnInit() {
+
+    this.counter = uniqueId();
+
     const {
       blocks = [],
       control
@@ -128,7 +133,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.blocks = control.value.map(it => {
       const item = this.selection[it.type];
       return {
-        id: this.randomId(),
+        id: this.counter.next(),
         value: it.value,
         type: it.type,
         icon: item.icon,
@@ -184,7 +189,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(
       this.tempModule([{
-        id: this.randomId(),
+        id: this.counter.next(),
         value: block.previewValue || {},
         type: block.id,
         icon: block.icon,
@@ -213,7 +218,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   addBlock(block: Block) {
 
     const topBlock = {
-      id: this.randomId(),
+      id: this.counter.next(),
       value: block.previewValue || {},
       type: block.id,
       icon: block.icon,
@@ -396,11 +401,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   createPreviewComponent(block: TopBlock) {
     const type = this.selection[block.type];
+
     return Component({
-      template: type.previewTemplate,
-      ...type.previewStyle && {
-        styles: [type.previewStyle]
-      }
+      template: `<div id="fb-pb-${block.id}">${type.previewTemplate}</div>`,
+      styles: [type.previewStyle || '']
     })(class {})
   }
 
@@ -414,7 +418,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
             this.cData.control.setValue(
               this.blocks.map(block => ({
                 value: this.toProcess[block.id] ?
-                  value[items.findIndex(it => it[0] === block.id)] :
+                  value[items.findIndex(it => it[0] === block.id.toString())] :
                   block.value,
                 type: block.type
               }))
@@ -425,9 +429,5 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
       return of(true);
     }
-  }
-
-  private randomId() {
-    return `${Date.now()}-${Math.random()}`;
   }
 }

@@ -221,6 +221,10 @@ iframe {
   height: 100%;
 }
 
+::ng-deep iframe body {
+  margin: 0;
+}
+
 .cdk-drag-preview {
   background: white;
   box-sizing: border-box;

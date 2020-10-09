@@ -15,6 +15,7 @@ import {AppComponent} from './app.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+import {BlocksModule} from './blocks/blocks.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import {translocoLoader} from './transloco.loader';
     PageBuilderModule,
     TinymceModule,
 
-    MatSnackBarModule
+    MatSnackBarModule,
+
+    BlocksModule
   ],
   providers: [
     {
@@ -72,7 +75,7 @@ import {translocoLoader} from './transloco.loader';
     {
       provide: FB_PAGE_BUILDER_OPTIONS,
       useValue: {
-        previewModules: [MatButtonModule, SanitizeModule]
+        previewModules: [MatButtonModule, SanitizeModule, BlocksModule]
       }
     }
   ],
