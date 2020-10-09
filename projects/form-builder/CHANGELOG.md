@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.2.0...@jaspero/form-builder@3.3.0) (2020-10-09)
+
+
+### Features
+
+* added optional FieldData control type ([d3fcf09](https://github.com/Jaspero/schema-forms/commit/d3fcf09aa3c34c8d43d369d58d390f859e5a3656))
+
 # @jaspero/form-builder [3.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.1.0...@jaspero/form-builder@3.2.0) (2020-10-09)
 
 
