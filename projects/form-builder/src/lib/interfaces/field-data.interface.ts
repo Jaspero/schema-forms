@@ -1,7 +1,7 @@
 import {FormControl, FormGroup} from '@angular/forms';
 import {Pointers} from '../utils/parser';
 
-export interface FieldData {
+export interface FieldData <T = FormControl> {
 
   /**
    * Is the field rendered as part of a form
@@ -10,7 +10,7 @@ export interface FieldData {
   single: boolean;
   pointers: Pointers;
   form: FormGroup;
-  control: FormControl;
+  control: T;
   label: string;
   columnsDesktop?: number;
   columnsMobile?: number;
