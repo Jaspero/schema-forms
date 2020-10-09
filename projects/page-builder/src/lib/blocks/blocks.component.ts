@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component, ComponentFactory,
+  Component,
   ComponentRef,
   ElementRef,
   Inject,
@@ -305,6 +305,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       id: block.id,
       value: block.value
     };
+
+    const activeBlock = this.compRefs[this.selectedIndex].location.nativeElement;
+    activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
     this.state = 'inner';
     this.cdr.markForCheck();
   }
