@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component,
+  Component, ComponentFactory,
   ComponentRef,
   ElementRef,
   Inject,
@@ -13,11 +13,19 @@ import {
   OnInit,
   Optional,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
-import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderData, FormBuilderService, safeEval} from '@jaspero/form-builder';
+import {
+  COMPONENT_DATA,
+  FieldComponent,
+  FieldData,
+  FormBuilderData,
+  FormBuilderService,
+  safeEval
+} from '@jaspero/form-builder';
 import {forkJoin, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
@@ -154,32 +162,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.cdr.markForCheck();
   }
 
-  iframeLoaded() {
-
-    if (this.cData.styleUrls) {
-      const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
-
-      for (const url of urls) {
-        const lEl = this.iFrameDoc.createElement('link');
-        lEl.href = url;
-        lEl.rel = 'stylesheet';
-        lEl.type = 'text/css';
-        this.iFrameDoc.head.appendChild(lEl);
-      }
-    }
-
-    if (this.cData.styles) {
-
-      const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
-
-      for (const style of styles) {
-        const sEl = this.iFrameDoc.createElement('style');
-        sEl.innerHTML = style;
-        this.iFrameDoc.head.appendChild(sEl);
-      }
-    }
-  }
-
   previewBlock(block: Block, index: number) {
 
     if (this.previewed !== undefined) {
@@ -199,15 +181,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     )
       .then((factories) => {
         this.compRefs.push(
-          ...factories.componentFactories.map(f => {
-            const cmpRef = this.vce.createComponent(f);
-
-            cmpRef.instance.data = block.previewValue || {};
-
-            this.iFrameDoc.body.appendChild(cmpRef.location.nativeElement);
-
-            return cmpRef;
-          })
+          ...factories.componentFactories.map(f =>
+            this.renderComponent(f, block.previewValue || {})
+          )
         );
       });
 
@@ -381,12 +357,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
-        this.compRefs = factories.componentFactories.map((f, index) => {
-          const cmpRef = this.vce.createComponent(f);
-          cmpRef.instance.data = this.blocks[index].value;
-          this.iFrameDoc.body.appendChild(cmpRef.location.nativeElement);
-          return cmpRef;
-        });
+        this.compRefs = factories.componentFactories.map((f, index) =>
+          this.renderComponent(f, this.blocks[index].value)
+        );
         this.cdr.markForCheck();
       });
   }
@@ -408,7 +381,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     return Component({
       template: `<div id="fb-pb-${block.id}">${type.previewTemplate}</div>`,
-      styles: [type.previewStyle || '']
+      styles: [
+        ...type.previewStyle ? [type.previewStyle] : [],
+        ...(this.cData.styles ? (typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles) : [])
+
+      ],
+      encapsulation: ViewEncapsulation.ShadowDom
     })(class {})
   }
 
@@ -433,5 +411,31 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
       return of(true);
     }
+  }
+
+  private renderComponent(
+    factory: ComponentFactory<any>,
+    value: any
+  ) {
+    const cmpRef = this.vce.createComponent(factory);
+    const nElement = cmpRef.location.nativeElement;
+
+    cmpRef.instance.data = value;
+
+    this.iFrameDoc.body.appendChild(nElement);
+
+    if (this.cData.styleUrls) {
+      const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
+
+      for (const url of urls) {
+        const lEl = this.iFrameDoc.createElement('link');
+        lEl.href = url;
+        lEl.rel = 'stylesheet';
+        lEl.type = 'text/css';
+        nElement.appendChild(lEl);
+      }
+    }
+
+    return cmpRef;
   }
 }

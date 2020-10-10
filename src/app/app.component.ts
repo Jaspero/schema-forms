@@ -334,10 +334,11 @@ export class AppComponent implements AfterViewInit {
           type: 'pb-blocks',
           configuration: {
             styles: `
-              h3 {
+              h1 {
                 color: green;
               }
             `,
+            styleUrls: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
             blocks: [
               {
                 id: 'banner',
@@ -349,7 +350,7 @@ export class AppComponent implements AfterViewInit {
                 },
                 previewStyle: `
                   h1 {
-                    color: blue;
+                    color: green;
                   }
                   @media only screen and (max-width: 600px) {
                     h1 {
