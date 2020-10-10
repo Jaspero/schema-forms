@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [2.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.10.4...@jaspero/fb-page-builder@2.11.0) (2020-10-10)
+
+
+### Features
+
+* **page-builder:** styles handled properly through shadow dom implementation ([8213021](https://github.com/Jaspero/schema-forms/commit/82130212948863982347e9ad5c5346e0ec0b0aa2))
+
 ## @jaspero/fb-page-builder [2.10.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.10.3...@jaspero/fb-page-builder@2.10.4) (2020-10-09)
 
 
