@@ -284,6 +284,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     const activeBlock = this.compRefs[this.selectedIndex].location.nativeElement;
     activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
 
     this.state = 'inner';
     this.cdr.markForCheck();
@@ -317,6 +318,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         ),
       components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
     };
+    this.compRefs[this.selectedIndex].location.nativeElement.shadowRoot.querySelector('div').style.boxShadow = 'none';
     this.selected = null;
     // @ts-ignore
     this.selectedIndex = undefined;
