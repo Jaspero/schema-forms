@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.4.0...@jaspero/form-builder@3.5.0) (2020-10-13)
+
+
+### Features
+
+* **page-builder:** disable overflow on parent when builder is open; various minor style adjustments; ([efa9076](https://github.com/Jaspero/schema-forms/commit/efa9076c5152cc37abee42cf3c025701714414d4))
+
 # @jaspero/form-builder [3.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.3.0...@jaspero/form-builder@3.4.0) (2020-10-13)
 
 
