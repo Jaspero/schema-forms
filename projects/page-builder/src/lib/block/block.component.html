@@ -1,3 +1,7 @@
 <fb-form-builder *ngIf="formData" [data]="formData"></fb-form-builder>
 
-<button mat-button (click)="remove.emit()">Remove</button>
+<footer>
+  <div>
+    <button mat-button color="warn" (click)="remove.emit()">Remove</button>
+  </div>
+</footer>

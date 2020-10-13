@@ -1,5 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -83,7 +83,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private dialog: MatDialog,
     private compiler: Compiler,
     private cdr: ChangeDetectorRef,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    @Inject(DOCUMENT)
+    private document: any
   ) {
     super(cData);
   }
@@ -111,6 +113,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   } = {};
 
   isOpen = false;
+  originalOverflowY: string;
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
   counter: UniqueId;
 
@@ -328,6 +331,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   open() {
     this.isOpen = true;
+    this.originalOverflowY = this.document.body.style.overflowY;
+    this.document.body.style.overflowY = 'hidden';
 
     this.cdr.detectChanges();
 
@@ -335,6 +340,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   close() {
+
+    this.document.body.style.overflowY = this.originalOverflowY;
 
     /**
      * If we're in a single block edit

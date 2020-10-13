@@ -24,7 +24,17 @@ export function filterAndCompileSegments(
         parent
       );
 
-      if (compiled) {
+      /**
+       * Exclude any segments that end up not having
+       * a single field or component
+       */
+      if (
+        compiled &&
+        (
+          (compiled.fields && compiled.fields.length) ||
+          (compiled.customComponents && compiled.customComponents.length)
+        )
+      ) {
         acc.push(
           // @ts-ignore
           compiled
