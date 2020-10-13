@@ -79,6 +79,25 @@ what component is used to represent the field in the form. The `Definitions` int
     ```
 3. You can now use the new field in a forms `definitions`.
 
+### Adding custom components
+
+1. Create a new component that extends `CustomComponent`. It receives the `CUSTOM_COMPONENT_DATA` which has the `form` and `id` properties.
+2. Map the newly added component through the `CUSTOM_COMPONENTS` provider e.g.
+   ```ts
+   providers: [{
+     provide: CUSTOM_COMPONENTS,
+     useValue: {
+       example: ExampleComponent  
+     }
+   }] 
+   ```
+3. You can now use the new component in a segment e.g.
+    ```json
+    "segments": [{
+      "components": [{"selector": "example"}]
+    }]
+    ```
+
 ### Handling Array
 
 The form builder supports both arrays of primitives and object arrays.

@@ -1,7 +1,9 @@
 import {moveItemInArray} from '@angular/cdk/drag-drop';
+import {ComponentPortal} from '@angular/cdk/portal';
 import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
+import {CustomComponent} from '../custom/custom.component';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {Definitions} from '../interfaces/definitions.interface';
@@ -31,6 +33,7 @@ export class SegmentComponent<T = any> implements OnInit {
   nestedSegments: CompiledSegment<T>[];
   nestedArraySegments: Array<CompiledSegment[]> = [];
   arrayFields: Array<CompiledField[]> = [];
+  components: ComponentPortal<CustomComponent>[];
 
   @HostBinding('class')
   classes: string;
@@ -43,6 +46,7 @@ export class SegmentComponent<T = any> implements OnInit {
     this.classes = this.sData.segment.classes.join(' ');
     this.pointers = this.sData.parser.pointers;
     this.id = this.sData.segment.id || '';
+    this.components = this.segment.customComponents || [];
 
     /**
      * Each segment compiles all nested segments

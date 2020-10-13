@@ -51,6 +51,7 @@ import {CardComponent} from './segments/card/card.component';
 import {EmptyComponent} from './segments/empty/empty.component';
 import {StepperComponent} from './segments/stepper/stepper.component';
 import {TabsComponent} from './segments/tabs/tabs.component';
+import { CustomComponent } from './custom/custom.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,9 @@ import {TabsComponent} from './segments/tabs/tabs.component';
      */
     ShowFieldPipe,
 
-    FormBuilderComponent
+    FormBuilderComponent,
+
+    CustomComponent
   ],
   imports: [
     CommonModule,

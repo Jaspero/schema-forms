@@ -1,6 +1,7 @@
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
 import {SEGMENT_TYPE_COMPONENT_MAP} from '../consts/segment-type-component-map.const';
+import {CustomComponent} from '../custom/custom.component';
 import {SegmentType} from '../enums/segment-type.enum';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
@@ -9,6 +10,7 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {SegmentComponent} from '../segment/segment.component';
 import {createSegmentInjector} from './create-segment-injector';
+import {createCustomComponentInjector, CUSTOM_COMPONENTS} from './custom-components';
 import {Parser} from './parser';
 import {safeEval} from './safe-eval';
 
@@ -23,6 +25,7 @@ export function compileSegment(
   const classes: string[] = [];
 
   let fields: CompiledField[] | string[] = [];
+  let customComponents: ComponentPortal<CustomComponent>[] = [];
 
   if (segment.columnsDesktop) {
     classes.push(`col-${segment.columnsDesktop}`);
@@ -81,11 +84,38 @@ export function compileSegment(
     }
   }
 
+  if (segment.components) {
+
+    const componentMap = injector.get(CUSTOM_COMPONENTS);
+
+    if (componentMap) {
+      customComponents = segment.components.reduce((acc: ComponentPortal<CustomComponent>[], component) => {
+        const comp = componentMap[component.selector];
+        const id = parser.form.get('id');
+        if (comp && (!component.authorization || component.authorization.includes(parser.role))) {
+          acc.push(
+            new ComponentPortal<CustomComponent>(
+              comp,
+              null,
+              createCustomComponentInjector(injector, {
+                form: parser.form,
+                ...id && {id: id.value}
+              })
+            )
+          );
+        }
+
+        return acc;
+      }, []);
+    }
+  }
+
   const compiledSegment = {
     ...segment,
     classes,
     fields,
-    entryValue
+    entryValue,
+    customComponents,
   } as CompiledSegment;
 
   /**

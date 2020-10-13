@@ -122,6 +122,11 @@ export class AppComponent implements AfterViewInit {
     },
     segments: [
       {
+        components: [{
+          selector: 'example'
+        }]
+      },
+      {
         fields: [
           '/between',
           '/createdOn',

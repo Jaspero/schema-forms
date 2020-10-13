@@ -1,7 +1,9 @@
 import {SegmentType} from '../enums/segment-type.enum';
 import {CompiledCondition, Condition} from './condition.interface';
+import {CustomComponentDefinition} from './custom-component-definition.interface';
 
 export interface Segment<C = any> {
+  components?: CustomComponentDefinition[];
   fields?: string[] | any[];
   array?: string;
   type?: SegmentType;

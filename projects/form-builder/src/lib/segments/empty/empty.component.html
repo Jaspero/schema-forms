@@ -16,6 +16,10 @@
 <div class="fb-fields panel">
   <p *ngIf="segment.description">{{segment.description}}</p>
 
+  <ng-container *ngFor="let comp of components">
+    <ng-template [cdkPortalOutlet]="comp"></ng-template>
+  </ng-container>
+
   <ng-container *ngIf="segment.array; else regular">
     <ng-container *ngFor="let fields of arrayFields; index as index; last as last">
       <ng-container *ngFor="let field of fields | showField:sData.parser">

@@ -4,4 +4,4 @@ export interface CustomFields {
   [key: string]: any;
 }
 
-export const CUSTOM_FIELDS = new InjectionToken<{}>('CUSTOM_FIELDS');
+export const CUSTOM_FIELDS = new InjectionToken<CustomFields>('CUSTOM_FIELDS');
