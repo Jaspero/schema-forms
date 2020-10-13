@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.3.0...@jaspero/form-builder@3.4.0) (2020-10-13)
+
+
+### Features
+
+* **form-builder:** segments can now receive components defined through the CUSTOM_COMPONENTS provider :tada: ([0737c43](https://github.com/Jaspero/schema-forms/commit/0737c434018400dfaa48db0544b59d6d6347a8a5))
+
 # @jaspero/form-builder [3.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.2.0...@jaspero/form-builder@3.3.0) (2020-10-09)
 
 
