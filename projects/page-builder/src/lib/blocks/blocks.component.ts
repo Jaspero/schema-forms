@@ -361,8 +361,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   preview() {
     const tmpModule = this.tempModule(this.blocks);
 
-    if (this.vce.length)
-    this.vce.clear();
+    if (this.vce.length) {
+      this.vce.clear();
+    }
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
@@ -442,6 +443,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         lEl.rel = 'stylesheet';
         lEl.type = 'text/css';
         nElement.appendChild(lEl);
+      }
+    }
+
+    if (this.cData.styles) {
+
+      const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
+
+      for (const style of styles) {
+        const sEl = this.iFrameDoc.createElement('style');
+        sEl.innerHTML = style;
+        this.iFrameDoc.head.appendChild(sEl);
       }
     }
 
