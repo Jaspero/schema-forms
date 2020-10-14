@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [2.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.11.1...@jaspero/fb-page-builder@2.12.0) (2020-10-13)
+
+
+### Features
+
+* **page-builder:** disable overflow on parent when builder is open; various minor style adjustments; ([efa9076](https://github.com/Jaspero/schema-forms/commit/efa9076c5152cc37abee42cf3c025701714414d4))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.5.0
+
 ## @jaspero/fb-page-builder [2.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.11.0...@jaspero/fb-page-builder@2.11.1) (2020-10-13)
 
 
