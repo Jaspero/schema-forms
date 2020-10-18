@@ -23,8 +23,8 @@ interface AutocompleteData extends FieldData {
     filter?: WhereFilter;
   };
   autocomplete?: string;
-  suffix?: HSD;
-  prefix?: HSD;
+  suffix?: HSD | string;
+  prefix?: HSD | string;
 }
 
 @Component({

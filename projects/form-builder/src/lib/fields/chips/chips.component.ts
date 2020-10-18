@@ -11,8 +11,8 @@ interface ChipsData extends FieldData {
   addOnBlur: boolean;
   unique: boolean;
   autocomplete?: string;
-  suffix?: HSD;
-  prefix?: HSD;
+  suffix?: HSD | string;
+  prefix?: HSD | string;
 }
 
 @Component({

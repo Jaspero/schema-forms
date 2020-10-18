@@ -16,6 +16,10 @@ export function getHsd(
 
     let item: any;
 
+    if (typeof data[key] === 'string') {
+      return of(data[key].value)
+    }
+
     switch (data[key].type) {
       case 'dynamic':
         item = safeEval(data[key].value);

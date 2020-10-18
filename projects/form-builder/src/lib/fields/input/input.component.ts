@@ -7,8 +7,8 @@ import {getHsd, HSD} from '../../utils/get-hsd';
 interface InputData extends FieldData {
   type: 'text' | 'number' | 'email';
   autocomplete?: string;
-  suffix?: HSD;
-  prefix?: HSD;
+  suffix?: HSD | string;
+  prefix?: HSD | string;
 }
 
 @Component({

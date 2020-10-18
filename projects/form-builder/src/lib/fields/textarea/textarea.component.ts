@@ -8,8 +8,8 @@ interface TextareaData extends FieldData {
   rows?: number;
   cols?: number;
   autocomplete?: string;
-  suffix?: HSD;
-  prefix?: HSD;
+  suffix?: HSD | string;
+  prefix?: HSD | string;
 }
 
 @Component({
