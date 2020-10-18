@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.5.0...@jaspero/form-builder@3.6.0) (2020-10-18)
+
+
+### Features
+
+* **form-builder:** prefix and suffix can now be provided as string values ([057e31d](https://github.com/Jaspero/schema-forms/commit/057e31ddf5162082b2e421fba6f3b0bdb393cf25))
+
 # @jaspero/form-builder [3.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.4.0...@jaspero/form-builder@3.5.0) (2020-10-13)
 
 
