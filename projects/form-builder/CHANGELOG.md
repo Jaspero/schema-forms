@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.7.0...@jaspero/form-builder@3.7.1) (2020-10-22)
+
+
+### Bug Fixes
+
+* **form-builder:** prefix and suffix strings working correctly ([313d50a](https://github.com/Jaspero/schema-forms/commit/313d50a3573b0668e9e12360727e9b931c325fdd))
+
 # @jaspero/form-builder [3.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.6.0...@jaspero/form-builder@3.7.0) (2020-10-22)
 
 
