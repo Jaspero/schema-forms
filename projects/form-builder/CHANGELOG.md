@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.6.0...@jaspero/form-builder@3.7.0) (2020-10-22)
+
+
+### Features
+
+* added input to segment ([c721999](https://github.com/Jaspero/schema-forms/commit/c721999833a88843d49589890957b370aa7456a6))
+
 # @jaspero/form-builder [3.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.5.0...@jaspero/form-builder@3.6.0) (2020-10-18)
 
 
