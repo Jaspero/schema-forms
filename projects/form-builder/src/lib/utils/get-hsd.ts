@@ -17,7 +17,7 @@ export function getHsd(
     let item: any;
 
     if (typeof data[key] === 'string') {
-      return of(data[key].value)
+      return of(data[key])
     }
 
     switch (data[key].type) {

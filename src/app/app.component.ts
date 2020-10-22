@@ -91,9 +91,15 @@ export class AppComponent implements AfterViewInit {
       },
       title: {
         label: 'Title',
-        disableForRoles: ['admin'],
         columnsDesktop: 8,
-        columnsMobile: 12
+        columnsMobile: 12,
+        component: {
+          type: 'input',
+          configuration: {
+            prefix: '$',
+            suffix: '$'
+          }
+        }
       },
       description: {
         label: 'Description',
