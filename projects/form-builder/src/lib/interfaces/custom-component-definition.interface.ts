@@ -4,4 +4,5 @@ export interface CustomComponentDefinition {
   columnsTablet?: number;
   columnsMobile?: number;
   authorization?: string[];
+  input?: any;
 }

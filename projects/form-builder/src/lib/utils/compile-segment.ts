@@ -99,7 +99,8 @@ export function compileSegment(
               null,
               createCustomComponentInjector(injector, {
                 form: parser.form,
-                ...id && {id: id.value}
+                ...id && {id: id.value},
+                ...(component.input || {})
               })
             )
           );
