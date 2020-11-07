@@ -324,11 +324,6 @@ export class AppComponent implements AfterViewInit {
             type: 'number'
           }
         }
-      },
-      addresses: {
-        component: {
-          type: 'example-array'
-        }
       }
     }
   };

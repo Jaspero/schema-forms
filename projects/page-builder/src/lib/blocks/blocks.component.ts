@@ -204,6 +204,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
             this.renderComponent(f, block.previewValue || {})
           )
         );
+
+        this.focusBlock(this.compRefs.length - 1);
       });
 
     this.previewed = index;
@@ -301,12 +303,16 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       value: block.value
     };
 
-    const activeBlock = this.compRefs[this.selectedIndex].location.nativeElement;
-    activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+    this.focusBlock();
 
     this.state = 'inner';
     this.cdr.markForCheck();
+  }
+
+  focusBlock(index = this.selectedIndex) {
+    const activeBlock = this.compRefs[index].location.nativeElement;
+    activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
   }
 
   optionsChanged(data: any) {
