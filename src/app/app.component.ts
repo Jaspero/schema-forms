@@ -1,5 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
+import {startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'sc-root',
@@ -205,6 +206,13 @@ export class AppComponent implements AfterViewInit {
   };
 
   arrayExamples = {
+    value: {
+      addresses: [
+        {
+          city: 'osijek'
+        }
+      ]
+    },
     schema: {
       properties: {
         zips: {
@@ -280,10 +288,8 @@ export class AppComponent implements AfterViewInit {
       },
       {
         title: 'Objects',
-        array: '/addresses',
         fields: [
-          '/city',
-          '/address'
+          '/addresses'
         ]
       },
       {
@@ -319,8 +325,10 @@ export class AppComponent implements AfterViewInit {
           }
         }
       },
-      'addresses/city': {
-        label: 'City'
+      addresses: {
+        component: {
+          type: 'example-array'
+        }
       }
     }
   };
@@ -344,6 +352,7 @@ export class AppComponent implements AfterViewInit {
         component: {
           type: 'pb-blocks',
           configuration: {
+            intro: `<b>Example</b> this is.`,
             styles: `
               h1 {
                 color: green;
@@ -442,9 +451,13 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
-      log.form.valueChanges.subscribe(value => {
-        console.log('change', value);
-      });
+      log.form.valueChanges
+        .pipe(
+          startWith(log.form.getRawValue())
+        )
+        .subscribe(value => {
+          console.log('change', value);
+        });
     });
   }
 

@@ -1,6 +1,6 @@
 <section class="pb">
   <article class="pb-intro">
-    <p><b>Page Builder</b><br>Create and edit contents of your web page.</p>
+    <div [innerHTML]="intro | jpSanitize"></div>
     <button mat-stroked-button (click)="open()">{{'PB.START' | transloco}}</button>
   </article>
 

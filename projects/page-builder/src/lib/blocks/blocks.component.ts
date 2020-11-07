@@ -26,6 +26,7 @@ import {
   FormBuilderService,
   safeEval
 } from '@jaspero/form-builder';
+import {TranslocoService} from '@ngneat/transloco';
 import {forkJoin, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
@@ -62,6 +63,7 @@ interface Block {
 
 interface BlocksData extends FieldData {
   blocks: Block[];
+  intro?: string | {[key: string] : string};
   styles?: string | string[];
   styleUrls?: string | string[];
 }
@@ -76,6 +78,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
+    public transloco: TranslocoService,
     private service: FormBuilderService,
     @Optional()
     @Inject(FB_PAGE_BUILDER_OPTIONS)
@@ -85,7 +88,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private cdr: ChangeDetectorRef,
     private domSanitizer: DomSanitizer,
     @Inject(DOCUMENT)
-    private document: any
+    private document: any,
   ) {
     super(cData);
   }
@@ -125,6 +128,19 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
+  }
+
+  get intro() {
+
+    if (!this.cData.intro) {
+      return `<p><b>Page Builder</b><br>Create and edit contents of your web page.</p>`;
+    }
+
+    if (typeof this.cData.intro === 'string') {
+      return this.cData.intro;
+    } else {
+      return this.cData.intro[this.transloco.getActiveLang()];
+    }
   }
 
   ngOnInit() {

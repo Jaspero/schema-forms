@@ -5,18 +5,26 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TinymceModule} from '@jaspero/fb-tinymce';
-import {CUSTOM_FIELDS, CUSTOM_COMPONENTS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
+import {
+  CUSTOM_COMPONENTS,
+  CUSTOM_FIELDS,
+  DbService,
+  FormBuilderModule,
+  ROLE,
+  STORAGE_URL,
+  StorageService
+} from '@jaspero/form-builder';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {FB_PAGE_BUILDER_OPTIONS} from '../../projects/page-builder/src/lib/options.token';
 import {PageBuilderModule} from '../../projects/page-builder/src/lib/page-builder.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
+import {BlocksModule} from './blocks/blocks.module';
+import {ExampleCustomComponent} from './example-custom/example-custom.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
-import {BlocksModule} from './blocks/blocks.module';
-import { ExampleCustomComponent } from './example-custom/example-custom.component';
 
 @NgModule({
   declarations: [
@@ -69,10 +77,6 @@ import { ExampleCustomComponent } from './example-custom/example-custom.componen
     {
       provide: DbService,
       useClass: MockDbService
-    },
-    {
-      provide: CUSTOM_FIELDS,
-      useValue: {}
     },
     {
       provide: CUSTOM_COMPONENTS,

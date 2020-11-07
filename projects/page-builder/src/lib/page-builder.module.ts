@@ -8,7 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
-import {StopPropagationModule} from '@jaspero/ng-helpers';
+import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
@@ -34,6 +34,7 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     DragDropModule,
 
     StopPropagationModule,
+    SanitizeModule,
 
     TranslocoModule
   ],
