@@ -52,7 +52,7 @@
     "@ngneat/transloco": "2.19.1",
     "json-pointer": "0.6.0",
     "rxjs": "6.6.3",
-    "tinymce": "5.4.2",
+    "tinymce": "5.5.1",
     "tslib": "2.0.1",
     "zone.js": "0.11.1"
   },
