@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/fb-tinymce",
-  "version": "0.0.1",
+  "version": "1.0.11",
   "author": {
     "name": "Jaspero Ltd",
     "email": "info@jaspero.co"
@@ -10,7 +10,7 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.7.1",
+    "@jaspero/form-builder": "^3.7.1",
     "tinymce": "^5.4.2"
   },
   "release": {
