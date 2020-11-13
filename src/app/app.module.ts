@@ -7,7 +7,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS,
-  CUSTOM_FIELDS,
   DbService,
   FormBuilderModule,
   ROLE,

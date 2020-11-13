@@ -11,6 +11,10 @@
     border-bottom: solid 1px var(--panel-tertiary);
     background: var(--panel-theme);
 
+    > mat-checkbox {
+      margin: 0 10px 0 15px;
+    }
+
     &:last-child {
       border: none;
     }

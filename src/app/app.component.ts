@@ -1,6 +1,6 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
-import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
-import {startWith} from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren } from '@angular/core';
+import { FormBuilderComponent, FormBuilderData, SegmentType } from '@jaspero/form-builder';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'sc-root',
@@ -175,7 +175,8 @@ export class AppComponent implements AfterViewInit {
         },
         content: {
           type: 'string'
-        }
+        },
+        list: {type: 'array'}
       }
     },
     definitions: {
@@ -191,18 +192,54 @@ export class AppComponent implements AfterViewInit {
       content: {
         label: 'Content',
         component: {
-          type: 'wysiwyg'
+          type: 'tinymce'
+        }
+      },
+      list: {
+        label: 'List',
+        component: {
+          type: 'draggable',
+          configuration: {
+            toggle: true,
+            options: [
+              {
+                name: 'test 1',
+                value: 1,
+                disabled: true
+              },
+              {
+                name: 'test 2',
+                value: 2
+              },
+              {
+                name: 'test 3',
+                value: 3
+              },
+              {
+                name: 'test 4',
+                value: 4
+              }
+            ]
+          }
         }
       }
     },
-    segments: [{
-      type: SegmentType.Empty,
-      fields: [
-        '/title',
-        '/description',
-        '/content'
-      ]
-    }]
+    segments: [
+      {
+        type: SegmentType.Empty,
+        fields: [
+          '/list'
+        ]
+      },
+      {
+        type: SegmentType.Empty,
+        fields: [
+          '/title',
+          '/description',
+          '/content'
+        ]
+      }
+    ]
   };
 
   arrayExamples = {

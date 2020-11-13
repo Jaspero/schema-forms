@@ -7,10 +7,16 @@
     (cdkDropListDropped)="drop($event)">
     <div
       class="fb-draggable-list-item"
-      *ngFor="let item of cData.options; index as index"
+      *ngFor="let item of options; index as index"
       [cdkDragDisabled]="item.disabled"
       cdkDrag>
-      {{index + 1}}. {{item.name}}
+      <mat-checkbox
+        *ngIf="cData.toggle"
+        [disabled]="item.disabled"
+        [checked]="item.active"
+        (change)="toggleChange(index, $event)">
+      </mat-checkbox>
+      <span>{{item.name}}</span>
     </div>
   </div>
 </div>
