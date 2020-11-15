@@ -15,8 +15,7 @@ import {
 } from '@jaspero/form-builder';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {FB_PAGE_BUILDER_OPTIONS} from '../../projects/page-builder/src/lib/options.token';
-import {PageBuilderModule} from '../../projects/page-builder/src/lib/page-builder.module';
+import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BlocksModule} from './blocks/blocks.module';
