@@ -16,7 +16,7 @@ interface RangeData extends FieldData {
 @Component({
   selector: 'fb-range',
   templateUrl: './range.component.html',
-  styleUrls: ['./range.component.css']
+  styleUrls: ['./range.component.scss']
 })
 export class RangeComponent extends FieldComponent<RangeData> implements OnInit {
 

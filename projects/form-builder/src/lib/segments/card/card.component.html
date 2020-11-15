@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-header *ngIf="segment.title || segment.subTitle || segment.array">
     <div>
-      <h1 *ngIf="segment.title">{{segment.title}}</h1>
-      <h2 class="fs-small" *ngIf="segment.subTitle">{{segment.subTitle}}</h2>
+      <h1 *ngIf="segment.title">{{segment.title | transloco}}</h1>
+      <h2 class="fs-small" *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h2>
     </div>
     <div class="flex-1"></div>
     <button *ngIf="segment.array" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
@@ -12,7 +12,7 @@
 
   <mat-card-content>
     <div class="fb-fields">
-      <p class="mat-form-field-wrapper" *ngIf="segment.description">{{segment.description}}</p>
+      <p class="mat-form-field-wrapper" *ngIf="segment.description">{{segment.description | transloco}}</p>
 
       <ng-container *ngFor="let comp of components">
         <ng-template [cdkPortalOutlet]="comp"></ng-template>

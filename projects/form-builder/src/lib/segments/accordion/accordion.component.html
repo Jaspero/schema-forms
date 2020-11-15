@@ -1,19 +1,19 @@
 <ng-container *ngIf="segment.title || segment.subTitle">
-  <h4 *ngIf="segment.title">{{segment.title}}</h4>
-  <h5 *ngIf="segment.subTitle">{{segment.subTitle}}</h5>
+  <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
+  <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
   <div class="p-y-m">
     <mat-divider></mat-divider>
   </div>
 </ng-container>
 
-<p *ngIf="segment.description">{{segment.description}}</p>
+<p *ngIf="segment.description">{{segment.description | transloco}}</p>
 
 <mat-accordion>
   <mat-expansion-panel *ngFor="let accord of accordions" [expanded]="accord.expanded || false">
     <mat-expansion-panel-header>
-      <mat-panel-title *ngIf="accord.title">{{accord.title}}</mat-panel-title>
+      <mat-panel-title *ngIf="accord.title">{{accord.title | transloco}}</mat-panel-title>
       <mat-panel-description *ngIf="accord.description">
-        {{accord.description}}
+        {{accord.description | transloco}}
       </mat-panel-description>
     </mat-expansion-panel-header>
 

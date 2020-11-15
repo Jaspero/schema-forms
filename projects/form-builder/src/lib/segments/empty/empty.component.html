@@ -1,8 +1,8 @@
 <ng-container *ngIf="segment.title || segment.subTitle">
   <div class="flex jc-between">
     <div>
-      <h4 *ngIf="segment.title">{{segment.title}}</h4>
-      <h5 *ngIf="segment.subTitle">{{segment.subTitle}}</h5>
+      <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
+      <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
     </div>
     <button *ngIf="segment.array" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
       <mat-icon>add</mat-icon>
@@ -14,7 +14,7 @@
 </ng-container>
 
 <div class="fb-fields panel">
-  <p *ngIf="segment.description">{{segment.description}}</p>
+  <p *ngIf="segment.description">{{segment.description | transloco}}</p>
 
   <ng-container *ngFor="let comp of components">
     <ng-template [cdkPortalOutlet]="comp"></ng-template>

@@ -1,12 +1,12 @@
 <ng-container *ngIf="segment.title || segment.subTitle">
-  <h4 *ngIf="segment.title">{{segment.title}}</h4>
-  <h5 *ngIf="segment.subTitle">{{segment.subTitle}}</h5>
+  <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
+  <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
   <div class="p-y-m">
     <mat-divider></mat-divider>
   </div>
 </ng-container>
 
-<p *ngIf="segment.description">{{segment.description}}</p>
+<p *ngIf="segment.description">{{segment.description | transloco}}</p>
 
 <mat-tab-group
   [selectedIndex]="configuration.selectedIndex"
