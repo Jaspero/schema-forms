@@ -1,3 +1,18 @@
+## @jaspero/fb-tinymce [1.0.12](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.0.11...@jaspero/fb-tinymce@1.0.12) (2020-11-17)
+
+
+### Bug Fixes
+
+* added force to workflow ([d1a6c3c](https://github.com/Jaspero/schema-forms/commit/d1a6c3ce5f0b3e1dd7b384db9d5d50e045f2ec2a))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.8.0
+
 ## @jaspero/fb-tinymce [1.0.11](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.0.10...@jaspero/fb-tinymce@1.0.11) (2020-10-22)
 
 
