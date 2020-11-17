@@ -1,3 +1,25 @@
+# @jaspero/fb-page-builder [2.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.13.3...@jaspero/fb-page-builder@2.14.0) (2020-11-17)
+
+
+### Bug Fixes
+
+* added force to workflow ([d1a6c3c](https://github.com/Jaspero/schema-forms/commit/d1a6c3ce5f0b3e1dd7b384db9d5d50e045f2ec2a))
+
+
+### Features
+
+* version updates ([94c1181](https://github.com/Jaspero/schema-forms/commit/94c11818f483f4b77a450f7ca5361a9551c74549))
+* **page-builder:** focusing blocks on preview closes [#31](https://github.com/Jaspero/schema-forms/issues/31) ([8385f31](https://github.com/Jaspero/schema-forms/commit/8385f3134c45180bbc256b558fc55a641bad6b6f))
+* **page-builder:** intro content can now be adjusted ([d964054](https://github.com/Jaspero/schema-forms/commit/d96405429e66affd65ef744d3b42af29131020a9))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.8.0
+
 ## @jaspero/fb-page-builder [2.13.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.13.2...@jaspero/fb-page-builder@2.13.3) (2020-10-22)
 
 
