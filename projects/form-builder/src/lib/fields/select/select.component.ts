@@ -93,7 +93,7 @@ export class SelectComponent extends FieldComponent<SelectData>
         query?: {
           collection: string,
           orderBy: string,
-          filter: WhereFilter | string
+          filter: WhereFilter[] | WhereFilter | string
         }
       ) => {
 
@@ -107,6 +107,28 @@ export class SelectComponent extends FieldComponent<SelectData>
         if (query.filter && typeof query.filter === 'string') {
           return this.dbService.getDocument(
             query.collection,
+            query.filter
+          )
+            .pipe(
+              map(it => {
+                return (mapResults ? mapResults(it) : [it]).map((doc: any) => ({
+                  value: doc[populate.valueKey || 'id'],
+                  name: parseTemplate(
+                    populate.nameKey || 'name',
+                    doc
+                  )
+                }));
+              }),
+              tap(() => this.loading$.next(false))
+            );
+        }
+
+        if (query.filter && Array.isArray(query.filter)) {
+          return this.dbService.getDocuments(
+            query.collection,
+            undefined,
+            undefined,
+            undefined,
             query.filter
           )
             .pipe(
@@ -175,7 +197,7 @@ export class SelectComponent extends FieldComponent<SelectData>
           );
       } else {
 
-        let filter: WhereFilter = populate.filter as WhereFilter;
+        let filter: WhereFilter | WhereFilter[] = populate.filter as (WhereFilter | WhereFilter[]);
 
         if (populate.dynamicFilter) {
           filter = safeEval(populate.dynamicFilter)({
