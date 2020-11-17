@@ -1,3 +1,20 @@
+# @jaspero/form-builder [3.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.7.1...@jaspero/form-builder@3.8.0) (2020-11-17)
+
+
+### Bug Fixes
+
+* added force to workflow ([d1a6c3c](https://github.com/Jaspero/schema-forms/commit/d1a6c3ce5f0b3e1dd7b384db9d5d50e045f2ec2a))
+* peerDependency conflicts ([076e2f8](https://github.com/Jaspero/schema-forms/commit/076e2f869becdc5435823b477347c2d908711341))
+
+
+### Features
+
+* added array of where filter ([e80d3e3](https://github.com/Jaspero/schema-forms/commit/e80d3e32d9507ddb187dfcb104014a4311662882))
+* added multiple filters on select component ([c7499cc](https://github.com/Jaspero/schema-forms/commit/c7499cc4f6e0a6e673aa42c465b9dba99d882bad))
+* **form-builder:** added transloco to missing properties in segments ([372bdf9](https://github.com/Jaspero/schema-forms/commit/372bdf98dcae24ec97129214540a8ed1db07427f))
+* version updates ([94c1181](https://github.com/Jaspero/schema-forms/commit/94c11818f483f4b77a450f7ca5361a9551c74549))
+* **form-builder:** extended draggable field with active toggle ([8edb410](https://github.com/Jaspero/schema-forms/commit/8edb4104cf2f39027e9604007ba30289ecf81910))
+
 ## @jaspero/form-builder [3.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.7.0...@jaspero/form-builder@3.7.1) (2020-10-22)
 
 
