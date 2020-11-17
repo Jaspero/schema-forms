@@ -132,8 +132,17 @@ export class SelectComponent extends FieldComponent<SelectData>
             query.filter
           )
             .pipe(
-              map(it => {
-                return (mapResults ? mapResults(it) : [it]).map((doc: any) => ({
+              map(docs => {
+                if (mapResults) {
+                  docs = mapResults(docs, {
+                    fieldData: this.cData,
+                    value: this.cData.form.getRawValue(),
+                    role: this.role,
+                    additionalContext: this.additionalContext
+                  });
+                }
+
+                return docs.map(doc => ({
                   value: doc[populate.valueKey || 'id'],
                   name: parseTemplate(
                     populate.nameKey || 'name',
