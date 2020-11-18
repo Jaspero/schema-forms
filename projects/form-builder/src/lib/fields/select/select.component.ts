@@ -11,6 +11,7 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {parseTemplate} from '../../utils/parse-template';
 import {ROLE} from '../../utils/role';
 import {safeEval} from '../../utils/safe-eval';
+import {Parser} from '../../utils/parser';
 
 interface Populate {
   collection?: string;
@@ -184,8 +185,7 @@ export class SelectComponent extends FieldComponent<SelectData>
       };
 
       if (populate.dependency) {
-
-        const pointer = this.cData.pointers[populate.dependency.key];
+        const pointer = this.cData.pointers[Parser.standardizeKey(populate.dependency.key)];
         const gm = safeEval(populate.dependency.method);
 
         this.dataSet$ = pointer.control.valueChanges
