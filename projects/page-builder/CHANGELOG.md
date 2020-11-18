@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.14.0...@jaspero/fb-page-builder@2.14.1) (2020-11-18)
+
+
+### Bug Fixes
+
+* **page-builder:** properly loose box shadow when skipOpen is true ([5bd0417](https://github.com/Jaspero/schema-forms/commit/5bd0417f22ea7a5d28daee10257ab9b9474a08d5))
+
 # @jaspero/fb-page-builder [2.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.13.3...@jaspero/fb-page-builder@2.14.0) (2020-11-17)
 
 
