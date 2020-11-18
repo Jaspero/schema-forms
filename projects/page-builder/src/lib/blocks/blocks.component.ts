@@ -228,6 +228,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     if (block.skipOpen) {
       this.state = '';
+      this.removeFocus(this.compRefs.length - 1);
       this.cdr.markForCheck();
     } else {
       this.selectBlock(topBlock, this.blocks.length - 1);
@@ -315,6 +316,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
   }
 
+  removeFocus(index = this.selectedIndex) {
+    const block = this.compRefs[index].location.nativeElement;
+    block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+  }
+
   optionsChanged(data: any) {
 
     const selected = this.selected as Selected;
@@ -343,7 +349,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         ),
       components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
     };
-    this.compRefs[this.selectedIndex].location.nativeElement.shadowRoot.querySelector('div').style.boxShadow = 'none';
+    this.removeFocus(this.selectedIndex);
     this.selected = null;
     // @ts-ignore
     this.selectedIndex = undefined;
