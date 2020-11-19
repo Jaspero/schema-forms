@@ -185,7 +185,7 @@ export class SelectComponent extends FieldComponent<SelectData>
       };
 
       if (populate.dependency) {
-        const pointer = this.cData.pointers[Parser.standardizeKey(populate.dependency.key)];
+        const pointer = this.cData.pointers[Parser.standardizeKeyWithSlash(populate.dependency.key)];
         const gm = safeEval(populate.dependency.method);
 
         this.dataSet$ = pointer.control.valueChanges

@@ -98,6 +98,14 @@ export class Parser {
     return key;
   }
 
+  static standardizeKeyWithSlash(key: string) {
+    if (key[0] !== '/') {
+      key = '/' + key;
+    }
+
+    return key;
+  }
+
   static stringControl(
     definition: StringPropertyDefinition,
     required: boolean
