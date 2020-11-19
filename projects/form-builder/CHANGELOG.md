@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.8.0...@jaspero/form-builder@3.8.1) (2020-11-19)
+
+
+### Bug Fixes
+
+* **DateField:** date field working correct with null and update value without save action ([77c7b3f](https://github.com/Jaspero/schema-forms/commit/77c7b3f03e87e8be6aaa8a7ac87e1c0d366e5371))
+
 # @jaspero/form-builder [3.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.7.1...@jaspero/form-builder@3.8.0) (2020-11-17)
 
 
