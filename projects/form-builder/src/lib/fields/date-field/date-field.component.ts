@@ -1,10 +1,9 @@
 import {DatePipe} from '@angular/common';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {combineLatest, Subscription} from 'rxjs';
+import {startWith} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
-import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {cloneAbstractControl} from '../../utils/clone-abstract-control';
@@ -32,9 +31,7 @@ interface DateData extends FieldData {
 export class DateFieldComponent extends FieldComponent<DateData>
   implements OnInit, OnDestroy {
   constructor(
-    @Inject(COMPONENT_DATA) public cData: DateData,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
+    @Inject(COMPONENT_DATA) public cData: DateData
   ) {
     super(cData);
   }
@@ -44,22 +41,22 @@ export class DateFieldComponent extends FieldComponent<DateData>
   entryControl: FormControl;
   hoursControl: FormControl;
   minutesControl: FormControl;
+  listener: Subscription;
 
   ngOnInit() {
-    this.formBuilderService.saveComponents.push(this);
     this.startDate = this.cData.startAt
       ? new Date(this.cData.startAt)
       : new Date();
 
-    const date = new Date(this.cData.control.value);
+    const date = this.cData.control.value ? new Date(this.cData.control.value) : null;
 
     this.entryControl = cloneAbstractControl(this.cData.control);
     this.hoursControl = new FormControl(
-      {value: date.getHours() || 0, disabled: this.cData.control.disabled},
+      {value: date?.getHours() || 0, disabled: this.cData.control.disabled},
       [Validators.min(0), Validators.max(23)]
     );
     this.minutesControl = new FormControl(
-      {value: date.getMinutes() || 0, disabled: this.cData.control.disabled},
+      {value: date?.getMinutes() || 0, disabled: this.cData.control.disabled},
       [Validators.min(0), Validators.max(59)]
     );
 
@@ -72,21 +69,23 @@ export class DateFieldComponent extends FieldComponent<DateData>
     ) {
       this.entryControl.setValue(new Date(this.entryControl.value));
     }
-  }
 
-  ngOnDestroy() {
-    this.formBuilderService.removeComponent(this);
-  }
-
-  save() {
-    return of({}).pipe(
-      tap(() => {
-        let value = this.entryControl.value;
-
+    this.listener = combineLatest([
+      this.entryControl.valueChanges.pipe(
+        startWith(this.entryControl.value)
+      ),
+      this.hoursControl.valueChanges.pipe(
+        startWith(this.hoursControl.value)
+      ),
+      this.minutesControl.valueChanges.pipe(
+        startWith(this.minutesControl.value)
+      )
+    ])
+      .subscribe(([value, hours, minutes]) => {
         if (value) {
           if (this.cData.includeTime) {
-            value.setHours(this.hoursControl.value || 0);
-            value.setMinutes(this.minutesControl.value || 0);
+            value.setHours(hours || 0);
+            value.setMinutes(minutes || 0);
           }
 
           if (this.cData.format) {
@@ -102,6 +101,9 @@ export class DateFieldComponent extends FieldComponent<DateData>
 
         this.cData.control.setValue(value);
       })
-    );
+  }
+
+  ngOnDestroy() {
+    this.listener.unsubscribe();
   }
 }

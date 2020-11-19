@@ -36,7 +36,9 @@ export class AppComponent implements AfterViewInit {
         },
         address: {
           type: 'string'
-        }
+        },
+        endDate: {type: 'number'},
+        startDate: {type: 'number'},
       }
     },
     definitions: {
@@ -76,6 +78,32 @@ export class AppComponent implements AfterViewInit {
         },
         label: 'FILE',
         roles: 'user'
+      },
+      endDate: {
+        label: 'DISCOUNTS.END_DATE',
+        // formatOnLoad: '(value) => value || Date.now()',
+        component: {
+          type: 'date',
+          configuration: {
+            includeTime: true,
+            labelHours: 'GENERAL.HOURS',
+            labelMinutes: 'GENERAL.MINUTES',
+            format: 'number'
+          }
+        }
+      },
+      startDate: {
+        label: 'DISCOUNTS.start',
+        // formatOnLoad: '(value) => value || Date.now()',
+        component: {
+          type: 'date',
+          configuration: {
+            includeTime: false,
+            labelHours: 'GENERAL.HOURS',
+            labelMinutes: 'GENERAL.MINUTES',
+            format: 'number'
+          }
+        }
       },
       photos: {
         component: {
@@ -135,13 +163,15 @@ export class AppComponent implements AfterViewInit {
       },
       {
         fields: [
-          '/between',
-          '/createdOn',
-          '/File',
-          '/photos',
-          '/title',
-          '/description',
-          '/address'
+          // '/between',
+          // '/createdOn',
+          // '/File',
+          // '/photos',
+          // '/title',
+          // '/description',
+          // '/address',
+          '/endDate',
+          '/startDate'
         ]
       }
       // {
