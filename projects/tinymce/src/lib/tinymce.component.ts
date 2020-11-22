@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject,
+  Inject, NgZone,
   OnInit,
   TemplateRef,
   ViewChild
@@ -44,7 +44,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
     private fb: FormBuilder,
     private dialog: MatDialog,
     private storage: StorageService,
-    private formBuilderComponent: FormBuilderComponent
+    private formBuilderComponent: FormBuilderComponent,
+    private zone: NgZone
   ) {
     super(cData);
   }
@@ -55,7 +56,6 @@ export class TinymceComponent extends FieldComponent<TinyData>
   @ViewChild('youTubeDialog', {static: true})
   youTubeDialogTemplate: TemplateRef<any>;
 
-  editor: any;
   ytForm: FormGroup;
   ytDefault = {
     fullWidth: true,
@@ -140,11 +140,10 @@ export class TinymceComponent extends FieldComponent<TinyData>
       },
 
       setup: (editor: any) => {
-        this.editor = editor;
-
         editor.on('keyup change', () => {
-          const tinyContent = editor.getContent();
-          this.cData.control.setValue(tinyContent);
+          this.zone.run(() =>
+            this.cData.control.setValue(editor.getContent())
+          );
         });
 
         editor.ui.registry.addButton('youTube', {
