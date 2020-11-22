@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.0.13...@jaspero/fb-tinymce@1.1.0) (2020-11-22)
+
+
+### Features
+
+* **tinymce:** running changes with NgZone.run ([1bf4d50](https://github.com/Jaspero/schema-forms/commit/1bf4d5091411e5bd9f08968fdcf4f340a00ec8eb))
+
 ## @jaspero/fb-tinymce [1.0.13](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.0.12...@jaspero/fb-tinymce@1.0.13) (2020-11-19)
 
 
