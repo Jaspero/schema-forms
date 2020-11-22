@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.8.1...@jaspero/form-builder@3.9.0) (2020-11-22)
+
+
+### Features
+
+* **form-builder:** parseTemplate now accepts a custom accessor method ([a89663a](https://github.com/Jaspero/schema-forms/commit/a89663a6d6f9d2d6a0c6aead60a5d2feaa75fe43))
+
 ## @jaspero/form-builder [3.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.8.0...@jaspero/form-builder@3.8.1) (2020-11-19)
 
 
