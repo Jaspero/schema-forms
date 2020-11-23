@@ -383,6 +383,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       }
     }
 
+    this.state = 'blocks';
     this.isOpen = false;
   }
 
