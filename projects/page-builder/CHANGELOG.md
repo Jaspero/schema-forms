@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.14.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.14.3...@jaspero/fb-page-builder@2.14.4) (2020-11-23)
+
+
+### Bug Fixes
+
+* **page-builder:** reset state when page builder is closed ([a0ecd08](https://github.com/Jaspero/schema-forms/commit/a0ecd08b731640e95f7250a9c325c50d580948e3))
+
 ## @jaspero/fb-page-builder [2.14.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.14.2...@jaspero/fb-page-builder@2.14.3) (2020-11-22)
 
 
