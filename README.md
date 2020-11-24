@@ -225,6 +225,8 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
 
 #### Page Builder
 
+#### Form UI
+
 ##### Set up
 
 1. Install the plugin `npm i --save @jaspero/fb-page-builder`

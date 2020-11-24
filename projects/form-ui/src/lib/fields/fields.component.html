@@ -1,0 +1,65 @@
+<ng-template #text let-control="control">
+
+</ng-template>
+
+<ng-template #number let-control="control">
+
+</ng-template>
+
+<ng-template #email let-control="control">
+
+</ng-template>
+
+<ng-template #textarea let-control="control">
+
+</ng-template>
+
+<ng-template #select let-control="control">
+
+</ng-template>
+
+<ng-template #checkbox let-control="control">
+
+</ng-template>
+
+<div class="fields" cdkDropListGroup>
+  <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
+
+  <div
+    class="field"
+    cdkDropList
+    (cdkDropListDropped)="dropListDropped()"
+    *ngFor="let control of fields.controls; index as index">
+    <div cdkDrag (cdkDragMoved)="dragMoved($event)">
+
+      <div class="field-top-bar">
+        <button mat-icon-button cdkDragHandle>
+          <mat-icon>drag_indicator</mat-icon>
+        </button>
+
+        <div>
+          <button mat-icon-button matTooltip="Edit" (click)="edit(control)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          &nbsp;
+          <button
+            mat-icon-button
+            matTooltip="Required"
+            [color]="control.get('required').value ? 'primary' : 'default'"
+            (click)="control.get('required').setValue(!control.get('required').value)">
+            <mat-icon>new_releases</mat-icon>
+          </button>
+          &nbsp;
+          <button
+            mat-icon-button
+            matTooltip="Remove"
+            (click)="fields.removeAt(index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+    </div>
+  </div>
+</div>

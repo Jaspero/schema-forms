@@ -35,6 +35,10 @@
       "tinymce": [
         "dist/tinymce/tinymce",
         "dist/tinymce"
+      ],
+      "form-ui": [
+        "dist/form-ui/form-ui",
+        "dist/form-ui"
       ]
     }
   },
