@@ -11,8 +11,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
+import {LoadClickModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {FieldsComponent} from './fields/fields.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [FieldsComponent],
@@ -31,10 +33,12 @@ import {FieldsComponent} from './fields/fields.component';
     MatButtonModule,
     DragDropModule,
     MatMenuModule,
+    MatDialogModule,
     MatIconModule,
     MatTooltipModule,
 
-    TranslocoModule
+    TranslocoModule,
+    LoadClickModule
   ]
 })
 export class FormUiModule {

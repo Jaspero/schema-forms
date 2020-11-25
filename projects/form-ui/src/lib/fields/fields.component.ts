@@ -1,8 +1,9 @@
 import {CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {TYPES} from '../consts/types.const';
 
@@ -16,8 +17,7 @@ interface Field {
   hint?: string;
   required?: boolean;
   placeholder?: string;
-
-  options?: Array<{value: string; label: string;}>;
+  added?: any;
   value?: any;
 }
 
@@ -37,6 +37,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     public cData: FieldsData,
     private fb: FormBuilder,
     private viewportRuler: ViewportRuler,
+    private dialog: MatDialog
   ) {
     super(cData);
   }
@@ -61,16 +62,23 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   source: CdkDropList | null;
   sourceIndex: number;
 
+  @ViewChild('optionsDialog', {static: true})
+  optionsDialogTemp: TemplateRef<any>;
+
+  @ViewChild('editDialog', {static: true})
+  editDialogTemp: TemplateRef<any>;
+
   fields: FormArray;
   types: {
     [key: string]: {
       value: string;
       template: TemplateRef<any>;
+      added?: FormBuilderData;
     }
   };
 
   selectedForm: FormGroup;
-
+  selectedFormData: FormBuilderData;
   subscription: Subscription;
 
   ngOnInit() {
@@ -109,9 +117,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   createField(field: Partial<Field> = {}) {
 
-    const group = this.fb.group({
+    const type = field.type || Object.keys(this.types)[0];
+
+    return this.fb.group({
       id: [field.id || '', Validators.required],
-      type: field.type || this.types[0].value,
+      type,
       label: field.label || '',
       columnsDesktop: field.columnsDesktop || 12,
       columnsTablet: field.columnsTablet || 12,
@@ -119,22 +129,69 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       hint: field.hint || '',
       required: field.required || false,
       placeholder: field.placeholder || '',
-      value: field.value || ''
+      value: field.value || '',
+      added: [field.added ? field.added : {}]
     });
+  }
 
-    this.subscription.add(
-      group
-        .get('type')?.valueChanges
-        .subscribe(type => {
+  options(group: FormGroup) {
+    this.selectedFormData = this.types[group.get('type')?.value] as any;
+    this.selectedFormData.value = group.get('added')?.value || {};
+    this.selectedForm = group;
 
-        })
-    );
+    this.dialog.open(
+      this.optionsDialogTemp,
+      {
+        width: '700px'
+      }
+    )
+  }
 
-    return group;
+  saveOptions(form: FormBuilderComponent) {
+    this.selectedForm.get('added')?.setValue(form.form.getRawValue());
+    this.dialog.closeAll();
+  }
+
+  saveEdit(form: FormBuilderComponent) {
+    const data = form.form.getRawValue();
+
+    // tslint:disable-next-line:forin
+    for (const key in data) {
+      this.selectedForm.get('key')?.setValue(data[key]);
+    }
+
+    this.dialog.closeAll();
   }
 
   edit(group: FormGroup) {
     this.selectedForm = group;
+    this.selectedFormData = {
+      segments: [{
+        fields: [
+          '/id',
+          '/label',
+          '/hint',
+          '/placeholder'
+        ]
+      }],
+      definitions: {
+        id: {label: 'ID'},
+        label: {label: 'Label'},
+        hint: {label: 'Hint'},
+        placeholder: {label: 'Placeholder'}
+      },
+      schema: {
+        properties: {
+          id: {type: 'string'},
+          label: {type: 'string'},
+          hint: {type: 'string'},
+          placeholder: {type: 'string'},
+        }
+      },
+      value: group.getRawValue()
+    };
+
+
   }
 
   /**

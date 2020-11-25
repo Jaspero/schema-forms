@@ -22,6 +22,32 @@
 
 </ng-template>
 
+<ng-template #optionsDialog>
+  <h4 mat-dialog-title>{{'FU.SETTINGS' | transloco}}</h4>
+  <form>
+    <mat-dialog-content>
+      <fb-form-builder [data]="selectedForm" #optForm></fb-form-builder>
+    </mat-dialog-content>
+    <mat-dialog-actions class="jc-end">
+       <button mat-flat-button color="primary" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    </mat-dialog-actions>
+  </form>
+</ng-template>
+
+<ng-template #editDialog>
+  <h4 mat-dialog-title>{{'FU.EDIT' | transloco}}</h4>
+  <form>
+    <mat-dialog-content>
+      <mat-dialog-content>
+        <fb-form-builder [data]="selectedForm" #optForm></fb-form-builder>
+      </mat-dialog-content>
+      <mat-dialog-actions class="jc-end">
+        <button mat-flat-button color="primary" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+      </mat-dialog-actions>
+    </mat-dialog-content>
+  </form>
+</ng-template>
+
 <div class="fields" cdkDropListGroup>
   <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
 
@@ -38,6 +64,9 @@
         </button>
 
         <div>
+          <button mat-icon-button matTooltip="Options" (click)="options(control)">
+            <mat-icon>settings</mat-icon>
+          </button>
           <button mat-icon-button matTooltip="Edit" (click)="edit(control)">
             <mat-icon>edit</mat-icon>
           </button>

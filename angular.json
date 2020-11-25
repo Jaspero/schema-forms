@@ -293,7 +293,7 @@
       "projectType": "library",
       "root": "projects/form-ui",
       "sourceRoot": "projects/form-ui/src",
-      "prefix": "lib",
+      "prefix": "fb-fu",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
