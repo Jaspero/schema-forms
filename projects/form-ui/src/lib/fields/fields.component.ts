@@ -137,13 +137,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     ].join(' ')
   }
 
-  createField(field: Partial<Field>) {
+  createField(field?: Partial<Field>) {
 
     const type = field?.type || Object.keys(this.types)[0];
 
-    if (!field) {
-      field = this.types[type].default;
-    }
+    field = (field || this.types[type].default || {}) as Partial<Field>;
 
     return this.fb.group({
       id: [field.id || type, Validators.required],
