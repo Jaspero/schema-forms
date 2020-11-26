@@ -1,6 +1,12 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![Release](https://github.com/Jaspero/schema-forms/workflows/Release/badge.svg)
-[![NPM Version](https://img.shields.io/npm/v/@jaspero/form-builder.svg)](https://www.npmjs.com/package/@jaspero/form-builder)
+
+| Library | Version |
+| ---- | ---- |
+| Core | [![NPM Version](https://img.shields.io/npm/v/@jaspero/form-builder.svg)](https://www.npmjs.com/package/@jaspero/form-builder) |
+| Page Builder | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-page-builder.svg)](https://www.npmjs.com/package/@jaspero/fb-page-builder) |
+| Form UI | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-form-ui.svg)](https://www.npmjs.com/package/@jaspero/fb-form-ui) |
+| Tinymce | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-tinymce.svg)](https://www.npmjs.com/package/@jaspero/fb-tinymce) |
 
 # @jaspero/form-builder
 
@@ -225,7 +231,11 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
 
 #### Page Builder
 
+This plugin registers a field `pb-blocks` for rendering a page builder module.
+
 #### Form UI
+
+This plugin registers a field `fu-fields` for rendering a form builder module.
 
 ##### Set up
 
