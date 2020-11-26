@@ -84,21 +84,24 @@
   <mat-dialog-content>
     <p>
       <span class="size-label">{{'FU.SIZE.DESKTOP' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco" [formControl]="sizeForm.get('columnsDesktop')">
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco"
+                               [formControl]="sizeForm.get('columnsDesktop')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
       <span class="size-label">{{'FU.SIZE.TABLET' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.TABLET' | transloco" [formControl]="sizeForm.get('columnsTablet')">
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.TABLET' | transloco"
+                               [formControl]="sizeForm.get('columnsTablet')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
       <span class="size-label">{{'FU.SIZE.MOBILE' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.MOBILE' | transloco" [formControl]="sizeForm.get('columnsMobile')">
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.MOBILE' | transloco"
+                               [formControl]="sizeForm.get('columnsMobile')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
@@ -111,23 +114,25 @@
 
 <ng-container>
   <div class="fields" cdkDropListGroup>
-      <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
+    <div
+      class="fields-placeholder"
+      cdkDropList
+      [cdkDropListEnterPredicate]="dropListEnterPredicate"
+      (cdkDropListDropped)="dragDrop()">
+    </div>
 
     <div
       class="field"
       [ngClass]="fieldSize(control)"
       cdkDropList
-      (cdkDropListDropped)="dropListDropped()"
+      [cdkDropListEnterPredicate]="dropListEnterPredicate"
+      (cdkDropListDropped)="dragDrop()"
       *ngFor="let control of fields.controls; index as index">
-      <div cdkDrag (cdkDragMoved)="dragMoved($event)">
+      <div cdkDrag>
 
         <div class="field-top-bar">
-          <button mat-icon-button cdkDragHandle>
-            <mat-icon>drag_indicator</mat-icon>
-          </button>
-
           <div>
-            <button mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
+            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
               <mat-icon>widgets</mat-icon>
             </button>
             <mat-menu #typeMenu="matMenu">
@@ -136,12 +141,24 @@
               </button>
             </mat-menu>
             &nbsp;
-            <button mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
+            <button
+              tabindex="-1"
+              mat-icon-button
+              [matTooltip]="'FU.REQUIRED' | transloco"
+              [color]="control.get('required').value ? 'primary' : 'default'"
+              (click)="control.get('required').setValue(!control.get('required').value)">
+              <mat-icon>warning</mat-icon>
+            </button>
+          </div>
+
+          <div>
+            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
               <mat-icon>edit</mat-icon>
             </button>
             &nbsp;
             <ng-container *ngIf="types[control.get('type').value].added">
               <button
+                tabindex="-1"
                 mat-icon-button
                 [matTooltip]="'FU.OPTIONS' | transloco"
                 (click)="options(control)">
@@ -150,19 +167,12 @@
               &nbsp;
             </ng-container>
 
-            <button mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
+            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
               <mat-icon>aspect_ratio</mat-icon>
             </button>
             &nbsp;
             <button
-              mat-icon-button
-              [matTooltip]="'FU.REQUIRED' | transloco"
-              [color]="control.get('required').value ? 'primary' : 'default'"
-              (click)="control.get('required').setValue(!control.get('required').value)">
-              <mat-icon>warning</mat-icon>
-            </button>
-            &nbsp;
-            <button
+              tabindex="-1"
               mat-icon-button
               color="warn"
               [matTooltip]="'FU.REMOVE' | transloco"
@@ -173,7 +183,8 @@
         </div>
 
         <div class="field-inner">
-          <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
         </div>
       </div>
     </div>

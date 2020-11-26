@@ -14,15 +14,16 @@
   <ng-container>
     <div class="fb-gallery-list" cdkDropListGroup>
 
-      <div class="fb-gallery-list-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
+      <div class="fb-gallery-list-placeholder" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dragDrop()"></div>
 
       <div
         cdkDropList
+        [cdkDropListEnterPredicate]="dropListEnterPredicate"
         class="fb-gallery-list-image"
-        (cdkDropListDropped)="dropListDropped()"
+        (cdkDropListDropped)="dragDrop()"
         *ngFor="let val of cData.control.value; index as index">
 
-        <div cdkDrag (cdkDragMoved)="dragMoved($event);">
+        <div cdkDrag>
           <img class="fb-gallery-list-image-inner" [src]="(val.data || val) | jpSanitize:'resourceUrl'">
           <button class="fb-gallery-list-image-remove" type="button" mat-icon-button [matTooltip]="'GENERAL.REMOVE' | transloco" (click)="removeImage(index, val)">
             <mat-icon>close</mat-icon>

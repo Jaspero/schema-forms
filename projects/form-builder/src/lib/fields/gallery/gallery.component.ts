@@ -1,4 +1,4 @@
-import {CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {HttpClient} from '@angular/common/http';
 import {
@@ -7,7 +7,8 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Inject, OnDestroy,
+  Inject,
+  OnDestroy,
   OnInit,
   Optional,
   TemplateRef,
@@ -67,8 +68,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     super(cData);
   }
 
-  @ViewChild(CdkDropListGroup, {static: true})
-  listGroup: CdkDropListGroup<CdkDropList>;
   @ViewChild(CdkDropList, {static: true})
   placeholder: CdkDropList;
   @ViewChild('modal', {static: true})
@@ -79,9 +78,9 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   fileEl: ElementRef<HTMLInputElement>;
   target: CdkDropList | null;
   targetIndex: number;
+  insertAfter: boolean;
   source: CdkDropList | null;
-  sourceIndex: number;
-  activeContainer: any;
+  sourceIndex: number;;
   files: File[] = [];
   toRemove: any[] = [];
 
@@ -97,6 +96,10 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+
+    if (!this.cData.hasOwnProperty('allowServerUpload')) {
+      this.cData.allowServerUpload = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -276,54 +279,84 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   /**
    * Drag and Drop
    */
-  dragMoved(e: CdkDragMove) {
-    const point = this.getPointerPositionOnPage(e.event);
-
-    this.listGroup._items.forEach(dropList => {
-      if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
-        this.activeContainer = dropList;
-        return;
-      }
-    });
+  indexOf(collection: any, node: any) {
+    return Array.prototype.indexOf.call(collection, node);
   }
 
-  dropListDropped() {
-    if (!this.target) {
+  dragDrop() {
+    if (!this.target)
       return;
-    }
 
-    const phElement = this.placeholder.element.nativeElement;
-    const parent: any = phElement.parentElement;
+    let phElement = this.placeholder.element.nativeElement;
+    let parent = phElement.parentNode as any;
 
     phElement.style.display = 'none';
 
-    const {element} = this.source as any;
-
     parent.removeChild(phElement);
     parent.appendChild(phElement);
-    parent.insertBefore(element.nativeElement, parent.children[this.sourceIndex]);
+    parent.insertBefore(this.source?.element.nativeElement, parent.children[this.sourceIndex]);
 
     this.target = null;
     this.source = null;
 
-    if (this.sourceIndex !== this.targetIndex) {
+    if (this.insertAfter && this.cData.control.value.length > this.targetIndex + 1) {
+      this.targetIndex ++;
+    }
+
+    if (this.sourceIndex != this.targetIndex) {
       const value = this.cData.control.value;
       moveItemInArray(value, this.sourceIndex, this.targetIndex);
       this.cData.control.setValue(value);
     }
   }
 
-  /** Determines the point of the page that was touched by the user. */
-  getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
-    // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
-    const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
-    const scrollPosition = this.viewportRuler.getViewportScrollPosition();
+  dropListEnterPredicate = (drag: CdkDrag<any>, drop: CdkDropList<any>) => {
+    if (drop == this.placeholder)
+      return true;
 
-    return {
-      x: point.pageX - scrollPosition.left,
-      y: point.pageY - scrollPosition.top
-    };
-  }
+    let phElement = this.placeholder.element.nativeElement;
+    let dropElement = drop.element.nativeElement as any;
+
+    let dragIndex = this.indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
+    let dropIndex = this.indexOf(dropElement.parentNode.children, dropElement);
+
+    let size: any = '';
+
+    if (!this.source) {
+      this.sourceIndex = dragIndex;
+      this.source = drag.dropContainer;
+
+      let sourceElement = this.source.element.nativeElement as any;
+      phElement.style.width = sourceElement.clientWidth + 'px';
+      phElement.style.height = sourceElement.clientHeight + 'px';
+
+      sourceElement.parentNode.removeChild(sourceElement);
+      size = Array.from(sourceElement.classList)
+        .find((c: any) => c.startsWith('content-item-c'));
+    }
+
+    this.targetIndex = dropIndex;
+    this.target = drop;
+
+    phElement.style.display = '';
+    this.insertAfter = (dragIndex < dropIndex);
+    dropElement.parentNode.insertBefore(phElement, this.insertAfter ? dropElement.nextSibling : dropElement);
+
+
+    const oldSize = Array.from(phElement.classList).find(c => c.startsWith('content-item-c'));
+    if (oldSize) {
+      phElement.classList.remove(oldSize);
+    }
+
+    if (size) {
+      phElement.classList.add(size);
+    }
+
+    this.source._dropListRef.start();
+    this.placeholder._dropListRef.enter(drag._dragRef, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
+
+    return false;
+  };
 
   /**
    * Executes all uploads/removes to persist
@@ -389,14 +422,4 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       )
     );
   }
-}
-
-/** Determines whether an event is a touch event. */
-function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
-  return event.type.startsWith('touch');
-}
-
-function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
-  const {top, bottom, left, right} = dropList.element.nativeElement.getBoundingClientRect();
-  return y >= top && y <= bottom && x >= left && x <= right;
 }
