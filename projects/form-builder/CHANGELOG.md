@@ -1,3 +1,11 @@
+# @jaspero/form-builder [3.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.9.0...@jaspero/form-builder@3.10.0) (2020-11-26)
+
+
+### Features
+
+* **form-ui:** connected drag and drop ([7628689](https://github.com/Jaspero/schema-forms/commit/7628689708598cab2832b06525afc3d22f2c8a49))
+* **form-ui:** initial setup for form-ui library ([fda4f25](https://github.com/Jaspero/schema-forms/commit/fda4f25a15713bcdc0a5337e36e232ad1a4dea5e))
+
 # @jaspero/form-builder [3.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.8.1...@jaspero/form-builder@3.9.0) (2020-11-22)
 
 
