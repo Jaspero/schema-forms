@@ -1,17 +1,37 @@
 <ng-template #text let-control="control">
-
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <input matInput [formControl]="control.get('value')" [placeholder]="control.get('placeholder').value">
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
 </ng-template>
 
 <ng-template #number let-control="control">
-
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <input matInput type="number" [formControl]="control.get('value')" [placeholder]="control.get('placeholder').value">
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
 </ng-template>
 
 <ng-template #email let-control="control">
-
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <input matInput type="email" [formControl]="control.get('value')" [placeholder]="control.get('placeholder').value">
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
 </ng-template>
 
 <ng-template #textarea let-control="control">
-
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <textarea
+      matInput
+      [rows]="control.get('added.rows')?.value"
+      [formControl]="control.get('value')"
+      [placeholder]="control.get('placeholder').value"></textarea>
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
 </ng-template>
 
 <ng-template #select let-control="control">
@@ -22,37 +42,32 @@
 
 </ng-template>
 
-<ng-template #optionsDialog>
-  <h4 mat-dialog-title>{{'FU.SETTINGS' | transloco}}</h4>
-  <form>
-    <mat-dialog-content>
-      <fb-form-builder [data]="selectedForm" #optForm></fb-form-builder>
-    </mat-dialog-content>
-    <mat-dialog-actions class="jc-end">
-       <button mat-flat-button color="primary" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
-    </mat-dialog-actions>
-  </form>
-</ng-template>
-
 <ng-template #editDialog>
   <h4 mat-dialog-title>{{'FU.EDIT' | transloco}}</h4>
-  <form>
-    <mat-dialog-content>
-      <mat-dialog-content>
-        <fb-form-builder [data]="selectedForm" #optForm></fb-form-builder>
-      </mat-dialog-content>
-      <mat-dialog-actions class="jc-end">
-        <button mat-flat-button color="primary" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
-      </mat-dialog-actions>
-    </mat-dialog-content>
-  </form>
+  <mat-dialog-content>
+    <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
+  </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="primary" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #optionsDialog>
+  <h4 mat-dialog-title>{{'FU.SETTINGS' | transloco}}</h4>
+  <mat-dialog-content>
+    <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
+  </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="primary" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+  </mat-dialog-actions>
 </ng-template>
 
 <div class="fields" cdkDropListGroup>
-  <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
+<!--  <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>-->
 
   <div
     class="field"
+    [ngClass]="fieldSize(control)"
     cdkDropList
     (cdkDropListDropped)="dropListDropped()"
     *ngFor="let control of fields.controls; index as index">
@@ -64,16 +79,55 @@
         </button>
 
         <div>
-          <button mat-icon-button matTooltip="Options" (click)="options(control)">
-            <mat-icon>settings</mat-icon>
+          <button mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
+            <mat-icon>title</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Edit" (click)="edit(control)">
+          <mat-menu #typeMenu="matMenu">
+            <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="control.get('type').setValue(type.key)">
+              {{('FU.TYPE.' + type.key) | transloco}}
+            </button>
+          </mat-menu>
+          &nbsp;
+          <button mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
             <mat-icon>edit</mat-icon>
           </button>
           &nbsp;
+          <ng-container *ngIf="types[control.get('type').value].added">
+            <button
+              mat-icon-button
+              [matTooltip]="'FU.OPTIONS' | transloco"
+              (click)="options(control)">
+              <mat-icon>settings</mat-icon>
+            </button>
+            &nbsp;
+          </ng-container>
+
+          <button mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" [matMenuTriggerFor]="sizeMenu">
+            <mat-icon>aspect_ratio</mat-icon>
+          </button>
+          <mat-menu #sizeMenu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="sizeDesktopMenu">{{'FU.SIZE.DESKTOP' | transloco}}</button>
+            <button mat-menu-item [matMenuTriggerFor]="sizeTabletMenu">{{'FU.SIZE.TABLET' | transloco}}</button>
+            <button mat-menu-item [matMenuTriggerFor]="sizeMobileMenu">{{'FU.SIZE.MOBILE' | transloco}}</button>
+          </mat-menu>
+
+          <mat-menu #sizeMobileMenu="matMenu">
+            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsMobile').value" (jpStopPropagation)="control.get('columnsMobile').setValue(size)">{{size}}</button>
+          </mat-menu>
+
+          <mat-menu #sizeTabletMenu="matMenu">
+            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsTablet').value" (jpStopPropagation)="control.get('columnsTablet').setValue(size)">{{size}}</button>
+          </mat-menu>
+
+          <mat-menu #sizeDesktopMenu="matMenu">
+            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsDesktop').value" (jpStopPropagation)="control.get('columnsDesktop').setValue(size)">{{size}}</button>
+          </mat-menu>
+
+          &nbsp;
+
           <button
             mat-icon-button
-            matTooltip="Required"
+            [matTooltip]="'FU.REQUIRED' | transloco"
             [color]="control.get('required').value ? 'primary' : 'default'"
             (click)="control.get('required').setValue(!control.get('required').value)">
             <mat-icon>new_releases</mat-icon>
@@ -81,14 +135,21 @@
           &nbsp;
           <button
             mat-icon-button
-            matTooltip="Remove"
+            color="warn"
+            [matTooltip]="'FU.REMOVE' | transloco"
             (click)="fields.removeAt(index)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
 
-      <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+      <div class="field-inner">
+        <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+      </div>
     </div>
   </div>
 </div>
+
+<button mat-icon-button [matTooltip]="'FU.ADD_FIELD' | transloco" (click)="fields.push(createField())">
+  <mat-icon>add</mat-icon>
+</button>

@@ -1,6 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -16,6 +17,7 @@ import {
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
+import {FormUiModule} from '../../projects/form-ui/src/lib/form-ui.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BlocksModule} from './blocks/blocks.module';
@@ -37,6 +39,7 @@ import {translocoLoader} from './transloco.loader';
     FormBuilderModule.forRoot(),
     PageBuilderModule,
     TinymceModule,
+    FormUiModule,
 
     MatSnackBarModule,
 
@@ -80,6 +83,12 @@ import {translocoLoader} from './transloco.loader';
       provide: CUSTOM_COMPONENTS,
       useValue: {
         'example': ExampleCustomComponent
+      }
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'outline'
       }
     },
     {

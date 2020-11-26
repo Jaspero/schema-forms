@@ -11,7 +11,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
-import {LoadClickModule} from '@jaspero/ng-helpers';
+import {LoadClickModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {FieldsComponent} from './fields/fields.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -38,7 +38,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
 
     TranslocoModule,
-    LoadClickModule
+    LoadClickModule,
+    StopPropagationModule
   ]
 })
 export class FormUiModule {

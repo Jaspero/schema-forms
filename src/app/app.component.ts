@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren } from '@angular/core';
-import { FormBuilderComponent, FormBuilderData, SegmentType } from '@jaspero/form-builder';
-import { startWith } from 'rxjs/operators';
+import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
+import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
+import {startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'sc-root',
@@ -506,6 +506,25 @@ export class AppComponent implements AfterViewInit {
               },
             ]
           }
+        }
+      }
+    }
+  };
+
+  formUiExample: FormBuilderData = {
+    segments: [{
+      type: SegmentType.Empty,
+      fields: ['/fields']
+    }],
+    schema: {
+      properties: {
+        fields: {type: 'array'}
+      }
+    },
+    definitions: {
+      fields: {
+        component: {
+          type: 'fu-fields'
         }
       }
     }

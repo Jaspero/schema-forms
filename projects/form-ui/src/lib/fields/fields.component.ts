@@ -3,7 +3,14 @@ import {ViewportRuler} from '@angular/cdk/overlay';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
+import {
+  COMPONENT_DATA,
+  FieldComponent,
+  FieldData,
+  FormBuilderComponent,
+  FormBuilderData,
+  SegmentType
+} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {TYPES} from '../consts/types.const';
 
@@ -28,7 +35,7 @@ interface FieldsData extends FieldData {
 @Component({
   selector: 'fb-fu-fields',
   templateUrl: './fields.component.html',
-  styleUrls: ['./fields.component.css'],
+  styleUrls: ['./fields.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FieldsComponent extends FieldComponent<FieldsData> implements OnInit, OnDestroy {
@@ -73,9 +80,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     [key: string]: {
       value: string;
       template: TemplateRef<any>;
+      default: any;
       added?: FormBuilderData;
     }
   };
+  sizes: number[] = [];
 
   selectedForm: FormGroup;
   selectedFormData: FormBuilderData;
@@ -83,6 +92,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   ngOnInit() {
     const {types} = this.cData;
+
+    for (let i = 1; i <= 12; i++) {
+      this.sizes.push(i);
+    }
 
     this.types = (types || TYPES.map(it => it.value)).reduce((acc, cur) => {
 
@@ -103,24 +116,37 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
         .map(it => this.createField(it))
     );
 
-    this.subscription.add(
+    this.subscription =
       this.fields.valueChanges
         .subscribe(value => {
           this.cData.control.setValue(value);
         })
-    )
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  createField(field: Partial<Field> = {}) {
+  fieldSize(group: FormGroup) {
+    const {columnsDesktop, columnsTablet, columnsMobile} = group.getRawValue();
 
-    const type = field.type || Object.keys(this.types)[0];
+    return [
+      `field-col-${columnsDesktop}`,
+      `field-col-${columnsTablet}-md`,
+      `field-col-${columnsMobile}-sm`,
+    ].join(' ')
+  }
+
+  createField(field: Partial<Field>) {
+
+    const type = field?.type || Object.keys(this.types)[0];
+
+    if (!field) {
+      field = this.types[type].default;
+    }
 
     return this.fb.group({
-      id: [field.id || '', Validators.required],
+      id: [field.id || type, Validators.required],
       type,
       label: field.label || '',
       columnsDesktop: field.columnsDesktop || 12,
@@ -132,6 +158,43 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       value: field.value || '',
       added: [field.added ? field.added : {}]
     });
+  }
+
+  edit(group: FormGroup) {
+    this.selectedForm = group;
+    this.selectedFormData = {
+      segments: [{
+        type: SegmentType.Empty,
+        fields: [
+          '/id',
+          '/label',
+          '/hint',
+          '/placeholder'
+        ]
+      }],
+      definitions: {
+        id: {label: 'FU.ID'},
+        label: {label: 'FU.LABEL'},
+        hint: {label: 'FU.HINT'},
+        placeholder: {label: 'FU.PLACEHOLDER'}
+      },
+      schema: {
+        properties: {
+          id: {type: 'string'},
+          label: {type: 'string'},
+          hint: {type: 'string'},
+          placeholder: {type: 'string'},
+        }
+      },
+      value: group.getRawValue()
+    };
+
+    this.dialog.open(
+      this.editDialogTemp,
+      {
+        width: '700px'
+      }
+    )
   }
 
   options(group: FormGroup) {
@@ -147,11 +210,6 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
-  saveOptions(form: FormBuilderComponent) {
-    this.selectedForm.get('added')?.setValue(form.form.getRawValue());
-    this.dialog.closeAll();
-  }
-
   saveEdit(form: FormBuilderComponent) {
     const data = form.form.getRawValue();
 
@@ -163,35 +221,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     this.dialog.closeAll();
   }
 
-  edit(group: FormGroup) {
-    this.selectedForm = group;
-    this.selectedFormData = {
-      segments: [{
-        fields: [
-          '/id',
-          '/label',
-          '/hint',
-          '/placeholder'
-        ]
-      }],
-      definitions: {
-        id: {label: 'ID'},
-        label: {label: 'Label'},
-        hint: {label: 'Hint'},
-        placeholder: {label: 'Placeholder'}
-      },
-      schema: {
-        properties: {
-          id: {type: 'string'},
-          label: {type: 'string'},
-          hint: {type: 'string'},
-          placeholder: {type: 'string'},
-        }
-      },
-      value: group.getRawValue()
-    };
-
-
+  saveOptions(form: FormBuilderComponent) {
+    this.selectedForm.get('added')?.setValue(form.form.getRawValue());
+    this.dialog.closeAll();
   }
 
   /**
