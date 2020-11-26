@@ -80,7 +80,7 @@
 
         <div>
           <button mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
-            <mat-icon>title</mat-icon>
+            <mat-icon>widgets</mat-icon>
           </button>
           <mat-menu #typeMenu="matMenu">
             <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="control.get('type').setValue(type.key)">
@@ -130,7 +130,7 @@
             [matTooltip]="'FU.REQUIRED' | transloco"
             [color]="control.get('required').value ? 'primary' : 'default'"
             (click)="control.get('required').setValue(!control.get('required').value)">
-            <mat-icon>new_releases</mat-icon>
+            <mat-icon>warning</mat-icon>
           </button>
           &nbsp;
           <button
@@ -150,6 +150,9 @@
   </div>
 </div>
 
-<button mat-icon-button [matTooltip]="'FU.ADD_FIELD' | transloco" (click)="fields.push(createField())">
-  <mat-icon>add</mat-icon>
-</button>
+<div class="ta-center p-a-m b-a m-t-s">
+  <button mat-raised-button color="primary" [matTooltip]="'FU.ADD_FIELD' | transloco" (click)="fields.push(createField())">
+    <mat-icon>add</mat-icon>
+    <span>Add another field</span>
+  </button>
+</div>
