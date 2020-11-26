@@ -1,16 +1,9 @@
 import {CdkDragMove, CdkDropList, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
-import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {
-  COMPONENT_DATA,
-  FieldComponent,
-  FieldData,
-  FormBuilderComponent,
-  FormBuilderData,
-  SegmentType
-} from '@jaspero/form-builder';
+import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {TYPES} from '../consts/types.const';
 
@@ -44,7 +37,8 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     public cData: FieldsData,
     private fb: FormBuilder,
     private viewportRuler: ViewportRuler,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
     super(cData);
   }
@@ -75,6 +69,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('editDialog', {static: true})
   editDialogTemp: TemplateRef<any>;
 
+  @ViewChild('sizesDialog', {static: true})
+  sizesDialogTemp: TemplateRef<any>;
+
   fields: FormArray;
   types: {
     [key: string]: {
@@ -87,6 +84,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   sizes: number[] = [];
 
   selectedForm: FormGroup;
+  sizeForm: FormGroup;
   selectedFormData: FormBuilderData;
   subscription: Subscription;
 
@@ -208,6 +206,46 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
+  openSizes(group: FormGroup) {
+    const {
+      columnsDesktop,
+      columnsMobile,
+      columnsTablet
+    } = group.getRawValue();
+
+    this.selectedForm = group;
+    this.sizeForm = this.fb.group({
+      columnsDesktop,
+      columnsMobile,
+      columnsTablet
+    });
+
+    this.dialog.open(
+      this.sizesDialogTemp,
+      {
+        width: '700px'
+      }
+    )
+  }
+
+  saveSize() {
+    [
+      'columnsDesktop',
+      'columnsMobile',
+      'columnsTablet'
+    ].forEach(key => {
+      const newValue = this.sizeForm.get(key)?.value;
+      const oldValue = this.selectedForm.get(key)?.value;
+
+      if (newValue !== oldValue) {
+        this.selectedForm.get(key)?.setValue(newValue);
+      }
+    })
+
+    this.dialog.closeAll();
+    this.cdr.markForCheck();
+  }
+
   saveEdit(form: FormBuilderComponent) {
     const data = form.form.getRawValue();
 
@@ -222,6 +260,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   saveOptions(form: FormBuilderComponent) {
     this.selectedForm.get('added')?.setValue(form.form.getRawValue());
     this.dialog.closeAll();
+  }
+
+  updateType(group: FormGroup, type: string) {
+    group.get('added')?.setValue({...this.types[type].default?.added || {}});
+    group.get('type')?.setValue(type);
   }
 
   /**
@@ -239,9 +282,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   dropListDropped() {
-    if (!this.target) {
-      return;
-    }
+    // if (!this.target) {
+    //   return;
+    // }
 
     const phElement = this.placeholder.element.nativeElement;
     const parent: any = phElement.parentElement;
@@ -257,10 +300,12 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     this.target = null;
     this.source = null;
 
+    console.log(this.sourceIndex);
+    console.log(this.targetIndex);
     if (this.sourceIndex !== this.targetIndex) {
-      const value = this.cData.control.value;
+      const value = this.fields.getRawValue();
       moveItemInArray(value, this.sourceIndex, this.targetIndex);
-      this.cData.control.setValue(value);
+      this.fields.setValue(value);
     }
   }
 

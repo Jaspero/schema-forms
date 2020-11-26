@@ -35,11 +35,28 @@
 </ng-template>
 
 <ng-template #select let-control="control">
-
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <mat-select
+      [formControl]="control.get('value')"
+      [placeholder]="control.get('placeholder').value">
+      <mat-option *ngFor="let option of control.get('added').value.options" [value]="option.value">
+        {{option.label}}
+      </mat-option>
+    </mat-select>
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
 </ng-template>
 
 <ng-template #checkbox let-control="control">
-
+  <p *ngIf="control.get('label').value as label">{{label}}</p>
+  <mat-checkbox
+    class="m-r-s"
+    *ngFor="let option of control.get('added').value.options"
+    [formControl]="control.get('value')"
+    [value]="option.value">
+    {{option.label}}
+  </mat-checkbox>
 </ng-template>
 
 <ng-template #editDialog>
@@ -62,97 +79,110 @@
   </mat-dialog-actions>
 </ng-template>
 
-<div class="fields" cdkDropListGroup>
-<!--  <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>-->
+<ng-template #sizesDialog>
+  <h4 mat-dialog-title>{{'FU.ADJUST_SIZE' | transloco}}</h4>
+  <mat-dialog-content>
+    <p>
+      <span class="size-label">{{'FU.SIZE.DESKTOP' | transloco}}</span>
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco" [formControl]="sizeForm.get('columnsDesktop')">
+        <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
 
-  <div
-    class="field"
-    [ngClass]="fieldSize(control)"
-    cdkDropList
-    (cdkDropListDropped)="dropListDropped()"
-    *ngFor="let control of fields.controls; index as index">
-    <div cdkDrag (cdkDragMoved)="dragMoved($event)">
+    <p>
+      <span class="size-label">{{'FU.SIZE.TABLET' | transloco}}</span>
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.TABLET' | transloco" [formControl]="sizeForm.get('columnsTablet')">
+        <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
 
-      <div class="field-top-bar">
-        <button mat-icon-button cdkDragHandle>
-          <mat-icon>drag_indicator</mat-icon>
-        </button>
+    <p>
+      <span class="size-label">{{'FU.SIZE.MOBILE' | transloco}}</span>
+      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.MOBILE' | transloco" [formControl]="sizeForm.get('columnsMobile')">
+        <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
 
-        <div>
-          <button mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
-            <mat-icon>widgets</mat-icon>
+  </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="primary" (click)="saveSize()">{{'GENERAL.SAVE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-container>
+  <div class="fields" cdkDropListGroup>
+      <div class="fields-placeholder" cdkDropList (cdkDropListDropped)="dropListDropped()"></div>
+
+    <div
+      class="field"
+      [ngClass]="fieldSize(control)"
+      cdkDropList
+      (cdkDropListDropped)="dropListDropped()"
+      *ngFor="let control of fields.controls; index as index">
+      <div cdkDrag (cdkDragMoved)="dragMoved($event)">
+
+        <div class="field-top-bar">
+          <button mat-icon-button cdkDragHandle>
+            <mat-icon>drag_indicator</mat-icon>
           </button>
-          <mat-menu #typeMenu="matMenu">
-            <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="control.get('type').setValue(type.key)">
-              {{('FU.TYPE.' + type.key) | transloco}}
+
+          <div>
+            <button mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
+              <mat-icon>widgets</mat-icon>
             </button>
-          </mat-menu>
-          &nbsp;
-          <button mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          &nbsp;
-          <ng-container *ngIf="types[control.get('type').value].added">
-            <button
-              mat-icon-button
-              [matTooltip]="'FU.OPTIONS' | transloco"
-              (click)="options(control)">
-              <mat-icon>settings</mat-icon>
+            <mat-menu #typeMenu="matMenu">
+              <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="updateType(control, type.key)">
+                {{('FU.TYPE.' + type.key) | transloco}}
+              </button>
+            </mat-menu>
+            &nbsp;
+            <button mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
+              <mat-icon>edit</mat-icon>
             </button>
             &nbsp;
-          </ng-container>
+            <ng-container *ngIf="types[control.get('type').value].added">
+              <button
+                mat-icon-button
+                [matTooltip]="'FU.OPTIONS' | transloco"
+                (click)="options(control)">
+                <mat-icon>settings</mat-icon>
+              </button>
+              &nbsp;
+            </ng-container>
 
-          <button mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" [matMenuTriggerFor]="sizeMenu">
-            <mat-icon>aspect_ratio</mat-icon>
-          </button>
-          <mat-menu #sizeMenu="matMenu">
-            <button mat-menu-item [matMenuTriggerFor]="sizeDesktopMenu">{{'FU.SIZE.DESKTOP' | transloco}}</button>
-            <button mat-menu-item [matMenuTriggerFor]="sizeTabletMenu">{{'FU.SIZE.TABLET' | transloco}}</button>
-            <button mat-menu-item [matMenuTriggerFor]="sizeMobileMenu">{{'FU.SIZE.MOBILE' | transloco}}</button>
-          </mat-menu>
-
-          <mat-menu #sizeMobileMenu="matMenu">
-            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsMobile').value" (jpStopPropagation)="control.get('columnsMobile').setValue(size)">{{size}}</button>
-          </mat-menu>
-
-          <mat-menu #sizeTabletMenu="matMenu">
-            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsTablet').value" (jpStopPropagation)="control.get('columnsTablet').setValue(size)">{{size}}</button>
-          </mat-menu>
-
-          <mat-menu #sizeDesktopMenu="matMenu">
-            <button mat-menu-item *ngFor="let size of sizes" [class.bold]="size === control.get('columnsDesktop').value" (jpStopPropagation)="control.get('columnsDesktop').setValue(size)">{{size}}</button>
-          </mat-menu>
-
-          &nbsp;
-
-          <button
-            mat-icon-button
-            [matTooltip]="'FU.REQUIRED' | transloco"
-            [color]="control.get('required').value ? 'primary' : 'default'"
-            (click)="control.get('required').setValue(!control.get('required').value)">
-            <mat-icon>warning</mat-icon>
-          </button>
-          &nbsp;
-          <button
-            mat-icon-button
-            color="warn"
-            [matTooltip]="'FU.REMOVE' | transloco"
-            (click)="fields.removeAt(index)">
-            <mat-icon>delete</mat-icon>
-          </button>
+            <button mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
+              <mat-icon>aspect_ratio</mat-icon>
+            </button>
+            &nbsp;
+            <button
+              mat-icon-button
+              [matTooltip]="'FU.REQUIRED' | transloco"
+              [color]="control.get('required').value ? 'primary' : 'default'"
+              (click)="control.get('required').setValue(!control.get('required').value)">
+              <mat-icon>warning</mat-icon>
+            </button>
+            &nbsp;
+            <button
+              mat-icon-button
+              color="warn"
+              [matTooltip]="'FU.REMOVE' | transloco"
+              (click)="fields.removeAt(index)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div class="field-inner">
-        <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+        <div class="field-inner">
+          <ng-container *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
 
 <div class="ta-center p-a-m b-a m-t-s">
-  <button mat-raised-button color="primary" [matTooltip]="'FU.ADD_FIELD' | transloco" (click)="fields.push(createField())">
+  <button mat-raised-button color="primary" (click)="fields.push(createField())">
     <mat-icon>add</mat-icon>
-    <span>Add another field</span>
+    <span>{{'FU.ADD_FIELD' | transloco}}</span>
   </button>
 </div>
