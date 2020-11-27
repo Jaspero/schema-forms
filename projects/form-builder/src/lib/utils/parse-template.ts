@@ -6,7 +6,8 @@ export function parseTemplate(
    * Provide a custom method for accessing the value from the
    * provided object
    */
-  accessor?: (key: string, entry: any) => any
+  accessor?: (key: string, entry: any) => any,
+  returnOriginal?: boolean
 ) {
 
   if (!accessor) {
@@ -19,7 +20,7 @@ export function parseTemplate(
   }
 
   if (!value.includes('{{')) {
-    return obj[value];
+    return returnOriginal ? value : obj[value];
   } else {
 
     const lookUp = new RegExp(`{{(.*?)}}`);
