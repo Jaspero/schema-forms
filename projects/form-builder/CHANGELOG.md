@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.10.0...@jaspero/form-builder@3.11.0) (2020-11-27)
+
+
+### Features
+
+* **form-builder:** extended parse-template to support original response ([e92fe1e](https://github.com/Jaspero/schema-forms/commit/e92fe1ea2344889219decc856834ec7081b3ec42))
+
 # @jaspero/form-builder [3.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.9.0...@jaspero/form-builder@3.10.0) (2020-11-26)
 
 
