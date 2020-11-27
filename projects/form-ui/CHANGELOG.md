@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [1.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.0.1...@jaspero/fb-form-ui@1.0.2) (2020-11-27)
+
+
+### Bug Fixes
+
+* **form-ui:** updating possible options for form ([c1a414b](https://github.com/Jaspero/schema-forms/commit/c1a414b4e016611c4db40ff5b1d4a771905721c9))
+
 ## @jaspero/fb-form-ui [1.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.0.0...@jaspero/fb-form-ui@1.0.1) (2020-11-27)
 
 
