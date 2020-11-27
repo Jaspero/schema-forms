@@ -208,7 +208,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   options(group: FormGroup) {
-    this.selectedFormData = this.types[group.get('type')?.value] as any;
+    this.selectedFormData = this.types[group.get('type')?.value].added as any;
     this.selectedFormData.value = group.get('added')?.value || {};
     this.selectedForm = group;
 
