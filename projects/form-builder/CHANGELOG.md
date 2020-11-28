@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.11.0...@jaspero/form-builder@3.12.0) (2020-11-28)
+
+
+### Features
+
+* **form-ui:** picking type for new additions; organize dialog; ([af188c6](https://github.com/Jaspero/schema-forms/commit/af188c669ecb2e6111d71e3749183d9503dc22e1))
+
 # @jaspero/form-builder [3.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.10.0...@jaspero/form-builder@3.11.0) (2020-11-27)
 
 
