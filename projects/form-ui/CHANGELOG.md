@@ -1,3 +1,18 @@
+# @jaspero/fb-form-ui [1.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.0.2...@jaspero/fb-form-ui@1.1.0) (2020-11-28)
+
+
+### Features
+
+* **form-ui:** picking type for new additions; organize dialog; ([af188c6](https://github.com/Jaspero/schema-forms/commit/af188c669ecb2e6111d71e3749183d9503dc22e1))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.12.0
+
 ## @jaspero/fb-form-ui [1.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.0.1...@jaspero/fb-form-ui@1.0.2) (2020-11-27)
 
 
