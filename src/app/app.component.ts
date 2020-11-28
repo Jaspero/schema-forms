@@ -514,26 +514,17 @@ export class AppComponent implements AfterViewInit {
   formUiExample: FormBuilderData = {
     segments: [{
       type: SegmentType.Empty,
-      fields: ['/fields', '/gallery']
+      fields: ['/fields']
     }],
     schema: {
       properties: {
-        fields: {type: 'array'},
-        gallery: {type: 'array'}
+        fields: {type: 'array'}
       }
     },
     definitions: {
       fields: {
         component: {
           type: 'fu-fields'
-        }
-      },
-      gallery: {
-        component: {
-          type: 'gallery',
-          configuration: {
-            allowServerUpload: true
-          }
         }
       }
     }

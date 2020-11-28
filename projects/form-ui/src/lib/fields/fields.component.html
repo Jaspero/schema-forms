@@ -79,6 +79,41 @@
   </mat-dialog-actions>
 </ng-template>
 
+<ng-template #organizeDialog>
+  <h4 mat-dialog-title>{{'FU.ORGANIZE' | transloco}}</h4>
+  <mat-dialog-content>
+    <div
+      class="sort-wrapper"
+      cdkDropList
+      (cdkDropListDropped)="sortDrop($event)">
+
+      <div
+        class="sort-box"
+        *ngFor="let val of selectedForm.controls; index as index; first as first; last as last;"
+        cdkDrag
+        cdkDragLockAxis="y">
+        <span>{{val.get('id').value}}</span>
+        <div class="flex-1"></div>
+        <div>
+          <button mat-icon-button [disabled]="first" (click)="move(true, index)">
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="last" (click)="move(false, index)">
+            <mat-icon>arrow_downward</mat-icon>
+          </button>
+          <button mat-icon-button cdkDragHandle>
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="primary" (click)="saveOrganization()">{{'GENERAL.SAVE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
 <ng-template #sizesDialog>
   <h4 mat-dialog-title>{{'FU.ADJUST_SIZE' | transloco}}</h4>
   <mat-dialog-content>
@@ -112,88 +147,81 @@
   </mat-dialog-actions>
 </ng-template>
 
-<ng-container>
-  <div class="fields" cdkDropListGroup>
-    <div
-      class="fields-placeholder"
-      cdkDropList
-      [cdkDropListEnterPredicate]="dropListEnterPredicate"
-      (cdkDropListDropped)="dragDrop()">
-    </div>
+<div class="fields">
+  <div class="field" [ngClass]="fieldSize(control)" *ngFor="let control of fields.controls; index as index">
+    <div class="field-top-bar">
+      <div>
+        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
+          <mat-icon>widgets</mat-icon>
+        </button>
+        <mat-menu #typeMenu="matMenu">
+          <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="updateType(control, type.key)">
+            {{('FU.TYPE.' + type.key) | transloco}}
+          </button>
+        </mat-menu>
+        &nbsp;
+        <button
+          tabindex="-1"
+          mat-icon-button
+          [matTooltip]="'FU.REQUIRED' | transloco"
+          [color]="control.get('required').value ? 'primary' : 'default'"
+          (click)="control.get('required').setValue(!control.get('required').value)">
+          <mat-icon>warning</mat-icon>
+        </button>
+      </div>
 
-    <div
-      class="field"
-      [ngClass]="fieldSize(control)"
-      cdkDropList
-      [cdkDropListEnterPredicate]="dropListEnterPredicate"
-      (cdkDropListDropped)="dragDrop()"
-      *ngFor="let control of fields.controls; index as index">
-      <div cdkDrag>
+      <div>
+        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        &nbsp;
+        <ng-container *ngIf="types[control.get('type').value].added">
+          <button
+            tabindex="-1"
+            mat-icon-button
+            [matTooltip]="'FU.OPTIONS' | transloco"
+            (click)="options(control)">
+            <mat-icon>settings</mat-icon>
+          </button>
+          &nbsp;
+        </ng-container>
 
-        <div class="field-top-bar">
-          <div>
-            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
-              <mat-icon>widgets</mat-icon>
-            </button>
-            <mat-menu #typeMenu="matMenu">
-              <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="updateType(control, type.key)">
-                {{('FU.TYPE.' + type.key) | transloco}}
-              </button>
-            </mat-menu>
-            &nbsp;
-            <button
-              tabindex="-1"
-              mat-icon-button
-              [matTooltip]="'FU.REQUIRED' | transloco"
-              [color]="control.get('required').value ? 'primary' : 'default'"
-              (click)="control.get('required').setValue(!control.get('required').value)">
-              <mat-icon>warning</mat-icon>
-            </button>
-          </div>
-
-          <div>
-            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            &nbsp;
-            <ng-container *ngIf="types[control.get('type').value].added">
-              <button
-                tabindex="-1"
-                mat-icon-button
-                [matTooltip]="'FU.OPTIONS' | transloco"
-                (click)="options(control)">
-                <mat-icon>settings</mat-icon>
-              </button>
-              &nbsp;
-            </ng-container>
-
-            <button tabindex="-1" mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
-              <mat-icon>aspect_ratio</mat-icon>
-            </button>
-            &nbsp;
-            <button
-              tabindex="-1"
-              mat-icon-button
-              color="warn"
-              [matTooltip]="'FU.REMOVE' | transloco"
-              (click)="fields.removeAt(index)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
-
-        <div class="field-inner">
-          <ng-container
-            *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
-        </div>
+        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
+          <mat-icon>aspect_ratio</mat-icon>
+        </button>
+        &nbsp;
+        <button
+          tabindex="-1"
+          mat-icon-button
+          color="warn"
+          [matTooltip]="'FU.REMOVE' | transloco"
+          (click)="fields.removeAt(index)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
-  </div>
-</ng-container>
 
-<div class="ta-center p-a-m b-a m-t-s">
-  <button mat-raised-button color="primary" (click)="fields.push(createField())">
-    <mat-icon>add</mat-icon>
-    <span>{{'FU.ADD_FIELD' | transloco}}</span>
+    <div class="field-inner">
+      <ng-container
+        *ngTemplateOutlet="types[control.get('type').value].template; context: {control: control}"></ng-container>
+    </div>
+  </div>
+</div>
+
+<div class="fields-footer">
+  <button mat-raised-button (click)="openOrganize()" [disabled]="!fields.length">
+    <mat-icon>list_alt</mat-icon>
+    <span>{{'FU.ORGANIZE' | transloco}}</span>
   </button>
+  <div>
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="addTypeMenu">
+      <mat-icon>add</mat-icon>
+      <span>{{'FU.ADD_FIELD' | transloco}}</span>
+    </button>
+    <mat-menu #addTypeMenu="matMenu">
+      <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="fields.push(createField(undefined, type.key))">
+        {{('FU.TYPE.' + type.key) | transloco}}
+      </button>
+    </mat-menu>
+  </div>
 </div>

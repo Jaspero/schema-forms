@@ -1,4 +1,4 @@
-import {CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
@@ -66,17 +66,6 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('select', {static: true}) selectField: TemplateRef<any>;
   @ViewChild('checkbox', {static: true}) checkboxField: TemplateRef<any>;
 
-  /**
-   * Drag and Drop
-   */
-  @ViewChild(CdkDropList, {static: true})
-  placeholder: CdkDropList;
-  target: CdkDropList | null;
-  targetIndex: number;
-  source: CdkDropList | null;
-  sourceIndex: number;
-  insertAfter: boolean;
-
   @ViewChild('optionsDialog', {static: true})
   optionsDialogTemp: TemplateRef<any>;
 
@@ -85,6 +74,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   @ViewChild('sizesDialog', {static: true})
   sizesDialogTemp: TemplateRef<any>;
+
+  @ViewChild('organizeDialog', {static: true})
+  organizeDialogTemp: TemplateRef<any>;
 
   fields: FormArray;
   types: {
@@ -97,7 +89,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   };
   sizes: number[] = [];
 
-  selectedForm: FormGroup;
+  selectedForm: FormGroup | FormArray;
   sizeForm: FormGroup;
   selectedFormData: FormBuilderData;
   subscription: Subscription;
@@ -123,10 +115,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       return acc;
     }, {});
 
-    this.fields = new FormArray(
-      (this.cData.control.value || [])
-        .map(it => this.createField(it))
-    );
+    this.fields = this.buildFields();
 
     this.subscription =
       this.fields.valueChanges
@@ -149,9 +138,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     ].join(' ')
   }
 
-  createField(field?: Partial<Field>) {
+  createField(field?: Partial<Field>, typ?: string) {
 
-    const type = field?.type || Object.keys(this.types)[0];
+    const type = field?.type || typ || Object.keys(this.types)[0];
 
     field = (field || this.types[type].default || {}) as Partial<Field>;
 
@@ -265,7 +254,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
     // tslint:disable-next-line:forin
     for (const key in data) {
-      this.selectedForm.get('key')?.setValue(data[key]);
+      this.selectedForm.get(key)?.setValue(data[key]);
     }
 
     this.dialog.closeAll();
@@ -281,85 +270,39 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     group.get('type')?.setValue(type);
   }
 
-  /**
-   * Drag and Drop
-   */
-  indexOf(collection: any, node: any) {
-    return Array.prototype.indexOf.call(collection, node);
+  openOrganize() {
+    this.selectedForm = this.buildFields(this.fields.getRawValue());
+    this.dialog.open(
+      this.organizeDialogTemp,
+      {
+        width: '700px'
+      }
+    )
   }
 
-  dragDrop() {
-    if (!this.target)
-      return;
-
-    let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentNode as any;
-
-    phElement.style.display = 'none';
-
-    parent.removeChild(phElement);
-    parent.appendChild(phElement);
-    parent.insertBefore(this.source?.element.nativeElement, parent.children[this.sourceIndex]);
-
-    this.target = null;
-    this.source = null;
-
-    if (this.insertAfter && this.fields.value.length > this.targetIndex + 1) {
-      this.targetIndex ++;
-    }
-
-    if (this.sourceIndex != this.targetIndex) {
-      const value = this.fields.getRawValue();
-      moveItemInArray(value, this.sourceIndex, this.targetIndex);
-      this.fields.setValue(value);
-    }
+  saveOrganization() {
+    this.fields.setValue(this.selectedForm.getRawValue());
+    this.dialog.closeAll();
   }
 
-  dropListEnterPredicate = (drag: CdkDrag<any>, drop: CdkDropList<any>) => {
-    if (drop == this.placeholder)
-      return true;
+  buildFields(value = this.cData.control.value) {
+    return new FormArray(
+      (value || [])
+        .map(it => this.createField(it))
+    )
+  }
 
-    let phElement = this.placeholder.element.nativeElement;
-    let dropElement = drop.element.nativeElement as any;
+  sortDrop(event: CdkDragDrop<string[]>) {
+    const value = this.selectedForm.getRawValue();
+    moveItemInArray(value, event.previousIndex, event.currentIndex);
+    this.selectedForm.setValue(value);
+  }
 
-    let dragIndex = this.indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
-    let dropIndex = this.indexOf(dropElement.parentNode.children, dropElement);
-
-    let size: any = '';
-
-    if (!this.source) {
-      this.sourceIndex = dragIndex;
-      this.source = drag.dropContainer;
-
-      let sourceElement = this.source.element.nativeElement as any;
-      phElement.style.width = sourceElement.clientWidth + 'px';
-      phElement.style.height = sourceElement.clientHeight + 'px';
-
-      sourceElement.parentNode.removeChild(sourceElement);
-      size = Array.from(sourceElement.classList)
-        .find((c: any) => c.startsWith('content-item-c'));
-    }
-
-    this.targetIndex = dropIndex;
-    this.target = drop;
-
-    phElement.style.display = '';
-    this.insertAfter = (dragIndex < dropIndex);
-    dropElement.parentNode.insertBefore(phElement, this.insertAfter ? dropElement.nextSibling : dropElement);
-
-
-    const oldSize = Array.from(phElement.classList).find(c => c.startsWith('content-item-c'));
-    if (oldSize) {
-      phElement.classList.remove(oldSize);
-    }
-
-    if (size) {
-      phElement.classList.add(size);
-    }
-
-    this.source._dropListRef.start();
-    this.placeholder._dropListRef.enter(drag._dragRef, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
-
-    return false;
-  };
+  move(up = false, index: number) {
+    const currentIndex = up ? index - 1 : index + 1;
+    const value = this.selectedForm.getRawValue();
+    moveItemInArray(value, index, currentIndex);
+    this.selectedForm.setValue(value);
+    this.cdr.detectChanges();
+  }
 }
