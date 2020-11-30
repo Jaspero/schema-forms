@@ -209,11 +209,13 @@
 </div>
 
 <div class="fields-footer">
-  <button mat-raised-button (click)="openOrganize()" [disabled]="!fields.length">
-    <mat-icon>list_alt</mat-icon>
-    <span>{{'FU.ORGANIZE' | transloco}}</span>
-  </button>
-  <div>
+  <div class="fields-footer-empty" *ngIf="!fields.length">There are no fields currently.</div>
+  <div class="fields-footer-actions">
+    <button mat-raised-button (click)="openOrganize()" *ngIf="fields.length">
+      <mat-icon>list_alt</mat-icon>
+      <span>{{'FU.ORGANIZE' | transloco}}</span>
+    </button>
+    <div class="fields-footer-actions-divider" *ngIf="fields.length"></div>
     <button mat-raised-button color="primary" [matMenuTriggerFor]="addTypeMenu">
       <mat-icon>add</mat-icon>
       <span>{{'FU.ADD_FIELD' | transloco}}</span>

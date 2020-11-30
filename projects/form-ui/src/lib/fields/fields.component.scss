@@ -6,10 +6,22 @@
 
 .fields-footer {
   padding: 2rem;
-  border: 1px solid var(--panel-tertiary);
   margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
+  border: 1px solid var(--panel-tertiary);
+
+  &-empty {
+    margin-bottom: 1rem;
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: center;
+
+    &-divider {
+      flex: 1;
+    }
+  }
 }
 
 .field {
