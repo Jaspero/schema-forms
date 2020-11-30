@@ -87,6 +87,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       added?: FormBuilderData;
     }
   };
+  typeList: Array<{
+    label: string;
+    value: string;
+  }>;
   sizes: number[] = [];
 
   selectedForm: FormGroup | FormArray;
@@ -114,6 +118,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
       return acc;
     }, {});
+    this.typeList = TYPES.filter(it => this.types.hasOwnProperty(it.value))
 
     this.fields = this.buildFields();
 
@@ -159,6 +164,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     });
   }
 
+  addField(type: string) {
+    this.fields.push(this.createField(undefined, type));
+    this.edit(this.fields.at(this.fields.length - 1) as FormGroup);
+  }
+
   edit(group: FormGroup) {
     this.selectedForm = group;
     this.selectedFormData = {
@@ -183,7 +193,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
           label: {type: 'string'},
           hint: {type: 'string'},
           placeholder: {type: 'string'},
-        }
+        },
+        required: [
+          '/id'
+        ]
       },
       value: group.getRawValue()
     };
@@ -258,11 +271,13 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     }
 
     this.dialog.closeAll();
+    this.cdr.markForCheck();
   }
 
   saveOptions(form: FormBuilderComponent) {
     this.selectedForm.get('added')?.setValue(form.form.getRawValue());
     this.dialog.closeAll();
+    this.cdr.markForCheck();
   }
 
   updateType(group: FormGroup, type: string) {
