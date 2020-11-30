@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [1.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.2.0...@jaspero/fb-form-ui@1.2.1) (2020-11-30)
+
+
+### Bug Fixes
+
+* **form-ui:** added transloco for placeholder ([f640025](https://github.com/Jaspero/schema-forms/commit/f6400255bad4953bcf161a037c980a9ae15f5f94))
+
 # @jaspero/fb-form-ui [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.1.0...@jaspero/fb-form-ui@1.2.0) (2020-11-30)
 
 
