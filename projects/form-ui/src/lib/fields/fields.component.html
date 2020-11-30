@@ -212,7 +212,7 @@
 </div>
 
 <div class="fields-footer">
-  <div class="fields-footer-empty" *ngIf="!fields.length">There are no fields currently.</div>
+  <div class="fields-footer-empty" *ngIf="!fields.length">{{(cData.placeholder || 'FU.DEFAULT_PLACEHOLDER') | transloco}}</div>
   <div class="fields-footer-actions">
     <button mat-raised-button (click)="openOrganize()" *ngIf="fields.length">
       <mat-icon>list_alt</mat-icon>

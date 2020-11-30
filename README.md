@@ -259,6 +259,7 @@ This plugin registers a field `fu-fields` for rendering a form builder module.
         "REMOVE": "Remove",
         "OPTIONS": "Options",
         "SETTINGS": "Settings",
+        "DEFAULT_PLACEHOLDER": "There are no fields currently.",
         "SIZE": {
           "DESKTOP": "Desktop",
           "TABLET": "Tablet",
