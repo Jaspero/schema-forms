@@ -50,9 +50,13 @@
   }
 }
 
-mat-form-field {width: 100%;}
-.bold {font-weight: bold;}
-.size-label {margin-right: 1rem;}
+mat-form-field {
+  width: 100%;
+}
+
+.size-label {
+  display: block;
+}
 
 .sort-wrapper {
   max-width: 100%;
