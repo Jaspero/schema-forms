@@ -239,6 +239,68 @@ This plugin registers a field `fu-fields` for rendering a form builder module.
 
 ##### Set up
 
+1. Install the plugin `npm i --save @jaspero/fb-form-ui`
+2. Add the plugin module `TinymceModule` to your module
+3. Add translation files for your specific language. This is en:
+    ```json
+    {
+      "FU": {
+        "ID": "ID",
+        "LABEL": "Label",
+        "VALUE": "Value", 
+        "HINT": "Hint",
+        "ORGANIZE": "Organize",
+        "PLACEHOLDER": "Placeholder",
+        "ADJUST_SIZE": "Adjust Size",
+        "ADD_FIELD": "Add Field",
+        "REQUIRED": "Required",
+        "CHANGE_TYPE": "Change Type",
+        "EDIT": "Edit",
+        "REMOVE": "Remove",
+        "OPTIONS": "Options",
+        "SETTINGS": "Settings",
+        "SIZE": {
+          "DESKTOP": "Desktop",
+          "TABLET": "Tablet",
+          "MOBILE": "Mobile"
+        },
+        "TYPE": {
+          "checkbox": "Checkbox",
+          "email": "Email",
+          "number": "Number",
+          "select": "Select",
+          "text": "Text",
+          "textarea": "Textarea"
+        }
+      }
+    }
+    ```
+4. You can now use the field in your schemas like this:
+
+    __schema.properties__
+    ```json
+    {"fields": {"type": "array"}}
+    ```
+    __layout.segments__
+    ```json
+    {
+      "fields": {
+        "component": {
+          "type": "fu-fields"
+        }
+      }
+    }
+    ```
+    __layout.instance.segments__
+    ```json
+    {
+      "type": "empty",
+      "fields": ["/fields"]
+    }
+    ```
+
+##### Set up
+
 1. Install the plugin `npm i --save @jaspero/fb-page-builder`
 2. Add the plugin module `PageBuilderModule` to your module
 

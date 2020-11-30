@@ -65,7 +65,7 @@
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -75,7 +75,7 @@
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -119,24 +119,27 @@
   <mat-dialog-content>
     <p>
       <span class="size-label">{{'FU.SIZE.DESKTOP' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco"
-                               [formControl]="sizeForm.get('columnsDesktop')">
+      <mat-button-toggle-group
+        [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco"
+        [formControl]="sizeForm.get('columnsDesktop')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
       <span class="size-label">{{'FU.SIZE.TABLET' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.TABLET' | transloco"
-                               [formControl]="sizeForm.get('columnsTablet')">
+      <mat-button-toggle-group
+        [attr.aria-label]="'FU.SIZE.TABLET' | transloco"
+        [formControl]="sizeForm.get('columnsTablet')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
       <span class="size-label">{{'FU.SIZE.MOBILE' | transloco}}</span>
-      <mat-button-toggle-group [attr.aria-label]="'FU.SIZE.MOBILE' | transloco"
-                               [formControl]="sizeForm.get('columnsMobile')">
+      <mat-button-toggle-group
+        [attr.aria-label]="'FU.SIZE.MOBILE' | transloco"
+        [formControl]="sizeForm.get('columnsMobile')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
@@ -155,8 +158,8 @@
           <mat-icon>widgets</mat-icon>
         </button>
         <mat-menu #typeMenu="matMenu">
-          <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="updateType(control, type.key)">
-            {{('FU.TYPE.' + type.key) | transloco}}
+          <button mat-menu-item *ngFor="let type of typeList" (click)="updateType(control, type.value)">
+            {{('FU.TYPE.' + type.value) | transloco}}
           </button>
         </mat-menu>
         &nbsp;
@@ -221,8 +224,8 @@
       <span>{{'FU.ADD_FIELD' | transloco}}</span>
     </button>
     <mat-menu #addTypeMenu="matMenu">
-      <button mat-menu-item *ngFor="let type of types | keyvalue" (click)="fields.push(createField(undefined, type.key))">
-        {{('FU.TYPE.' + type.key) | transloco}}
+      <button mat-menu-item *ngFor="let type of typeList" (click)="addField(type.value)">
+        {{('FU.TYPE.' + type.value) | transloco}}
       </button>
     </mat-menu>
   </div>

@@ -40,8 +40,6 @@ export const TYPES = [
     label: 'Text',
     default: {
       label: 'Text',
-      hint: 'Help me',
-      placeholder: 'Placeholder'
     }
   },
   {
@@ -49,8 +47,6 @@ export const TYPES = [
     label: 'Number',
     default: {
       label: 'Number',
-      hint: 'Help me',
-      placeholder: 'Placeholder'
     }
   },
   {
@@ -58,8 +54,6 @@ export const TYPES = [
     label: 'Email',
     default: {
       label: 'Email',
-      hint: 'Give me an email',
-      placeholder: 'Placeholder'
     }
   },
   {
@@ -85,8 +79,6 @@ export const TYPES = [
     },
     default: {
       label: 'Textarea',
-      hint: `I'm large`,
-      placeholder: 'Type...'
     }
   },
   {
@@ -95,7 +87,6 @@ export const TYPES = [
     added: options,
     default: {
       label: 'Select',
-      hint: 'Select an option',
       placeholder: 'Nothing selected',
       added: {
         options: [
@@ -111,7 +102,6 @@ export const TYPES = [
     added: options,
     default: {
       label: 'Checkbox',
-      hint: 'Select an option',
       placeholder: 'Nothing selected',
       added: {
         options: [
