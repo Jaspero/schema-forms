@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.1.0...@jaspero/fb-form-ui@1.2.0) (2020-11-30)
+
+
+### Features
+
+* **form-ui:** open edit dialog after a field is added; ([1458b61](https://github.com/Jaspero/schema-forms/commit/1458b610b85c9f9a2cf28171b79e3f6edc1bceab))
+
 # @jaspero/fb-form-ui [1.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.0.2...@jaspero/fb-form-ui@1.1.0) (2020-11-28)
 
 
