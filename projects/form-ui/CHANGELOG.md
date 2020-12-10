@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [1.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.4.0...@jaspero/fb-form-ui@1.4.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **form-ui:** properly merging additional options ([931e295](https://github.com/Jaspero/schema-forms/commit/931e295fe84976716833a4a416c998bee06040d9))
+
 # @jaspero/fb-form-ui [1.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.3.0...@jaspero/fb-form-ui@1.4.0) (2020-12-10)
 
 
