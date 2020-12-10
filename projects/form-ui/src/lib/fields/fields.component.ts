@@ -1,4 +1,4 @@
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
@@ -7,6 +7,7 @@ import {
   Inject,
   OnDestroy,
   OnInit,
+  Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -22,6 +23,8 @@ import {
 } from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {TYPES} from '../consts/types.const';
+import {FbFormUiOptions} from '../options.interface';
+import {FB_FORM_UI_OPTIONS} from '../options.token';
 
 interface Field {
   id: string;
@@ -51,6 +54,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: FieldsData,
+    @Optional()
+    @Inject(FB_FORM_UI_OPTIONS)
+    private gOptions: FbFormUiOptions,
     private fb: FormBuilder,
     private viewportRuler: ViewportRuler,
     private dialog: MatDialog,
@@ -210,7 +216,24 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   options(group: FormGroup) {
-    this.selectedFormData = this.types[group.get('type')?.value].added as any;
+
+    const type = group.get('type')?.value;
+    const formData = this.types[type].added as FormBuilderData;
+
+    if (this.gOptions?.additionalTypeOptions && this.gOptions.additionalTypeOptions[type]) {
+      ['schema', 'definitions', 'segments'].forEach(key => {
+        // @ts-ignore
+        const data = this.gOptions.additionalTypeOptions[type][key] as any;
+        if (data) {
+          formData[key] = {
+            ...formData[key],
+            ...data
+          }
+        }
+      })
+    }
+
+    this.selectedFormData = formData;
     this.selectedFormData.value = group.get('added')?.value || {};
     this.selectedForm = group;
 
@@ -256,7 +279,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       if (newValue !== oldValue) {
         this.selectedForm.get(key)?.setValue(newValue);
       }
-    })
+    });
 
     this.dialog.closeAll();
     this.cdr.markForCheck();

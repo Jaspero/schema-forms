@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -15,7 +16,6 @@ import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builde
 import {LoadClickModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {FieldsComponent} from './fields/fields.component';
-import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [FieldsComponent],
