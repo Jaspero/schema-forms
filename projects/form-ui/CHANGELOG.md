@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.3.0...@jaspero/fb-form-ui@1.4.0) (2020-12-10)
+
+
+### Features
+
+* **form-ui:** additionalTypeOptions can be provided through setp ([748907e](https://github.com/Jaspero/schema-forms/commit/748907ec66b13035e3766c0a4818137c07018236))
+
 # @jaspero/fb-form-ui [1.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.2.1...@jaspero/fb-form-ui@1.3.0) (2020-12-10)
 
 
