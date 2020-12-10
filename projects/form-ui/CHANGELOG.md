@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.2.1...@jaspero/fb-form-ui@1.3.0) (2020-12-10)
+
+
+### Features
+
+* **form-ui:** options can now be provided to extend the default edit for each field ([24b70f8](https://github.com/Jaspero/schema-forms/commit/24b70f8df73cdbbf4fbfd9c2a7b330e5a42f3560))
+
 ## @jaspero/fb-form-ui [1.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.2.0...@jaspero/fb-form-ui@1.2.1) (2020-11-30)
 
 
