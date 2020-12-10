@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [2.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.14.7...@jaspero/fb-page-builder@2.15.0) (2020-12-10)
+
+
+### Features
+
+* **form-ui:** options can now be provided to extend the default edit for each field ([24b70f8](https://github.com/Jaspero/schema-forms/commit/24b70f8df73cdbbf4fbfd9c2a7b330e5a42f3560))
+
 ## @jaspero/fb-page-builder [2.14.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.14.6...@jaspero/fb-page-builder@2.14.7) (2020-11-28)
 
 
