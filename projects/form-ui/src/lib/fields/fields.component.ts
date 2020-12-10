@@ -242,15 +242,27 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     const formData = this.types[type].added as FormBuilderData;
 
     function populateOptions(options) {
-      ['schema', 'definitions', 'segments'].forEach(key => {
-        const data = options[key];
-        if (data) {
-          formData[key] = {
-            ...formData[key],
-            ...data
-          }
+
+      if (options.schema?.properties) {
+        formData.schema.properties = {
+          ...formData.schema.properties || {},
+          ...options.schema.properties
         }
-      })
+      }
+
+      if (options.definitions) {
+        formData.definitions = {
+          ...formData.definitions || {},
+          ...options.definitions
+        }
+      }
+
+      if (options.segments) {
+        formData.segments = {
+          ...formData.segments || [],
+          ...options.segments
+        }
+      }
     }
 
     if (this.additionalTypeOptions && this.additionalTypeOptions[type]) {
