@@ -15,12 +15,15 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
+  Definitions,
   FieldComponent,
   FieldData,
   FormBuilderComponent,
   FormBuilderData,
+  Segment,
   SegmentType
 } from '@jaspero/form-builder';
+import {JSONSchema7} from 'json-schema';
 import {Subscription} from 'rxjs';
 import {TYPES} from '../consts/types.const';
 import {FbFormUiOptions} from '../options.interface';
@@ -42,6 +45,13 @@ interface Field {
 
 interface FieldsData extends FieldData {
   types: string[];
+  additionalTypeOptions?: {
+    [key: string]: {
+      schema: JSONSchema7,
+      segments?: Segment[];
+      definitions?: Definitions;
+    }
+  };
 }
 
 @Component({
@@ -103,9 +113,20 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   sizeForm: FormGroup;
   selectedFormData: FormBuilderData;
   subscription: Subscription;
+  additionalTypeOptions: {
+    [key: string]: {
+      schema: JSONSchema7,
+      segments?: Segment[];
+      definitions?: Definitions;
+    }
+  };
 
   ngOnInit() {
-    const {types} = this.cData;
+    const {types, additionalTypeOptions} = this.cData;
+
+    if (additionalTypeOptions) {
+      this.additionalTypeOptions = additionalTypeOptions;
+    }
 
     for (let i = 1; i <= 12; i++) {
       this.sizes.push(i);
@@ -220,10 +241,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     const type = group.get('type')?.value;
     const formData = this.types[type].added as FormBuilderData;
 
-    if (this.gOptions?.additionalTypeOptions && this.gOptions.additionalTypeOptions[type]) {
+    function populateOptions(options) {
       ['schema', 'definitions', 'segments'].forEach(key => {
-        // @ts-ignore
-        const data = this.gOptions.additionalTypeOptions[type][key] as any;
+        const data = options[key];
         if (data) {
           formData[key] = {
             ...formData[key],
@@ -231,6 +251,14 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
           }
         }
       })
+    }
+
+    if (this.additionalTypeOptions && this.additionalTypeOptions[type]) {
+      populateOptions(this.additionalTypeOptions[type]);
+    }
+
+    if (this.gOptions?.additionalTypeOptions && this.gOptions.additionalTypeOptions[type]) {
+      populateOptions(this.gOptions.additionalTypeOptions[type]);
     }
 
     this.selectedFormData = formData;
