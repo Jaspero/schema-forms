@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.12.0...@jaspero/form-builder@3.12.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **form-builder:** select options to being translated ([aeb3f4a](https://github.com/Jaspero/schema-forms/commit/aeb3f4a4fa33c59245c6f27a96d1309184974a2f))
+
 # @jaspero/form-builder [3.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.11.0...@jaspero/form-builder@3.12.0) (2020-11-28)
 
 
