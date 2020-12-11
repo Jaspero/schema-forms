@@ -314,7 +314,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     this.selectedForm = group;
     this.selectedFormData = {
       segments: [{
-        title: 'FU.CONDITIONS',
+        title: 'FU.CONDITIONS.TITLE',
         array: '/conditions',
         fields: [
           '/form',
