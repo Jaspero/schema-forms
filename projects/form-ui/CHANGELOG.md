@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.4.1...@jaspero/fb-form-ui@1.5.0) (2020-12-11)
+
+
+### Features
+
+* **form-ui:** added conditions for displaying fields ([6b13af8](https://github.com/Jaspero/schema-forms/commit/6b13af88c31b4980bbcd4e93ba8067733d599663))
+
 ## @jaspero/fb-form-ui [1.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.4.0...@jaspero/fb-form-ui@1.4.1) (2020-12-10)
 
 
