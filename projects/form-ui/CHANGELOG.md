@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [1.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.5.0...@jaspero/fb-form-ui@1.5.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **form-ui:** bad translation field for 'CONDITIONS' ([35b30e2](https://github.com/Jaspero/schema-forms/commit/35b30e24b5db291ba8a9c3185f50cb35348db8e5))
+
 # @jaspero/fb-form-ui [1.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.4.1...@jaspero/fb-form-ui@1.5.0) (2020-12-11)
 
 
