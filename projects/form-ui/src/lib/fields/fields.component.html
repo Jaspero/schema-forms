@@ -150,6 +150,15 @@
   </mat-dialog-actions>
 </ng-template>
 
+<ng-template #conditionDialog>
+  <mat-dialog-content>
+    <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
+  </mat-dialog-content>
+  <mat-dialog-actions class="jc-end">
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveConditions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
 <div class="fields">
   <div class="field" [ngClass]="fieldSize(control)" *ngFor="let control of fields.controls; index as index">
     <div class="field-top-bar">
@@ -170,6 +179,14 @@
           [color]="control.get('required').value ? 'primary' : 'default'"
           (click)="control.get('required').setValue(!control.get('required').value)">
           <mat-icon>warning</mat-icon>
+        </button>
+        &nbsp;
+        <button
+          tabindex="-1"
+          mat-icon-button
+          [matTooltip]="'FU.CONDITIONS' | transloco"
+          (click)="conditions(control)">
+          <mat-icon>settings_ethernet</mat-icon>
         </button>
       </div>
 

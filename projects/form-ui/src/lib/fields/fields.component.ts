@@ -40,6 +40,11 @@ interface Field {
   required?: boolean;
   placeholder?: string;
   added?: any;
+  conditions?: Array<{
+    form: string;
+    type: string;
+    value: string;
+  }>;
   value?: any;
 }
 
@@ -82,17 +87,11 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('select', {static: true}) selectField: TemplateRef<any>;
   @ViewChild('checkbox', {static: true}) checkboxField: TemplateRef<any>;
 
-  @ViewChild('optionsDialog', {static: true})
-  optionsDialogTemp: TemplateRef<any>;
-
-  @ViewChild('editDialog', {static: true})
-  editDialogTemp: TemplateRef<any>;
-
-  @ViewChild('sizesDialog', {static: true})
-  sizesDialogTemp: TemplateRef<any>;
-
-  @ViewChild('organizeDialog', {static: true})
-  organizeDialogTemp: TemplateRef<any>;
+  @ViewChild('optionsDialog', {static: true}) optionsDialogTemp: TemplateRef<any>;
+  @ViewChild('editDialog', {static: true}) editDialogTemp: TemplateRef<any>;
+  @ViewChild('sizesDialog', {static: true}) sizesDialogTemp: TemplateRef<any>;
+  @ViewChild('organizeDialog', {static: true}) organizeDialogTemp: TemplateRef<any>;
+  @ViewChild('conditionDialog', {static: true}) conditionDialogTemp: TemplateRef<any>;
 
   fields: FormArray;
   types: {
@@ -145,7 +144,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
       return acc;
     }, {});
-    this.typeList = TYPES.filter(it => this.types.hasOwnProperty(it.value))
+    this.typeList = TYPES.filter(it => this.types.hasOwnProperty(it.value));
 
     this.fields = this.buildFields();
 
@@ -187,7 +186,8 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       required: field.required || false,
       placeholder: field.placeholder || '',
       value: field.value || '',
-      added: [field.added ? field.added : {}]
+      added: [field.added ? field.added : {}],
+      conditions: [field.conditions || []]
     });
   }
 
@@ -258,10 +258,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       }
 
       if (options.segments) {
-        formData.segments = {
+        formData.segments = [
           ...formData.segments || [],
           ...options.segments
-        }
+        ]
       }
     }
 
@@ -307,6 +307,82 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
+  conditions(group: FormGroup) {
+
+    const value = group.getRawValue();
+
+    this.selectedForm = group;
+    this.selectedFormData = {
+      segments: [{
+        title: 'FU.CONDITIONS',
+        array: '/conditions',
+        fields: [
+          '/form',
+          '/type',
+          '/value'
+        ]
+      }],
+      definitions: {
+        'conditions/form': {
+          label: 'FU.CONDITIONS.FORM',
+          columnsDesktop: 4,
+          component: {
+            type: 'select',
+            configuration: {
+              dataSet: this.fields.getRawValue()
+                .filter(it => it.id !== value.id)
+                .map(it => ({
+                  name: it.label || it.id,
+                  value: it.id
+                }))
+            }
+          }
+        },
+        'conditions/type': {
+          label: 'FU.CONDITIONS.CONDITION',
+          columnsDesktop: 4,
+          component: {
+            type: 'select',
+            configuration: {
+              dataSet: [
+                {name: 'FU.CONDITIONS.EQUAL', value: 'equal'},
+                {name: 'FU.CONDITIONS.LARGER_THEN', value: 'larger-then'},
+                {name: 'FU.CONDITIONS.SMALLER_THEN', value: 'smaller-then'}
+              ]
+            }
+          }
+        },
+        'conditions/value': {
+          label: 'FU.CONDITIONS.VALUE',
+          columnsDesktop: 4,
+        }
+      },
+      schema: {
+        properties: {
+          conditions: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                form: {type: 'string'},
+                value: {type: 'string'},
+                type: {type: 'string'},
+              }
+            }
+          }
+        }
+      },
+      value
+    };
+
+    this.dialog.open(
+      this.conditionDialogTemp,
+      {
+        width: '700px'
+      }
+    )
+  }
+
   saveSize() {
     [
       'columnsDesktop',
@@ -339,6 +415,12 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   saveOptions(form: FormBuilderComponent) {
     this.selectedForm.get('added')?.setValue(form.form.getRawValue());
+    this.dialog.closeAll();
+    this.cdr.markForCheck();
+  }
+
+  saveConditions(form: FormBuilderComponent) {
+    this.selectedForm.get('conditions')?.setValue(form.form.getRawValue().conditions);
     this.dialog.closeAll();
     this.cdr.markForCheck();
   }
