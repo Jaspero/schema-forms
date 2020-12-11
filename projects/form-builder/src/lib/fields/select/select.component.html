@@ -6,7 +6,7 @@
     [multiple]="cData.multiple"
     [attr.autocomplite]="cData.autocomplete || 'off'">
     <mat-option *ngFor="let data of dataSet$ | async" [value]="data.value" [disabled]="data.disabled">
-      {{data.name}}
+      {{data.name | transloco}}
     </mat-option>
   </mat-select>
   <mat-spinner
