@@ -86,6 +86,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('textarea', {static: true}) textareaField: TemplateRef<any>;
   @ViewChild('select', {static: true}) selectField: TemplateRef<any>;
   @ViewChild('checkbox', {static: true}) checkboxField: TemplateRef<any>;
+  @ViewChild('content', {static: true}) contentField: TemplateRef<any>;
 
   @ViewChild('optionsDialog', {static: true}) optionsDialogTemp: TemplateRef<any>;
   @ViewChild('editDialog', {static: true}) editDialogTemp: TemplateRef<any>;
@@ -99,7 +100,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
       value: string;
       template: TemplateRef<any>;
       default: any;
+      settings?: FormBuilderData;
       added?: FormBuilderData;
+      required?: boolean;
     }
   };
   typeList: Array<{
@@ -197,34 +200,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   edit(group: FormGroup) {
+    const type = group.get('type')?.value;
     this.selectedForm = group;
     this.selectedFormData = {
-      segments: [{
-        type: SegmentType.Empty,
-        fields: [
-          '/id',
-          '/label',
-          '/hint',
-          '/placeholder'
-        ]
-      }],
-      definitions: {
-        id: {label: 'FU.ID'},
-        label: {label: 'FU.LABEL'},
-        hint: {label: 'FU.HINT'},
-        placeholder: {label: 'FU.PLACEHOLDER'}
-      },
-      schema: {
-        properties: {
-          id: {type: 'string'},
-          label: {type: 'string'},
-          hint: {type: 'string'},
-          placeholder: {type: 'string'},
-        },
-        required: [
-          '/id'
-        ]
-      },
+      ...this.types[type].settings as FormBuilderData,
       value: group.getRawValue()
     };
 

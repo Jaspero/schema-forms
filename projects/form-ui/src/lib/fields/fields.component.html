@@ -59,6 +59,10 @@
   </mat-checkbox>
 </ng-template>
 
+<ng-template #content let-control="control">
+  <div [innerHTML]="control.get('value').value"></div>
+</ng-template>
+
 <ng-template #editDialog>
   <h4 mat-dialog-title>{{'FU.EDIT' | transloco}}</h4>
   <mat-dialog-content>
@@ -172,15 +176,17 @@
           </button>
         </mat-menu>
         &nbsp;
-        <button
-          tabindex="-1"
-          mat-icon-button
-          [matTooltip]="'FU.REQUIRED' | transloco"
-          [color]="control.get('required').value ? 'primary' : 'default'"
-          (click)="control.get('required').setValue(!control.get('required').value)">
-          <mat-icon>warning</mat-icon>
-        </button>
-        &nbsp;
+        <ng-container *ngIf="types[control.get('type').value].required">
+          <button
+            tabindex="-1"
+            mat-icon-button
+            [matTooltip]="'FU.REQUIRED' | transloco"
+            [color]="control.get('required').value ? 'primary' : 'default'"
+            (click)="control.get('required').setValue(!control.get('required').value)">
+            <mat-icon>warning</mat-icon>
+          </button>
+          &nbsp;
+        </ng-container>
         <button
           tabindex="-1"
           mat-icon-button
