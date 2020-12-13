@@ -20,8 +20,7 @@ import {
   FieldData,
   FormBuilderComponent,
   FormBuilderData,
-  Segment,
-  SegmentType
+  Segment
 } from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {Subscription} from 'rxjs';
@@ -83,6 +82,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('text', {static: true}) textField: TemplateRef<any>;
   @ViewChild('number', {static: true}) numberField: TemplateRef<any>;
   @ViewChild('email', {static: true}) emailField: TemplateRef<any>;
+  @ViewChild('date', {static: true}) dateField: TemplateRef<any>;
   @ViewChild('textarea', {static: true}) textareaField: TemplateRef<any>;
   @ViewChild('select', {static: true}) selectField: TemplateRef<any>;
   @ViewChild('checkbox', {static: true}) checkboxField: TemplateRef<any>;

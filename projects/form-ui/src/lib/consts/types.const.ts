@@ -92,6 +92,15 @@ export const TYPES = [
     required: true
   },
   {
+    value: 'date',
+    label: 'Date',
+    settings,
+    default: {
+      label: 'Date'
+    },
+    required: true
+  },
+  {
     value: 'textarea',
     label: 'textarea',
     settings,
