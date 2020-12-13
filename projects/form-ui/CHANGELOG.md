@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.6.0...@jaspero/fb-form-ui@1.7.0) (2020-12-13)
+
+
+### Features
+
+* **form-ui:** added date field ([bfe3c65](https://github.com/Jaspero/schema-forms/commit/bfe3c659a20480c88680197f15b81ce826d5c06a))
+
 # @jaspero/fb-form-ui [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.5.2...@jaspero/fb-form-ui@1.6.0) (2020-12-12)
 
 
