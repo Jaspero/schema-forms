@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.5.2...@jaspero/fb-form-ui@1.6.0) (2020-12-12)
+
+
+### Features
+
+* **form-ui:** added content field ([f937cc9](https://github.com/Jaspero/schema-forms/commit/f937cc9cbe9432250fba9e45091f246b9fa13e55))
+
 ## @jaspero/fb-form-ui [1.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.5.1...@jaspero/fb-form-ui@1.5.2) (2020-12-11)
 
 
