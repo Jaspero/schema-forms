@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.12.1...@jaspero/form-builder@3.12.2) (2020-12-15)
+
+
+### Bug Fixes
+
+* **DateField:** set date value if includeTime is false ([7b6cf04](https://github.com/Jaspero/schema-forms/commit/7b6cf042a52cd4c5fd61adc3a6f38678aeaa7f6c))
+
 ## @jaspero/form-builder [3.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.12.0...@jaspero/form-builder@3.12.1) (2020-12-11)
 
 
