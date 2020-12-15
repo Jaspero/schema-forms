@@ -74,12 +74,14 @@ export class DateFieldComponent extends FieldComponent<DateData>
       this.entryControl.valueChanges.pipe(
         startWith(this.entryControl.value)
       ),
-      this.hoursControl.valueChanges.pipe(
-        startWith(this.hoursControl.value)
-      ),
-      this.minutesControl.valueChanges.pipe(
-        startWith(this.minutesControl.value)
-      )
+      ...this.cData.includeTime ? [
+        this.hoursControl.valueChanges.pipe(
+          startWith(this.hoursControl.value)
+        ),
+        this.minutesControl.valueChanges.pipe(
+          startWith(this.minutesControl.value)
+        )
+      ] : []
     ])
       .subscribe(([value, hours, minutes]) => {
         if (value) {
