@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [1.7.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.7.1...@jaspero/fb-form-ui@1.7.2) (2020-12-23)
+
+
+### Bug Fixes
+
+* **form-ui:** losing reference in options ([8fcbbea](https://github.com/Jaspero/schema-forms/commit/8fcbbeabaa7ab470bd0328190b27c025f3d48c24))
+
 ## @jaspero/fb-form-ui [1.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.7.0...@jaspero/fb-form-ui@1.7.1) (2020-12-15)
 
 
