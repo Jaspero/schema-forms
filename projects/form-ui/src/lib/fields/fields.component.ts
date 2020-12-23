@@ -218,7 +218,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   options(group: FormGroup) {
 
     const type = group.get('type')?.value;
-    const formData = this.types[type].added as FormBuilderData;
+    const formData = this.loseRef(this.types[type].added as FormBuilderData);
 
     function populateOptions(options) {
 
@@ -443,5 +443,9 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     moveItemInArray(value, index, currentIndex);
     this.selectedForm.setValue(value);
     this.cdr.detectChanges();
+  }
+
+  private loseRef(value: any) {
+    return JSON.parse(JSON.stringify(value));
   }
 }
