@@ -1,6 +1,6 @@
 <p class="fs-small fg-secondary" *ngIf="cData.label">{{(cData.label || '') | transloco}}</p>
 
-<div class="fb-gallery" fbDropzone (dropped)="filesUploaded($event)">
+<div class="fb-gallery" dropzone (dropped)="filesUploaded($event)">
   <div class="ta-center p-y-l">
     <button mat-button *ngIf="cData.allowUrl" (click)="openUploadDialog()">{{'FIELDS.GALLERY.ENTER_URL' | transloco}}</button>
     <button mat-button *ngIf="cData.allowServerUpload" (click)="openFileUpload()">{{'FIELDS.GALLERY.CHOOSE_FILES' | transloco}}</button>

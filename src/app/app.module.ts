@@ -25,6 +25,7 @@ import {ExampleCustomComponent} from './example-custom/example-custom.component'
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+import {CropperModule} from '../../projects/gallery/src/lib/cropper.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {translocoLoader} from './transloco.loader';
     FormBuilderModule.forRoot(),
     PageBuilderModule,
     TinymceModule,
+    CropperModule,
     FormUiModule,
 
     MatSnackBarModule,

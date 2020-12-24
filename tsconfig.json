@@ -36,6 +36,10 @@
         "dist/tinymce/tinymce",
         "dist/tinymce"
       ],
+      "gallery": [
+        "dist/gallery/gallery",
+        "dist/gallery"
+      ],
       "form-ui": [
         "dist/form-ui/form-ui",
         "dist/form-ui"

@@ -19,18 +19,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslocoService} from '@ngneat/transloco';
 import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {FieldComponent} from '../../field/field.component';
-import {FormBuilderService} from '../../form-builder.service';
-import {FieldData} from '../../interfaces/field-data.interface';
-import {GeneratedImage} from '../../interfaces/generated-image.interface';
-import {StorageService} from '../../services/storage.service';
-import {COMPONENT_DATA} from '../../utils/create-component-injector';
-import {formatFileName} from '../../utils/format-file-name';
-import {formatGeneratedImages} from '../../utils/format-generated-images';
-import {parseSize} from '../../utils/parse-size';
-import {STORAGE_URL} from '../../utils/storage-url';
-import {switchItemLocations} from '../../utils/switch-item-locations';
-import {readFile} from './read-file';
+import {FieldComponent} from '../../../form-builder/src/lib/field/field.component';
+import {FormBuilderService} from '../../../form-builder/src/lib/form-builder.service';
+import {FieldData} from '../../../form-builder/src/lib/interfaces/field-data.interface';
+import {GeneratedImage} from '../../../form-builder/src/lib/interfaces/generated-image.interface';
+import {StorageService} from '../../../form-builder/src/lib/services/storage.service';
+import {COMPONENT_DATA} from '../../../form-builder/src/lib/utils/create-component-injector';
+import {formatFileName} from '../../../form-builder/src/lib/utils/format-file-name';
+import {formatGeneratedImages} from '../../../form-builder/src/lib/utils/format-generated-images';
+import {parseSize} from '../../../form-builder/src/lib/utils/parse-size';
+import {STORAGE_URL} from '../../../form-builder/src/lib/utils/storage-url';
+import {switchItemLocations} from '../../../form-builder/src/lib/utils/switch-item-locations';
+import {readFile} from './utils/read-file';
 
 interface GalleryData extends FieldData {
   allowUrl?: boolean;
@@ -43,7 +43,7 @@ interface GalleryData extends FieldData {
 }
 
 @Component({
-  selector: 'fb-gallery',
+  selector: 'fb-gl-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -80,7 +80,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   targetIndex: number;
   insertAfter: boolean;
   source: CdkDropList | null;
-  sourceIndex: number;;
+  sourceIndex: number;
   files: File[] = [];
   toRemove: any[] = [];
 
@@ -287,8 +287,8 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     if (!this.target)
       return;
 
-    let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentNode as any;
+    const phElement = this.placeholder.element.nativeElement;
+    const parent = phElement.parentNode as any;
 
     phElement.style.display = 'none';
 
@@ -303,7 +303,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       this.targetIndex ++;
     }
 
-    if (this.sourceIndex != this.targetIndex) {
+    if (this.sourceIndex !== this.targetIndex) {
       const value = this.cData.control.value;
       moveItemInArray(value, this.sourceIndex, this.targetIndex);
       this.cData.control.setValue(value);
@@ -311,14 +311,14 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   }
 
   dropListEnterPredicate = (drag: CdkDrag<any>, drop: CdkDropList<any>) => {
-    if (drop == this.placeholder)
+    if (drop === this.placeholder)
       return true;
 
-    let phElement = this.placeholder.element.nativeElement;
-    let dropElement = drop.element.nativeElement as any;
+    const phElement = this.placeholder.element.nativeElement;
+    const dropElement = drop.element.nativeElement as any;
 
-    let dragIndex = this.indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
-    let dropIndex = this.indexOf(dropElement.parentNode.children, dropElement);
+    const dragIndex = this.indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
+    const dropIndex = this.indexOf(dropElement.parentNode.children, dropElement);
 
     let size: any = '';
 
@@ -326,7 +326,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
 
-      let sourceElement = this.source.element.nativeElement as any;
+      const sourceElement: any = this.source.element.nativeElement;
       phElement.style.width = sourceElement.clientWidth + 'px';
       phElement.style.height = sourceElement.clientHeight + 'px';
 

@@ -25,7 +25,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
-import {DropzoneDirective} from './directives/dropzone/dropzone.directive';
 import {FieldComponent} from './field/field.component';
 import {AutocompleteComponent} from './fields/autocomplete/autocomplete.component';
 import {CheckboxComponent} from './fields/checkbox/checkbox.component';
@@ -33,7 +32,6 @@ import {ChipsComponent} from './fields/chips/chips.component';
 import {DateFieldComponent} from './fields/date-field/date-field.component';
 import {DraggableListComponent} from './fields/draggable-list/draggable-list.component';
 import {FileComponent} from './fields/file/file.component';
-import {GalleryComponent} from './fields/gallery/gallery.component';
 import {ImageComponent} from './fields/image/image.component';
 import {InputComponent} from './fields/input/input.component';
 import {RadioComponent} from './fields/radio/radio.component';
@@ -68,7 +66,6 @@ import { CustomComponent } from './custom/custom.component';
     RangeComponent,
     DraggableListComponent,
     FileComponent,
-    GalleryComponent,
     ImageComponent,
     InputComponent,
     RadioComponent,
@@ -87,11 +84,6 @@ import { CustomComponent } from './custom/custom.component';
     EmptyComponent,
     StepperComponent,
     TabsComponent,
-
-    /**
-     * Directives
-     */
-    DropzoneDirective,
 
     /**
      * Pipes

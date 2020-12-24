@@ -1,0 +1,45 @@
+{
+  "name": "@jaspero/fb-gallery",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jaspero Ltd",
+    "email": "info@jaspero.co"
+  },
+  "keywords": [
+    "Angular"
+  ],
+  "homepage": "https://jaspero.co",
+  "peerDependencies": {
+    "@jaspero/form-builder": "3.12.2",
+    "cropperjs": "1.5.9"
+  },
+  "release": {
+    "pkgRoot": "../../dist/@jaspero/fb-gallery",
+    "branch": "master",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "dist/@jaspero/fb-gallery"
+          ]
+        }
+      ]
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator"
+    ]
+  }
+}

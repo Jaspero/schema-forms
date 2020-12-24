@@ -3,7 +3,6 @@ export enum ComponentType {
   Select = 'select',
   File = 'file',
   Image = 'image',
-  Gallery = 'gallery',
   Toggle = 'toggle',
   Checkbox = 'checkbox',
   Date = 'date',

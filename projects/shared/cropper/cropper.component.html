@@ -1,0 +1,13 @@
+<h4 mat-dialog-title>Izaberite </h4>
+
+<mat-dialog-content>
+  <div class="p-a-s">
+    <div>
+      <img #image [src]="file" crossorigin>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="submit()">Pohrani</button>
+</mat-dialog-actions>

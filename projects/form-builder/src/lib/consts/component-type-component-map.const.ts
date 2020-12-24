@@ -5,7 +5,6 @@ import {ChipsComponent} from '../fields/chips/chips.component';
 import {DateFieldComponent} from '../fields/date-field/date-field.component';
 import {DraggableListComponent} from '../fields/draggable-list/draggable-list.component';
 import {FileComponent} from '../fields/file/file.component';
-import {GalleryComponent} from '../fields/gallery/gallery.component';
 import {ImageComponent} from '../fields/image/image.component';
 import {InputComponent} from '../fields/input/input.component';
 import {RadioComponent} from '../fields/radio/radio.component';
@@ -22,7 +21,6 @@ export const COMPONENT_TYPE_COMPONENT_MAP = {
   [ComponentType.Select]: SelectComponent,
   [ComponentType.File]: FileComponent,
   [ComponentType.Image]: ImageComponent,
-  [ComponentType.Gallery]: GalleryComponent,
   [ComponentType.Checkbox]: CheckboxComponent,
   [ComponentType.Autocomplete]: AutocompleteComponent,
   [ComponentType.Date]: DateFieldComponent,

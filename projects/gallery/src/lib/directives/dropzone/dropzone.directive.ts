@@ -1,7 +1,7 @@
 import {Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
 
 @Directive({
-  selector: '[fbDropzone]'
+  selector: '[dropzone]'
 })
 export class DropzoneDirective {
   constructor(
