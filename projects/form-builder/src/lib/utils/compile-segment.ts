@@ -3,6 +3,7 @@ import {Injector} from '@angular/core';
 import {SEGMENT_TYPE_COMPONENT_MAP} from '../consts/segment-type-component-map.const';
 import {CustomComponent} from '../custom/custom.component';
 import {SegmentType} from '../enums/segment-type.enum';
+import {FormBuilderContextService} from '../form-builder-context.service';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {CompiledCondition, ConditionAction, ConditionEvaluate, ConditionType} from '../interfaces/condition.interface';
@@ -86,7 +87,7 @@ export function compileSegment(
 
   if (segment.components) {
 
-    const componentMap = injector.get(CUSTOM_COMPONENTS);
+    const componentMap = injector.get(FormBuilderContextService).componentMap;
 
     if (componentMap) {
       customComponents = segment.components.reduce((acc: ComponentPortal<CustomComponent>[], component) => {
