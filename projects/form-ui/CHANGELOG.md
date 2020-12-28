@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.7.3...@jaspero/fb-form-ui@1.8.0) (2020-12-28)
+
+
+### Features
+
+* **form-builder:** added not-equal option ([34a56ec](https://github.com/Jaspero/schema-forms/commit/34a56ece1d013daeb7fd437cf4b1573ac94c7a9b))
+
 ## @jaspero/fb-form-ui [1.7.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.7.2...@jaspero/fb-form-ui@1.7.3) (2020-12-27)
 
 
