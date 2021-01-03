@@ -1,3 +1,10 @@
+# @jaspero/fb-form-ui [1.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.8.0...@jaspero/fb-form-ui@1.9.0) (2021-01-03)
+
+
+### Features
+
+* **form-ui:** allow options to be html in select and checkbox ([3acb7c4](https://github.com/Jaspero/schema-forms/commit/3acb7c4de6dfa36e90dffbd1b6b55c795b3a101e))
+
 # @jaspero/fb-form-ui [1.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.7.3...@jaspero/fb-form-ui@1.8.0) (2020-12-28)
 
 
