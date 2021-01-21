@@ -325,6 +325,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
             configuration: {
               dataSet: [
                 {name: 'FU.CONDITIONS.EQUAL', value: 'equal'},
+                {name: 'FU.CONDITIONS.NOT_EQUAL', value: 'not-equal'},
                 {name: 'FU.CONDITIONS.LARGER_THEN', value: 'larger-then'},
                 {name: 'FU.CONDITIONS.SMALLER_THEN', value: 'smaller-then'}
               ]

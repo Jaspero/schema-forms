@@ -48,8 +48,10 @@
     <mat-select
       [formControl]="control.get('value')"
       [placeholder]="control.get('placeholder').value">
-      <mat-option *ngFor="let option of control.get('added').value.options" [value]="option.value">
-        {{option.label}}
+      <mat-option
+        *ngFor="let option of control.get('added').value.options"
+        [value]="option.value"
+        [innerHTML]="option.label">
       </mat-option>
     </mat-select>
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
@@ -62,8 +64,7 @@
     class="m-r-s"
     *ngFor="let option of control.get('added').value.options"
     [formControl]="control.get('value')"
-    [value]="option.value">
-    {{option.label}}
+    [value]="option.value" [innerHTML]="option.label">
   </mat-checkbox>
 </ng-template>
 

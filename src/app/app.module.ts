@@ -25,7 +25,7 @@ import {ExampleCustomComponent} from './example-custom/example-custom.component'
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
-import {CropperModule} from '../../projects/gallery/src/lib/cropper.module';
+import {CropperModule} from '../../projects/shared/cropper/cropper.module';
 
 @NgModule({
   declarations: [

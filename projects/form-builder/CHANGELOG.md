@@ -1,3 +1,17 @@
+## @jaspero/form-builder [3.13.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.0...@jaspero/form-builder@3.13.1) (2021-01-07)
+
+
+### Bug Fixes
+
+* **gallery:** sort :bug: ([7cff826](https://github.com/Jaspero/schema-forms/commit/7cff8268e09ea12fc40e5abbbaf9cf5e9ec2ac88))
+
+# @jaspero/form-builder [3.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.12.2...@jaspero/form-builder@3.13.0) (2020-12-27)
+
+
+### Features
+
+* **form-builder:** added public method registerComponents for registering custom components ([4c8779a](https://github.com/Jaspero/schema-forms/commit/4c8779af34bb7626119cd704f90599377fcadc81))
+
 ## @jaspero/form-builder [3.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.12.1...@jaspero/form-builder@3.12.2) (2020-12-15)
 
 

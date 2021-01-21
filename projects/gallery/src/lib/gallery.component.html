@@ -12,18 +12,18 @@
 
   <!--Uploaded images list-->
   <ng-container>
-    <div class="fb-gallery-list" cdkDropListGroup>
+    <div class="fb-gallery-list" #dlg cdkDropListGroup>
 
-      <div class="fb-gallery-list-placeholder" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dragDrop()"></div>
+      <div class="fb-gallery-list-placeholder" #dl cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped()"></div>
 
       <div
         cdkDropList
         [cdkDropListEnterPredicate]="dropListEnterPredicate"
         class="fb-gallery-list-image"
-        (cdkDropListDropped)="dragDrop()"
+        (cdkDropListDropped)="dropListDropped()"
         *ngFor="let val of cData.control.value; index as index">
 
-        <div cdkDrag>
+        <div cdkDrag (cdkDragMoved)="dragMoved($event)">
           <img class="fb-gallery-list-image-inner" [src]="(val.data || val) | jpSanitize:'resourceUrl'">
           <button class="fb-gallery-list-image-remove" type="button" mat-icon-button [matTooltip]="'GENERAL.REMOVE' | transloco" (click)="removeImage(index, val)">
             <mat-icon>close</mat-icon>
@@ -61,7 +61,7 @@
       cdkDropList
       (cdkDropListDropped)="sortDrop($event)">
 
-      <div class="sort-box" *ngFor="let val of cData.control.value; index as index; first as first; last as last;" cdkDrag>
+      <div class="sort-box" *ngFor="let val of cData.control.value; index as index; first as first; last as last;" cdkDrag (cdkDragMoved)="dragMoved($event)">
         <img class="sort-image" [src]="(val.data || val) | jpSanitize:'resourceUrl'">
         <div class="flex-1"></div>
         <div>

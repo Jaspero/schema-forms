@@ -1,4 +1,4 @@
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, CdkDragMove, CdkDropListGroup} from '@angular/cdk/drag-drop';
 import {ViewportRuler} from '@angular/cdk/overlay';
 import {HttpClient} from '@angular/common/http';
 import {
@@ -19,18 +19,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslocoService} from '@ngneat/transloco';
 import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {FieldComponent} from '../../../form-builder/src/lib/field/field.component';
-import {FormBuilderService} from '../../../form-builder/src/lib/form-builder.service';
-import {FieldData} from '../../../form-builder/src/lib/interfaces/field-data.interface';
-import {GeneratedImage} from '../../../form-builder/src/lib/interfaces/generated-image.interface';
-import {StorageService} from '../../../form-builder/src/lib/services/storage.service';
-import {COMPONENT_DATA} from '../../../form-builder/src/lib/utils/create-component-injector';
-import {formatFileName} from '../../../form-builder/src/lib/utils/format-file-name';
-import {formatGeneratedImages} from '../../../form-builder/src/lib/utils/format-generated-images';
-import {parseSize} from '../../../form-builder/src/lib/utils/parse-size';
-import {STORAGE_URL} from '../../../form-builder/src/lib/utils/storage-url';
-import {switchItemLocations} from '../../../form-builder/src/lib/utils/switch-item-locations';
-import {readFile} from './utils/read-file';
+import {FieldComponent} from '../../field/field.component';
+import {FormBuilderService} from '../../form-builder.service';
+import {FieldData} from '../../interfaces/field-data.interface';
+import {GeneratedImage} from '../../interfaces/generated-image.interface';
+import {StorageService} from '../../services/storage.service';
+import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {formatFileName} from '../../utils/format-file-name';
+import {formatGeneratedImages} from '../../utils/format-generated-images';
+import {parseSize} from '../../utils/parse-size';
+import {STORAGE_URL} from '../../utils/storage-url';
+import {switchItemLocations} from '../../utils/switch-item-locations';
+import {readFile} from './read-file';
 
 interface GalleryData extends FieldData {
   allowUrl?: boolean;
@@ -43,7 +43,7 @@ interface GalleryData extends FieldData {
 }
 
 @Component({
-  selector: 'fb-gl-gallery',
+  selector: 'fb-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -68,14 +68,21 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     super(cData);
   }
 
-  @ViewChild(CdkDropList, {static: true})
+  @ViewChild('dlg', {static: true, read: CdkDropListGroup})
+  listGroup: CdkDropListGroup<CdkDropList>;
+
+  @ViewChild('dl', {static: true, read: CdkDropList})
   placeholder: CdkDropList;
+
   @ViewChild('modal', {static: true})
   modalTemplate: TemplateRef<any>;
+
   @ViewChild('imagesSort', {static: true})
   imagesSort: TemplateRef<any>;
+
   @ViewChild('file', {static: true})
   fileEl: ElementRef<HTMLInputElement>;
+
   target: CdkDropList | null;
   targetIndex: number;
   insertAfter: boolean;
@@ -88,6 +95,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   forbiddenImageTypes: string[];
   minSizeBytes: number;
   maxSizeBytes: number;
+  activeContainer;
 
   ngOnInit() {
     this.formBuilderService.saveComponents.push(this);
@@ -283,12 +291,27 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     return Array.prototype.indexOf.call(collection, node);
   }
 
-  dragDrop() {
-    if (!this.target)
-      return;
+  /**
+   * Drag and Drop
+   */
+  dragMoved(e: CdkDragMove) {
+    const point = this.getPointerPositionOnPage(e.event);
 
-    const phElement = this.placeholder.element.nativeElement;
-    const parent = phElement.parentNode as any;
+    this.listGroup._items.forEach(dropList => {
+      if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
+        this.activeContainer = dropList;
+        return;
+      }
+    });
+  }
+
+  dropListDropped() {
+    if (!this.target) {
+      return;
+    }
+
+    const phElement = this.placeholder.element.nativeElement as any;
+    const parent = phElement.parentElement as any;
 
     phElement.style.display = 'none';
 
@@ -310,53 +333,69 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     }
   }
 
-  dropListEnterPredicate = (drag: CdkDrag<any>, drop: CdkDropList<any>) => {
-    if (drop === this.placeholder)
+  dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
+    if (drop === this.placeholder) {
       return true;
+    }
 
-    const phElement = this.placeholder.element.nativeElement;
+    if (drop !== this.activeContainer) {
+      return false;
+    }
+
+    const phElement = this.placeholder.element.nativeElement as any;
+    const sourceElement = drag.dropContainer.element.nativeElement as any;
     const dropElement = drop.element.nativeElement as any;
 
-    const dragIndex = this.indexOf(dropElement.parentNode.children, drag.dropContainer.element.nativeElement);
-    const dropIndex = this.indexOf(dropElement.parentNode.children, dropElement);
-
-    let size: any = '';
+    const dragIndex = this.indexOf(
+      dropElement.parentElement.children,
+      this.source ? phElement : sourceElement
+    );
+    const dropIndex = this.indexOf(
+      dropElement.parentElement.children,
+      dropElement
+    );
 
     if (!this.source) {
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
 
-      const sourceElement: any = this.source.element.nativeElement;
       phElement.style.width = sourceElement.clientWidth + 'px';
       phElement.style.height = sourceElement.clientHeight + 'px';
 
-      sourceElement.parentNode.removeChild(sourceElement);
-      size = Array.from(sourceElement.classList)
-        .find((c: any) => c.startsWith('content-item-c'));
+      sourceElement.parentElement.removeChild(sourceElement);
     }
 
     this.targetIndex = dropIndex;
     this.target = drop;
 
     phElement.style.display = '';
-    this.insertAfter = (dragIndex < dropIndex);
-    dropElement.parentNode.insertBefore(phElement, this.insertAfter ? dropElement.nextSibling : dropElement);
+    dropElement.parentElement.insertBefore(
+      phElement,
+      dropIndex > dragIndex ? dropElement.nextSibling : dropElement
+    );
 
-
-    const oldSize = Array.from(phElement.classList).find(c => c.startsWith('content-item-c'));
-    if (oldSize) {
-      phElement.classList.remove(oldSize);
-    }
-
-    if (size) {
-      phElement.classList.add(size);
-    }
-
-    this.source._dropListRef.start();
-    this.placeholder._dropListRef.enter(drag._dragRef, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
+    this.placeholder._dropListRef.enter(
+      drag._dragRef,
+      drag.element.nativeElement.offsetLeft,
+      drag.element.nativeElement.offsetTop
+    );
 
     return false;
-  };
+  }
+
+  /** Determines the point of the page that was touched by the user. */
+  getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
+    // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
+    const point = __isTouchEvent(event)
+      ? event.touches[0] || event.changedTouches[0]
+      : event;
+    const scrollPosition = this.viewportRuler.getViewportScrollPosition();
+
+    return {
+      x: point.pageX - scrollPosition.left,
+      y: point.pageY - scrollPosition.top
+    };
+  }
 
   /**
    * Executes all uploads/removes to persist
@@ -423,3 +462,23 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     );
   }
 }
+
+/** Determines whether an event is a touch event. */
+function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+  return event.type.startsWith('touch');
+}
+
+function __isInsideDropListClientRect(
+  dropList: CdkDropList,
+  x: number,
+  y: number
+) {
+  const {
+    top,
+    bottom,
+    left,
+    right
+  } = dropList.element.nativeElement.getBoundingClientRect();
+  return y >= top && y <= bottom && x >= left && x <= right;
+}
+
