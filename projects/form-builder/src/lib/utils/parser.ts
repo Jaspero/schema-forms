@@ -198,13 +198,13 @@ export class Parser {
 
   buildForm(
     value?: any,
-    required: string[] = [],
+    required: string[] | null = [],
     base = '/',
     addId = true
   ) {
     const properties = this.buildProperties(
       this.schema.properties || {},
-      required,
+      required || this.schema.required,
       base,
       addId
     );
@@ -244,6 +244,8 @@ export class Parser {
     ].reduce(
       (group, [key, value]: [string, any]) => {
         const isRequired = required.includes(key);
+
+        console.log(required, key);
 
         let parsed: {
           control: any;

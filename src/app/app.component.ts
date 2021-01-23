@@ -39,7 +39,8 @@ export class AppComponent implements AfterViewInit {
         },
         endDate: {type: 'number'},
         startDate: {type: 'number'},
-      }
+      },
+      required: ['title']
     },
     definitions: {
       between: {
@@ -167,7 +168,7 @@ export class AppComponent implements AfterViewInit {
           // '/createdOn',
           // '/File',
           // '/photos',
-          // '/title',
+          '/title',
           // '/description',
           // '/address',
           '/endDate',
@@ -537,7 +538,7 @@ export class AppComponent implements AfterViewInit {
           startWith(log.form.getRawValue())
         )
         .subscribe(value => {
-          console.log('change', value);
+          console.log('change', log.form.valid, value);
         });
     });
   }

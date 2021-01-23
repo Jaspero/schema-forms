@@ -150,7 +150,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
     this.form = this.parser.buildForm(
       value,
-      [],
+      null,
       '/',
       false
     );
