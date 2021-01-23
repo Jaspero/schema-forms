@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.13.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.1...@jaspero/form-builder@3.13.2) (2021-01-23)
+
+
+### Bug Fixes
+
+* **form-builder:** required working properly ([4e0bb7c](https://github.com/Jaspero/schema-forms/commit/4e0bb7c59cc21c1f90e1e08877fb4dcacce7a61f))
+
 ## @jaspero/form-builder [3.13.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.0...@jaspero/form-builder@3.13.1) (2021-01-07)
 
 
