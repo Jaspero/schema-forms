@@ -245,8 +245,6 @@ export class Parser {
       (group, [key, value]: [string, any]) => {
         const isRequired = required.includes(key);
 
-        console.log(required, key);
-
         let parsed: {
           control: any;
           validation: any;
