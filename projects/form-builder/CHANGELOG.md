@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.13.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.2...@jaspero/form-builder@3.13.3) (2021-01-24)
+
+
+### Bug Fixes
+
+* **form-builder:** removed console.log ([8dae5e2](https://github.com/Jaspero/schema-forms/commit/8dae5e28114de82c8d532e4d860f584388daa576))
+
 ## @jaspero/form-builder [3.13.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.1...@jaspero/form-builder@3.13.2) (2021-01-23)
 
 
