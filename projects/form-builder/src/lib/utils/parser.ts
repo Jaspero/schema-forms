@@ -198,13 +198,13 @@ export class Parser {
 
   buildForm(
     value?: any,
-    required: string[] = [],
+    required: string[] | null = [],
     base = '/',
     addId = true
   ) {
     const properties = this.buildProperties(
       this.schema.properties || {},
-      required,
+      required || this.schema.required,
       base,
       addId
     );
