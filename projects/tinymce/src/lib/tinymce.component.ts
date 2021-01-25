@@ -30,6 +30,7 @@ export interface TinyData extends FieldData {
   menubar?: string;
   toolbar?: string;
   height?: number;
+  options?: any;
 }
 
 @Component({
@@ -88,6 +89,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
       target: this.textarea.nativeElement,
       branding: false,
       height: this.cData.height || 420,
+      paste_as_text: true,
       plugins: [
         'code',
         'print',
@@ -182,7 +184,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
               });
           }
         });
-      }
+      },
+      ...!!this.cData.options && this.cData.options
     });
   }
 }
