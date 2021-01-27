@@ -77,7 +77,7 @@ what component is used to represent the field in the form. The `Definitions` int
 2. Map the newly added component through the `CUSTOM_FIELDS` provider e.g. 
     ```ts
     providers: [{
-        provide: CUSTOM_FIELDS
+        provide: CUSTOM_FIELDS,
         useValue: {
             'new-component': NewComponent
         }
