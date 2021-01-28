@@ -1,7 +1,18 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {MatDialog} from '@angular/material/dialog';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
@@ -14,9 +25,11 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {parseSize} from '../../utils/parse-size';
+import {HttpClient} from '@angular/common/http';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
+  preventUrlUpload?: boolean;
   generatedImages?: GeneratedImage[];
   allowedImageTypes?: string[];
   forbiddenImageTypes?: string[];
@@ -39,13 +52,19 @@ export class ImageComponent extends FieldComponent<ImageData>
     private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,
     private snackBar: MatSnackBar,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private http: HttpClient,
+    private dialog: MatDialog
   ) {
     super(cData);
   }
 
+  @ViewChild('modal', {static: true})
+  modalTemplate: TemplateRef<any>;
+
   @ViewChild('file', {static: true})
   fileEl: ElementRef<HTMLInputElement>;
+
   value: File | null;
   imageUrl: FormControl;
   disInput = false;
@@ -177,5 +196,56 @@ export class ImageComponent extends FieldComponent<ImageData>
       this.cData.control.setValue(this.imageUrl.value);
       return of({});
     }
+  }
+
+  addImage(image: string) {
+    this.http
+      .get(image, {
+        withCredentials: false,
+        responseType: 'blob'
+      })
+      .pipe(
+        switchMap((blob: Blob) => {
+          const type = blob.type.split('/')[1].toLowerCase();
+          if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
+            return throwError('Invalid Image Format');
+          }
+
+          if (this.forbiddenImageTypes.includes(type)) {
+            return throwError('Forbidden Image Format');
+          }
+
+          if (blob.size < this.minSizeBytes) {
+            return throwError('Image below minimal allowed size');
+          }
+
+          if (blob.size > this.maxSizeBytes && !!this.maxSizeBytes) {
+            return throwError('Image exceeding allowed size');
+          }
+
+          return of(blob);
+        }),
+        this.formBuilderService.notify({
+          error: 'FIELDS.GALLERY.UPLOAD_ERROR',
+          success: null
+        }))
+      .subscribe(res => {
+        const urlCreator = window.URL || (window as any).webkitURL;
+        const value = this.cData.control.value;
+
+        value.push({
+          data: urlCreator.createObjectURL(res),
+          live: true
+        });
+
+        this.cData.control.setValue(value);
+        this.cdr.detectChanges();
+      });
+  }
+
+  openUploadDialog() {
+    this.dialog.open(this.modalTemplate, {
+      width: '420px'
+    });
   }
 }

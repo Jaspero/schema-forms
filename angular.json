@@ -331,5 +331,8 @@
       }
     }
   },
-  "defaultProject": "schema-forms"
+  "defaultProject": "schema-forms",
+  "cli": {
+    "analytics": false
+  }
 }

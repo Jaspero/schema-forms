@@ -3,6 +3,7 @@
   <input
     matInput
     type="url"
+    readonly
     [placeholder]="(cData.placeholder || '') | transloco"
     [class.disabled]="disInput"
     [formControl]="imageUrl">
@@ -15,9 +16,14 @@
         <img class="fb-image-suffix-preview-image" [attr.src]="imageSrc || imageUrl.value || value" [alt]="'FIELDS.IMAGE.PREVIEW' | transloco">
       </div>
     </ng-container>
+    <button mat-icon-button *ngIf="!imageUrl.value && !cData.preventUrlUpload" (click)="openUploadDialog()">
+      <mat-icon>post_add</mat-icon>
+    </button>
+
     <button mat-icon-button *ngIf="!imageUrl.value && !cData.preventServerUpload">
       <mat-icon (click)="openFileUpload()">perm_media</mat-icon>
     </button>
+
     <button mat-icon-button *ngIf="imageUrl.value">
       <mat-icon (click)="remove()">highlight_off</mat-icon>
     </button>
@@ -26,3 +32,17 @@
 </mat-form-field>
 
 <input #file type="file" hidden (change)="filesImage($event)">
+
+<ng-template #modal>
+  <mat-dialog-content>
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>{{'FIELDS.GALLERY.IMAGE_URL' | transloco}}</mat-label>
+      <input matInput #url>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="jc-end">
+    <button mat-button mat-dialog-close>{{'GENERAL.CANCEL' | transloco}}</button>&nbsp;
+    <button mat-flat-button color="primary" [disabled]="!url.value" (click)="addImage(url.value)" mat-dialog-close>{{'FIELDS.GALLERY.ADD_IMAGE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
