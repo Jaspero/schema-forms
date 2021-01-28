@@ -1,3 +1,13 @@
+## @jaspero/fb-tinymce [1.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.2.0...@jaspero/fb-tinymce@1.2.1) (2021-01-28)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.14.0
+
 # @jaspero/fb-tinymce [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.1.10...@jaspero/fb-tinymce@1.2.0) (2021-01-25)
 
 

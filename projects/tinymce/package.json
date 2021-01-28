@@ -10,7 +10,7 @@
   ],
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.13.3",
+    "@jaspero/form-builder": "3.14.0",
     "tinymce": "^5.4.2"
   },
   "release": {
