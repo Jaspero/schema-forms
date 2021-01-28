@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.1.10...@jaspero/fb-tinymce@1.2.0) (2021-01-25)
+
+
+### Features
+
+* **tinymce:** added tinymce options ([f6b557a](https://github.com/Jaspero/schema-forms/commit/f6b557a590afadd85597731177702cd7d2f98026))
+
 ## @jaspero/fb-tinymce [1.1.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.1.9...@jaspero/fb-tinymce@1.1.10) (2021-01-24)
 
 
