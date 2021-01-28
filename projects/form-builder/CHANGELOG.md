@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.3...@jaspero/form-builder@3.14.0) (2021-01-28)
+
+
+### Features
+
+* **image:** upload image from url ([6581c9e](https://github.com/Jaspero/schema-forms/commit/6581c9e8a44cae91ba3d6a807a75e6266e269a2c))
+
 ## @jaspero/form-builder [3.13.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.2...@jaspero/form-builder@3.13.3) (2021-01-24)
 
 
