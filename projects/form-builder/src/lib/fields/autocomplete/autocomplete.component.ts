@@ -1,15 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
-import {DbService} from '../../services/db.service';
+import {FilterMethod} from '../../enums/filter-method.enum';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
+import {DbService} from '../../services/db.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {getHsd, HSD} from '../../utils/get-hsd';
 
@@ -21,6 +17,7 @@ interface AutocompleteData extends FieldData {
     valueKey?: string;
     orderBy?: string;
     filter?: WhereFilter;
+    limit?: number;
   };
   autocomplete?: string;
   suffix?: HSD | string;
@@ -58,6 +55,53 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
 
       const {populate} = this.cData;
 
+      const nameKey = populate.nameKey || 'name';
+      const valueKey = populate.valueKey || 'id';
+
+      if (populate.limit) {
+        this.filteredSet$ = this.cData.control.valueChanges.pipe(
+          startWith(''),
+          switchMap(search => {
+            const end = search.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+
+            const filters = [
+              {
+                key: nameKey,
+                operator: FilterMethod.GreaterThenOrEqual,
+                value: search
+              },
+              {
+                key: nameKey,
+                operator: FilterMethod.LessThen,
+                value: end
+              }
+            ];
+
+            if (populate.filter) {
+              filters.push(populate.filter);
+            }
+
+            return this.dbService.getDocuments(populate.collection, populate.limit, undefined, null, filters);
+          }),
+          map(docs => {
+            return docs.map(it => {
+              return {
+                id: it.id,
+                ...it.data()
+              };
+            });
+          }),
+          map(docs => {
+            return docs.map(doc => {
+              return {
+                name: `${doc[nameKey]} (${doc[valueKey]})`,
+                value: doc[valueKey]
+              };
+            });
+          })
+        );
+      }
+
       dataSet$ = this.dbService
         .getDocumentsSimple(
           this.cData.populate.collection,
@@ -67,14 +111,18 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
         .pipe(
           map(docs =>
             docs.map(doc => ({
-              value: doc[populate.valueKey || 'id'],
-              name: doc[populate.nameKey]
+              name: doc[nameKey],
+              value: doc[valueKey]
             }))
           ),
           tap(() => this.loading$.next(false))
         );
     } else {
       dataSet$ = of(this.cData.dataSet);
+    }
+
+    if (this.filteredSet$) {
+      return;
     }
 
     this.filteredSet$ = dataSet$.pipe(

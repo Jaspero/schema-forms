@@ -37,12 +37,26 @@ export class AppComponent implements AfterViewInit {
         address: {
           type: 'string'
         },
+        module: {
+          type: 'string'
+        },
         endDate: {type: 'number'},
         startDate: {type: 'number'},
       },
       required: ['title']
     },
     definitions: {
+      module: {
+        component: {
+          type: 'autocomplete',
+          configuration: {
+            populate: {
+              collection: 'modules',
+              limit: 2
+            }
+          }
+        }
+      },
       between: {
         component: {
           type: 'range',
@@ -168,6 +182,7 @@ export class AppComponent implements AfterViewInit {
           // '/createdOn',
           // '/File',
           // '/photos',
+          '/module',
           '/title',
           // '/description',
           // '/address',
