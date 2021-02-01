@@ -70,6 +70,8 @@ export function compileSegment(
 
           if (typeof keyObject === 'object') {
             condition = keyObject;
+            condition.action = condition.action || 'show';
+            condition.function = condition.function || '() => true';
             key = condition.field;
           } else {
             key = keyObject;
