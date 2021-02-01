@@ -11,7 +11,7 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {SegmentComponent} from '../segment/segment.component';
 import {createSegmentInjector} from './create-segment-injector';
-import {createCustomComponentInjector, CUSTOM_COMPONENTS} from './custom-components';
+import {createCustomComponentInjector} from './custom-components';
 import {Parser} from './parser';
 import {safeEval} from './safe-eval';
 
@@ -55,7 +55,7 @@ export function compileSegment(
   if (segment.fields) {
 
     /**
-     * If it's an array fields aren' parsed
+     * If it's an array fields aren't parsed
      */
     if (segment.array) {
       // @ts-ignore
@@ -63,7 +63,18 @@ export function compileSegment(
     } else {
       fields = (segment.fields || [])
         // @ts-ignore
-        .reduce((acc: CompiledField[], key: string) => {
+        .reduce((acc: CompiledField[], keyObject: string | object) => {
+
+          let condition: any;
+          let key: string;
+
+          if (typeof keyObject === 'object') {
+            condition = keyObject;
+            key = condition.field;
+          } else {
+            key = keyObject;
+          }
+
           const definition = parser.getFromDefinitions(key, definitions);
 
           if (
@@ -76,7 +87,7 @@ export function compileSegment(
             )
           ) {
             acc.push(
-              parser.field(key, parser.pointers[key], definitions)
+              parser.field(key, parser.pointers[key], definitions, true, undefined, condition)
             );
           }
 

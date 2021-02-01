@@ -8,6 +8,12 @@ export interface CompiledField {
   control: Control;
   portal: ComponentPortal<FieldComponent<any>>;
   validation: any;
+  condition?: {
+    field: string;
+    action: 'show' | 'hide' | 'set-to';
+    function: string;
+    configuration?: any;
+  };
 
   /**
    * Properties pulled from definition

@@ -21,7 +21,7 @@
     [disabled]="tab.disabled">
 
     <div class="p-a-s">
-      <ng-container *ngFor="let field of tab.fields | showField:sData.parser">
+      <ng-container *ngFor="let field of tab.fields | showField:sData.parser | async">
         <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
       </ng-container>
     </div>
