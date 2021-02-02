@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.14.0...@jaspero/form-builder@3.15.0) (2021-02-02)
+
+
+### Features
+
+* condition specific segment field to value. cleanup. wording ([546cf1d](https://github.com/Jaspero/schema-forms/commit/546cf1db488e95986fd9e93a7c1e3dc8a9b3189f))
+
 # @jaspero/form-builder [3.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.13.3...@jaspero/form-builder@3.14.0) (2021-01-28)
 
 
