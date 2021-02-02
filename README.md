@@ -301,7 +301,7 @@ This plugin registers a field `fu-fields` for rendering a form builder module.
     ```
 
     __Conditional Segments__
-    ```json
+    ```jsonc
     {
       "fields": [
         "/showTitle",
