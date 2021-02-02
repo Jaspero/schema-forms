@@ -18,9 +18,6 @@ export class ShowFieldPipe implements PipeTransform {
 
   transform(fields: CompiledField[], parser: Parser): Observable<CompiledField[]> {
 
-    /**
-     * combineLatest([valueChange, valueChange, combineLatest(valueChange, valueChange)])
-     */
     return combineLatest(
       fields.reduce<Array<Observable<CompiledField | null>>>((filtered, field) => {
         if (field.condition) {

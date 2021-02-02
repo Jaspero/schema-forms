@@ -202,9 +202,9 @@ export class AppComponent implements AfterViewInit {
               {
                 type: 'set-to',
                 configuration: {
-                  value: 'ShowModule is TRUTH'
+                  value: 'Placeholder Module'
                 },
-                function: `(row) => row.showModule`
+                function: `(row) => !row.module`
               }
             ]
           }
