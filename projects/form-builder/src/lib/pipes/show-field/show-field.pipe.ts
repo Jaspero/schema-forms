@@ -4,7 +4,6 @@ import {map, startWith} from 'rxjs/operators';
 import {Action, CompiledField} from '../../interfaces/compiled-field.interface';
 import {StateService} from '../../services/state.service';
 import {Parser} from '../../utils/parser';
-import {safeEval} from '../../utils/safe-eval';
 
 @Pipe({
   name: 'showField'
@@ -64,7 +63,7 @@ export class ShowFieldPipe implements PipeTransform {
     }
 
     if (!this.state.listeners[control]) {
-      this.state.listeners[control] = parser.form.controls[control].valueChanges;
+      this.state.listeners[control] = parser.pointers[control].control.valueChanges;
     }
 
     return this.state.listeners[control];
@@ -89,7 +88,11 @@ export class ShowFieldPipe implements PipeTransform {
 
     let bool = true;
     (condition.action as Action[]).forEach(action => {
-      const valid = safeEval(action.function)(row);
+      if (!action.eval) {
+        return;
+      }
+
+      const valid = action.eval(row);
 
       switch (action.type) {
         case 'show': {

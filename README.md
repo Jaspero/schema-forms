@@ -307,7 +307,7 @@ This plugin registers a field `fu-fields` for rendering a form builder module.
         "/showTitle",
         {
           "field": "/title", // Field to assign actions
-          "deps": ["showTitle"], // Array of fields on which to listen for a change, if none are provided whole form is used as a listener
+          "deps": ["/showTitle"], // Array of fields on which to listen for a change, if none are provided whole form is used as a listener
           "action": // Single action object or an array of objects
             [
               {

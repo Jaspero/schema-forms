@@ -5,7 +5,7 @@ import {State} from '../enums/state.enum';
 
 export interface Action {
   type: 'show' | 'hide' | 'set-to';
-  function: string;
+  eval: (...args) => boolean;
   configuration?: any;
 }
 

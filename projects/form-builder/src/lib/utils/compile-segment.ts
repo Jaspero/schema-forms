@@ -87,7 +87,7 @@ export function compileSegment(
 
             condition.action.forEach(item => {
               item.type = item.type || 'show';
-              item.function = item.function || '() => true';
+              item.eval = safeEval(item.function) || null;
             });
             condition.deps = condition.deps || [];
 

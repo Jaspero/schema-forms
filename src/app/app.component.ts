@@ -193,7 +193,7 @@ export class AppComponent implements AfterViewInit {
           '/showModule',
           {
             field: '/module',
-            deps: ['showModule'],
+            deps: ['/showModule'],
             action: [
               {
                 type: 'show',
