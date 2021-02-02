@@ -40,6 +40,9 @@ export class AppComponent implements AfterViewInit {
         module: {
           type: 'string'
         },
+        showModule: {
+          type: 'boolean'
+        },
         endDate: {type: 'number'},
         startDate: {type: 'number'},
       },
@@ -78,7 +81,7 @@ export class AppComponent implements AfterViewInit {
               minutes: 'Minute'
             }
           }
-        },
+        }
       },
       File: {
         component: {
@@ -182,12 +185,29 @@ export class AppComponent implements AfterViewInit {
           // '/createdOn',
           // '/File',
           // '/photos',
-          '/module',
           '/title',
           // '/description',
           // '/address',
           '/endDate',
-          '/startDate'
+          '/startDate',
+          '/showModule',
+          {
+            field: '/module',
+            deps: ['/showModule'],
+            action: [
+              {
+                type: 'show',
+                function: `(row) => row.showModule`
+              },
+              {
+                type: 'set-to',
+                configuration: {
+                  value: 'Placeholder Module'
+                },
+                function: `(row) => !row.module`
+              }
+            ]
+          }
         ]
       }
       // {
@@ -441,7 +461,7 @@ export class AppComponent implements AfterViewInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
+                previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
                 previewValue: {
                   title: 'Some title',
                   subTitle: 'A total subtitle'
@@ -519,7 +539,7 @@ export class AppComponent implements AfterViewInit {
                   },
                   definitions: {}
                 }
-              },
+              }
             ]
           }
         }
@@ -581,6 +601,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   save() {
-    this.formComponents.toArray()[0].save('example', 'example-id').subscribe()
+    this.formComponents.toArray()[0].save('example', 'example-id').subscribe();
   }
 }

@@ -1,3 +1,4 @@
+import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -32,6 +33,7 @@ import {translocoLoader} from './transloco.loader';
     ExampleCustomComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -82,7 +84,7 @@ import {translocoLoader} from './transloco.loader';
     {
       provide: CUSTOM_COMPONENTS,
       useValue: {
-        'example': ExampleCustomComponent
+        example: ExampleCustomComponent
       }
     },
     {

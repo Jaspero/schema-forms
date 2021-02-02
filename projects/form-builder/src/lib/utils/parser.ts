@@ -92,7 +92,7 @@ export class Parser {
 
   static standardizeKey(key: string) {
     if (key[0] === '/') {
-      key = key.slice(1, key.length);
+      key = key.slice(1);
     }
 
     return key;
@@ -338,13 +338,15 @@ export class Parser {
    * @param definitions Entire definitions object that should be used
    * @param single Defines if the field shown in the form or in the table
    * @param arrayRoot If the field is in an array what root lookup to use
+   * @param condition Evaluate function which validates provided action ('show' | 'hide')
    */
   field(
     pointerKey: string,
     pointer: Pointer,
     definitions: Definitions = {},
     single = true,
-    arrayRoot?: string
+    arrayRoot?: string,
+    condition?: any
   ): CompiledField {
 
     if (!pointer) {
@@ -420,7 +422,8 @@ export class Parser {
       validation,
       placeholder: definition.placeholder || '',
       label: definition.label,
-      onlyOn: definition.onlyOn
+      onlyOn: definition.onlyOn,
+      condition
     };
   }
 
