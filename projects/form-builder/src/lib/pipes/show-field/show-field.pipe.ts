@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {CompiledField} from '../../interfaces/compiled-field.interface';
+import {Action, CompiledField} from '../../interfaces/compiled-field.interface';
+import {StateService} from '../../services/state.service';
 import {Parser} from '../../utils/parser';
 import {safeEval} from '../../utils/safe-eval';
 
@@ -9,27 +10,77 @@ import {safeEval} from '../../utils/safe-eval';
   name: 'showField'
 })
 export class ShowFieldPipe implements PipeTransform {
-  transform(fields: CompiledField[], parser: Parser): Observable<CompiledField[]> {
 
-    return fields.some(field => field.condition)
-      ? parser.form.valueChanges.pipe(
-        startWith({}),
-        map(() => this.filtered(fields, parser))
-      )
-      : of(this.filtered(fields, parser));
+  constructor(
+    private state: StateService
+  ) {
   }
 
-  filtered(fields: CompiledField[], parser: Parser) {
-    return fields.filter(
-      field =>
-        (!field.onlyOn ||
-          (
-            Array.isArray(field.onlyOn) ?
-              field.onlyOn.includes(parser.state) :
-              field.onlyOn === parser.state
-          )
-        ) && this.checkCondition(field.condition, parser)
+  transform(fields: CompiledField[], parser: Parser): Observable<CompiledField[]> {
+
+    /**
+     * combineLatest([valueChange, valueChange, combineLatest(valueChange, valueChange)])
+     */
+    return combineLatest(
+      fields.reduce<Array<Observable<CompiledField | null>>>((filtered, field) => {
+        if (field.condition) {
+          if (!field.condition.deps.length) {
+            filtered.push(this.getListener('form', parser).pipe(
+              map(() => field)
+            ).pipe(
+              startWith(null),
+              map(() => {
+                return this.checkField(field, parser) ? field : null;
+              })
+            ));
+          } else {
+            const deps = field.condition.deps.map(dep => this.getListener(dep, parser));
+
+            filtered.push(combineLatest(deps).pipe(
+              map(() => field)
+            ).pipe(
+              startWith(null),
+              map(() => {
+                return this.checkField(field, parser) ? field : null;
+              })
+            ));
+          }
+        } else {
+          filtered.push(
+            this.checkField(field, parser) ? of(field) : of(null)
+          );
+        }
+        return filtered;
+      }, [])
+    ).pipe(
+      map((items: Array<CompiledField | null>) => items.filter(it => it) as CompiledField[])
     );
+  }
+
+  getListener(control: string, parser: Parser) {
+    if (control === 'form') {
+      if (!this.state.listeners.form) {
+        this.state.listeners.form = parser.form.valueChanges;
+      }
+
+      return this.state.listeners.form;
+    }
+
+    if (!this.state.listeners[control]) {
+      this.state.listeners[control] = parser.form.controls[control].valueChanges;
+    }
+
+    return this.state.listeners[control];
+  }
+
+  checkField(field: CompiledField, parser: Parser) {
+    return (!field.onlyOn ||
+      (
+        Array.isArray(field.onlyOn) ?
+          field.onlyOn.includes(parser.state) :
+          field.onlyOn === parser.state
+      )
+    ) && this.checkCondition(field.condition, parser);
   }
 
   checkCondition(condition: CompiledField['condition'], parser: Parser) {
@@ -39,25 +90,32 @@ export class ShowFieldPipe implements PipeTransform {
 
     const row = parser.form.getRawValue();
 
-    const valid = safeEval(condition.function)(row);
+    let bool = true;
+    (condition.action as Action[]).forEach(action => {
+      const valid = safeEval(action.function)(row);
 
-    switch (condition.action) {
-      case 'show': {
-        return valid;
-      }
-      case 'hide': {
-        return !valid;
-      }
-      case 'set-to': {
-        if (valid) {
-          parser.pointers[condition.field].control.setValue(condition.configuration.value, {emitEvent: false});
+      switch (action.type) {
+        case 'show': {
+          bool = valid;
+          break;
         }
+        case 'hide': {
+          bool = !valid;
+          break;
+        }
+        case 'set-to': {
+          if (valid) {
+            parser.pointers[condition.field].control.setValue(action.configuration.value, {emitEvent: false});
+          }
+          break;
+        }
+        default: {
+          bool = true;
+          break;
+        }
+      }
+    });
 
-        return true;
-      }
-      default: {
-        return true;
-      }
-    }
+    return bool;
   }
 }

@@ -68,13 +68,32 @@ export function compileSegment(
           let condition: any;
           let key: string;
 
-          if (typeof keyObject === 'object') {
+          if (keyObject?.constructor === Object) {
             condition = keyObject;
-            condition.action = condition.action || 'show';
-            condition.function = condition.function || '() => true';
+
+            switch (condition?.action?.constructor) {
+              case Object: {
+                condition.action = [condition.action];
+                break;
+              }
+              case Array: {
+                break;
+              }
+              default: {
+                condition.action = [{}];
+                break;
+              }
+            }
+
+            condition.action.forEach(item => {
+              item.type = item.type || 'show';
+              item.function = item.function || '() => true';
+            });
+            condition.deps = condition.deps || [];
+
             key = condition.field;
           } else {
-            key = keyObject;
+            key = keyObject as string;
           }
 
           const definition = parser.getFromDefinitions(key, definitions);

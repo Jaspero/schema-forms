@@ -40,8 +40,11 @@ export class AppComponent implements AfterViewInit {
         module: {
           type: 'string'
         },
+        showModule: {
+          type: 'boolean'
+        },
         endDate: {type: 'number'},
-        startDate: {type: 'number'}
+        startDate: {type: 'number'},
       },
       required: ['title']
     },
@@ -187,10 +190,23 @@ export class AppComponent implements AfterViewInit {
           // '/address',
           '/endDate',
           '/startDate',
+          '/showModule',
           {
             field: '/module',
-            action: 'show',
-            function: `(row) => !!row.title`
+            deps: ['showModule'],
+            action: [
+              {
+                type: 'show',
+                function: `(row) => row.showModule`
+              },
+              {
+                type: 'set-to',
+                configuration: {
+                  value: 'ShowModule is TRUTH'
+                },
+                function: `(row) => row.showModule`
+              }
+            ]
           }
         ]
       }

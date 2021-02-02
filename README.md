@@ -300,6 +300,33 @@ This plugin registers a field `fu-fields` for rendering a form builder module.
     }
     ```
 
+    __Conditional Segments__
+    ```json
+    {
+      "fields": [
+        "/showTitle",
+        {
+          "field": "/title", // Field to assign actions
+          "deps": ["showTitle"], // Array of fields on which to listen for a change, if none are provided whole form is used as a listener
+          "action": // Single action object or an array of objects
+            [
+              {
+                "type": "show", // "show" | "hide" | "set-to"
+                "function": "(row) => row.showTitle"
+              },
+              {
+                "type": "set-to",
+                "function": "(row) => !row.title",
+                "configuration": {
+                  "value": "Placeholder Title"
+                }
+              }
+            ]
+        }
+      ]
+    }
+    ```
+
 ##### Set up
 
 1. Install the plugin `npm i --save @jaspero/fb-page-builder`
