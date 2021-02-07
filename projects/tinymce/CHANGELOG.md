@@ -1,3 +1,23 @@
+# @jaspero/fb-tinymce [1.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.2.2...@jaspero/fb-tinymce@1.3.0) (2021-02-07)
+
+
+### Bug Fixes
+
+* **tinymce:** properly imported utils from form-builder ([01fb35c](https://github.com/Jaspero/schema-forms/commit/01fb35c5196ca341d89e0120cf94b6b360d87bbb))
+
+
+### Features
+
+* **tinymce:** images are now uploaded on save; it's now possible to minify uploaded images; ([7d8e74b](https://github.com/Jaspero/schema-forms/commit/7d8e74bf5ced6e1d8d366cbf3126dde1fa15d064))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.16.0
+
 ## @jaspero/fb-tinymce [1.2.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.2.1...@jaspero/fb-tinymce@1.2.2) (2021-02-02)
 
 
