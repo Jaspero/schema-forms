@@ -3,15 +3,24 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject, NgZone,
+  Inject, NgZone, OnDestroy,
   OnInit,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
-import {COMPONENT_DATA, FieldComponent, FieldData, FormBuilderComponent, StorageService} from '@jaspero/form-builder';
-import {filter, take} from 'rxjs/operators';
+import {
+  COMPONENT_DATA,
+  FieldComponent,
+  FieldData,
+  FormBuilderComponent,
+  FormBuilderService,
+  StorageService
+} from '@jaspero/form-builder';
+import {GeneratedImage} from '@jaspero/form-builder/lib/interfaces/generated-image.interface';
+import {forkJoin, from, of} from 'rxjs';
+import {filter, switchMap, take, tap} from 'rxjs/operators';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
@@ -23,6 +32,7 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/print';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/wordcount';
+import {formatGeneratedImages} from '../../../form-builder/src/lib/utils/format-generated-images';
 
 declare const tinymce: any;
 
@@ -31,6 +41,7 @@ export interface TinyData extends FieldData {
   toolbar?: string;
   height?: number;
   options?: any;
+  generatedImages?: GeneratedImage[];
 }
 
 @Component({
@@ -39,14 +50,15 @@ export interface TinyData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TinymceComponent extends FieldComponent<TinyData>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: TinyData,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private storage: StorageService,
     private formBuilderComponent: FormBuilderComponent,
-    private zone: NgZone
+    private zone: NgZone,
+    private formBuilderService: FormBuilderService
   ) {
     super(cData);
   }
@@ -65,6 +77,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
     align: 'left'
   };
 
+  imageReplacements: Array<{ blobInfo: any, replace: string }> = [];
+
   ngOnInit() {
     this.ytForm = this.fb.group({
       value: ['', Validators.required],
@@ -78,10 +92,16 @@ export class TinymceComponent extends FieldComponent<TinyData>
         tinymce.activeEditor.getBody().setAttribute('readonly', false);
       }
     });
+
+    this.formBuilderService.saveComponents.push(this);
   }
 
   ngAfterViewInit() {
     this.registerTiny();
+  }
+
+  ngOnDestroy() {
+    this.formBuilderService.removeComponent(this);
   }
 
   private registerTiny() {
@@ -126,19 +146,25 @@ export class TinymceComponent extends FieldComponent<TinyData>
       ].join(' | '),
 
       images_upload_handler: (blobInfo: any, success: any, failure: any) => {
-        this.storage
-          .upload(
-            blobInfo.filename(),
-            blobInfo.blob(),
-            this.formBuilderComponent.id ? {
-              customMetadata: {
-                collection: this.formBuilderComponent.id
-              }
-            } : {}
-          )
-          .then((data: any) => data.ref.getDownloadURL())
-          .then((url: any) => success(url))
-          .catch((error: any) => failure(error.toString()));
+        let first = false;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+
+          if (first) {
+            return;
+          }
+
+          // @ts-ignore
+          const replace = e.target.result as string;
+          this.imageReplacements.push({blobInfo, replace});
+          success(replace);
+          first = true;
+        };
+
+        reader.readAsDataURL(blobInfo.blob());
+
       },
 
       setup: (editor: any) => {
@@ -187,6 +213,65 @@ export class TinymceComponent extends FieldComponent<TinyData>
       },
       ...!!this.cData.options && this.cData.options
     });
+  }
+
+  save(moduleId: string, documentId: string) {
+    if (this.imageReplacements.length) {
+
+      let {value} = this.cData.control;
+
+      const toUpload = this.imageReplacements.reduce((acc: any[], {blobInfo, replace}, index) => {
+
+        if (value.includes(replace)) {
+
+          const name = [
+            moduleId,
+            documentId,
+            index,
+            blobInfo.filename(),
+          ]
+            .join('-');
+
+          acc.push(
+            from(
+              this.storage.upload(
+                name,
+                blobInfo.blob(),
+                {
+                  customMetadata: {
+                    moduleId,
+                    documentId,
+                    ...this.cData.generatedImages &&
+                    formatGeneratedImages(this.cData.generatedImages)
+                  }
+                }
+              )
+            )
+              .pipe(
+                switchMap((task: any) => task.ref.getDownloadURL()),
+                tap(url => {
+                  value = value.replace(replace, url);
+                })
+              )
+          )
+        }
+
+        return acc;
+      }, []);
+
+      if (toUpload.length) {
+        return forkJoin(toUpload)
+          .pipe(
+            tap(() => {
+              this.cData.control.setValue(value);
+            })
+          )
+      } else {
+        return of({});
+      }
+    } else {
+      return of({});
+    }
   }
 }
 
