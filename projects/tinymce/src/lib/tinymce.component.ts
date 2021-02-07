@@ -13,12 +13,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData,
+  FieldData, formatGeneratedImages,
   FormBuilderComponent,
   FormBuilderService,
   StorageService
 } from '@jaspero/form-builder';
-import {GeneratedImage} from '@jaspero/form-builder/lib/interfaces/generated-image.interface';
 import {forkJoin, from, of} from 'rxjs';
 import {filter, switchMap, take, tap} from 'rxjs/operators';
 import 'tinymce/plugins/advlist';
@@ -32,7 +31,6 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/print';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/wordcount';
-import {formatGeneratedImages} from '../../../form-builder/src/lib/utils/format-generated-images';
 
 declare const tinymce: any;
 
@@ -41,7 +39,7 @@ export interface TinyData extends FieldData {
   toolbar?: string;
   height?: number;
   options?: any;
-  generatedImages?: GeneratedImage[];
+  generatedImages?: any[];
 }
 
 @Component({
