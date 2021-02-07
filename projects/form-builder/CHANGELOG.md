@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.15.0...@jaspero/form-builder@3.16.0) (2021-02-07)
+
+
+### Features
+
+* **form-builder:** added folder option to generated-image and added it to public-api ([becc319](https://github.com/Jaspero/schema-forms/commit/becc319aa55783d0989da6d24a44f6053e2fdb76))
+
 # @jaspero/form-builder [3.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.14.0...@jaspero/form-builder@3.15.0) (2021-02-02)
 
 
