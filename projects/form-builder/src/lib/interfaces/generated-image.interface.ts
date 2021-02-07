@@ -3,4 +3,6 @@ export interface GeneratedImage {
   filePrefix?: string;
   width?: number;
   height?: number;
+  // defaults to 'generated'
+  folder?: string;
 }

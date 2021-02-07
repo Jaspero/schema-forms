@@ -29,6 +29,7 @@ export * from './lib/interfaces/segment.interface';
 export * from './lib/interfaces/field-data.interface';
 export * from './lib/interfaces/form-builder-data.interface';
 export * from './lib/interfaces/custom-component-definition.interface';
+export * from './lib/interfaces/generated-image.interface';
 
 /**
  * Enums
