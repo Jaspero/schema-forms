@@ -59,6 +59,8 @@ interface SelectData extends FieldData {
   multiple?: boolean;
   populate?: Populate;
   autocomplete?: string;
+  reset?: boolean;
+  resetIcon?: string;
 }
 
 @Component({
@@ -226,5 +228,10 @@ export class SelectComponent extends FieldComponent<SelectData>
     } else {
       this.dataSet$ = of(this.cData.dataSet as any);
     }
+  }
+
+  reset(event) {
+    event.stopPropagation();
+    this.cData.control.reset();
   }
 }

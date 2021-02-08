@@ -13,5 +13,6 @@
     matSuffix
     *ngIf="cData.populate && (loading$ | async)"
     [diameter]="20"></mat-spinner>
+  <button matSuffix mat-icon-button *ngIf="cData.reset" (click)="reset($event)">{{cData.resetIcon || 'close'}}</button>
   <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | jpSanitize"></mat-hint>
 </mat-form-field>
