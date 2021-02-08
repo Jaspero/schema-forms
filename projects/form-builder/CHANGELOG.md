@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.16.0...@jaspero/form-builder@3.17.0) (2021-02-08)
+
+
+### Features
+
+* **select:** reset button ([0a4ed1a](https://github.com/Jaspero/schema-forms/commit/0a4ed1aaa4b157b3716ffaec9871647c650de26e))
+
 # @jaspero/form-builder [3.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.15.0...@jaspero/form-builder@3.16.0) (2021-02-07)
 
 
