@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.17.0...@jaspero/form-builder@3.17.1) (2021-02-08)
+
+
+### Bug Fixes
+
+* **select:** reset button icon ([467cc58](https://github.com/Jaspero/schema-forms/commit/467cc58cb7e12a5f725035ad2c275e57494f947e))
+
 # @jaspero/form-builder [3.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.16.0...@jaspero/form-builder@3.17.0) (2021-02-08)
 
 
