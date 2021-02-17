@@ -8,6 +8,7 @@
   "keywords": [
     "Angular"
   ],
+  "license": "MIT",
   "homepage": "https://jaspero.co",
   "peerDependencies": {
     "@jaspero/form-builder": "3.17.1"
