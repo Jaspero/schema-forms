@@ -9,6 +9,7 @@
     "Angular"
   ],
   "homepage": "https://jaspero.co",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^11.0.0",
     "@angular/core": "^11.0.0",
