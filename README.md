@@ -176,6 +176,12 @@ If an items value is defined then it's expected to be rendered as its own segmen
 
 This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor.
 
+##### Dependencies
+
+|Library|Version|
+|----|----|
+|Tinymce|5.x|
+
 ##### Set up
 
 1. Install the plugin `npm i --save @jaspero/fb-tinymce`
@@ -233,9 +239,17 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
 
 This plugin registers a field `pb-blocks` for rendering a page builder module.
 
+##### Dependencies
+
+This plugin doesn't have any additional dependencies.
+
 #### Form UI
 
 This plugin registers a field `fu-fields` for rendering a form builder module.
+
+##### Dependencies
+
+This plugin doesn't have any additional dependencies.
 
 ##### Set up
 

@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  background: #efefef;
+  border: 1px solid #cccccc;
+  margin-bottom: 1rem;
+}
+
+.toolbar {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+}
+
+.builder-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep {
+
+  .template-layout {
+    background: white;
+    padding: 1rem;
+  }
+
+  .template-layout {
+    table[border="0"] {
+      border: none !important;
+
+      td {
+        border: none !important;
+      }
+    }
+  }
+}

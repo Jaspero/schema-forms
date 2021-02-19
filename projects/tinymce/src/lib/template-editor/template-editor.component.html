@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <button mat-stroked-button [matMenuTriggerFor]="mainMenu">{{'TEMPLATE_EDITOR.ADD_SEGMENT' | transloco}}</button>
+  <mat-menu #mainMenu="matMenu">
+    <ng-container *ngFor="let group of segmentSelect.grouped">
+      <mat-menu #item="matMenu">
+        <button mat-menu-item *ngFor="let seg of group.segments" (click)="addSegment(seg)">{{seg.name}}</button>
+      </mat-menu>
+
+      <button mat-menu-item [matMenuTriggerFor]="item">
+        {{group.group}}
+      </button>
+    </ng-container>
+
+    <button mat-menu-item *ngFor="let seg of segmentSelect.root" (click)="addSegment(seg)">{{seg.name}}</button>
+  </mat-menu>
+</div>
+
+<div class="builder-container" [innerHTML]="value"></div>
