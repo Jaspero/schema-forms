@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.3.2...@jaspero/fb-tinymce@1.4.0) (2021-02-19)
+
+
+### Features
+
+* **tinymce:** added template-editor plugin ([69376da](https://github.com/Jaspero/schema-forms/commit/69376dab9fc4162fdd12f4a2728c4204a3c7a991))
+
 ## @jaspero/fb-tinymce [1.3.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.3.1...@jaspero/fb-tinymce@1.3.2) (2021-02-08)
 
 
