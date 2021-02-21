@@ -3,8 +3,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject, NgZone, OnDestroy,
+  Inject,
+  NgZone,
+  OnDestroy,
   OnInit,
+  Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -13,7 +16,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData, formatGeneratedImages,
+  FieldData,
+  formatGeneratedImages,
   FormBuilderComponent,
   FormBuilderService,
   StorageService
@@ -53,7 +57,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
     @Inject(COMPONENT_DATA) public cData: TinyData,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private storage: StorageService,
+    @Optional() private storage: StorageService,
     private formBuilderComponent: FormBuilderComponent,
     private zone: NgZone,
     private formBuilderService: FormBuilderService
