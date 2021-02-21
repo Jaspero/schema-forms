@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  Optional,
+  ViewChild
+} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
@@ -27,6 +36,17 @@ interface FileData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileComponent extends FieldComponent<FileData> implements OnInit {
+  constructor(
+    @Inject(COMPONENT_DATA) public cData: FileData,
+    @Optional() private storage: StorageService,
+    private cdr: ChangeDetectorRef,
+    private formBuilderService: FormBuilderService,
+    private transloco: TranslocoService,
+    private snackBar: MatSnackBar
+  ) {
+    super(cData);
+  }
+
   @ViewChild('file', {static: true})
   fileEl: ElementRef<HTMLInputElement>;
   value: File;
@@ -37,17 +57,6 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
   forbiddenFileTypes: string[];
   minSizeBytes: number;
   maxSizeBytes: number;
-
-  constructor(
-    @Inject(COMPONENT_DATA) public cData: FileData,
-    private storage: StorageService,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService,
-    private transloco: TranslocoService,
-    private snackBar: MatSnackBar
-  ) {
-    super(cData);
-  }
 
   ngOnInit() {
     if (this.cData.control.value) {

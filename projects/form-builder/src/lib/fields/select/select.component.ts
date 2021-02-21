@@ -77,6 +77,7 @@ export class SelectComponent extends FieldComponent<SelectData>
   constructor(
     @Inject(COMPONENT_DATA) public cData: SelectData,
     private dbService: DbService,
+    @Optional()
     @Inject(ROLE)
     private role: string,
     @Optional()

@@ -1,3 +1,4 @@
+import {HttpClient} from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -6,13 +7,14 @@ import {
   Inject,
   OnDestroy,
   OnInit,
+  Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {MatDialog} from '@angular/material/dialog';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
@@ -25,7 +27,6 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {parseSize} from '../../utils/parse-size';
-import {HttpClient} from '@angular/common/http';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
@@ -47,7 +48,7 @@ export class ImageComponent extends FieldComponent<ImageData>
   implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
-    private storage: StorageService,
+    @Optional() private storage: StorageService,
     private cdr: ChangeDetectorRef,
     private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,

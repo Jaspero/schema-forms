@@ -59,7 +59,7 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
-    private storage: StorageService,
+    @Optional() private storage: StorageService,
     private formBuilderService: FormBuilderService,
     private viewportRuler: ViewportRuler,
     private transloco: TranslocoService,
