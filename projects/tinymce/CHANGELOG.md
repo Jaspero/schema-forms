@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.4.2...@jaspero/fb-tinymce@1.5.0) (2021-02-21)
+
+
+### Features
+
+* **tinymce:** StorageService is now optional ([7e0111e](https://github.com/Jaspero/schema-forms/commit/7e0111ec66c8d010457675e6b7a5cf2b79b9b4d5))
+
 ## @jaspero/fb-tinymce [1.4.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.4.1...@jaspero/fb-tinymce@1.4.2) (2021-02-21)
 
 
