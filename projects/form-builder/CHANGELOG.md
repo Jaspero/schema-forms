@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.18.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.18.0...@jaspero/form-builder@3.18.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* **form-builder:** Both StorageService and ROLE are now optional ([312611e](https://github.com/Jaspero/schema-forms/commit/312611eeaecf2b7cb6697ab70624c183defc40a9))
+
 # @jaspero/form-builder [3.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.17.1...@jaspero/form-builder@3.18.0) (2021-02-21)
 
 
