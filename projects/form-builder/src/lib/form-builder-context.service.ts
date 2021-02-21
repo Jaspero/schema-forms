@@ -1,10 +1,11 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 import {CUSTOM_COMPONENTS, CustomComponents} from './utils/custom-components';
 import {CustomFields} from './utils/custom-fields';
 
 @Injectable()
 export class FormBuilderContextService {
   constructor(
+    @Optional()
     @Inject(CUSTOM_COMPONENTS)
     private injectedComponents: CustomComponents
   ) {}
@@ -14,7 +15,7 @@ export class FormBuilderContextService {
 
   get componentMap() {
     return {
-      ...this.injectedComponents,
+      ...this.injectedComponents || {},
       ...this.components
     }
   }

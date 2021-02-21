@@ -143,7 +143,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       this.role,
       definitions,
       {
-        ...this.customFields,
+        ...this.customFields || {},
         ...this.ctx.fields
       }
     );
