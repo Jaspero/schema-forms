@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.17.1...@jaspero/form-builder@3.18.0) (2021-02-21)
+
+
+### Features
+
+* **form-builder:** providing custom components is now optional ([a148cbb](https://github.com/Jaspero/schema-forms/commit/a148cbb692b5c912953625dd3ffb3e6fd487f0fa))
+
 ## @jaspero/form-builder [3.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.17.0...@jaspero/form-builder@3.17.1) (2021-02-08)
 
 
