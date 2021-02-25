@@ -15,6 +15,7 @@ import {Parser} from '../../utils/parser';
 
 interface Populate {
   collection?: string;
+  subcollection?: string;
   nameKey?: string;
   valueKey?: string;
   orderBy?: string;
@@ -253,6 +254,7 @@ export class SelectComponent extends FieldComponent<SelectData>
 
         this.dataSet$ = documentsMethod({
           collection: populate.collection,
+          subcollection: populate.subcollection,
           orderBy: populate.orderBy,
           filter
         } as any);
