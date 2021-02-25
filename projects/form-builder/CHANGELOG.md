@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.18.1...@jaspero/form-builder@3.19.0) (2021-02-25)
+
+
+### Features
+
+* **select:** added subcollection query with collectionGroup ([7a7bd96](https://github.com/Jaspero/schema-forms/commit/7a7bd960ab33be429e8f87fb442a88e61debd47d))
+
 ## @jaspero/form-builder [3.18.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.18.0...@jaspero/form-builder@3.18.1) (2021-02-21)
 
 
