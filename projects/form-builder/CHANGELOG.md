@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.19.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.0...@jaspero/form-builder@3.19.1) (2021-02-25)
+
+
+### Bug Fixes
+
+* **select:** forward populate option ([3166555](https://github.com/Jaspero/schema-forms/commit/3166555717dd137c6766e94caf43bf7a4c5a443b))
+
 # @jaspero/form-builder [3.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.18.1...@jaspero/form-builder@3.19.0) (2021-02-25)
 
 
