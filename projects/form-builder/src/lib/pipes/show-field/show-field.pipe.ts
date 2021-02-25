@@ -15,35 +15,35 @@ export class ShowFieldPipe implements PipeTransform {
   ) {
   }
 
-  transform(fields: CompiledField[], parser: Parser): Observable<CompiledField[]> {
+  transform(fields: CompiledField[], parser: Parser, index?: number): Observable<CompiledField[]> {
 
     return combineLatest(
       fields.reduce<Array<Observable<CompiledField | null>>>((filtered, field) => {
         if (field.condition) {
           if (!field.condition.deps.length) {
-            filtered.push(this.getListener('form', parser).pipe(
+            filtered.push(this.getListener('form', parser, index).pipe(
               map(() => field)
             ).pipe(
               startWith(null),
               map(() => {
-                return this.checkField(field, parser) ? field : null;
+                return this.checkField(field, parser, index) ? field : null;
               })
             ));
           } else {
-            const deps = field.condition.deps.map(dep => this.getListener(dep, parser));
+            const deps = field.condition.deps.map(dep => this.getListener(dep, parser, index));
 
             filtered.push(combineLatest(deps).pipe(
               map(() => field)
             ).pipe(
               startWith(null),
               map(() => {
-                return this.checkField(field, parser) ? field : null;
+                return this.checkField(field, parser, index) ? field : null;
               })
             ));
           }
         } else {
           filtered.push(
-            this.checkField(field, parser) ? of(field) : of(null)
+            this.checkField(field, parser, index) ? of(field) : of(null)
           );
         }
         return filtered;
@@ -53,7 +53,7 @@ export class ShowFieldPipe implements PipeTransform {
     );
   }
 
-  getListener(control: string, parser: Parser) {
+  getListener(control: string, parser: Parser, valueIndex: number | undefined) {
     if (control === 'form') {
       if (!this.state.listeners.form) {
         this.state.listeners.form = parser.form.valueChanges;
@@ -63,23 +63,48 @@ export class ShowFieldPipe implements PipeTransform {
     }
 
     if (!this.state.listeners[control]) {
-      this.state.listeners[control] = parser.pointers[control].control.valueChanges;
+      if ((control.match(/\//g) || []).length === 1) {
+        this.state.listeners[control] = parser.pointers[control].control.valueChanges;
+      } else {
+
+        const fields = control.split('/').filter(it => it);
+
+        let pointer;
+        for (let i = 0; i < fields.length; i++) {
+          const path = fields.map((item, index) => {
+            if (index > i) {
+              return '';
+            }
+
+            return '/' + item;
+          }).join('');
+          const field = '/' + fields[i];
+
+          if (!pointer) {
+            pointer = parser.pointers[field];
+          } else {
+            pointer = pointer.arrayPointers[valueIndex || 0][path];
+          }
+        }
+
+        return pointer.control.valueChanges;
+      }
     }
 
     return this.state.listeners[control];
   }
 
-  checkField(field: CompiledField, parser: Parser) {
+  checkField(field: CompiledField, parser: Parser, index: number | undefined) {
     return (!field.onlyOn ||
       (
         Array.isArray(field.onlyOn) ?
           field.onlyOn.includes(parser.state) :
           field.onlyOn === parser.state
       )
-    ) && this.checkCondition(field.condition, parser);
+    ) && this.checkCondition(field.condition, parser, index);
   }
 
-  checkCondition(condition: CompiledField['condition'], parser: Parser) {
+  checkCondition(condition: CompiledField['condition'], parser: Parser, index: number | undefined) {
     if (!condition) {
       return true;
     }
@@ -92,7 +117,10 @@ export class ShowFieldPipe implements PipeTransform {
         return;
       }
 
-      const valid = action.eval(row);
+      let valid = false;
+      try {
+        valid = action.eval(row, index || 0);
+      } catch(error) {}
 
       switch (action.type) {
         case 'show': {

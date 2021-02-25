@@ -16,12 +16,12 @@
   (selectedTabChange)="tabChange($event)">
 
   <mat-tab
-    *ngFor="let tab of tabs"
+    *ngFor="let tab of tabs; index as index"
     [label]="tab.title"
     [disabled]="tab.disabled">
 
     <div class="p-a-s">
-      <ng-container *ngFor="let field of tab.fields | showField:sData.parser | async">
+      <ng-container *ngFor="let field of tab.fields | showField:sData.parser:index | async">
         <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
       </ng-container>
     </div>
