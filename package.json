@@ -50,7 +50,7 @@
     "@angular/router": "11.0.0",
     "@jaspero/fb-page-builder": "2.13.3",
     "@jaspero/fb-tinymce": "1.0.11",
-    "@jaspero/form-builder": "./dist/form-builder",
+    "@jaspero/form-builder": "3.19.1",
     "@jaspero/ng-helpers": "4.3.0",
     "@ngneat/transloco": "2.19.1",
     "json-pointer": "0.6.0",
