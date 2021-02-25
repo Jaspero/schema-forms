@@ -4,12 +4,13 @@ import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {get} from 'json-pointer';
 import {CustomComponent} from '../custom/custom.component';
-import {CompiledField} from '../interfaces/compiled-field.interface';
+import {CompiledField, Condition} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointers} from '../utils/parser';
+import {safeEval} from '../utils/safe-eval';
 
 export interface SegmentData {
   segment: CompiledSegment;
@@ -100,16 +101,45 @@ export class SegmentComponent<T = any> implements OnInit {
     let fields: CompiledField[];
 
     if (this.segment.fields && this.segment.fields.length) {
-      fields = (this.segment.fields as string[]).map(key => {
+      fields = (this.segment.fields as Array<string | Condition>).map((keyObject) => {
+        let condition: any;
+        let key: string;
 
-        key = (this.sData.parent || '') + key;
+        if (keyObject?.constructor === Object) {
+          condition = keyObject;
+
+          switch (condition?.action?.constructor) {
+            case Object: {
+              condition.action = [condition.action];
+              break;
+            }
+            case Array: {
+              break;
+            }
+            default: {
+              condition.action = [{}];
+              break;
+            }
+          }
+
+          condition.action.forEach((item) => {
+            item.type = item.type || 'show';
+            item.eval = safeEval(item.function) || null;
+          });
+          condition.deps = condition.deps || [];
+
+          key = (this.sData.parent || '') + (keyObject as any).segment + condition.field;
+        } else {
+          key = (this.sData.parent || '') + (keyObject as string);
+        }
 
         return this.sData.parser.field(
           key,
           pointers[key],
           this.sData.definitions,
           true,
-          array
+          array,
+          condition
         );
       });
     } else {

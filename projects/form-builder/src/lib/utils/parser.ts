@@ -350,7 +350,6 @@ export class Parser {
   ): CompiledField {
 
     if (!pointer) {
-      console.log('Pointers: ', this.pointers);
       throw new Error(`Couldn't find pointer for ${pointerKey}.`);
     }
 

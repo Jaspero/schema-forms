@@ -16,6 +16,21 @@ export class AppComponent implements AfterViewInit {
   exampleOne: FormBuilderData = {
     schema: {
       properties: {
+        items2: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              type: {
+                type: 'string'
+              },
+              title: {
+                type: 'string'
+              }
+            }
+          }
+        },
+
         between: {
           type: 'object'
         },
@@ -27,9 +42,6 @@ export class AppComponent implements AfterViewInit {
         },
         photos: {
           type: 'array'
-        },
-        title: {
-          type: 'string'
         },
         description: {
           type: 'string'
@@ -44,11 +56,38 @@ export class AppComponent implements AfterViewInit {
           type: 'boolean'
         },
         endDate: {type: 'number'},
-        startDate: {type: 'number'},
-      },
-      required: ['title']
+        startDate: {type: 'number'}
+      }
     },
     definitions: {
+      'items2/type': {
+        label: 'type',
+        component: {
+          type: 'select',
+          configuration: {
+            dataSet: [
+              {
+                name: 'Title',
+                value: 'title'
+              },
+              {
+                name: 'Space',
+                value: 'space'
+              },
+              {
+                name: 'asd',
+                value: 'asd'
+              }
+            ]
+          }
+        }
+      },
+      'items2/title': {
+        label: 'Title',
+        component: {
+          type: 'tinymce'
+        }
+      },
       module: {
         component: {
           type: 'autocomplete',
@@ -136,18 +175,6 @@ export class AppComponent implements AfterViewInit {
         },
         label: 'Photos'
       },
-      title: {
-        label: 'Title',
-        columnsDesktop: 8,
-        columnsMobile: 12,
-        component: {
-          type: 'input',
-          configuration: {
-            prefix: '$',
-            suffix: '$'
-          }
-        }
-      },
       description: {
         label: 'Description',
         component: {
@@ -180,17 +207,50 @@ export class AppComponent implements AfterViewInit {
         }]
       },
       {
+        array: '/items2',
+        fields: [
+          '/type',
+          {
+            field: '/title',
+            deps: ['/items2/type'],
+            action: [
+              {
+                type: 'show',
+                function: `(row, i) => { return row.items2[i].type === 'title'}`
+              },
+            ]
+          }
+        ],
+        title: 'Items'
+      },
+      {
         fields: [
           // '/between',
           // '/createdOn',
           // '/File',
           // '/photos',
-          '/title',
           // '/description',
           // '/address',
           '/endDate',
           '/startDate',
           '/showModule',
+          {
+            field: '/module',
+            deps: ['/showModule'],
+            action: [
+              {
+                type: 'show',
+                function: `(row) => row.showModule`
+              },
+              {
+                type: 'set-to',
+                configuration: {
+                  value: 'Placeholder Module'
+                },
+                function: `(row) => !row.module`
+              }
+            ]
+          },
           {
             field: '/module',
             deps: ['/showModule'],

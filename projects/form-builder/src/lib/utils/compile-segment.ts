@@ -59,12 +59,20 @@ export function compileSegment(
      */
     if (segment.array) {
       // @ts-ignore
-      fields = (segment.fields || []).map(fi => segment.array + fi);
+      fields = (segment.fields || []).map(fi => {
+        if (fi.constructor === Object) {
+          return {
+            ...fi,
+            segment: segment.array
+          };
+        } else {
+          return segment.array + fi;
+        }
+      });
     } else {
       fields = (segment.fields || [])
         // @ts-ignore
         .reduce((acc: CompiledField[], keyObject: string | object) => {
-
           let condition: any;
           let key: string;
 
@@ -85,7 +93,7 @@ export function compileSegment(
               }
             }
 
-            condition.action.forEach(item => {
+            condition.action.forEach((item) => {
               item.type = item.type || 'show';
               item.eval = safeEval(item.function) || null;
             });
@@ -149,7 +157,7 @@ export function compileSegment(
     classes,
     fields,
     entryValue,
-    customComponents,
+    customComponents
   } as CompiledSegment;
 
   /**
@@ -213,7 +221,7 @@ export function compileSegment(
         segment: compiledSegment,
         parser,
         definitions,
-        ...parent && {parent},
+        ...parent && {parent}
       })
     ),
     ...compiledSegment

@@ -20,7 +20,7 @@
 
       <ng-container *ngIf="segment.array; else regular">
         <ng-container *ngFor="let fields of arrayFields; index as index; last as last">
-          <ng-container *ngFor="let field of fields | showField:sData.parser | async">
+          <ng-container *ngFor="let field of fields | showField:sData.parser:index | async">
             <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
           </ng-container>
 
