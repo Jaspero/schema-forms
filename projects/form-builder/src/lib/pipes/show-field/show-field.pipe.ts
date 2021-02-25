@@ -110,7 +110,6 @@ export class ShowFieldPipe implements PipeTransform {
     }
 
     const row = parser.form.getRawValue();
-
     let bool = true;
     (condition.action as Action[]).forEach(action => {
       if (!action.eval) {
