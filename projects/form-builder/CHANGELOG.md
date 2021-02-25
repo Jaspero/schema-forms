@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.19.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.1...@jaspero/form-builder@3.19.2) (2021-02-25)
+
+
+### Bug Fixes
+
+* trigger release ([39b8f72](https://github.com/Jaspero/schema-forms/commit/39b8f725a8b8b95a48a8f3674ef7deb30c81b872))
+
 ## @jaspero/form-builder [3.19.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.0...@jaspero/form-builder@3.19.1) (2021-02-25)
 
 
