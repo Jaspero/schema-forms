@@ -96,6 +96,7 @@ export class SelectComponent extends FieldComponent<SelectData>
       const documentsMethod = (
         query?: {
           collection: string,
+          subcollection: string,
           orderBy: string,
           filter: WhereFilter[] | WhereFilter | string
         }
@@ -135,6 +136,36 @@ export class SelectComponent extends FieldComponent<SelectData>
             undefined,
             query.filter
           )
+            .pipe(
+              map(docs => {
+                if (mapResults) {
+                  docs = mapResults(docs, {
+                    fieldData: this.cData,
+                    value: this.cData.form.getRawValue(),
+                    role: this.role,
+                    additionalContext: this.additionalContext
+                  });
+                }
+
+                return docs.map(doc => ({
+                  value: doc[populate.valueKey || 'id'],
+                  name: parseTemplate(
+                    populate.nameKey || 'name',
+                    doc
+                  )
+                }));
+              }),
+              tap(() => this.loading$.next(false))
+            );
+        }
+
+        if (query.subcollection) {
+          return this.dbService
+            .getSubdocumentsSimple(
+              query.subcollection,
+              query.orderBy,
+              query.filter as WhereFilter
+            )
             .pipe(
               map(docs => {
                 if (mapResults) {
