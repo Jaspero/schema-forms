@@ -661,6 +661,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   save() {
+    const valid = this.formComponents.toArray()[0].validate(this.exampleOne);
+    console.log({valid});
     this.formComponents.toArray()[0].save('example', 'example-id').subscribe();
   }
 }
