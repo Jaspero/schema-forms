@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.2...@jaspero/form-builder@3.20.0) (2021-02-26)
+
+
+### Features
+
+* validate method on FormBuilderComponent allows prevalidating form before rendering ([5ef0d98](https://github.com/Jaspero/schema-forms/commit/5ef0d986bb41ef986036ad51d25e5d0656488a32))
+
 ## @jaspero/form-builder [3.19.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.1...@jaspero/form-builder@3.19.2) (2021-02-25)
 
 
