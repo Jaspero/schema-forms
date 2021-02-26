@@ -132,6 +132,22 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     );
   }
 
+  validate(data: FormBuilderData) {
+    this.data = data;
+    try {
+      this.render();
+      return {
+        error: false,
+        message: ''
+      };
+    } catch(error) {
+      return {
+        error: true,
+        message: error.message || 'Invalid Schema provided!'
+      };
+    }
+  }
+
   private render() {
     const value = this.data.value || {};
     const definitions = this.data.definitions || {};

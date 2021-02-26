@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:prod": "ng serve --prod",
-    "dev": "concurrently \"npm start\" \"ng build form-builder --watch\"",
+    "dev": "concurrently --kill-others \"npm start\" \"ng build form-builder --watch\"",
     "build:form-builder": "ng build --prod form-builder && cp ./README.md ./dist/@jaspero/form-builder && cp LICENSE ./dist/@jaspero/form-builder",
     "build:page-builder": "ng build --prod page-builder && cp ./README.md ./dist/@jaspero/fb-page-builder && cp LICENSE ./dist/@jaspero/fb-page-builder",
     "build:form-ui": "ng build --prod form-ui && cp ./README.md ./dist/@jaspero/fb-form-ui && cp LICENSE ./dist/@jaspero/fb-form-ui",
