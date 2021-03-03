@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.21.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.20.0...@jaspero/form-builder@3.21.0) (2021-03-03)
+
+
+### Features
+
+* **ref-table:** initial setup :tada: [#41](https://github.com/Jaspero/schema-forms/issues/41) ([1bffaac](https://github.com/Jaspero/schema-forms/commit/1bffaacc56707f9d0278ad818da4fbeb7f92a914))
+
 # @jaspero/form-builder [3.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.19.2...@jaspero/form-builder@3.20.0) (2021-02-26)
 
 
