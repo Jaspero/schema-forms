@@ -10,6 +10,7 @@
     "build:page-builder": "ng build --prod page-builder && cp ./README.md ./dist/@jaspero/fb-page-builder && cp LICENSE ./dist/@jaspero/fb-page-builder",
     "build:form-ui": "ng build --prod form-ui && cp ./README.md ./dist/@jaspero/fb-form-ui && cp LICENSE ./dist/@jaspero/fb-form-ui",
     "build:tinymce": "ng build --prod tinymce && cp ./README.md ./dist/@jaspero/fb-tinymce && cp LICENSE ./dist/@jaspero/fb-tinymce",
+    "build:ref-table": "ng build --prod ref-table && cp ./README.md ./dist/@jaspero/fb-ref-table && cp LICENSE ./dist/@jaspero/fb-ref-table",
     "build": "npm run build:form-builder && npm run build:page-builder && npm run build:tinymce && npm run build:form-ui",
     "build:dev:form-builder": "ng build form-builder",
     "build:dev:page-builder": "ng build page-builder",

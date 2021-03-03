@@ -329,6 +329,47 @@
           }
         }
       }
+    },
+    "ref-table": {
+      "projectType": "library",
+      "root": "projects/ref-table",
+      "sourceRoot": "projects/ref-table/src",
+      "prefix": "fb-rt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ref-table/tsconfig.lib.json",
+            "project": "projects/ref-table/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ref-table/tsconfig.lib.prod.json",
+              "project": "projects/ref-table/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ref-table/src/test.ts",
+            "tsConfig": "projects/ref-table/tsconfig.spec.json",
+            "karmaConfig": "projects/ref-table/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ref-table/tsconfig.lib.json",
+              "projects/ref-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "schema-forms",

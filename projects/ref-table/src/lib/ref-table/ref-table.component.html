@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{cData.label}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="item" *ngFor="let item of items; index as index">
+      <button class="item-delete" mat-icon-button color="warn" (click)="remove(item, index)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <fb-form-builder [data]="item.data"></fb-form-builder>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-stroked-button color="primary" (click)="add()">
+      {{cData.addLabel | transloco}}
+    </button>
+  </mat-card-actions>
+</mat-card>

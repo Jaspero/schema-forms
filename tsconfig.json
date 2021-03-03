@@ -39,6 +39,10 @@
       "form-ui": [
         "dist/form-ui/form-ui",
         "dist/form-ui"
+      ],
+      "ref-table": [
+        "dist/ref-table/ref-table",
+        "dist/ref-table"
       ]
     }
   },

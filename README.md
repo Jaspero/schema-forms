@@ -234,6 +234,21 @@ This plugin registers a field `tinymce` for rendering the TinyMCE WYSIWYG Editor
           "tinymce/plugins/advlist"
         ]
     ``` 
+   
+#### RefTable
+
+This plugin registers a field `ref-table` that enables the editing of referenced item in an array and adding new references.
+
+##### Dependencies
+
+This plugin doesn't have any additional dependencies.
+
+##### Set up
+
+1. Install the plugin `npm i --save @jaspero/fb-ref-table`
+2. Add the plugin module `FbRefTableModule` to your module
+
+__Note:__ If doing something like `users/{{id}}/notifications` it's important to have an initial value for the id.
 
 #### Page Builder
 
@@ -350,7 +365,7 @@ This plugin doesn't have any additional dependencies.
 
 ### Creating a plugin
 
-1. Run `ng g library [plugin-name]`
+1. Run `ng g library [plugin-name] --prefix="fb-[library-prefix]"`
 2. Add `@jaspero/` prefix in the projects `package.json`
 3. Add a `release` property as well. Example from `tincymce` plugin.
     ```json

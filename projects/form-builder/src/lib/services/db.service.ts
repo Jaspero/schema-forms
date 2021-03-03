@@ -73,4 +73,8 @@ export abstract class DbService {
   removeUserAccount(id: string): Observable<any> {
     return of();
   }
+
+  createId() {
+    return '';
+  }
 }

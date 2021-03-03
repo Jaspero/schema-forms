@@ -1,0 +1,12 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  &-delete {
+    padding-top: 1rem;
+  }
+
+  fb-form-builder {
+    width: 100%;
+  }
+}

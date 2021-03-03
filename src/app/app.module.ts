@@ -19,6 +19,7 @@ import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
 import {FormUiModule} from '../../projects/form-ui/src/lib/form-ui.module';
+import {FbRefTableModule} from '../../projects/ref-table/src/lib/ref-table.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BlocksModule} from './blocks/blocks.module';
@@ -42,6 +43,7 @@ import {translocoLoader} from './transloco.loader';
     PageBuilderModule,
     TinymceModule,
     FormUiModule,
+    FbRefTableModule,
 
     MatSnackBarModule,
 
