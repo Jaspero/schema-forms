@@ -11,8 +11,8 @@
   "license": "MIT",
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.20.0",
-    "@jaspero/fb-tinymce": "1.5.4"
+    "@jaspero/form-builder": "3.21.0",
+    "@jaspero/fb-tinymce": "1.5.5"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-form-ui",
