@@ -25,6 +25,7 @@ interface Template {
 interface TemplateEditorData extends FieldData {
   templates: TemplateEditorTemplate[];
   defaultTemplate: string;
+  wysiwygConfig?: any;
 }
 
 @Component({
@@ -163,7 +164,7 @@ export class TemplateEditorComponent extends FieldComponent<TemplateEditorData> 
     tinymce.init({
       target: el,
       plugins: ['link', 'lists', 'image', 'code'],
-      toolbar: 'styleselect | bold italic underline | link image emoticons | align bullist numlist | code removeformat',
+      toolbar: ['styleselect', 'bold italic underline', 'link image emoticons', 'align bullist numlist', 'code removeformat'].join(' | '),
       menubar: false,
       inline: true,
       target_list: false,
@@ -195,7 +196,8 @@ export class TemplateEditorComponent extends FieldComponent<TemplateEditorData> 
       },
       style_formats: [
         {title: 'Image', selector: 'img', styles: {width : '100%', height: 'auto'}}
-      ]
+      ],
+      ...this.cData.wysiwygConfig || {}
     });
   }
 
