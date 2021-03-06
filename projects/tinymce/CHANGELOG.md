@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.5.6...@jaspero/fb-tinymce@1.6.0) (2021-03-06)
+
+
+### Features
+
+* **tinymce:** added wysiwygConfig option for template editor ([532860d](https://github.com/Jaspero/schema-forms/commit/532860d06c2f78606afbf8cf572eec44f295512c))
+
 ## @jaspero/fb-tinymce [1.5.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.5.5...@jaspero/fb-tinymce@1.5.6) (2021-03-06)
 
 
