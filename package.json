@@ -12,7 +12,7 @@
     "build:tinymce": "ng build --prod tinymce && cp ./README.md ./dist/@jaspero/fb-tinymce && cp LICENSE ./dist/@jaspero/fb-tinymce",
     "build:ref-table": "ng build --prod ref-table && cp ./README.md ./dist/@jaspero/fb-ref-table && cp LICENSE ./dist/@jaspero/fb-ref-table",
     "build:monaco-editor": "ng build --prod monaco-editor && cp ./README.md ./dist/@jaspero/fb-monaco-editor && cp LICENSE ./dist/@jaspero/fb-monaco-editor",
-    "build": "npm run build:form-builder && npm run build:page-builder && npm run build:tinymce && npm run build:form-ui && npm run build:ref-table",
+    "build": "npm run build:form-builder && npm run build:page-builder && npm run build:tinymce && npm run build:form-ui && npm run build:ref-table && npm run build:monaco-editor",
     "build:dev:form-builder": "ng build form-builder",
     "build:dev:page-builder": "ng build page-builder",
     "build:dev:form-ui": "ng build form-ui",
