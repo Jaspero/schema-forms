@@ -361,6 +361,32 @@ This plugin doesn't have any additional dependencies.
 1. Install the plugin `npm i --save @jaspero/fb-page-builder`
 2. Add the plugin module `PageBuilderModule` to your module
 
+#### Monaco Editor
+
+This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor.
+
+##### Dependencies
+
+|Library|Version|
+|----|----|
+|@monaco-editor/loader|1.0.0|
+|monaco-editor|^0.23.0|
+
+##### Set up
+
+1. Install the plugin `npm i --save @jaspero/fb-monaco-editor`
+2. Add the plugin module `MonacoEditorModule` to your module
+3. Install monaco editor and its loader `npm i --save monaco-editor @monaco-editor/loader`
+4. Add the following to the `assets` array in `angular.json`
+    ```json
+    {
+        "glob": "**/*",
+        "input": "node_modules/ngx-monaco-editor/assets/monaco",
+        "output": "./assets/monaco/"
+    }
+    ```
+   
+
 ## Development
 
 ### Creating a plugin
