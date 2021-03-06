@@ -630,13 +630,26 @@ export class AppComponent implements AfterViewInit {
     schema: {
       properties: {
         id: {type: 'string', default: 'example-user'},
+        code: {
+          type: 'string'
+        },
         name: {type: 'string'},
         classes: {
           type: 'array'
-        }
+        },
       }
     },
     definitions: {
+      code: {
+        label: 'Code',
+        component: {
+          type: 'monaco',
+          configuration: {
+            language: 'javascript',
+            theme: 'vs-dark'
+          }
+        }
+      },
       name: {label: 'Name'},
       classes: {
         label: 'Classes',
