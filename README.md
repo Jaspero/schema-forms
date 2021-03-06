@@ -7,6 +7,7 @@
 | Page Builder | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-page-builder.svg)](https://www.npmjs.com/package/@jaspero/fb-page-builder) |
 | Form UI | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-form-ui.svg)](https://www.npmjs.com/package/@jaspero/fb-form-ui) |
 | Tinymce | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-tinymce.svg)](https://www.npmjs.com/package/@jaspero/fb-tinymce) |
+| Monaco Editor | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-monaco-editor.svg)](https://www.npmjs.com/package/@jaspero/fb-monaco-editor) |
 
 # @jaspero/form-builder
 
