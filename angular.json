@@ -50,6 +50,11 @@
                 "glob": "**/*",
                 "input": "node_modules/tinymce/icons",
                 "output": "/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "./assets/monaco/"
               }
             ],
             "styles": [
@@ -363,6 +368,47 @@
             "tsConfig": [
               "projects/ref-table/tsconfig.lib.json",
               "projects/ref-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "monaco-editor": {
+      "projectType": "library",
+      "root": "projects/monaco-editor",
+      "sourceRoot": "projects/monaco-editor/src",
+      "prefix": "fb-monaco-editor",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/monaco-editor/tsconfig.lib.json",
+            "project": "projects/monaco-editor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/monaco-editor/tsconfig.lib.prod.json",
+              "project": "projects/monaco-editor/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/monaco-editor/src/test.ts",
+            "tsConfig": "projects/monaco-editor/tsconfig.spec.json",
+            "karmaConfig": "projects/monaco-editor/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/monaco-editor/tsconfig.lib.json",
+              "projects/monaco-editor/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

@@ -66,4 +66,8 @@ export class MockDbService implements DbService {
   removeUserAccount(id: string): Observable<any> {
     return of();
   }
+
+  createId(): string {
+    return '';
+  }
 }
