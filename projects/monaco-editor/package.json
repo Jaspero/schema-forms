@@ -1,5 +1,5 @@
 {
-  "name": "@jaspero/monaco-editor",
+  "name": "@jaspero/fb-monaco-editor",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^11.0.0",
