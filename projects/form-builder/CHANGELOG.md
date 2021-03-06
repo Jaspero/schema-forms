@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.22.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.21.0...@jaspero/form-builder@3.22.0) (2021-03-06)
+
+
+### Features
+
+* monaco editor plugin ([7c11587](https://github.com/Jaspero/schema-forms/commit/7c11587b85dcb1a708a12934398656f0a7de6186))
+
 # @jaspero/form-builder [3.21.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.20.0...@jaspero/form-builder@3.21.0) (2021-03-03)
 
 
