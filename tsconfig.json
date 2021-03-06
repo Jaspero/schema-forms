@@ -43,6 +43,10 @@
       "ref-table": [
         "dist/ref-table/ref-table",
         "dist/ref-table"
+      ],
+      "monaco-editor": [
+        "dist/monaco-editor/monaco-editor",
+        "dist/monaco-editor"
       ]
     }
   },

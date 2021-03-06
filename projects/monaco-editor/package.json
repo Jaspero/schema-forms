@@ -1,0 +1,43 @@
+{
+  "name": "@jaspero/monaco-editor",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^11.0.0",
+    "@angular/core": "^11.0.0",
+    "@jaspero/form-builder": "3.21.0",
+    "@monaco-editor/loader": "1.0.0",
+    "monaco-editor": "^0.23.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "release": {
+    "pkgRoot": "../../dist/@jaspero/fb-monaco-editor",
+    "branch": "master",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "dist/@jaspero/fb-monaco-editor"
+          ]
+        }
+      ]
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator"
+    ]
+  }
+}

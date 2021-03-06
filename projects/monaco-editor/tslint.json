@@ -1,0 +1,17 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "fbMonacoEditor",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "fb-monaco-editor",
+      "kebab-case"
+    ]
+  }
+}
