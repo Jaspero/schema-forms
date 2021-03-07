@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [1.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.0...@jaspero/fb-monaco-editor@1.0.1) (2021-03-07)
+
+
+### Bug Fixes
+
+* **monaco-editor:** save initial value to cData control ([b2ca1de](https://github.com/Jaspero/schema-forms/commit/b2ca1de52d5101d8f0699a15e3ea2e0dbe4d4555))
+
 # @jaspero/fb-monaco-editor 1.0.0 (2021-03-06)
 
 
