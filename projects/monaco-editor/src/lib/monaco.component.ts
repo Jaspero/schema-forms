@@ -45,7 +45,7 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
       const options = {
         language: this.cData.language || 'javascript',
         theme: this.cData.theme || 'vs',
-        value: this.cData.value || ''
+        value: this.cData.control.value || this.cData.value || ''
       };
 
       this.editorElement.nativeElement.style.height = this.cData.height || '400px';
