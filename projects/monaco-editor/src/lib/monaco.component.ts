@@ -51,6 +51,8 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
       this.editorElement.nativeElement.style.height = this.cData.height || '400px';
       this.editor = monaco.editor.create(this.editorElement.nativeElement, options);
 
+      this.cData.control.setValue(options.value);
+
       const model = this.editor.getModel();
       model.onDidChangeContent(() => {
         this.cData.control.setValue(model.getValue());
