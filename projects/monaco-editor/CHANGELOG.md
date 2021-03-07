@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [1.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.1...@jaspero/fb-monaco-editor@1.0.2) (2021-03-07)
+
+
+### Bug Fixes
+
+* **monaco-editor:** load initial control value or configuration value ([94bfcdf](https://github.com/Jaspero/schema-forms/commit/94bfcdf80f798aff2c2a532a6e75aee245ae18ae))
+
 ## @jaspero/fb-monaco-editor [1.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.0...@jaspero/fb-monaco-editor@1.0.1) (2021-03-07)
 
 
