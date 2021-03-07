@@ -9,10 +9,12 @@ import {
 import loader, {Monaco} from '@monaco-editor/loader';
 
 interface MonacoData extends FieldData {
-  language?: string;
-  theme?: 'vs' | 'vs-dark' | 'hc-black';
   value?: string;
   height?: string;
+  /**
+   * Monaco Options passed to constructor
+   */
+  options?: object;
 }
 
 @Component({
@@ -43,8 +45,10 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
     loader.init().then(monaco => {
       this.monaco = monaco;
       const options = {
-        language: this.cData.language || 'javascript',
-        theme: this.cData.theme || 'vs',
+        language: 'javascript',
+        theme: 'vs',
+        automaticLayout: true,
+        ...(this.cData.options || {}),
         value: this.cData.control.value || this.cData.value || ''
       };
 
