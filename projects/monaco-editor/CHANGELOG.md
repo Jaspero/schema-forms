@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [1.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.2...@jaspero/fb-monaco-editor@1.0.3) (2021-03-07)
+
+
+### Bug Fixes
+
+* **monaco-editor:** parse any passed editor options ([b1ef172](https://github.com/Jaspero/schema-forms/commit/b1ef172c7e46efc19b3e61e9b590a9214baeda03))
+
 ## @jaspero/fb-monaco-editor [1.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.1...@jaspero/fb-monaco-editor@1.0.2) (2021-03-07)
 
 
