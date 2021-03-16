@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.15.20](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.19...@jaspero/fb-page-builder@2.15.20) (2021-03-16)
+
+
+### Bug Fixes
+
+* **blocks:** reduced z-index ([29e3c37](https://github.com/Jaspero/schema-forms/commit/29e3c378b0886db4a3a20c35ad4c6179bc994240))
+
 ## @jaspero/fb-page-builder [2.15.19](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.18...@jaspero/fb-page-builder@2.15.19) (2021-03-06)
 
 
