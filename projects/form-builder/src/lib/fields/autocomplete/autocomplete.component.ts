@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {map, startWith, switchMap, tap} from 'rxjs/operators';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {BehaviorSubject, Observable, of, combineLatest} from 'rxjs';
+import {map, startWith, switchMap, tap, take} from 'rxjs/operators';
 import {FilterMethod} from '../../enums/filter-method.enum';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
@@ -8,17 +8,23 @@ import {WhereFilter} from '../../interfaces/where-filter.interface';
 import {DbService} from '../../services/db.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {getHsd, HSD} from '../../utils/get-hsd';
+import {FormControl} from '@angular/forms';
+
+interface Populate {
+  collection: string;
+  subcollection?: string;
+  nameKey?: string;
+  valueKey?: string;
+  orderBy?: string;
+  filter?: WhereFilter;
+  limit?: number;
+}
 
 interface AutocompleteData extends FieldData {
   dataSet: Array<{name: string; value: any}>;
-  populate?: {
-    collection: string;
-    nameKey: string;
-    valueKey?: string;
-    orderBy?: string;
-    filter?: WhereFilter;
-    limit?: number;
-  };
+  multiple?: boolean;
+  addOnBlur?: boolean;
+  populate?: Populate;
   autocomplete?: string;
   suffix?: HSD | string;
   prefix?: HSD | string;
@@ -34,7 +40,8 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
   implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: AutocompleteData,
-    private dbService: DbService
+    private dbService: DbService,
+    private cdr: ChangeDetectorRef
   ) {
     super(cData);
   }
@@ -43,9 +50,10 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
   loading$ = new BehaviorSubject(true);
   prefix$: Observable<string>;
   suffix$: Observable<string>;
+  search = new FormControl();
+  selected: string[] = [];
 
   ngOnInit() {
-
     this.prefix$ = getHsd('prefix', this.cData);
     this.suffix$ = getHsd('suffix', this.cData);
 
@@ -59,9 +67,17 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
       const valueKey = populate.valueKey || 'id';
 
       if (populate.limit) {
-        this.filteredSet$ = this.cData.control.valueChanges.pipe(
-          startWith(''),
-          switchMap(search => {
+        this.filteredSet$ = combineLatest([
+          this.cData.control.valueChanges
+            .pipe(
+              startWith(this.cData.control.value)
+            ),
+          this.cData.control.valueChanges
+            .pipe(
+              startWith(this.cData.control.value)
+            )
+        ]).pipe(
+          switchMap(([search]) => {
             const end = search.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
 
             const filters = [
@@ -121,27 +137,82 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
       dataSet$ = of(this.cData.dataSet);
     }
 
-    if (this.filteredSet$) {
-      return;
+    if (!this.filteredSet$) {
+      this.filteredSet$ = dataSet$.pipe(
+        switchMap(dataSet =>
+          combineLatest([
+            this.cData.control.valueChanges
+              .pipe(
+                startWith(this.cData.control.value)
+              ),
+            this.search.valueChanges.pipe(
+              startWith(this.search.value)
+            ),
+          ]).pipe(
+            map(([value, search]) => {
+              if (!value && !search) {
+                return dataSet;
+              }
+
+              if (this.cData.multiple) {
+                value = Array.isArray(value) ? value.map(v => v.toLowerCase()) : [];
+
+                return dataSet.filter(item =>
+                  !value.some(v => item.name.toLowerCase().includes(v)) &&
+                  item.name.toLowerCase().includes(search?.toLowerCase())
+                );
+              } else {
+
+                value = value.toLowerCase();
+
+                return dataSet.filter(item =>
+                  item.name.toLowerCase().includes(value)
+                );
+              }
+            })
+          )
+        )
+      );
+    }
+  }
+
+  optionSelected(event: string) {
+    this.selected.push(event);
+    this.setValue();
+  }
+
+  remove(event) {
+    const index = this.selected.indexOf(event);
+
+    if (index !== -1) {
+      this.selected.splice(index, 1);
     }
 
-    this.filteredSet$ = dataSet$.pipe(
-      switchMap(dataSet =>
-        this.cData.control.valueChanges.pipe(
-          startWith(this.cData.control.value),
-          map(value => {
-            if (!value) {
-              return dataSet;
+    this.setValue();
+  }
+
+  add(event) {
+    if (this.cData.addOnBlur) {
+      const value = event.value.trim();
+
+      if (value) {
+        this.filteredSet$
+          .pipe(
+            take(1)
+          )
+          .subscribe(dataSet => {
+            if (dataSet.find(data => data.value.toLowerCase() === value)) {
+              this.selected.push(value);
+              this.setValue();
             }
+          });
+      }
+    }
+  }
 
-            value = value.toLowerCase();
-
-            return dataSet.filter(item =>
-              item.name.toLowerCase().includes(value)
-            );
-          })
-        )
-      )
-    );
+  private setValue() {
+    this.search.reset();
+    this.cData.control.setValue(this.selected);
+    this.cdr.detectChanges();
   }
 }

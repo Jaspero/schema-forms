@@ -1,12 +1,38 @@
 <mat-form-field appearance="outline" class="w-full">
   <mat-label>{{(cData.label || '') | transloco}}</mat-label>
-  <input
-    matInput
-    [placeholder]="(cData.placeholder || '') | transloco"
-    [attr.autocomplete]="cData.autocomplete || 'on'"
-    [formControl]="cData.control"
-    [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete">
+
+  <ng-container *ngIf="cData.multiple; else notMultiple">
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let value of selected"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="remove(value)">
+        {{value}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        matInput
+        [placeholder]="(cData.placeholder || '') | transloco"
+        [attr.autocomplete]="cData.autocomplete || 'on'"
+        [formControl]="search"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </ng-container>
+
+  <ng-template #notMultiple>
+    <input
+      matInput
+      [placeholder]="(cData.placeholder || '') | transloco"
+      [attr.autocomplete]="cData.autocomplete || 'on'"
+      [formControl]="cData.control"
+      [matAutocomplete]="auto">
+  </ng-template>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
     <mat-option *ngFor="let data of filteredSet$ | async" [value]="data.value">
       {{data.name}}
     </mat-option>
