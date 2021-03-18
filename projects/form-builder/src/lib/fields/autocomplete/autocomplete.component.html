@@ -4,11 +4,11 @@
   <ng-container *ngIf="cData.multiple; else notMultiple">
     <mat-chip-list #chipList>
       <mat-chip
-        *ngFor="let value of selected"
+        *ngFor="let item of selected"
         [selectable]="true"
         [removable]="true"
-        (removed)="remove(value)">
-        {{value}}
+        (removed)="remove(item.value)">
+        {{item.name}}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
       <input
@@ -28,11 +28,11 @@
       matInput
       [placeholder]="(cData.placeholder || '') | transloco"
       [attr.autocomplete]="cData.autocomplete || 'on'"
-      [formControl]="cData.control"
+      [formControl]="search"
       [matAutocomplete]="auto">
   </ng-template>
 
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
     <mat-option *ngFor="let data of filteredSet$ | async" [value]="data.value">
       {{data.name}}
     </mat-option>

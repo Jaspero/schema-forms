@@ -1,32 +1,22 @@
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TinymceModule} from '@jaspero/fb-tinymce';
-import {
-  CUSTOM_COMPONENTS,
-  DbService,
-  FormBuilderModule,
-  ROLE,
-  STORAGE_URL,
-  StorageService
-} from '@jaspero/form-builder';
-import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
-import {FormUiModule} from '../../projects/form-ui/src/lib/form-ui.module';
-import {FbRefTableModule} from '../../projects/ref-table/src/lib/ref-table.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
-import {BlocksModule} from './blocks/blocks.module';
 import {ExampleCustomComponent} from './example-custom/example-custom.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+import {FormBuilderModule} from '../../projects/form-builder/src/lib/form-builder.module';
+import {STORAGE_URL} from '../../projects/form-builder/src/lib/utils/storage-url';
+import {StorageService} from '../../projects/form-builder/src/lib/services/storage.service';
+import {DbService} from '../../projects/form-builder/src/lib/services/db.service';
+import {CUSTOM_COMPONENTS} from '../../projects/form-builder/src/lib/utils/custom-components';
 
 @NgModule({
   declarations: [
@@ -40,14 +30,8 @@ import {translocoLoader} from './transloco.loader';
     HttpClientModule,
     TranslocoModule,
     FormBuilderModule.forRoot(),
-    PageBuilderModule,
-    TinymceModule,
-    FormUiModule,
-    FbRefTableModule,
 
     MatSnackBarModule,
-
-    BlocksModule
   ],
   providers: [
     {
@@ -68,10 +52,6 @@ import {translocoLoader} from './transloco.loader';
      * FormBuilder
      */
     {
-      provide: ROLE,
-      useValue: 'admin'
-    },
-    {
       provide: STORAGE_URL,
       useValue: ''
     },
@@ -89,18 +69,13 @@ import {translocoLoader} from './transloco.loader';
         example: ExampleCustomComponent
       }
     },
+
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {
         appearance: 'outline'
       }
     },
-    {
-      provide: FB_PAGE_BUILDER_OPTIONS,
-      useValue: {
-        previewModules: [MatButtonModule, SanitizeModule, BlocksModule]
-      }
-    }
   ],
   bootstrap: [AppComponent]
 })

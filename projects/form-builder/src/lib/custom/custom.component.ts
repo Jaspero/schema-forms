@@ -1,4 +1,4 @@
-import {Component, HostBinding, Inject} from '@angular/core';
+import {Component, HostBinding, Inject, Optional} from '@angular/core';
 import {CUSTOM_COMPONENT_DATA, CustomComponentData} from '../utils/custom-components';
 
 @Component({
@@ -7,6 +7,7 @@ import {CUSTOM_COMPONENT_DATA, CustomComponentData} from '../utils/custom-compon
 })
 export class CustomComponent {
   constructor(
+    @Optional()
     @Inject(CUSTOM_COMPONENT_DATA)
     public data: CustomComponentData
   ) {

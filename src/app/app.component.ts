@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
-import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
+import {FormBuilderComponent, FormBuilderData, SegmentType} from '../../projects/form-builder/src/public-api';
 import {startWith} from 'rxjs/operators';
 
 @Component({
@@ -52,6 +52,9 @@ export class AppComponent implements AfterViewInit {
         module: {
           type: 'string'
         },
+        moduleSelect: {
+          type: 'string'
+        },
         showModule: {
           type: 'boolean'
         },
@@ -91,6 +94,29 @@ export class AppComponent implements AfterViewInit {
       module: {
         component: {
           type: 'autocomplete',
+          configuration: {
+            multiple: false,
+            allowAny: true,
+            dataSet: [
+              {
+                name: 'name aaaa',
+                value: 'value aaaa',
+              },
+              {
+                name: 'name bbbb',
+                value: 'value bbbb',
+              },
+              {
+                name: 'name cccc',
+                value: 'value cccc',
+              }
+            ]
+          }
+        }
+      },
+      moduleSelect: {
+        component: {
+          type: 'select',
           configuration: {
             populate: {
               collection: 'modules',
@@ -231,43 +257,9 @@ export class AppComponent implements AfterViewInit {
           // '/photos',
           // '/description',
           // '/address',
-          '/endDate',
-          '/startDate',
-          '/showModule',
-          {
-            field: '/module',
-            deps: ['/showModule'],
-            action: [
-              {
-                type: 'show',
-                function: `(row) => row.showModule`
-              },
-              {
-                type: 'set-to',
-                configuration: {
-                  value: 'Placeholder Module'
-                },
-                function: `(row) => !row.module`
-              }
-            ]
-          },
-          {
-            field: '/module',
-            deps: ['/showModule'],
-            action: [
-              {
-                type: 'show',
-                function: `(row) => row.showModule`
-              },
-              {
-                type: 'set-to',
-                configuration: {
-                  value: 'Placeholder Module'
-                },
-                function: `(row) => !row.module`
-              }
-            ]
-          }
+          // '/endDate',
+          // '/startDate',
+          '/module'
         ]
       }
       // {
@@ -688,7 +680,7 @@ export class AppComponent implements AfterViewInit {
           startWith(log.form.getRawValue())
         )
         .subscribe(value => {
-          console.log('change', log.form.valid, value);
+          // console.log('change', log.form.valid, value);
         });
     });
   }
@@ -716,6 +708,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   save() {
+    console.log(this.formComponents.toArray()[0].form.value.module);
+
     // const valid = this.formComponents.toArray()[0].validate(this.exampleOne);
     // console.log({valid});
     this.formComponents.toArray()[0].save('example', 'example-id').subscribe();

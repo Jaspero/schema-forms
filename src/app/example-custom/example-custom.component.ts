@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CustomComponent} from '@jaspero/form-builder';
+import {CustomComponent} from '../../../projects/form-builder/src/lib/custom/custom.component';
 
 @Component({
   selector: 'sc-example-custom',
