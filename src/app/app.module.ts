@@ -20,6 +20,7 @@ import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transl
 import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
 import {FormUiModule} from '../../projects/form-ui/src/lib/form-ui.module';
 import {FbRefTableModule} from '../../projects/ref-table/src/lib/ref-table.module';
+import {TemplateEditorModule} from '../../projects/tinymce/src/lib/template-editor/template-editor.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BlocksModule} from './blocks/blocks.module';
@@ -42,6 +43,7 @@ import {translocoLoader} from './transloco.loader';
     FormBuilderModule.forRoot(),
     PageBuilderModule,
     TinymceModule,
+    TemplateEditorModule,
     FormUiModule,
     FbRefTableModule,
 

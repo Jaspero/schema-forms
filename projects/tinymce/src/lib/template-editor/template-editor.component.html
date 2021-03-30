@@ -15,4 +15,9 @@
   </mat-menu>
 </div>
 
-<div class="builder-container" [innerHTML]="value"></div>
+<fb-tm-template-editor-inner
+  [segments]="segments"
+  [template]="template"
+  [wysiwygConfig]="cData.wysiwygConfig"
+  (update)="updateData()">
+</fb-tm-template-editor-inner>
