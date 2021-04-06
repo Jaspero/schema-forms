@@ -12,7 +12,7 @@
   "homepage": "https://jaspero.co",
   "peerDependencies": {
     "@jaspero/form-builder": "3.22.0",
-    "@jaspero/fb-tinymce": "1.6.0"
+    "@jaspero/fb-tinymce": "1.7.0"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-form-ui",

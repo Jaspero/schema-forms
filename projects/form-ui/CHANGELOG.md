@@ -1,3 +1,18 @@
+## @jaspero/fb-form-ui [1.9.21](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.9.20...@jaspero/fb-form-ui@1.9.21) (2021-04-06)
+
+
+### Bug Fixes
+
+* **form-ui:** showing checkboxes; optimized label for selects and checkboxes; ([c767148](https://github.com/Jaspero/schema-forms/commit/c767148394a549c4e992b8e5dea65ecb3cef3742))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/fb-tinymce:** upgraded to 1.7.0
+
 ## @jaspero/fb-form-ui [1.9.20](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.9.19...@jaspero/fb-form-ui@1.9.20) (2021-03-06)
 
 
