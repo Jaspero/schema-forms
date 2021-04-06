@@ -55,10 +55,15 @@ const options: FormBuilderData = {
   definitions: {
     'options/value': {label: 'FU.VALUE', columnsDesktop: 6},
     'options/label': {
-      label: 'FU.LABEL',
+      label: '',
       columnsDesktop: 6,
       component: {
-        type: 'tinymce'
+        type: 'tinymce',
+        configuration: {
+          toolbar: ['insert', 'styleselect', 'bold italic'].join('|'),
+          menubar: 'none',
+          height: 130
+        }
       }
     }
   },
