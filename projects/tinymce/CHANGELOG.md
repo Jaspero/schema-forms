@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.6.0...@jaspero/fb-tinymce@1.7.0) (2021-04-06)
+
+
+### Features
+
+* **tinymce:** better style encapsulation for template-editor ([24be24f](https://github.com/Jaspero/schema-forms/commit/24be24fb2233b68230ae66a5a7bdfe63cb62704e))
+
 # @jaspero/fb-tinymce [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.5.6...@jaspero/fb-tinymce@1.6.0) (2021-03-06)
 
 
