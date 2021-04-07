@@ -375,10 +375,9 @@ This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor
 
 ##### Set up
 
-1. Install the plugin `npm i --save @jaspero/fb-monaco-editor`
+1. Install the plugin, monaco editor and its loader `npm i --save @jaspero/fb-monaco-editor monaco-editor @monaco-editor/loader`
 2. Add the plugin module `MonacoEditorModule` to your module
-3. Install monaco editor and its loader `npm i --save monaco-editor @monaco-editor/loader`
-4. Add the following to the `assets` array in `angular.json`
+3. Add the following to the `assets` array in `angular.json`
     ```json
     {
         "glob": "**/*",
