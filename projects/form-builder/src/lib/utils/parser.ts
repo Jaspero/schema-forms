@@ -191,7 +191,7 @@ export class Parser {
     }
 
     return {
-      control: new FormControl(definition.default || false, controlValidation),
+      control: new FormControl(definition.hasOwnProperty('default') ? definition.default : false, controlValidation),
       validation
     };
   }
