@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.22.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.0...@jaspero/form-builder@3.22.1) (2021-04-09)
+
+
+### Bug Fixes
+
+* **form-builder:** properly use default value for boolean control if defined ([a899c9a](https://github.com/Jaspero/schema-forms/commit/a899c9a60b2054d7ee1bb4242ba72c05e27960d1))
+
 # @jaspero/form-builder [3.22.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.21.0...@jaspero/form-builder@3.22.0) (2021-03-06)
 
 
