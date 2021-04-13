@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.22.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.2...@jaspero/form-builder@3.22.3) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** creating new object for condition instead of overriding existing ([b0eec65](https://github.com/Jaspero/schema-forms/commit/b0eec65ae317d00038cafdc00a70d0f781e22163))
+
 ## @jaspero/form-builder [3.22.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.1...@jaspero/form-builder@3.22.2) (2021-04-13)
 
 
