@@ -84,9 +84,10 @@ export function compileSegment(
 
             switch (action?.constructor) {
               case Object:
-                condition.action = [condition.action];
+                condition.action = [action];
                 break;
               case Array:
+                condition.action = action;
                 break;
               default:
                 condition.action = [{}];
