@@ -1,33 +1,37 @@
-<ng-container *ngIf="segment.title || segment.subTitle">
-  <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
-  <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
-  <div class="p-y-m">
-    <mat-divider></mat-divider>
-  </div>
-</ng-container>
-
-<p *ngIf="segment.description">{{segment.description | transloco}}</p>
-
-<mat-tab-group
-  [selectedIndex]="configuration.selectedIndex"
-  [dynamicHeight]="configuration.dynamicHeight"
-  [disableRipple]="configuration.disableRipple"
-  [attr.mat-align-tabs]="configuration.alignment"
-  (selectedTabChange)="tabChange($event)">
-
-  <mat-tab
-    *ngFor="let tab of tabs; index as index"
-    [label]="tab.title"
-    [disabled]="tab.disabled">
-
-    <div class="p-a-s">
-      <ng-container *ngFor="let field of tab.fields | showField:sData.parser:index | async">
-        <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
-      </ng-container>
+<mat-card>
+  <mat-card-header *ngIf="segment.title || segment.subTitle">
+    <div>
+      <h1 *ngIf="segment.title">{{segment.title | transloco}}</h1>
+      <h2 class="fs-small" *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h2>
     </div>
+    <div class="flex-1"></div>
+  </mat-card-header>
 
-    <ng-container *ngFor="let nested of tab.nestedSegments">
-      <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
-    </ng-container>
-  </mat-tab>
-</mat-tab-group>
+  <mat-card-content>
+    <p class="m-b-s" *ngIf="segment.description">{{segment.description | transloco}}</p>
+
+    <mat-tab-group
+      [selectedIndex]="configuration.selectedIndex"
+      [dynamicHeight]="configuration.dynamicHeight"
+      [disableRipple]="configuration.disableRipple"
+      [attr.mat-align-tabs]="configuration.alignment"
+      (selectedTabChange)="tabChange($event)">
+
+      <mat-tab
+        *ngFor="let tab of tabs; index as index"
+        [label]="tab.title"
+        [disabled]="tab.disabled">
+
+        <div class="p-a-s">
+          <ng-container *ngFor="let field of tab.fields | showField:sData.parser:index | async">
+            <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
+          </ng-container>
+        </div>
+
+        <ng-container *ngFor="let nested of tab.nestedSegments">
+          <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
