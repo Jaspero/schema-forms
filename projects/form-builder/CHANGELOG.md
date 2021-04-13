@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.23.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.5...@jaspero/form-builder@3.23.0) (2021-04-13)
+
+
+### Features
+
+* **form-builder:** tabs style adjustment ([ca8414c](https://github.com/Jaspero/schema-forms/commit/ca8414cee7b0142d135d4aeffe06f635c99de829))
+
 ## @jaspero/form-builder [3.22.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.4...@jaspero/form-builder@3.22.5) (2021-04-13)
 
 
