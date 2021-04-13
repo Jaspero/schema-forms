@@ -106,29 +106,29 @@ export class SegmentComponent<T = any> implements OnInit {
         let key: string;
 
         if (keyObject?.constructor === Object) {
-          condition = keyObject;
 
-          switch (condition?.action?.constructor) {
-            case Object: {
+          const {field, action, deps} = keyObject as any;
+
+          condition = {field};
+
+          switch (action?.constructor) {
+            case Object:
               condition.action = [condition.action];
               break;
-            }
-            case Array: {
+            case Array:
               break;
-            }
-            default: {
+            default:
               condition.action = [{}];
               break;
-            }
           }
 
           condition.action.forEach((item) => {
             item.type = item.type || 'show';
             item.eval = safeEval(item.function) || null;
           });
-          condition.deps = condition.deps || [];
+          condition.deps = deps || [];
 
-          key = (this.sData.parent || '') + (keyObject as any).segment + condition.field;
+          key = (this.sData.parent || '') + field;
         } else {
           key = (this.sData.parent || '') + (keyObject as string);
         }
