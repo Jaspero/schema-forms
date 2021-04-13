@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.22.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.3...@jaspero/form-builder@3.22.4) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** action not assigned properly ([9af19d1](https://github.com/Jaspero/schema-forms/commit/9af19d14890e71cbaf849a00d8ddd0b2c668e6bd))
+
 ## @jaspero/form-builder [3.22.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.2...@jaspero/form-builder@3.22.3) (2021-04-13)
 
 
