@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.22.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.1...@jaspero/form-builder@3.22.2) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** accordion and tabs being filtered out because they don't have fields ([50e8e9c](https://github.com/Jaspero/schema-forms/commit/50e8e9c63845e58cbd2db41accfc1c3efc7de326))
+
 ## @jaspero/form-builder [3.22.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.0...@jaspero/form-builder@3.22.1) (2021-04-09)
 
 
