@@ -16,7 +16,6 @@
       [disableRipple]="configuration.disableRipple"
       [attr.mat-align-tabs]="configuration.alignment"
       (selectedTabChange)="tabChange($event)">
-
       <mat-tab
         *ngFor="let tab of tabs; index as index"
         [label]="tab.title"
