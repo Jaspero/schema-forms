@@ -74,34 +74,33 @@ export function compileSegment(
         // @ts-ignore
         .reduce((acc: CompiledField[], keyObject: string | object) => {
           let condition: any;
-          let key: string;
+          let key = keyObject as string;
 
           if (keyObject?.constructor === Object) {
-            condition = keyObject;
 
-            switch (condition?.action?.constructor) {
-              case Object: {
-                condition.action = [condition.action];
+            const {field, action, deps} = keyObject as any;
+
+            condition = {field};
+
+            switch (action?.constructor) {
+              case Object:
+                condition.action = [action];
                 break;
-              }
-              case Array: {
+              case Array:
+                condition.action = action;
                 break;
-              }
-              default: {
+              default:
                 condition.action = [{}];
                 break;
-              }
             }
 
             condition.action.forEach((item) => {
               item.type = item.type || 'show';
               item.eval = safeEval(item.function) || null;
             });
-            condition.deps = condition.deps || [];
+            condition.deps = deps || [];
 
-            key = condition.field;
-          } else {
-            key = keyObject as string;
+            key = field;
           }
 
           const definition = parser.getFromDefinitions(key, definitions);
@@ -116,7 +115,14 @@ export function compileSegment(
             )
           ) {
             acc.push(
-              parser.field(key, parser.pointers[key], definitions, true, undefined, condition)
+              parser.field(
+                key,
+                parser.pointers[key],
+                definitions,
+                true,
+                undefined,
+                condition
+              )
             );
           }
 

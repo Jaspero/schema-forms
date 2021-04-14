@@ -1,3 +1,63 @@
+## @jaspero/fb-monaco-editor [1.0.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.8...@jaspero/fb-monaco-editor@1.0.9) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.23.0
+
+## @jaspero/fb-monaco-editor [1.0.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.7...@jaspero/fb-monaco-editor@1.0.8) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.5
+
+## @jaspero/fb-monaco-editor [1.0.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.6...@jaspero/fb-monaco-editor@1.0.7) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.4
+
+## @jaspero/fb-monaco-editor [1.0.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.5...@jaspero/fb-monaco-editor@1.0.6) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.3
+
+## @jaspero/fb-monaco-editor [1.0.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.4...@jaspero/fb-monaco-editor@1.0.5) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.2
+
+## @jaspero/fb-monaco-editor [1.0.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.3...@jaspero/fb-monaco-editor@1.0.4) (2021-04-09)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.1
+
 ## @jaspero/fb-monaco-editor [1.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.2...@jaspero/fb-monaco-editor@1.0.3) (2021-03-07)
 
 

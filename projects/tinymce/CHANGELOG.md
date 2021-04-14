@@ -1,3 +1,70 @@
+## @jaspero/fb-tinymce [1.7.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.5...@jaspero/fb-tinymce@1.7.6) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.23.0
+
+## @jaspero/fb-tinymce [1.7.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.4...@jaspero/fb-tinymce@1.7.5) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.5
+
+## @jaspero/fb-tinymce [1.7.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.3...@jaspero/fb-tinymce@1.7.4) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.4
+
+## @jaspero/fb-tinymce [1.7.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.2...@jaspero/fb-tinymce@1.7.3) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.3
+
+## @jaspero/fb-tinymce [1.7.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.1...@jaspero/fb-tinymce@1.7.2) (2021-04-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.2
+
+## @jaspero/fb-tinymce [1.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.0...@jaspero/fb-tinymce@1.7.1) (2021-04-09)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.22.1
+
+# @jaspero/fb-tinymce [1.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.6.0...@jaspero/fb-tinymce@1.7.0) (2021-04-06)
+
+
+### Features
+
+* **tinymce:** better style encapsulation for template-editor ([24be24f](https://github.com/Jaspero/schema-forms/commit/24be24fb2233b68230ae66a5a7bdfe63cb62704e))
+
 # @jaspero/fb-tinymce [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.5.6...@jaspero/fb-tinymce@1.6.0) (2021-03-06)
 
 

@@ -64,7 +64,8 @@
     class="m-r-s"
     *ngFor="let option of control.get('added').value.options"
     [formControl]="control.get('value')"
-    [value]="option.value" [innerHTML]="option.label">
+    [value]="option.value">
+    <div [innerHTML]="option.label"></div>
   </mat-checkbox>
 </ng-template>
 
