@@ -31,6 +31,12 @@ export class DropzoneDirective {
   @HostListener('dragleave', ['$event'])
   onDragLeave($event: Event) {
     $event.preventDefault();
+
+    // @ts-ignore
+    if ($event.currentTarget.contains($event.relatedTarget)) {
+      return;
+    }
+
     this.renderer.removeClass(this.el.nativeElement, this.hoverClass);
     this.hovered.emit(false);
   }
