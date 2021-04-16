@@ -1,4 +1,5 @@
 import {Injector} from '@angular/core';
+import {SegmentType} from '../enums/segment-type.enum';
 import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {compileSegment} from './compile-segment';
@@ -32,7 +33,8 @@ export function filterAndCompileSegments(
         compiled &&
         (
           (compiled.fields && compiled.fields.length) ||
-          (compiled.customComponents && compiled.customComponents.length)
+          (compiled.customComponents && compiled.customComponents.length) ||
+          [SegmentType.Accordion, SegmentType.Tabs, SegmentType.Stepper].includes(compiled.type || SegmentType.Card)
         )
       ) {
         acc.push(

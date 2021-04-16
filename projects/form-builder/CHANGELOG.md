@@ -1,3 +1,38 @@
+# @jaspero/form-builder [3.23.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.5...@jaspero/form-builder@3.23.0) (2021-04-13)
+
+
+### Features
+
+* **form-builder:** tabs style adjustment ([ca8414c](https://github.com/Jaspero/schema-forms/commit/ca8414cee7b0142d135d4aeffe06f635c99de829))
+
+## @jaspero/form-builder [3.22.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.4...@jaspero/form-builder@3.22.5) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** action not assigned properly ([3369bba](https://github.com/Jaspero/schema-forms/commit/3369bbab08ccb447a93b9ff21ce421ccfacfe5cd))
+
+## @jaspero/form-builder [3.22.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.3...@jaspero/form-builder@3.22.4) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** action not assigned properly ([9af19d1](https://github.com/Jaspero/schema-forms/commit/9af19d14890e71cbaf849a00d8ddd0b2c668e6bd))
+
+## @jaspero/form-builder [3.22.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.2...@jaspero/form-builder@3.22.3) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** creating new object for condition instead of overriding existing ([b0eec65](https://github.com/Jaspero/schema-forms/commit/b0eec65ae317d00038cafdc00a70d0f781e22163))
+
+## @jaspero/form-builder [3.22.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.1...@jaspero/form-builder@3.22.2) (2021-04-13)
+
+
+### Bug Fixes
+
+* **form-builder:** accordion and tabs being filtered out because they don't have fields ([50e8e9c](https://github.com/Jaspero/schema-forms/commit/50e8e9c63845e58cbd2db41accfc1c3efc7de326))
+
 ## @jaspero/form-builder [3.22.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.0...@jaspero/form-builder@3.22.1) (2021-04-09)
 
 
