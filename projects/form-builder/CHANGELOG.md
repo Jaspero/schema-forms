@@ -1,3 +1,11 @@
+## @jaspero/form-builder [3.23.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.23.0...@jaspero/form-builder@3.23.1) (2021-04-16)
+
+
+### Bug Fixes
+
+* **DateField:** date field input is readyOnly && open calendar by clicking the input ([0b0d1e9](https://github.com/Jaspero/schema-forms/commit/0b0d1e9033b77e0a36d08caefc2c572fae651493))
+* **form-builder:** dropzone dragLeave triggered for child elements ([4a1af44](https://github.com/Jaspero/schema-forms/commit/4a1af44571b3663d1c559b7a5f98bbece4eb4cc3))
+
 # @jaspero/form-builder [3.23.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.22.5...@jaspero/form-builder@3.23.0) (2021-04-13)
 
 
