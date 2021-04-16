@@ -6,6 +6,8 @@
       </mat-label>
       <input
         matInput
+        readonly
+        (click)="picker.open()"
         [attr.autocomplete]="cData.autocomplete || 'off'"
         [matDatepicker]="picker"
         [placeholder]="(cData.placeholder || '') | transloco"
