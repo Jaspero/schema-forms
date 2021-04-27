@@ -27,15 +27,21 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {parseSize} from '../../utils/parse-size';
+import {random} from '../../utils/random';
 
 interface ImageData extends FieldData {
   preventServerUpload?: boolean;
   preventUrlUpload?: boolean;
+  preventStorageUpload?: boolean;
   generatedImages?: GeneratedImage[];
   allowedImageTypes?: string[];
   forbiddenImageTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  /**
+   * Overwrite existing file if already exists
+   */
+  preserveFileName?: boolean;
 }
 
 @Component({
@@ -171,12 +177,11 @@ export class ImageComponent extends FieldComponent<ImageData>
         );
       } else {
 
-        const name = [
+        const name = this.cData.preserveFileName ? this.value.name : [
           moduleId,
           documentId,
-          this.value.name
-        ]
-          .join('-');
+          random.string()
+        ].join('-');
 
         return from(
           this.storage.upload(name, this.value, {

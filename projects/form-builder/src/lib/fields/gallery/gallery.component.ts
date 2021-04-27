@@ -28,6 +28,7 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
 import {formatGeneratedImages} from '../../utils/format-generated-images';
 import {parseSize} from '../../utils/parse-size';
+import {random} from '../../utils/random';
 import {STORAGE_URL} from '../../utils/storage-url';
 import {switchItemLocations} from '../../utils/switch-item-locations';
 import {readFile} from './read-file';
@@ -40,6 +41,10 @@ interface GalleryData extends FieldData {
   forbiddenImageTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  /**
+   * Overwrite existing file if already exists
+   */
+  preserveFileName?: boolean;
 }
 
 @Component({
@@ -422,12 +427,11 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       ...this.cData.control.value.reduce((acc: any[], cur: any) => {
         if (cur.live !== undefined && !cur.live) {
 
-          const name = [
+          const name = this.cData.preserveFileName ? cur.pushToLive.name : [
             moduleId,
             documentId,
-            cur.pushToLive.name
-          ]
-            .join('-');
+            random.string()
+          ].join('-');
 
           acc.push(
             from(
