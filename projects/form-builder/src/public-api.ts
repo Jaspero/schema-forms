@@ -48,3 +48,9 @@ export * from './lib/utils/storage-url';
 export * from './lib/utils/custom-fields';
 export {COMPONENT_DATA} from './lib/utils/create-component-injector';
 export * from './lib/utils/custom-components';
+
+/**
+ * Directives
+ */
+
+export * from './lib/directives/dropzone/dropzone.directive';

@@ -19,6 +19,7 @@ import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
 import {parseSize} from '../../utils/parse-size';
+import {random} from '../../utils/random';
 
 interface FileData extends FieldData {
   emptyLabel?: string;
@@ -27,6 +28,10 @@ interface FileData extends FieldData {
   forbiddenFileTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  /**
+   * Overwrite existing file if already exists
+   */
+  preserveFileName?: boolean;
 }
 
 @Component({
@@ -127,12 +132,12 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
 
   save(moduleId: string, documentId: string) {
     if (this.value) {
-      const name = [
+
+      const name = this.cData.preserveFileName ? this.value.name : [
         moduleId,
         documentId,
-        this.value.name
-      ]
-        .join('-');
+        random.string()
+      ].join('-');
 
       return from(
         this.storage.upload(name, this.value, {
