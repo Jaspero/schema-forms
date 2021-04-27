@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.24.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.23.1...@jaspero/form-builder@3.24.0) (2021-04-27)
+
+
+### Features
+
+* **form-builder:** preserveFileName flag on image, file and gallery fields ([6fd9e29](https://github.com/Jaspero/schema-forms/commit/6fd9e29516bd43a54ac1cb4e7cc8927a8a97ec41))
+
 ## @jaspero/form-builder [3.23.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.23.0...@jaspero/form-builder@3.23.1) (2021-04-16)
 
 
