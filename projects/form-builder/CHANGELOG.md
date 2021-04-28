@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.25.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.3...@jaspero/form-builder@3.25.4) (2021-04-28)
+
+
+### Bug Fixes
+
+* **form-builder:** fetch realignInkBar directly from MatTabGroup ([20cb7ee](https://github.com/Jaspero/schema-forms/commit/20cb7ee1e077c635fc8b094f7ad6670d5153fbe9))
+
 ## @jaspero/form-builder [3.25.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.2...@jaspero/form-builder@3.25.3) (2021-04-28)
 
 
