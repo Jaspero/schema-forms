@@ -23,6 +23,8 @@ export class FileSelectComponent {
     private dialogRef: MatDialogRef<FileSelectComponent>
   ) {
     data.uploadMethods = data.uploadMethods || [];
+
+    (window as any).fileSelectDialogRef = this.dialogRef;
   }
 
   @ViewChild('file')
