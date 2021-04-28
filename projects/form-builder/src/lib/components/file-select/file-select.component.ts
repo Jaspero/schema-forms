@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export interface FileSelectData {
@@ -16,7 +16,7 @@ export interface FileSelectData {
   templateUrl: './file-select.component.html',
   styleUrls: ['./file-select.component.scss']
 })
-export class FileSelectComponent implements OnInit {
+export class FileSelectComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileSelectData,
@@ -27,9 +27,6 @@ export class FileSelectComponent implements OnInit {
 
   @ViewChild('file')
   fileEl: ElementRef<HTMLInputElement>;
-
-  ngOnInit(): void {
-  }
 
   openFileSystem() {
     this.fileEl.nativeElement.click();

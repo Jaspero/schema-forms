@@ -200,7 +200,6 @@ export class ImageComponent extends FieldComponent<ImageData>
           tap(() => this.cData.control.setValue(this.imageUrl.value))
         );
       } else {
-
         const name = this.cData.preserveFileName ? this.value.name : [
           moduleId,
           documentId,
@@ -260,8 +259,6 @@ export class ImageComponent extends FieldComponent<ImageData>
           success: null
         }))
       .subscribe(res => {
-        // const urlCreator = window.URL || (window as any).webkitURL;
-
         this.value = new File([res], image);
         this.disInput = true;
         this.imageUrl.setValue(image);
@@ -279,7 +276,7 @@ export class ImageComponent extends FieldComponent<ImageData>
           this.cData.control.setValue(reader.result);
 
           this.cdr.detectChanges();
-        }
+        };
       });
   }
 
