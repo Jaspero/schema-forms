@@ -27,14 +27,14 @@ export class FileSelectComponent implements AfterViewInit {
   }
 
   @ViewChild('tabGroup')
-  tabGroup: ElementRef<MatTabGroup>;
+  tabGroup: MatTabGroup;
 
   @ViewChild('file')
   fileEl: ElementRef<HTMLInputElement>;
 
   ngAfterViewInit() {
     (window as any).fileSelectDialogRef = this.dialogRef;
-    (window as any).fileSelectRealignInkBar = this.tabGroup.nativeElement.realignInkBar;
+    (window as any).fileSelectRealignInkBar = this.tabGroup.realignInkBar;
   }
 
   openFileSystem() {
