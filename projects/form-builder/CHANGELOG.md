@@ -1,3 +1,11 @@
+## @jaspero/form-builder [3.25.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.2...@jaspero/form-builder@3.25.3) (2021-04-28)
+
+
+### Bug Fixes
+
+* **form-builder:** save file select realign bar function to window ([89b02d7](https://github.com/Jaspero/schema-forms/commit/89b02d7b4ce425faaa3ff7d773bf3b50bef17540))
+* **form-builder:** save file select realign bar function to window ([526538d](https://github.com/Jaspero/schema-forms/commit/526538daa02c2291f2990248dbab94c69e31a361))
+
 ## @jaspero/form-builder [3.25.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.1...@jaspero/form-builder@3.25.2) (2021-04-28)
 
 
