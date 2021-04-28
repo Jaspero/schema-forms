@@ -96,6 +96,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     const dialog = this.dialog.open(
       FileSelectComponent,
       {
+        autoFocus: false,
         data: {
           ...this.cData,
           preventUrlUpload: true,

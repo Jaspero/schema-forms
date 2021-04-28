@@ -112,6 +112,7 @@ export class ImageComponent extends FieldComponent<ImageData>
     const dialog = this.dialog.open(
       FileSelectComponent,
       {
+        autoFocus: false,
         data: {
           ...this.cData,
           multiple: false
