@@ -130,7 +130,16 @@ export class ImageComponent extends FieldComponent<ImageData>
         if (data.type === 'file') {
           this.filesImage(data.event);
         } else if (data.type === 'url') {
-          this.addImage(data.url);
+
+          /**
+           * If has direct flag, save provided url directly to db
+           */
+          if (data.direct) {
+            this.value = null;
+            this.imageUrl.setValue(data.url);
+          } else {
+            this.addImage(data.url);
+          }
         }
       })
     ).subscribe();

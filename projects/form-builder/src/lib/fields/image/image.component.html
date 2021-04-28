@@ -16,13 +16,6 @@
         <img class="fb-image-suffix-preview-image" [attr.src]="imageSrc || imageUrl.value || value" [alt]="'FIELDS.IMAGE.PREVIEW' | transloco">
       </div>
     </ng-container>
-<!--    <button mat-icon-button *ngIf="!imageUrl.value && !cData.preventUrlUpload" (click)="openUploadDialog()">-->
-<!--      <mat-icon>post_add</mat-icon>-->
-<!--    </button>-->
-
-<!--    <button mat-icon-button *ngIf="!imageUrl.value && !cData.preventServerUpload">-->
-<!--      <mat-icon (click)="openFileUpload()">perm_media</mat-icon>-->
-<!--    </button>-->
     <button mat-icon-button (click)="openFileUpload()">
       <mat-icon>perm_media</mat-icon>
     </button>
