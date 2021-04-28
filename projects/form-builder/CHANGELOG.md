@@ -1,3 +1,11 @@
+# @jaspero/form-builder [3.25.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.24.0...@jaspero/form-builder@3.25.0) (2021-04-28)
+
+
+### Features
+
+* **form-builder:** shared file upload component for image and file fields ([c54f6cd](https://github.com/Jaspero/schema-forms/commit/c54f6cdd53feec7d7c87864cc7fa85a4b41c43c5))
+* **form-builder:** simplify and cleanup of file upload component ([7459079](https://github.com/Jaspero/schema-forms/commit/7459079446d4321f7409cae8f1f97bedeb08cf04))
+
 # @jaspero/form-builder [3.24.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.23.1...@jaspero/form-builder@3.24.0) (2021-04-27)
 
 
