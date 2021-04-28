@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.25.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.0...@jaspero/form-builder@3.25.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **form-builder:** disable autofocus on file select dialog ([70aac0e](https://github.com/Jaspero/schema-forms/commit/70aac0e5c429f02317be8cf1785e77c848423f56))
+
 # @jaspero/form-builder [3.25.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.24.0...@jaspero/form-builder@3.25.0) (2021-04-28)
 
 
