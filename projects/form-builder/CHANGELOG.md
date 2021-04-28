@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.25.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.1...@jaspero/form-builder@3.25.2) (2021-04-28)
+
+
+### Bug Fixes
+
+* **form-builder:** save file select dialog ref to window object ([5fe27ef](https://github.com/Jaspero/schema-forms/commit/5fe27ef5f0fbd4aa4de84d72ce1fdb93c7511d29))
+
 ## @jaspero/form-builder [3.25.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.0...@jaspero/form-builder@3.25.1) (2021-04-28)
 
 
