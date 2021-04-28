@@ -1,5 +1,6 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatTabGroup} from '@angular/material/tabs';
 
 export interface FileSelectData {
   multiple?: boolean;
@@ -25,7 +26,11 @@ export class FileSelectComponent {
     data.uploadMethods = data.uploadMethods || [];
 
     (window as any).fileSelectDialogRef = this.dialogRef;
+    (window as any).fileSelectRealignInkBar = this.tabGroup.nativeElement.realignInkBar;
   }
+
+  @ViewChild('tabGroup')
+  tabGroup: ElementRef<MatTabGroup>;
 
   @ViewChild('file')
   fileEl: ElementRef<HTMLInputElement>;
