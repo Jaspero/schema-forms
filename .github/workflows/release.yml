@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - 'package.json'
+      - 'package-lock.json'
       - 'projects/**/*'
 jobs:
   release:
