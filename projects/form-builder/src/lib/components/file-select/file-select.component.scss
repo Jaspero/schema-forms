@@ -1,0 +1,29 @@
+::ng-deep {
+  mat-tab-group {
+    min-width: 640px;
+
+    .mat-tab-body-content {
+      padding-top: 10px;
+    }
+
+    .file {
+      height: 300px;
+
+      &-dropzone {
+        --dropzone-color: rgba(100, 100, 100, 0.3);
+
+        height: 100%;
+        color: var(--dropzone-color);
+        border: 2px dashed var(--dropzone-color);
+
+        &.active {
+          border: 3px dashed rgba(100, 100, 100, 0.5);
+        }
+      }
+    }
+
+    .url {
+      height: 150px;
+    }
+  }
+}

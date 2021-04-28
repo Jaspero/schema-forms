@@ -8,10 +8,12 @@ import {
   Optional,
   ViewChild
 } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
-import {switchMap, tap} from 'rxjs/operators';
+import {switchMap, take, tap} from 'rxjs/operators';
+import {FileSelectComponent} from '../../components/file-select/file-select.component';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
@@ -47,7 +49,8 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     private cdr: ChangeDetectorRef,
     private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     super(cData);
   }
@@ -89,6 +92,32 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     );
   }
 
+  openFileUpload() {
+    const dialog = this.dialog.open(
+      FileSelectComponent,
+      {
+        data: {
+          ...this.cData,
+          preventUrlUpload: true,
+          multiple: false
+        }
+      }
+    );
+
+    dialog.afterClosed().pipe(
+      take(1),
+      tap(data => {
+        if (!data) {
+          return;
+        }
+
+        if (data.type === 'file') {
+          this.fileChange(data.event);
+        }
+      })
+    ).subscribe();
+  }
+
   fileChange(ev: Event) {
     const el = ev.target as HTMLInputElement;
     const file = Array.from(el.files as FileList)[0] as File;
@@ -123,6 +152,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
       this.name = this.value.name;
     }
     el.value = '';
+    this.cdr.markForCheck();
   }
 
   clear() {

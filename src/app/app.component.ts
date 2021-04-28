@@ -682,7 +682,7 @@ export class AppComponent implements AfterViewInit {
     }
   };
 
-  templateEample: FormBuilderData = {
+  templateExample: FormBuilderData = {
     schema: {
       properties: {
         content: {type: 'string'}
@@ -711,6 +711,41 @@ export class AppComponent implements AfterViewInit {
               }
             ]
           }
+        }
+      }
+    }
+  };
+
+  fileUploadExample: FormBuilderData = {
+    schema: {
+      properties: {
+        image: {
+          type: 'string'
+        },
+        file: {
+          type: 'string'
+        }
+      }
+    },
+    definitions: {
+      image: {
+        component: {
+          type: 'image',
+          configuration: {
+            // preventServerUpload: true,
+            preventUrlUpload: true,
+            uploadMethods: [
+              {
+                label: 'Storage',
+                component: '<jms-e-storage></jms-e-storage>'
+              }
+            ]
+          }
+        }
+      },
+      file: {
+        component: {
+          type: 'file'
         }
       }
     }

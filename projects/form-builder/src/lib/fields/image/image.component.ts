@@ -17,7 +17,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
-import {switchMap, tap} from 'rxjs/operators';
+import {switchMap, take, tap} from 'rxjs/operators';
+import {FileSelectComponent} from '../../components/file-select/file-select.component';
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
@@ -108,7 +109,30 @@ export class ImageComponent extends FieldComponent<ImageData>
   }
 
   openFileUpload() {
-    this.fileEl.nativeElement.click();
+    const dialog = this.dialog.open(
+      FileSelectComponent,
+      {
+        data: {
+          ...this.cData,
+          multiple: false
+        }
+      }
+    );
+
+    dialog.afterClosed().pipe(
+      take(1),
+      tap(data => {
+        if (!data) {
+          return;
+        }
+
+        if (data.type === 'file') {
+          this.filesImage(data.event);
+        } else if (data.type === 'url') {
+          this.addImage(data.url);
+        }
+      })
+    ).subscribe();
   }
 
   filesImage(event: Event) {
@@ -236,16 +260,26 @@ export class ImageComponent extends FieldComponent<ImageData>
           success: null
         }))
       .subscribe(res => {
-        const urlCreator = window.URL || (window as any).webkitURL;
-        const value = this.cData.control.value;
+        // const urlCreator = window.URL || (window as any).webkitURL;
 
-        value.push({
-          data: urlCreator.createObjectURL(res),
-          live: true
-        });
+        this.value = new File([res], image);
+        this.disInput = true;
+        this.imageUrl.setValue(image);
 
-        this.cData.control.setValue(value);
-        this.cdr.detectChanges();
+        const reader = new FileReader();
+        reader.readAsDataURL(res);
+        reader.onload = () => {
+          this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
+            reader.result as string
+          );
+
+          /**
+           * Set value in case it's needed for previews
+           */
+          this.cData.control.setValue(reader.result);
+
+          this.cdr.detectChanges();
+        }
       });
   }
 

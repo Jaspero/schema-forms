@@ -52,6 +52,7 @@ import {EmptyComponent} from './segments/empty/empty.component';
 import {StepperComponent} from './segments/stepper/stepper.component';
 import {TabsComponent} from './segments/tabs/tabs.component';
 import { CustomComponent } from './custom/custom.component';
+import { FileSelectComponent } from './components/file-select/file-select.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,9 @@ import { CustomComponent } from './custom/custom.component';
 
     FormBuilderComponent,
 
-    CustomComponent
+    CustomComponent,
+
+    FileSelectComponent
   ],
   imports: [
     CommonModule,
