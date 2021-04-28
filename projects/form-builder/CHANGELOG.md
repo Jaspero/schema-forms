@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.25.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.4...@jaspero/form-builder@3.25.5) (2021-04-28)
+
+
+### Bug Fixes
+
+* **form-builder:** lazy load mat tabs required for rerendering. code cleanup ([92d4141](https://github.com/Jaspero/schema-forms/commit/92d4141bf0350ab8b1e75145e2cc3f06a431c17b))
+
 ## @jaspero/form-builder [3.25.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.3...@jaspero/form-builder@3.25.4) (2021-04-28)
 
 
