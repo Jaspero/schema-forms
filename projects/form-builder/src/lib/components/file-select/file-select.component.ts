@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatTabGroup} from '@angular/material/tabs';
 
@@ -17,16 +17,13 @@ export interface FileSelectData {
   templateUrl: './file-select.component.html',
   styleUrls: ['./file-select.component.scss']
 })
-export class FileSelectComponent {
+export class FileSelectComponent implements AfterViewInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: FileSelectData,
     private dialogRef: MatDialogRef<FileSelectComponent>
   ) {
     data.uploadMethods = data.uploadMethods || [];
-
-    (window as any).fileSelectDialogRef = this.dialogRef;
-    (window as any).fileSelectRealignInkBar = this.tabGroup.nativeElement.realignInkBar;
   }
 
   @ViewChild('tabGroup')
@@ -34,6 +31,11 @@ export class FileSelectComponent {
 
   @ViewChild('file')
   fileEl: ElementRef<HTMLInputElement>;
+
+  ngAfterViewInit() {
+    (window as any).fileSelectDialogRef = this.dialogRef;
+    (window as any).fileSelectRealignInkBar = this.tabGroup.nativeElement.realignInkBar;
+  }
 
   openFileSystem() {
     this.fileEl.nativeElement.click();
