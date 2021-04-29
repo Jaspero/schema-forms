@@ -11,7 +11,7 @@
   "license": "MIT",
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.26.0",
+    "@jaspero/form-builder": "3.26.1",
     "tinymce": "^5.4.2"
   },
   "release": {
