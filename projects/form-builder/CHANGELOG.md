@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.27.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.26.1...@jaspero/form-builder@3.27.0) (2021-04-29)
+
+
+### Features
+
+* **form-builder:** pass custom configuration to each upload methods ([3197fb0](https://github.com/Jaspero/schema-forms/commit/3197fb0de45dc762f68f930aed1b7482d4d8cfab))
+
 ## @jaspero/form-builder [3.26.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.26.0...@jaspero/form-builder@3.26.1) (2021-04-29)
 
 
