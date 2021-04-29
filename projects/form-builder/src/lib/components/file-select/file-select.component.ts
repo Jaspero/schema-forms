@@ -1,14 +1,12 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {UploadMethod} from '../../interfaces/upload-method.interface';
 
 export interface FileSelectData {
   multiple?: boolean;
   preventServerUpload?: boolean;
   preventUrlUpload?: boolean;
-  uploadMethods?: {
-    label: string;
-    component: string;
-  }[];
+  uploadMethods?: UploadMethod[];
 }
 
 @Component({
@@ -24,7 +22,10 @@ export class FileSelectComponent {
   ) {
     data.uploadMethods = data.uploadMethods || [];
 
-    (window as any).fileSelectDialogRef = this.dialogRef;
+    (window as any).fileSelect = {
+      dialogRef: this.dialogRef,
+      uploadMethods: this.data.uploadMethods
+    }
   }
 
   @ViewChild('file')

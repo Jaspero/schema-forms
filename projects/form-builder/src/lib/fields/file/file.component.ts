@@ -17,6 +17,7 @@ import {FileSelectComponent} from '../../components/file-select/file-select.comp
 import {FieldComponent} from '../../field/field.component';
 import {FormBuilderService} from '../../form-builder.service';
 import {FieldData} from '../../interfaces/field-data.interface';
+import {UploadMethod} from '../../interfaces/upload-method.interface';
 import {StorageService} from '../../services/storage.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {formatFileName} from '../../utils/format-file-name';
@@ -34,6 +35,7 @@ interface FileData extends FieldData {
    * Overwrite existing file if already exists
    */
   preserveFileName?: boolean;
+  uploadMethods?: UploadMethod[];
 }
 
 @Component({
