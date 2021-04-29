@@ -109,7 +109,7 @@ export class ImageComponent extends FieldComponent<ImageData>
   }
 
   openFileUpload() {
-    const dialog = this.dialog.open(
+    this.dialog.open(
       FileSelectComponent,
       {
         autoFocus: false,
@@ -118,31 +118,30 @@ export class ImageComponent extends FieldComponent<ImageData>
           multiple: false
         }
       }
-    );
-
-    dialog.afterClosed().pipe(
-      take(1),
-      tap(data => {
-        if (!data) {
-          return;
-        }
-
-        if (data.type === 'file') {
-          this.filesImage(data.event);
-        } else if (data.type === 'url') {
-
-          /**
-           * If has direct flag, save provided url directly to db
-           */
-          if (data.direct) {
-            this.value = null;
-            this.imageUrl.setValue(data.url);
-          } else {
-            this.addImage(data.url);
+    ).afterClosed()
+      .pipe(
+        take(1),
+        tap(data => {
+          if (!data) {
+            return;
           }
-        }
-      })
-    ).subscribe();
+
+          if (data.type === 'file') {
+            this.filesImage(data.event);
+          } else if (data.type === 'url') {
+            /**
+             * If has direct flag, save provided url directly to db
+             */
+            if (data.direct) {
+              this.value = null;
+              this.imageUrl.setValue(data.url);
+            } else {
+              this.addImage(data.url);
+            }
+          }
+        })
+      )
+      .subscribe();
   }
 
   filesImage(event: Event) {
