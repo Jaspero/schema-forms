@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.26.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.26.0...@jaspero/form-builder@3.26.1) (2021-04-29)
+
+
+### Bug Fixes
+
+* **form-builder:** code cleanup and simplification ([3d27ba0](https://github.com/Jaspero/schema-forms/commit/3d27ba029a0f6e58231a1043b7a19419cb8b53db))
+
 # @jaspero/form-builder [3.26.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.5...@jaspero/form-builder@3.26.0) (2021-04-28)
 
 
