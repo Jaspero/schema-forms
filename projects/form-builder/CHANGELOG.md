@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.26.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.5...@jaspero/form-builder@3.26.0) (2021-04-28)
+
+
+### Features
+
+* **form-builder:** allow saving direct url to database ([fcd47e7](https://github.com/Jaspero/schema-forms/commit/fcd47e7a47051b5b8a3693887101c550b4fb4361))
+
 ## @jaspero/form-builder [3.25.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.25.4...@jaspero/form-builder@3.25.5) (2021-04-28)
 
 
