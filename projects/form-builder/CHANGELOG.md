@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.28.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.27.0...@jaspero/form-builder@3.28.0) (2021-05-01)
+
+
+### Features
+
+* **form-builder:** support for string date format by providing a stringToDate method ([1cdcb3e](https://github.com/Jaspero/schema-forms/commit/1cdcb3e6e7fc98471b7b92af75acc5fcbc410d2d))
+
 # @jaspero/form-builder [3.27.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.26.1...@jaspero/form-builder@3.27.0) (2021-04-29)
 
 
