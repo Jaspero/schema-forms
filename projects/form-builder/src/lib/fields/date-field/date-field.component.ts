@@ -1,12 +1,13 @@
-import {DatePipe} from '@angular/common';
+import {formatDate} from '@angular/common';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {combineLatest, Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
-import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {cloneAbstractControl} from '../../utils/clone-abstract-control';
+import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {safeEval} from '../../utils/safe-eval';
 
 interface DateData extends FieldData {
   startYear?: number;
@@ -14,6 +15,7 @@ interface DateData extends FieldData {
   touchUi?: boolean;
   startView?: 'month' | 'year' | 'multi-year';
   format?: 'number' | string;
+  stringToDate?: string;
   autocomplete?: string;
   includeTime?: boolean;
   labelHours?: string;
@@ -48,9 +50,34 @@ export class DateFieldComponent extends FieldComponent<DateData>
       ? new Date(this.cData.startAt)
       : new Date();
 
-    const date = this.cData.control.value ? new Date(this.cData.control.value) : null;
+    const {value} = this.cData.control;
 
-    this.entryControl = cloneAbstractControl(this.cData.control);
+    let date: Date = value || this.startDate;
+
+    if (value) {
+      switch (typeof value) {
+        case 'number':
+          date = new Date(value);
+          break;
+        case 'string':
+
+          /**
+           * TODO:
+           * We could implement a parser for DatePipe strings to dates
+           * instead of expecting a stringToDate method
+           */
+          if (this.cData.stringToDate) {
+            const method = safeEval(this.cData.stringToDate);
+
+            if (method) {
+              date = method(value);
+            }
+          }
+          break;
+      }
+    }
+
+    this.entryControl = cloneAbstractControl(this.cData.control, date);
     this.hoursControl = new FormControl(
       {value: date?.getHours() || 0, disabled: this.cData.control.disabled},
       [Validators.min(0), Validators.max(23)]
@@ -59,16 +86,6 @@ export class DateFieldComponent extends FieldComponent<DateData>
       {value: date?.getMinutes() || 0, disabled: this.cData.control.disabled},
       [Validators.min(0), Validators.max(59)]
     );
-
-    /**
-     * Dirty hack for getting numbers to display properly might need revisiting
-     */
-    if (
-      typeof this.entryControl.value === 'number' ||
-      typeof this.entryControl.value === 'string'
-    ) {
-      this.entryControl.setValue(new Date(this.entryControl.value));
-    }
 
     this.listener = combineLatest([
       this.entryControl.valueChanges.pipe(
@@ -94,9 +111,11 @@ export class DateFieldComponent extends FieldComponent<DateData>
             if (this.cData.format === 'number') {
               value = value.getTime();
             } else {
-              const pipe = new DatePipe('en');
-
-              value = pipe.transform(value, this.cData.format);
+              value = formatDate(
+                value,
+                this.cData.format,
+                navigator.language || 'en'
+              );
             }
           }
         }

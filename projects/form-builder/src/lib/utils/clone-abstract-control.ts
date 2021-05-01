@@ -10,7 +10,7 @@ import {
  * @param control AbstractControl
  * @returns AbstractControl
  */
-export function cloneAbstractControl<T extends AbstractControl>(control: T): T {
+export function cloneAbstractControl<T extends AbstractControl>(control: T, entryValue?: any): T {
   let newControl: T;
 
   if (control instanceof FormGroup) {
@@ -40,7 +40,7 @@ export function cloneAbstractControl<T extends AbstractControl>(control: T): T {
     newControl = formArray as any;
   } else if (control instanceof FormControl) {
     newControl = new FormControl(
-      control.value,
+      entryValue !== undefined ? entryValue : control.value,
       control.validator,
       control.asyncValidator
     ) as any;
