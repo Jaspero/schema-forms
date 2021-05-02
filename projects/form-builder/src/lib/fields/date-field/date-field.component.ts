@@ -1,8 +1,7 @@
 import {formatDate} from '@angular/common';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {combineLatest, Subscription} from 'rxjs';
-import {startWith} from 'rxjs/operators';
+import {merge, Subscription} from 'rxjs';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {cloneAbstractControl} from '../../utils/clone-abstract-control';
@@ -52,7 +51,7 @@ export class DateFieldComponent extends FieldComponent<DateData>
 
     const {value} = this.cData.control;
 
-    let date: Date = value || this.startDate;
+    let date: Date = value;
 
     if (value) {
       switch (typeof value) {
@@ -87,31 +86,31 @@ export class DateFieldComponent extends FieldComponent<DateData>
       [Validators.min(0), Validators.max(59)]
     );
 
-    this.listener = combineLatest([
-      this.entryControl.valueChanges.pipe(
-        startWith(this.entryControl.value)
-      ),
-      ...this.cData.includeTime ? [
-        this.hoursControl.valueChanges.pipe(
-          startWith(this.hoursControl.value)
-        ),
-        this.minutesControl.valueChanges.pipe(
-          startWith(this.minutesControl.value)
-        )
-      ] : []
-    ])
-      .subscribe(([value, hours, minutes]) => {
-        if (value) {
+    const changes = [this.entryControl];
+
+    if (this.cData.includeTime) {
+      changes.push(
+        this.hoursControl,
+        this.minutesControl
+      )
+    }
+
+    this.listener = merge(...changes.map(change => change.valueChanges))
+      .subscribe(() => {
+
+        let [date, hours, minutes] = changes.map(change => change.value);
+
+        if (date) {
           if (this.cData.includeTime) {
-            value.setHours(hours || 0);
-            value.setMinutes(minutes || 0);
+            date.setHours(hours || 0);
+            date.setMinutes(minutes || 0);
           }
 
           if (this.cData.format) {
             if (this.cData.format === 'number') {
-              value = value.getTime();
+              date = date.getTime();
             } else {
-              value = formatDate(
+              date = formatDate(
                 value,
                 this.cData.format,
                 navigator.language || 'en'
@@ -120,7 +119,7 @@ export class DateFieldComponent extends FieldComponent<DateData>
           }
         }
 
-        this.cData.control.setValue(value);
+        this.cData.control.setValue(date);
       })
   }
 

@@ -2,11 +2,11 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TinymceModule} from '@jaspero/fb-tinymce';
 import {
   CUSTOM_COMPONENTS,
   DbService,
@@ -14,13 +14,9 @@ import {
   ROLE,
   STORAGE_URL,
   StorageService
-} from '@jaspero/form-builder';
+} from '../../projects/form-builder/src/public-api';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {PageBuilderModule, FB_PAGE_BUILDER_OPTIONS} from '@jaspero/fb-page-builder';
-import {FormUiModule} from '../../projects/form-ui/src/lib/form-ui.module';
-import {FbRefTableModule} from '../../projects/ref-table/src/lib/ref-table.module';
-import {TemplateEditorModule} from '../../projects/tinymce/src/lib/template-editor/template-editor.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {BlocksModule} from './blocks/blocks.module';
@@ -41,15 +37,9 @@ import {translocoLoader} from './transloco.loader';
     HttpClientModule,
     TranslocoModule,
     FormBuilderModule.forRoot(),
-    PageBuilderModule,
-    TinymceModule,
-    TemplateEditorModule,
-    FormUiModule,
-    FbRefTableModule,
 
     MatSnackBarModule,
-
-    BlocksModule
+    MatCheckboxModule,
   ],
   providers: [
     {
@@ -97,12 +87,6 @@ import {translocoLoader} from './transloco.loader';
         appearance: 'outline'
       }
     },
-    {
-      provide: FB_PAGE_BUILDER_OPTIONS,
-      useValue: {
-        previewModules: [MatButtonModule, SanitizeModule, BlocksModule]
-      }
-    }
   ],
   bootstrap: [AppComponent]
 })
