@@ -77,18 +77,20 @@ export class DateFieldComponent extends FieldComponent<DateData>
     }
 
     this.entryControl = cloneAbstractControl(this.cData.control, date);
-    this.hoursControl = new FormControl(
-      {value: date?.getHours() || 0, disabled: this.cData.control.disabled},
-      [Validators.min(0), Validators.max(23)]
-    );
-    this.minutesControl = new FormControl(
-      {value: date?.getMinutes() || 0, disabled: this.cData.control.disabled},
-      [Validators.min(0), Validators.max(59)]
-    );
 
     const changes = [this.entryControl];
 
     if (this.cData.includeTime) {
+
+      this.hoursControl = new FormControl(
+        {value: date?.getHours() || 0, disabled: this.cData.control.disabled},
+        [Validators.min(0), Validators.max(23)]
+      );
+      this.minutesControl = new FormControl(
+        {value: date?.getMinutes() || 0, disabled: this.cData.control.disabled},
+        [Validators.min(0), Validators.max(59)]
+      );
+
       changes.push(
         this.hoursControl,
         this.minutesControl
