@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.1...@jaspero/form-builder@3.28.2) (2021-05-02)
+
+
+### Bug Fixes
+
+* **form-builder:** don't create hour and minute controls if includeTime isn't true ([4f56736](https://github.com/Jaspero/schema-forms/commit/4f56736ba4a4511cffb284db0821ff93f19d5c0a))
+
 ## @jaspero/form-builder [3.28.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.0...@jaspero/form-builder@3.28.1) (2021-05-02)
 
 
