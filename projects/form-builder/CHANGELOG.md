@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.2...@jaspero/form-builder@3.28.3) (2021-05-20)
+
+
+### Bug Fixes
+
+* **DateField:** handle NaN as a date value ([503d41b](https://github.com/Jaspero/schema-forms/commit/503d41b1a98889707043160333b086985f4a68fc))
+
 ## @jaspero/form-builder [3.28.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.1...@jaspero/form-builder@3.28.2) (2021-05-02)
 
 
