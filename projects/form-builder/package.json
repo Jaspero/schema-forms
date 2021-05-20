@@ -23,7 +23,7 @@
     "rxjs": "^6.6.3"
   },
   "dependencies": {
-    "json-pointer": "0.6.0",
+    "json-pointer": "0.6.1",
     "json-schema": "0.2.5"
   },
   "devDependencies": {
