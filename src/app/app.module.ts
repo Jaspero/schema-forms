@@ -1,12 +1,13 @@
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {
   CUSTOM_COMPONENTS,
   DbService,
@@ -15,15 +16,25 @@ import {
   STORAGE_URL,
   StorageService
 } from '../../projects/form-builder/src/public-api';
-import {SanitizeModule} from '@jaspero/ng-helpers';
-import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
-import {BlocksModule} from './blocks/blocks.module';
 import {ExampleCustomComponent} from './example-custom/example-custom.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./examples/core/core.module')
+      .then(m => m.CoreModule)
+  },
+  {
+    path: 'page-builder',
+    loadChildren: () => import('./examples/page-builder/page-builder.module')
+      .then(m => m.PageBuilderModule)
+  }
+];
 
 @NgModule({
   declarations: [
@@ -35,11 +46,12 @@ import {translocoLoader} from './transloco.loader';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes),
     TranslocoModule,
     FormBuilderModule.forRoot(),
 
     MatSnackBarModule,
-    MatCheckboxModule,
+    MatCheckboxModule
   ],
   providers: [
     {

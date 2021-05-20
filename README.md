@@ -105,11 +105,11 @@ what component is used to represent the field in the form. The `Definitions` int
     }]
     ```
 
-### Handling Array
+### Handling arrays
 
 The form builder supports both arrays of primitives and object arrays.
 
-#### Object Arrays
+#### Object arrays
 
 The following is required to render an object array:
 
@@ -155,7 +155,7 @@ The following is required to render an object array:
     } 
     ```
 
-#### Primitive Arrays
+#### Primitive arrays
 
 Primitive arrays can be displayed in two variations as a dedicated segment or
 as a field. 
@@ -388,6 +388,11 @@ This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor
    
 
 ## Development
+
+### Running locally
+
+1. Install dependencies `npm ci`
+2. Run the app with `npm start`
 
 ### Creating a plugin
 
