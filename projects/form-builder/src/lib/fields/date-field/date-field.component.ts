@@ -51,7 +51,7 @@ export class DateFieldComponent extends FieldComponent<DateData>
 
     const {value} = this.cData.control;
 
-    let date: Date = value;
+    let date: Date = value || null;
 
     if (value) {
       switch (typeof value) {
