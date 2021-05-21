@@ -1,14 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {SegmentType} from '../../../../projects/form-builder/src/lib/enums/segment-type.enum';
+import {FormBuilderComponent} from '../../../../projects/form-builder/src/lib/form-builder.component';
 import {FormBuilderData} from '../../../../projects/form-builder/src/lib/interfaces/form-builder-data.interface';
 
 @Component({
   selector: 'sc-core',
   templateUrl: './core.component.html',
-  styleUrls: ['./core.component.scss']
+  styleUrls: ['./core.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoreComponent implements OnInit {
+export class CoreComponent implements OnInit, AfterViewInit {
   constructor() { }
+
+  @ViewChildren(FormBuilderComponent)
+  formComponents: QueryList<FormBuilderComponent>;
 
   exampleOne: FormBuilderData = {
     schema: {
@@ -683,4 +688,40 @@ export class CoreComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    this.formComponents.forEach(log => {
+      log.form.valueChanges
+        .subscribe(value => {
+          console.log(value);
+        });
+    });
+  }
+
+  updateComponent() {
+    this.exampleTwo = {
+      schema: {
+        properties: {
+          title: {
+            type: 'string'
+          }
+        }
+      },
+      definitions: {
+        title: {
+          label: 'Title'
+        }
+      },
+      segments: [{
+        fields: [
+          '/title'
+        ]
+      }]
+    };
+  }
+
+  save() {
+    const valid = this.formComponents.toArray()[0].validate(this.exampleOne);
+    console.log({valid});
+    this.formComponents.toArray()[0].save('example', 'example-id').subscribe();
+  }
 }
