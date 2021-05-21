@@ -125,7 +125,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
         'fullscreen',
         'table'
       ],
-      menubar: this.cData.menubar || 'edit insert view format table tools help',
+      menubar: this.cData.menubar !== undefined ? this.cData.menubar : 'edit insert view format table tools help',
       image_advtab: true,
 
       /**
@@ -133,7 +133,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
        */
       default_link_target: '_blank',
       readonly: this.cData.control.disabled,
-      toolbar: this.cData.toolbar || [
+      toolbar: this.cData.toolbar !== undefined ? this.cData.toolbar : [
         'undo redo',
         'insert',
         'styleselect',

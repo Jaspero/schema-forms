@@ -1,0 +1,17 @@
+.segment {
+  position: relative;
+
+  &-sidebar {
+    position: absolute;
+    top: 0;
+    width: 20px;
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+
+      &:focus {outline: 0;}
+    }
+  }
+}

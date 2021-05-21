@@ -1,3 +1,4 @@
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,7 +8,8 @@ import {
   Input,
   OnInit,
   Output,
-  Renderer2, ViewChild,
+  Renderer2,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {StorageService} from '@jaspero/form-builder';
@@ -60,34 +62,12 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
   compileSegment(segment: TemplateEditorSegment) {
     const elWrapper = this.renderer.createElement('div');
     const el = this.renderer.createElement('div');
-    const cleanUpTrigger = this.renderer.createElement('i');
-
-    const sidebarEl = this.renderer.createElement('div');
-    sidebarEl.classList.add('segment-sidebar');
-
-    elWrapper.style.marginBottom = '1rem';
-    elWrapper.style.position = 'relative';
 
     el.innerHTML = segment.content;
 
-    cleanUpTrigger.classList.add('material-icons');
-
-    cleanUpTrigger.style.position = 'absolute';
-    cleanUpTrigger.style.right = '-50px';
-    cleanUpTrigger.style.top = '0';
-    cleanUpTrigger.style.cursor = 'pointer';
-
-    cleanUpTrigger.innerText = 'close';
-
-    cleanUpTrigger.onclick = () => {
-      const index = this.segments.findIndex(it => it === segment);
-
-      this.segments.splice(index, 1);
-      this.mainEl.removeChild(cleanUpTrigger.parentElement as HTMLDivElement);
-    };
-
+    elWrapper.classList.add('segment');
     elWrapper.appendChild(el);
-    elWrapper.appendChild(cleanUpTrigger);
+    elWrapper.appendChild(this.segmentSidebar());
 
     this.mainEl.appendChild(elWrapper);
 
@@ -157,5 +137,66 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
       ...this.template.style && {content_style: this.template.style},
       ...this.wysiwygConfig || {}
     });
+  }
+
+  segmentSidebar() {
+
+    const sidebarEl = this.renderer.createElement('div');
+
+    sidebarEl.classList.add('segment-sidebar');
+
+    const deleteEl = this.renderer.createElement('button');
+    const upEl = this.renderer.createElement('button');
+    const downEl = this.renderer.createElement('button');
+
+    deleteEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+    upEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>';
+    downEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>';
+
+    const swap = (nodeA, nodeB) => {
+      const parentA = nodeA.parentNode;
+      const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
+      nodeB.parentNode.insertBefore(nodeA, nodeB);
+      parentA.insertBefore(nodeB, siblingA);
+    };
+
+    const getIndex = () => {
+      return Array.from(this.mainEl.children).indexOf(sidebarEl.parentElement);
+    };
+
+    upEl.onclick = () => {
+      const index = getIndex();
+
+      if (index !== 0) {
+        const toIndex = index - 1;
+        moveItemInArray(this.segments, index, toIndex);
+        swap(this.mainEl.children[index], this.mainEl.children[toIndex]);
+        this.update.emit();
+      }
+    };
+
+    downEl.onclick = () => {
+      const index = getIndex();
+
+      if ((this.segments.length - 1) > index) {
+        const toIndex = index + 1;
+        moveItemInArray(this.segments, index, toIndex);
+        swap(this.mainEl.children[index], this.mainEl.children[toIndex]);
+        this.update.emit();
+      }
+    };
+
+    deleteEl.onclick = () => {
+      const index = getIndex();
+      this.segments.splice(index, 1);
+      this.mainEl.removeChild(sidebarEl.parentElement);
+      this.update.emit();
+    };
+
+    sidebarEl.appendChild(upEl);
+    sidebarEl.appendChild(downEl);
+    sidebarEl.appendChild(deleteEl);
+
+    return sidebarEl;
   }
 }
