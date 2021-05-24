@@ -1,7 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {SegmentType} from '../../../../projects/form-builder/src/lib/enums/segment-type.enum';
-import {FormBuilderComponent} from '../../../../projects/form-builder/src/lib/form-builder.component';
-import {FormBuilderData} from '../../../../projects/form-builder/src/lib/interfaces/form-builder-data.interface';
+import {FormBuilderComponent, FormBuilderData, SegmentType} from '@jaspero/form-builder';
 
 @Component({
   selector: 'sc-core',

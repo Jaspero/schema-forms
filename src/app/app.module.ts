@@ -7,15 +7,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
+import {CUSTOM_COMPONENTS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
-import {
-  CUSTOM_COMPONENTS,
-  DbService,
-  FormBuilderModule,
-  ROLE,
-  STORAGE_URL,
-  StorageService
-} from '../../projects/form-builder/src/public-api';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {ExampleCustomComponent} from './example-custom/example-custom.component';

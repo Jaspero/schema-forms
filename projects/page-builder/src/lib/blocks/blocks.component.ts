@@ -11,7 +11,7 @@ import {
   NgModule,
   OnDestroy,
   OnInit,
-  Optional,
+  Optional, Renderer2,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
@@ -89,6 +89,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private domSanitizer: DomSanitizer,
     @Inject(DOCUMENT)
     private document: any,
+    private renderer: Renderer2
   ) {
     super(cData);
   }
@@ -233,6 +234,19 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     } else {
       this.selectBlock(topBlock, this.blocks.length - 1);
     }
+
+    const index = this.compRefs.length - 1;
+
+    this.renderer.listen(this.compRefs[index].location.nativeElement, 'click', () => {
+
+      if (this.selectedIndex !== undefined) {
+        this.closeBlock();
+      }
+
+      setTimeout(() => {
+        this.selectBlock(topBlock, index)
+      })
+    })
   }
 
   closeAdd() {
@@ -396,9 +410,26 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
-        this.compRefs = factories.componentFactories.map((f, index) =>
-          this.renderComponent(f, this.blocks[index].value)
-        );
+        this.compRefs = factories.componentFactories.map((f, index) => {
+          const ref = this.renderComponent(f, this.blocks[index].value);
+
+          this.renderer.listen(
+            ref.location.nativeElement,
+            'click',
+            () => {
+
+              if (this.selectedIndex !== undefined) {
+                this.closeBlock();
+              }
+
+              setTimeout(() =>
+                this.selectBlock(this.blocks[index], index)
+              )
+            }
+          );
+
+          return ref;
+        });
         this.cdr.markForCheck();
       });
   }

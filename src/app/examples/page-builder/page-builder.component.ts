@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'sc-page-builder',
   templateUrl: './page-builder.component.html',
-  styleUrls: ['./page-builder.component.scss']
+  styleUrls: ['./page-builder.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageBuilderComponent implements OnInit {
 
@@ -39,7 +40,7 @@ export class PageBuilderComponent implements OnInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
+                previewTemplate: `<p>Test</p>`,
                 previewValue: {
                   title: 'Some title',
                   subTitle: 'A total subtitle'
