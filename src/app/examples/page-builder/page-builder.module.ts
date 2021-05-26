@@ -1,10 +1,10 @@
 import {CommonModule} from '@angular/common';
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CUSTOM_COMPONENTS, FormBuilderModule} from '@jaspero/form-builder';
+import {FormBuilderModule} from '@jaspero/form-builder';
+import {FB_PAGE_BUILDER_OPTIONS} from '../../../../projects/page-builder/src/lib/options.token';
 import {PageBuilderModule as PBModule} from '../../../../projects/page-builder/src/lib/page-builder.module';
 import {BlocksModule} from './blocks/blocks.module';
-import {SimpleComponent} from './blocks/simple/simple.component';
 import {PageBuilderComponent} from './page-builder.component';
 
 const routes: Routes = [{
@@ -17,19 +17,16 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-
-    BlocksModule,
     FormBuilderModule,
     PBModule
   ],
   providers: [
     {
-      provide: CUSTOM_COMPONENTS,
+      provide: FB_PAGE_BUILDER_OPTIONS,
       useValue: {
-        'sc-simple': SimpleComponent
+        previewModules: [BlocksModule]
       }
     }
-  ],
-  schemas: [NO_ERRORS_SCHEMA]
+  ]
 })
 export class PageBuilderModule { }

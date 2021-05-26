@@ -40,10 +40,13 @@ export class PageBuilderComponent implements OnInit {
               {
                 id: 'banner',
                 label: 'Banner',
-                previewTemplate: `<p>Test</p>`,
+                previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
                 previewValue: {
-                  title: 'Some title',
-                  subTitle: 'A total subtitle'
+                  content: `
+                    <h1>A H1 Element</h1>
+                    <h2>A H2 Element</h2>
+                    <p>A P Element</p>
+                  `
                 },
                 previewStyle: `
                   h1 {
@@ -56,52 +59,15 @@ export class PageBuilderComponent implements OnInit {
                   }
                 `,
                 form: {
-                  segments: [{
-                    fields: [
-                      '/title',
-                      '/subTitle',
-                      '/image',
-                      '/imagePosition',
-                      '/date'
-                    ]
-                  }],
+                  segments: [],
                   schema: {
                     properties: {
-                      title: {
-                        type: 'string'
-                      },
-                      subTitle: {
-                        type: 'string'
-                      },
-                      image: {
-                        type: 'string'
-                      },
-                      imagePosition: {
-                        type: 'string'
-                      },
-                      date: {
-                        type: 'string'
-                      }
+                      content: {type: 'string'},
                     }
                   },
                   definitions: {
-                    title: {
-                      label: 'Title'
-                    },
-                    image: {
-                      label: 'Image',
-                      component: {
-                        type: 'image'
-                      }
-                    },
-                    date: {
-                      label: 'Date',
-                      component: {
-                        type: 'date',
-                        configuration: {
-                          format: 'number'
-                        }
-                      }
+                    content: {
+                      label: 'Content'
                     }
                   }
                 }

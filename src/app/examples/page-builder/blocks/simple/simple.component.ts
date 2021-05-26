@@ -9,5 +9,7 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 export class SimpleComponent {
 
   @Input()
-  data: any;
+  data: {
+    content: string;
+  };
 }

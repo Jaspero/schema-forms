@@ -237,16 +237,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     const index = this.compRefs.length - 1;
 
-    this.renderer.listen(this.compRefs[index].location.nativeElement, 'click', () => {
-
-      if (this.selectedIndex !== undefined) {
-        this.closeBlock();
-      }
-
-      setTimeout(() => {
-        this.selectBlock(topBlock, index)
-      })
-    })
+    this.bindSelect(this.compRefs[index], topBlock, index);
   }
 
   closeAdd() {
@@ -412,22 +403,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       .then((factories) => {
         this.compRefs = factories.componentFactories.map((f, index) => {
           const ref = this.renderComponent(f, this.blocks[index].value);
-
-          this.renderer.listen(
-            ref.location.nativeElement,
-            'click',
-            () => {
-
-              if (this.selectedIndex !== undefined) {
-                this.closeBlock();
-              }
-
-              setTimeout(() =>
-                this.selectBlock(this.blocks[index], index)
-              )
-            }
-          );
-
+          this.bindSelect(ref, this.blocks[index], index);
           return ref;
         });
         this.cdr.markForCheck();
@@ -518,5 +494,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     return cmpRef;
+  }
+
+  private bindSelect(ref: ComponentRef<any>, block: TopBlock, index: number) {
+    this.renderer.listen(
+      ref.location.nativeElement,
+      'click',
+      () => {
+
+        if (this.selectedIndex !== undefined) {
+
+          /**
+           * Prevent clicking on the same elemnt from impacting anything
+           */
+          if (this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement) {
+            return;
+          }
+
+          this.closeBlock();
+        }
+
+        setTimeout(() =>
+          this.selectBlock(block, index)
+        )
+      }
+    );
   }
 }

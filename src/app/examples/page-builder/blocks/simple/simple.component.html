@@ -1,1 +1,1 @@
-<h1>{{data.title}}</h1>
+<div [fbPbInlineEditor]="{property: 'content', data: data}" [innerHTML]="data.content | jpSanitize"></div>
