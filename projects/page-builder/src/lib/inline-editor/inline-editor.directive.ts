@@ -19,11 +19,10 @@ export class InlineEditorDirective implements AfterViewInit {
   toolbarEl: HTMLDivElement;
   typeSelectEl: HTMLSelectElement;
   toolbarRendered = false;
-
   defaultOptions = {
     elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P']
-  }
-
+  };
+  lastTarget: HTMLElement | null;
   options: Options;
 
   get htmlEl() {
@@ -56,6 +55,7 @@ export class InlineEditorDirective implements AfterViewInit {
       'input',
       () =>
         this.options.data[this.options.property] = this.htmlEl.innerHTML
+          .replace(this.toolbarEl.outerHTML, '')
     );
 
     this.renderer.listen(
@@ -66,6 +66,17 @@ export class InlineEditorDirective implements AfterViewInit {
         const target = e.path[0];
 
         if (this.htmlEl.contains(target)) {
+
+          if (!this.toolbarEl.contains(target)) {
+            const type = target.tagName;
+
+            this.lastTarget = target;
+
+            if (this.options.elementOptions?.includes(type)) {
+              this.typeSelectEl.value = type;
+            }
+          }
+
           if (!this.toolbarRendered) {
             this.htmlEl.appendChild(this.toolbarEl);
             this.toolbarRendered = true;
@@ -91,6 +102,33 @@ export class InlineEditorDirective implements AfterViewInit {
 
     if (this.options.elementOptions?.length) {
       this.typeSelectEl = document.createElement('select');
+
+      this.renderer.listen(
+        this.typeSelectEl,
+        'change',
+        () => {
+          if (this.lastTarget) {
+
+            const currentTag = this.lastTarget.tagName.toLowerCase();
+            const newTag = this.typeSelectEl.value.toLowerCase();
+
+            this.lastTarget.outerHTML = this.lastTarget.outerHTML
+              .replace(new RegExp(`\<${currentTag}`), `<${newTag}`)
+              .replace(new RegExp(`${currentTag}/>`), `${newTag}/>`);
+
+            /**
+             * TODO:
+             * Because changing outerHTML detaches the element
+             * we reset lastTarget to null so that we don't
+             * get an error when trying to update the tagName
+             *
+             * This approach isn't ideal and we could probably
+             * replace the element in a different way.
+             */
+            this.lastTarget = null;
+          }
+        }
+      );
 
       for (const option of this.options.elementOptions) {
 
