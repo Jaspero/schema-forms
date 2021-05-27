@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
 import {UniqueId, uniqueId} from './utils/unique-id';
 
 export interface Toolbar {
   id: number;
   el: HTMLDivElement;
-  tagChanged$: Subject<string>;
   visible: boolean;
   elements: {
     typeSelect?: HTMLSelectElement;
-  }
+    boldBtn?: HTMLButtonElement;
+    italicBtn?: HTMLButtonElement;
+    underlineBtn?: HTMLButtonElement;
+  };
 }
 
 @Injectable()
@@ -34,10 +35,12 @@ export class ToolbarService {
     return document.getElementById('fb-pb-iframe') as HTMLIFrameElement;
   }
 
-  createToolbar(elementOptions?: string[]): Toolbar {
+  createToolbar(
+    elementOptions?: string[],
+    textDecorations?: string[]
+  ): Toolbar {
     const toolbar = document.createElement('div');
     const id = this.uniqueId.next();
-    const tagChanged$ = new Subject<string>();
 
     toolbar.style.position = 'absolute';
     toolbar.style.width = `${this.toolbarProps.width}px`;
@@ -50,12 +53,6 @@ export class ToolbarService {
 
     if (elementOptions?.length) {
       typeSelectEl = document.createElement('select');
-
-      typeSelectEl.addEventListener(
-        'change',
-        () =>
-          tagChanged$.next((typeSelectEl as HTMLSelectElement).value.toLowerCase())
-      )
 
       for (const option of elementOptions) {
 
@@ -112,9 +109,10 @@ export class ToolbarService {
       el: toolbar,
       id,
       visible: false,
-      tagChanged$,
       elements: {
-        ...typeSelectEl && {typeSelect: typeSelectEl}
+        ...typeSelectEl && {typeSelect: typeSelectEl},
+        boldBtn,
+        italicBtn
       }
     };
 
