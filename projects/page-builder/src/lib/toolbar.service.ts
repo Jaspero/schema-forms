@@ -70,6 +70,44 @@ export class ToolbarService {
       toolbar.appendChild(typeSelectEl);
     }
 
+    const boldBtn = document.createElement('button')
+    boldBtn.classList.add('button-pero');
+    boldBtn.textContent= 'B';
+    boldBtn.style.outline = 'none';
+    boldBtn.style.border = 'none';
+    boldBtn.style.height = '100%';
+    boldBtn.style.width = '50px';
+    boldBtn.style.fontSize = '30px';
+    boldBtn.style.fontWeight = '700';
+    boldBtn.addEventListener('mouseenter', () => {
+      boldBtn.style.backgroundColor = '';
+    } );
+    boldBtn.addEventListener('mouseleave', () => {
+      boldBtn.style.backgroundColor = 'white';
+    } );
+
+    toolbar.appendChild(boldBtn);
+
+    const italicBtn = document.createElement('button')
+
+    italicBtn.classList.add('button-italic');
+    italicBtn.textContent= 'I';
+    italicBtn.style.outline = 'none';
+    italicBtn.style.border = 'none';
+    italicBtn.style.height = '100%';
+    italicBtn.style.width = '50px';
+    italicBtn.style.fontStyle = 'italic';
+    italicBtn.style.fontSize = '30px';
+    italicBtn.style.fontWeight = '700';
+    italicBtn.addEventListener('mouseenter', () => {
+      italicBtn.style.backgroundColor = '';
+    } );
+    italicBtn.addEventListener('mouseleave', () => {
+      italicBtn.style.backgroundColor = 'white';
+    } );
+
+    toolbar.appendChild(italicBtn);
+
     this._toolbars[id] = {
       el: toolbar,
       id,
