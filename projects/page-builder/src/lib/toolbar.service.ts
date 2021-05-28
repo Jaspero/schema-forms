@@ -7,9 +7,9 @@ export interface Toolbar {
   visible: boolean;
   elements: {
     typeSelect?: HTMLSelectElement;
-    boldBtn?: HTMLButtonElement;
-    italicBtn?: HTMLButtonElement;
-    underlineBtn?: HTMLButtonElement;
+    b?: HTMLButtonElement;
+    i?: HTMLButtonElement;
+    u?: HTMLButtonElement;
   };
 }
 
@@ -41,6 +41,7 @@ export class ToolbarService {
   ): Toolbar {
     const toolbar = document.createElement('div');
     const id = this.uniqueId.next();
+    const elements: any = {};
 
     toolbar.style.position = 'absolute';
     toolbar.style.width = `${this.toolbarProps.width}px`;
@@ -49,10 +50,8 @@ export class ToolbarService {
     toolbar.style.border = '1px solid #333';
     toolbar.style.zIndex = '10000';
 
-    let typeSelectEl: HTMLSelectElement | null = null;
-
     if (elementOptions?.length) {
-      typeSelectEl = document.createElement('select');
+      const typeSelectEl = document.createElement('select');
 
       for (const option of elementOptions) {
 
@@ -65,55 +64,57 @@ export class ToolbarService {
       }
 
       toolbar.appendChild(typeSelectEl);
+
+      elements.typeSelect = typeSelectEl;
     }
 
-    const boldBtn = document.createElement('button')
-    boldBtn.classList.add('button-pero');
-    boldBtn.textContent= 'B';
-    boldBtn.style.outline = 'none';
-    boldBtn.style.border = 'none';
-    boldBtn.style.height = '100%';
-    boldBtn.style.width = '50px';
-    boldBtn.style.fontSize = '30px';
-    boldBtn.style.fontWeight = '700';
-    boldBtn.addEventListener('mouseenter', () => {
-      boldBtn.style.backgroundColor = '';
-    } );
-    boldBtn.addEventListener('mouseleave', () => {
-      boldBtn.style.backgroundColor = 'white';
-    } );
+    if (textDecorations?.length) {
+      const textDecorationMap = {
+        i: {
+          style: {
+            fontStyle: 'italic'
+          }
+        },
+        b: {
+          style: {
+            fontWeight: 'bold'
+          }
+        },
+        u: {
+          style: {
+            textDecoration: 'underline'
+          }
+        }
+      };
 
-    toolbar.appendChild(boldBtn);
+      textDecorations.forEach(decoration => {
+        const el = document.createElement('button');
 
-    const italicBtn = document.createElement('button')
+        el.textContent = decoration.toUpperCase();
+        el.style.border = 'none';
+        el.style.height = '100%';
+        el.style.width = '50px';
 
-    italicBtn.classList.add('button-italic');
-    italicBtn.textContent= 'I';
-    italicBtn.style.outline = 'none';
-    italicBtn.style.border = 'none';
-    italicBtn.style.height = '100%';
-    italicBtn.style.width = '50px';
-    italicBtn.style.fontStyle = 'italic';
-    italicBtn.style.fontSize = '30px';
-    italicBtn.style.fontWeight = '700';
-    italicBtn.addEventListener('mouseenter', () => {
-      italicBtn.style.backgroundColor = '';
-    } );
-    italicBtn.addEventListener('mouseleave', () => {
-      italicBtn.style.backgroundColor = 'white';
-    } );
+        for (const key in textDecorationMap[decoration].style) {
+          if (el.style.hasOwnProperty(key)) {
+            el.style[key] = textDecorationMap[decoration].style[key];
+          }
+        }
 
-    toolbar.appendChild(italicBtn);
+        el.addEventListener('mouseenter', () => el.style.backgroundColor = '');
+        el.addEventListener('mouseleave', () => el.style.backgroundColor = 'white');
+
+        toolbar.appendChild(el);
+
+        elements[decoration] = el;
+      })
+    }
 
     this._toolbars[id] = {
-      el: toolbar,
       id,
+      elements,
+      el: toolbar,
       visible: false,
-      elements: {
-        ...typeSelectEl && {typeSelect: typeSelectEl},
-        boldBtn,
-        italicBtn
-      }
     };
 
     return this._toolbars[id];

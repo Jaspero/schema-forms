@@ -5,6 +5,7 @@ interface Options {
   property: string;
   data: any;
   elementOptions?: string[];
+  textDecorations?: string[];
   multiline?: boolean;
 }
 
@@ -21,18 +22,14 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   entryOptions: Options;
 
   defaultOptions = {
-    elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P']
+    elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P'],
+    textDecorations: ['b', 'i', 'u']
   };
   lastTarget: HTMLElement | null;
   iframe: Window;
   options: Options;
   toolbar: Toolbar;
-
-  textDecorations = [
-    {key: 'bold', el: 'b'},
-    {key: 'italic', el: 'i'},
-    {key: 'underline', el: 'u'}
-  ];
+  decorations = [];
 
   get htmlEl() {
     return this.el.nativeElement;
@@ -44,7 +41,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       ...this.entryOptions
     };
 
-    this.toolbar = this.toolbarService.createToolbar(this.options.elementOptions);
+    this.toolbar = this.toolbarService.createToolbar(
+      this.options.elementOptions,
+      this.options.textDecorations
+    );
     this.iframe = (document.querySelector('#fb-pb-iframe') as HTMLIFrameElement).contentWindow as Window;
 
     if (this.toolbar.elements.typeSelect) {
@@ -62,24 +62,23 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               .replace(new RegExp(`${currentTag}/>`), `${newTag}/>`);
 
             /**
-             * TODO:
-             * Because changing outerHTML detaches the element
-             * we reset lastTarget to null so that we don't
-             * get an error when trying to update the tagName
-             *
-             * This approach isn't ideal and we could probably
-             * replace the element in a different way.
+             * Updating outerHTML detaches the element and
+             * creates a new one in its place
              */
-            this.lastTarget = null;
+            setTimeout(() => {
+              this.lastTarget = this.htmlEl.children[0];
+            })
           }
         }
       )
     }
 
-    this.textDecorations.forEach(({key, el}) => {
-      const toolbarEl = this.toolbar.elements[`${key}Btn`];
+    if (this.options.textDecorations) {
 
-      if (toolbarEl) {
+
+      this.options.textDecorations.forEach((el) => {
+        const toolbarEl = this.toolbar.elements[el];
+
         this.renderer.listen(
           toolbarEl,
           'click',
@@ -103,8 +102,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
             }
           }
         )
-      }
-    })
+      })
+    }
 
     this.renderer.setAttribute(
       this.htmlEl,
@@ -128,26 +127,22 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     this.renderer.listen(
       this.htmlEl,
       'click',
-      (e) => {
+      () => {
         if (this.toolbar.visible) {
           return;
-        }
-
-        const {target} = e;
-        const type = target.tagName;
-
-        this.lastTarget = target;
-
-        if (this.options.elementOptions?.includes(type)) {
-          // @ts-ignore
-          this.toolbar.elements.typeSelect.value = type;
         }
 
         const {top, left} = this.htmlEl.getBoundingClientRect();
 
         this.toolbarService.showToolbar(top, left, this.toolbar.id);
       }
-    )
+    );
+
+    this.lastTarget = this.htmlEl.children[0] as HTMLElement;
+
+    if (this.toolbar.elements.typeSelect) {
+      this.toolbar.elements.typeSelect.value = this.lastTarget.tagName;
+    }
   }
 
   ngOnDestroy() {

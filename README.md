@@ -259,6 +259,16 @@ This plugin registers a field `pb-blocks` for rendering a page builder module.
 
 This plugin doesn't have any additional dependencies.
 
+##### Inline Editor
+
+Using `InlineEditorModule` allows for editing blocks inline (not just in the sidebar on the left). There are 3 directives you can utilize.
+
+- `ImageIEDirective(fbPbImageIE)` - This directive is for editing image urls. It adds an edit icon and optionally other custom components.
+It strictly needs to be used on a block element that is the direct parent to an image element that has no siblings.
+- `SingleLineIEDirective(fbPbSingleLineIE)` - This directive is for editing a single element. It adds a toolbar that allows for element type changes,
+alignment and decoration. The directive needs to be placed on the parent element, and the target element should have no siblings.
+- `MultiLineIEDirective(fbPbMultiLineIE)` - This directive provides the same functionality as the single line directive but allows for multiline editing.
+
 #### Form UI
 
 This plugin registers a field `fu-fields` for rendering a form builder module.
