@@ -367,6 +367,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.originalOverflowY = this.document.body.style.overflowY;
     this.document.body.style.overflowY = 'hidden';
 
+    this.document.body.classList.add('page-builder-open');
+
     this.cdr.detectChanges();
 
     this.preview();
@@ -375,6 +377,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   close() {
 
     this.document.body.style.overflowY = this.originalOverflowY;
+    this.document.body.classList.remove('page-builder-open');
 
     /**
      * If we're in a single block edit

@@ -1,9 +1,19 @@
-h1 {
-  color: blue;
+:host {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
-  h1 {
-    color: red;
-  }
+.column {
+  width: 48%;
+}
+
+::ng-deep img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  :host {display: block;}
+  .column {width: 100%;}
 }

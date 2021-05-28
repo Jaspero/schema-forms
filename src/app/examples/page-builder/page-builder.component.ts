@@ -42,32 +42,21 @@ export class PageBuilderComponent implements OnInit {
                 label: 'Banner',
                 previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
                 previewValue: {
-                  content: `
+                  multiLine: `
                     <h1>A H1 Element</h1>
                     <h2>A H2 Element</h2>
                     <p>A P Element</p>
-                  `
+                  `,
+                  singleLine: '<h1>Single Line Example</h1>',
+                  image: 'http://placeimg.com/640/360/any'
                 },
-                previewStyle: `
-                  h1 {
-                    color: green;
-                  }
-                  @media only screen and (max-width: 600px) {
-                    h1 {
-                      color: red;
-                    }
-                  }
-                `,
                 form: {
                   segments: [],
                   schema: {
                     properties: {
-                      content: {type: 'string'},
-                    }
-                  },
-                  definitions: {
-                    content: {
-                      label: 'Content'
+                      multiLine: {type: 'string'},
+                      singleLine: {type: 'string'},
+                      image: {type: 'string'}
                     }
                   }
                 }

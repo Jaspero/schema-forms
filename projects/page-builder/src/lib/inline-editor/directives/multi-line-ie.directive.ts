@@ -1,14 +1,15 @@
 import {AfterViewInit, Directive, ElementRef, Input, OnDestroy, Optional, Renderer2} from '@angular/core';
-import {Toolbar, ToolbarService} from '../toolbar.service';
+import {Toolbar, ToolbarService} from '../../toolbar.service';
 
 interface Options {
   property: string;
   data: any;
   elementOptions?: string[];
+  multiline?: boolean;
 }
 
-@Directive({selector: '[fbPbInlineEditor]'})
-export class InlineEditorDirective implements AfterViewInit, OnDestroy {
+@Directive({selector: '[fbPbMultiLineIE]'})
+export class MultiLineIEDirective implements AfterViewInit, OnDestroy {
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
@@ -16,7 +17,7 @@ export class InlineEditorDirective implements AfterViewInit, OnDestroy {
     private toolbarService: ToolbarService
   ) { }
 
-  @Input('fbPbInlineEditor')
+  @Input('fbPbMultiLineIE')
   entryOptions: Options;
 
   defaultOptions = {

@@ -10,6 +10,8 @@ export class SimpleComponent {
 
   @Input()
   data: {
-    content: string;
+    multiLine: string;
+    singleLine: string;
+    image: string;
   };
 }
