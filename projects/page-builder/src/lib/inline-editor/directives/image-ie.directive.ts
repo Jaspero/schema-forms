@@ -1,6 +1,8 @@
 import {AfterViewInit, Directive, ElementRef, Input, Renderer2} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {filter} from 'rxjs/operators';
+import {domListener} from '../../utils/dom-listener';
 import {ImageDialogComponent} from '../components/image-dialog/image-dialog.component';
 
 interface Options {
@@ -10,6 +12,7 @@ interface Options {
   customElements?: string[];
 }
 
+@UntilDestroy()
 @Directive({selector: '[fbPbImageIE]'})
 export class ImageIEDirective implements AfterViewInit {
   constructor(
@@ -22,9 +25,8 @@ export class ImageIEDirective implements AfterViewInit {
   entryOptions: Partial<Options>;
   defaultOptions: Partial<Options> = {
     position: 'top-right'
-  }
+  };
 
-  iframe: Window;
   options: Options;
   toolbar: HTMLDivElement;
   triggerEl: HTMLButtonElement;
@@ -47,26 +49,39 @@ export class ImageIEDirective implements AfterViewInit {
       'relative'
     );
 
-    this.renderer.listen(
+    domListener(
+      this.renderer,
       this.htmlEl,
-      'mouseenter',
-      () => {
-        this.toolbar.style.opacity = '1';
-      }
+      'mouseenter'
     )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(() =>
+        this.toolbar.style.opacity = '1'
+      );
 
-    this.renderer.listen(
+    domListener(
+      this.renderer,
       this.htmlEl,
-      'mouseleave',
-      () => {
-        this.toolbar.style.opacity = '0';
-      }
-    );
+      'mouseleave'
+    )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(() =>
+        this.toolbar.style.opacity = '0'
+      );
 
-    this.renderer.listen(
+    domListener(
+      this.renderer,
       this.triggerEl,
-      'click',
-      () => {
+      'click'
+    )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(() => {
         this.dialog.open(
           ImageDialogComponent,
           {
@@ -82,8 +97,7 @@ export class ImageIEDirective implements AfterViewInit {
             this.options.data[this.options.property] = url;
             this.htmlEl.querySelector('img').src = url;
           })
-      }
-    )
+      });
   }
 
   private buildToolbar() {
@@ -133,7 +147,6 @@ export class ImageIEDirective implements AfterViewInit {
       })
     }
 
-    console.log(this.htmlEl);
     this.htmlEl.appendChild(this.toolbar);
   }
 }

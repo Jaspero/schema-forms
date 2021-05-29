@@ -58,6 +58,7 @@
     "@jaspero/ng-helpers": "4.3.1",
     "@monaco-editor/loader": "1.0.1",
     "@ngneat/transloco": "2.19.1",
+    "@ngneat/until-destroy": "^8.0.4",
     "json-pointer": "0.6.0",
     "monaco-editor": "^0.23.0",
     "rxjs": "6.6.3",

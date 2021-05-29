@@ -30,11 +30,6 @@ export class PageBuilderComponent implements OnInit {
           type: 'pb-blocks',
           configuration: {
             intro: `<b>Example</b> this is.`,
-            styles: `
-              h1 {
-                color: green;
-              }
-            `,
             styleUrls: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
             blocks: [
               {
@@ -47,7 +42,7 @@ export class PageBuilderComponent implements OnInit {
                     <h2>A H2 Element</h2>
                     <p>A P Element</p>
                   `,
-                  singleLine: '<h1>Single Line Example</h1>',
+                  singleLine: '<p>Single Line Example. This is <b>bold</b>, <u>underlined</u> and <i>italic</i>. <b>This is bold with a <u>underlined</u> part.</b></p>',
                   image: 'http://placeimg.com/640/360/any'
                 },
                 form: {

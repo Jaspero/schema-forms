@@ -10,6 +10,9 @@
   ],
   "license": "MIT",
   "homepage": "https://jaspero.co",
+  "dependencies": {
+    "@ngneat/until-destroy": "8.0.4"
+  },
   "peerDependencies": {
     "@jaspero/form-builder": "3.28.2"
   },

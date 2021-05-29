@@ -20,12 +20,8 @@ export class ToolbarService {
   }
 
   uniqueId: UniqueId;
-
-  _toolbars: {[key: string]: Toolbar} = {};
-  toolbarProps = {
-    width: 200,
-    height: 50
-  }
+  toolbars: {[key: string]: Toolbar} = {};
+  toolbarProps = {width: 200, height: 50};
 
   get parentEl() {
     return document.body;
@@ -110,30 +106,30 @@ export class ToolbarService {
       })
     }
 
-    this._toolbars[id] = {
+    this.toolbars[id] = {
       id,
       elements,
       el: toolbar,
       visible: false,
     };
 
-    return this._toolbars[id];
+    return this.toolbars[id];
   }
 
   clearToolbar(id: number) {
 
-    const toolbar = this._toolbars[id];
+    const toolbar = this.toolbars[id];
 
     if (toolbar.visible) {
       this.hideToolbar(id);
     }
 
-    delete this._toolbars[id];
+    delete this.toolbars[id];
   }
 
   showToolbar(top: number, left: number, id: number) {
 
-    const toolbar = this._toolbars[id];
+    const toolbar = this.toolbars[id];
 
     if (toolbar.visible) {
       return;
@@ -142,8 +138,8 @@ export class ToolbarService {
     /**
      * Clear any other open toolbars
      */
-    for (const key in this._toolbars) {
-      const tb = this._toolbars[key];
+    for (const key in this.toolbars) {
+      const tb = this.toolbars[key];
 
       if (tb.visible) {
         this.hideToolbar(tb.id);
@@ -164,7 +160,7 @@ export class ToolbarService {
 
   hideToolbar(id: number) {
 
-    const toolbar = this._toolbars[id];
+    const toolbar = this.toolbars[id];
 
     if (toolbar.visible) {
       this.parentEl.removeChild(toolbar.el);
