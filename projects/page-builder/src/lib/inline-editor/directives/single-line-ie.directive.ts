@@ -1,4 +1,13 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnDestroy, Optional, Renderer2} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  Optional,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
 import {domListener} from '../../utils/dom-listener';
@@ -8,11 +17,17 @@ interface Options {
   data: any;
   elementOptions?: string[];
   textDecorations?: string[];
+  textAligns?: string[];
   multiline?: boolean;
 }
 
 @UntilDestroy()
-@Directive({selector: '[fbPbSingleLineIE]'})
+@Component({
+  selector: '[fbPbSingleLineIE]',
+  template: '',
+  styleUrls: ['./toolbar.scss'],
+  encapsulation: ViewEncapsulation.None
+})
 export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   constructor(
     private el: ElementRef,
@@ -26,15 +41,22 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   defaultOptions = {
     elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P'],
-    textDecorations: ['b', 'i', 'u']
+    textDecorations: ['b', 'i', 'u'],
+    textAligns: ['left', 'center', 'right', 'justify']
   };
-  lastTarget: HTMLElement | null;
+  lastTarget: HTMLElement;
   iframe: Window;
   options: Options;
   toolbar: Toolbar;
-  decorations: string[] = [];
+  decorations: Array<{value: string; type: string}> = [];
+
   selectionChange = () => {
-    console.log(this.iframe.getSelection()?.toString());
+
+    if (!this.toolbar.visible) {
+      return;
+    }
+
+    this.triggerSelection();
   };
 
   get htmlEl() {
@@ -53,7 +75,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
     this.toolbar = this.toolbarService.createToolbar(
       this.options.elementOptions,
-      this.options.textDecorations
+      this.options.textDecorations,
+      this.options.textAligns
     );
 
     this.lastTarget = this.htmlEl.children[0] as HTMLElement;
@@ -111,16 +134,13 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
            */
           setTimeout(() => {
             this.lastTarget = this.htmlEl.children[0];
-          })
+          });
+
+          this.update();
         });
     }
 
     if (this.options.textDecorations) {
-
-      this.collectDecorations(this.lastTarget.innerHTML);
-
-      console.log(this.decorations);
-
       this.options.textDecorations.forEach((el) => {
         const toolbarEl = this.toolbar.elements[el];
 
@@ -133,20 +153,50 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
             untilDestroyed(this)
           )
           .subscribe(() => {
-            if (this.lastTarget) {
-              const selection = this.iframe.getSelection()?.toString() as string;
+            const selection = this.iframe.getSelection()?.toString() as string;
+            const value = selection || this.lastTarget.innerHTML;
 
-              if (toolbarEl.classList.contains('active')) {
-
-              } else {
-                if (selection) {
-                  this.lastTarget.innerHTML = this.lastTarget.innerHTML
-                    .replace(selection, `<${el}>${selection}</${el}>`)
-                } else {
-                }
-              }
-
+            if (toolbarEl.classList.contains('pb-t-active')) {
+              this.lastTarget.innerHTML = this.lastTarget.innerHTML
+                .replace(`<${el}>${value}</${el}>`, value)
+            } else {
+              this.lastTarget.innerHTML = this.lastTarget.innerHTML
+                .replace(value, `<${el}>${value}</${el}>`)
             }
+
+            this.update();
+          })
+      })
+    }
+
+    if (this.options.textAligns) {
+      this.options.textAligns.forEach(el => {
+        const toolbarEl = this.toolbar.elements[el];
+
+        domListener(
+          this.renderer,
+          toolbarEl,
+          'click'
+        )
+          .pipe(
+            untilDestroyed(this)
+          )
+          .subscribe(() => {
+            if (toolbarEl.classList.contains('pb-t-active')) {
+              this.lastTarget.removeAttribute('style');
+              toolbarEl.classList.remove('pb-t-active');
+            } else {
+              this.lastTarget.setAttribute('style', `text-align:${el}`);
+              toolbarEl.classList.add('pb-t-active');
+            }
+
+            this.options.textAligns?.forEach(el => {
+              if (this.toolbar.elements[el] !== toolbarEl) {
+                this.toolbar.elements[el].classList.remove('pb-t-active');
+              }
+            });
+
+            this.update();
           })
       })
     }
@@ -160,7 +210,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe(() =>
-        this.options.data[this.options.property] = this.htmlEl.innerHTML
+        this.update()
       );
 
     domListener(
@@ -176,6 +226,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
           return;
         }
 
+        this.triggerSelection();
+
         const {top, left} = this.htmlEl.getBoundingClientRect();
 
         this.toolbarService.showToolbar(top, left, this.toolbar.id);
@@ -190,30 +242,33 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     this.iFrameDoc.removeEventListener('selectionchange', this.selectionChange)
   }
 
-  collectDecorations(entry: string) {
-    console.log(entry);
-    const matcher = /(<b>|<i>|<u>|<\/b>|<\/i><\/u>)/g;
-    const matches = [
-      ...(entry.match(/(<b>)(.*?)(<\/b>)/g) || []),
-      ...(entry.match(/(<i>)(.*?)(<\/i>)/g) || []),
-      ...(entry.match(/(<u>)(.*?)(<\/u>)/g) || []),
-    ];
+  triggerSelection() {
+    const selection = this.iframe.getSelection()?.toString();
 
-    if (matches) {
-      matches.forEach(match => {
+    let decoration: string;
 
-        const value = match.slice(3, -4);
+    if (selection) {
 
-        if (matcher.test(value)) {
-          this.decorations.push(
-            value.replace(matcher, '')
-          );
-
-          this.collectDecorations(value);
-        } else {
-          this.decorations.push(value);
-        }
-      })
     }
+
+    /**
+     * If the content of element is same as the content of the first child
+     * of the element we know that the entire element is decorated
+     */
+    else if (this.lastTarget?.children[0] && (this.lastTarget?.children[0] as HTMLElement).innerText === this.lastTarget?.innerText) {
+      decoration = this.lastTarget.children[0].tagName.toLowerCase();
+    }
+
+    this.options.textDecorations?.forEach(dec => {
+      if (decoration === dec) {
+        this.toolbar.elements[dec].classList.add('pb-t-active');
+      } else if (this.toolbar.elements[dec].classList.contains('pb-t-active')) {
+        this.toolbar.elements[dec].classList.remove('pb-t-active');
+      }
+    })
+  }
+
+  update() {
+    this.options.data[this.options.property] = this.htmlEl.innerHTML;
   }
 }
