@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.0...@jaspero/fb-page-builder@2.16.1) (2021-05-30)
+
+
+### Bug Fixes
+
+* **page-builder:** missing translations ([e838381](https://github.com/Jaspero/schema-forms/commit/e83838153d23c0b778239098e996cbe9ae972ef0))
+
 # @jaspero/fb-page-builder [2.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.41...@jaspero/fb-page-builder@2.16.0) (2021-05-30)
 
 
