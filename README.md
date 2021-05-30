@@ -105,11 +105,11 @@ what component is used to represent the field in the form. The `Definitions` int
     }]
     ```
 
-### Handling Array
+### Handling arrays
 
 The form builder supports both arrays of primitives and object arrays.
 
-#### Object Arrays
+#### Object arrays
 
 The following is required to render an object array:
 
@@ -155,7 +155,7 @@ The following is required to render an object array:
     } 
     ```
 
-#### Primitive Arrays
+#### Primitive arrays
 
 Primitive arrays can be displayed in two variations as a dedicated segment or
 as a field. 
@@ -258,6 +258,16 @@ This plugin registers a field `pb-blocks` for rendering a page builder module.
 ##### Dependencies
 
 This plugin doesn't have any additional dependencies.
+
+##### Inline Editor
+
+Using `InlineEditorModule` allows for editing blocks inline (not just in the sidebar on the left). There are 3 directives you can utilize.
+
+- `ImageIEDirective(fbPbImageIE)` - This directive is for editing image urls. It adds an edit icon and optionally other custom components.
+It strictly needs to be used on a block element that is the direct parent to an image element that has no siblings.
+- `SingleLineIEDirective(fbPbSingleLineIE)` - This directive is for editing a single element. It adds a toolbar that allows for element type changes,
+alignment and decoration. The directive needs to be placed on the parent element, and the target element should have no siblings.
+- `MultiLineIEDirective(fbPbMultiLineIE)` - This directive provides the same functionality as the single line directive but allows for multiline editing.
 
 #### Form UI
 
@@ -388,6 +398,11 @@ This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor
    
 
 ## Development
+
+### Running locally
+
+1. Install dependencies `npm ci`
+2. Run the app with `npm start`
 
 ### Creating a plugin
 
