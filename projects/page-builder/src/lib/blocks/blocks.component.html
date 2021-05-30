@@ -28,7 +28,7 @@
       <!--inner-->
       <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
         <div class="pb-sidebar-inner-title">
-          <span>{{selected?.label}}</span>
+          <span>{{selected?.label | transloco}}</span>
           <button mat-icon-button (click)="closeBlock()">
             <mat-icon>close</mat-icon>
           </button>
