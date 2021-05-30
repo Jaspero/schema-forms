@@ -1,3 +1,25 @@
+# @jaspero/fb-page-builder [2.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.41...@jaspero/fb-page-builder@2.16.0) (2021-05-30)
+
+
+### Bug Fixes
+
+* **page-builder:** moved until-destroy to peerDependencies ([57600c5](https://github.com/Jaspero/schema-forms/commit/57600c5a2f95d3b27c185c180fc6983425950999))
+* **page-builder:** reference to multiline editor ([841a884](https://github.com/Jaspero/schema-forms/commit/841a884431096089dc8a4d874c58eca05d9d271e))
+
+
+### Features
+
+* **page-builder:** bold, italic and underlined working :tada: ([d56e96c](https://github.com/Jaspero/schema-forms/commit/d56e96ccd5fff1dac919a44f5f2b9746ef1c5577))
+* **page-builder:** connected align options for single-line editor ([a561663](https://github.com/Jaspero/schema-forms/commit/a5616630d2ae68b8351a80840727f0b4b79a933f))
+* **page-builder:** connected inline image editor ([829cb01](https://github.com/Jaspero/schema-forms/commit/829cb01472c2437e1a49c16cf5ad99fc50684e8f))
+* **page-builder:** connected single-line ([c0a51e2](https://github.com/Jaspero/schema-forms/commit/c0a51e2cb7660807b8234a7290c3390161b47a80))
+* **page-builder:** connected toolbar for inline editing ([706d1f6](https://github.com/Jaspero/schema-forms/commit/706d1f62ae894b5f9d08edcac38b8937d49efc3a))
+* **page-builder:** connecting decorator behaviour on single line ([090b5cd](https://github.com/Jaspero/schema-forms/commit/090b5cd2f64ca1b92a6b41ba62fd531cab8355b8))
+* working on selection change ([8c8a6c1](https://github.com/Jaspero/schema-forms/commit/8c8a6c147ba107848cd99b386fb295abea7be93d))
+* **page-builder:** editing tagName on elements inline ([2dfda0a](https://github.com/Jaspero/schema-forms/commit/2dfda0a0bc1c6d1b5bb981d289a06ef2efd67940))
+* **page-builder:** select block when clicking on it in the preview ([73696ad](https://github.com/Jaspero/schema-forms/commit/73696adb330befd35f3e60f86416db24ca1e03de))
+* **page-builder:** toolbar refactor :tada: ([2686f50](https://github.com/Jaspero/schema-forms/commit/2686f50678b647bcabd89ef9078d047d77cf9dba))
+
 ## @jaspero/fb-page-builder [2.15.41](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.40...@jaspero/fb-page-builder@2.15.41) (2021-05-20)
 
 
