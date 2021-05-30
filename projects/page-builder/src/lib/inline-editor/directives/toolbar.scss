@@ -9,6 +9,11 @@
     border-left: 1px solid #333;
   }
 
+  > select {
+    width: 40px;
+    border: none;
+  }
+
   &-button {
     border: none;
     height: 100%;

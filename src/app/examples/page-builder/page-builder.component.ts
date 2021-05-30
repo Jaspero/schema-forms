@@ -37,11 +37,6 @@ export class PageBuilderComponent implements OnInit {
                 label: 'Banner',
                 previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
                 previewValue: {
-                  multiLine: `
-                    <h1>A H1 Element</h1>
-                    <h2>A H2 Element</h2>
-                    <p>A P Element</p>
-                  `,
                   singleLine: '<p>Single Line Example. This is <b>bold</b>, <u>underlined</u> and <i>italic</i>. <b>This is bold with a <u>underlined</u> part.</b></p>',
                   image: 'http://placeimg.com/640/360/any'
                 },
@@ -49,7 +44,6 @@ export class PageBuilderComponent implements OnInit {
                   segments: [],
                   schema: {
                     properties: {
-                      multiLine: {type: 'string'},
                       singleLine: {type: 'string'},
                       image: {type: 'string'}
                     }

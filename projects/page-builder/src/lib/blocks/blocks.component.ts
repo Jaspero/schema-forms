@@ -346,14 +346,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   closeBlock() {
-    this.toProcess[(this.selected as Selected).id] = {
-      save: this.blockComponent.formBuilderComponent
-        .save
-        .bind(
-          this.blockComponent.formBuilderComponent
-        ),
-      components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
-    };
+    if (this.blockComponent) {
+      this.toProcess[(this.selected as Selected).id] = {
+        save: this.blockComponent.formBuilderComponent
+          .save
+          .bind(
+            this.blockComponent.formBuilderComponent
+          ),
+        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+      };
+    }
+
     this.removeFocus(this.selectedIndex);
     this.selected = null;
     // @ts-ignore
@@ -382,7 +385,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     /**
      * If we're in a single block edit
      */
-    if (this.selected) {
+    if (this.selected && this.blockComponent) {
       this.toProcess[this.selected.id] = {
         save: this.blockComponent.formBuilderComponent
           .save

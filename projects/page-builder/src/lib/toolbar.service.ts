@@ -24,8 +24,19 @@ export class ToolbarService {
   }
 
   uniqueId: UniqueId;
-  toolbars: {[key: string]: Toolbar} = {};
+  toolbars: {[key: number]: Toolbar} = {};
   toolbarProps = {height: 40};
+
+  private toolbarListener: any;
+  private toggleToolbars = (e) => {
+    for (const key in this.toolbars) {
+      if (this.toolbars[key].el.contains(e.target)) {
+        return;
+      }
+
+      this.hideToolbar(key as any);
+    }
+  };
 
   get parentEl() {
     return document.body;
@@ -152,6 +163,10 @@ export class ToolbarService {
       visible: false,
     };
 
+    if (!this.toolbarListener) {
+      this.toolbarListener = document.addEventListener('click', this.toggleToolbars)
+    }
+
     return this.toolbars[id];
   }
 
@@ -164,6 +179,11 @@ export class ToolbarService {
     }
 
     delete this.toolbars[id];
+
+    if (!Object.keys(this.toolbars).length && this.toolbarListener) {
+      removeEventListener('click', this.toggleToolbars);
+      this.toolbarListener = null;
+    }
   }
 
   showToolbar(top: number, left: number, id: number) {
