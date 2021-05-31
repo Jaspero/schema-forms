@@ -113,7 +113,7 @@ export class DateFieldComponent extends FieldComponent<DateData>
               date = date.getTime();
             } else {
               date = formatDate(
-                value,
+                date,
                 this.cData.format,
                 navigator.language || 'en'
               );
