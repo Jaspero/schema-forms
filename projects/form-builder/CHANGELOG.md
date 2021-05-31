@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.3...@jaspero/form-builder@3.28.4) (2021-05-31)
+
+
+### Bug Fixes
+
+* **form-builder:** formatting date when value is undefined and format isn't a number ([cf2704c](https://github.com/Jaspero/schema-forms/commit/cf2704c11ddffa464df3d4da8bee1a75baca7469))
+
 ## @jaspero/form-builder [3.28.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.2...@jaspero/form-builder@3.28.3) (2021-05-20)
 
 
