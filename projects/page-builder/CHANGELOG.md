@@ -1,3 +1,11 @@
+# @jaspero/fb-page-builder [2.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.3...@jaspero/fb-page-builder@2.17.0) (2021-06-01)
+
+
+### Features
+
+* **page-builder:** adding br instead of new element :construction: ([89aec9e](https://github.com/Jaspero/schema-forms/commit/89aec9eca4bd15a4f4fd9cbaff48aad15ec4f9cd))
+* **page-builder:** inserting br closes [#48](https://github.com/Jaspero/schema-forms/issues/48) ([50f53fa](https://github.com/Jaspero/schema-forms/commit/50f53fa75f3ce0cfaa23c3296b6ad204d2260b80))
+
 ## @jaspero/fb-page-builder [2.16.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.2...@jaspero/fb-page-builder@2.16.3) (2021-06-01)
 
 
