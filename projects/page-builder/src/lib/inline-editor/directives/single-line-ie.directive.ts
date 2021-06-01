@@ -98,6 +98,25 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       'relative'
     );
 
+    domListener(
+      this.renderer,
+      this.htmlEl,
+      'keydown'
+    )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe((e: KeyboardEvent) => {
+
+        /**
+         * Prevent creating new elements and adding br instead
+         */
+        if (e.key === 'Enter') {
+          document.execCommand('insertLineBreak');
+          return false;
+        }
+      });
+
     if (this.toolbar.elements.typeSelect) {
       domListener(
         this.renderer,
@@ -107,7 +126,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         .pipe(
           untilDestroyed(this)
         )
-        .subscribe((e) => {
+        .subscribe(() => {
 
           if (!this.lastTarget) {
             return;
