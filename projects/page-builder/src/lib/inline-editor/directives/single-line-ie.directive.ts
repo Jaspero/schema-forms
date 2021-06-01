@@ -80,7 +80,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.options.textAligns
     );
 
-    this.lastTarget = this.htmlEl.children[0] as HTMLElement;
+    this.assignLastTarget();
 
     if (this.toolbar.elements.typeSelect) {
       this.toolbar.elements.typeSelect.value = this.lastTarget.tagName;
@@ -112,8 +112,17 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
          * Prevent creating new elements and adding br instead
          */
         if (e.key === 'Enter') {
-          document.execCommand('insertLineBreak');
-          return false;
+
+          const selection = (this.shadowRoot.getSelection() as Selection);
+          const range = selection.getRangeAt(0);
+          const br = document.createElement('br');
+
+          range.insertNode(br);
+          range.setStartAfter(br);
+          selection.removeAllRanges();
+          selection.addRange(range);
+
+          e.preventDefault();
         }
       });
 
@@ -144,7 +153,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
            * creates a new one in its place
            */
           setTimeout(() => {
-            this.lastTarget = this.htmlEl.children[0];
+            this.assignLastTarget();
           });
 
           this.update();
@@ -177,7 +186,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
           .pipe(
             untilDestroyed(this)
           )
-          .subscribe(e =>
+          .subscribe((e: MouseEvent) =>
             e.preventDefault()
           );
 
@@ -223,7 +232,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
           .pipe(
             untilDestroyed(this)
           )
-          .subscribe(e =>
+          .subscribe((e: MouseEvent) =>
             e.preventDefault()
           );
 
@@ -247,9 +256,9 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               classList.add(this.activeCls);
             }
 
-            this.options.textAligns?.forEach(el => {
-              if (this.toolbar.elements[el] !== toolbarEl) {
-                this.toolbar.elements[el].classList.remove(this.activeCls);
+            this.options.textAligns?.forEach(key => {
+              if (this.toolbar.elements[key] !== toolbarEl) {
+                this.toolbar.elements[key].classList.remove(this.activeCls);
               }
             });
 
@@ -333,5 +342,9 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   update() {
     this.options.data[this.options.property] = this.htmlEl.innerHTML;
+  }
+
+  private assignLastTarget() {
+    this.lastTarget = this.htmlEl.children[0] as HTMLElement;
   }
 }
