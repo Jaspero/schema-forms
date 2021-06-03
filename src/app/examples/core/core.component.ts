@@ -422,6 +422,17 @@ export class CoreComponent implements OnInit, AfterViewInit {
         {
           city: 'osijek'
         }
+      ],
+      nAddresses: [
+        {
+          city: 'Example',
+          nnAddresses: [
+            {
+              address: "One",
+              some: "Two"
+            }
+          ]
+        }
       ]
     },
     schema: {
@@ -468,12 +479,8 @@ export class CoreComponent implements OnInit, AfterViewInit {
                 items: {
                   type: 'object',
                   properties: {
-                    address: {
-                      type: 'string'
-                    },
-                    some: {
-                      type: 'string'
-                    }
+                    address: {type: 'string'},
+                    some: {type: 'string'}
                   }
                 }
               }
@@ -483,26 +490,6 @@ export class CoreComponent implements OnInit, AfterViewInit {
       }
     },
     segments: [
-      {
-        title: 'Strings',
-        array: '/zips'
-      },
-      {
-        title: 'Numbers',
-        array: '/ages'
-      },
-      {
-        title: 'As chips',
-        fields: [
-          '/chips'
-        ]
-      },
-      {
-        title: 'Objects',
-        fields: [
-          '/addresses'
-        ]
-      },
       {
         title: 'Nested Arrays',
         array: '/nAddresses',

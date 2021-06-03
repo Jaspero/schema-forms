@@ -49,6 +49,8 @@ export class SegmentComponent<T = any> implements OnInit {
     this.id = this.sData.segment.id || '';
     this.components = this.segment.customComponents || [];
 
+    console.log('data', this.sData);
+
     /**
      * Each segment compiles all nested segments
      */
@@ -159,7 +161,7 @@ export class SegmentComponent<T = any> implements OnInit {
     );
 
     this.nestedArraySegments.unshift(
-      this.nestedSegments = filterAndCompileSegments(
+      filterAndCompileSegments(
         this.sData.segment.nestedSegments || [],
         this.sData.parser,
         this.sData.definitions,
