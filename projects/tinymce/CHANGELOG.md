@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [1.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.22...@jaspero/fb-tinymce@1.8.0) (2021-06-03)
+
+
+### Features
+
+* **tinymce:** added emoticons ([73ab516](https://github.com/Jaspero/schema-forms/commit/73ab51621a7a041ee6e885526091f45f2d7e1c50))
+
 ## @jaspero/fb-tinymce [1.7.22](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.7.21...@jaspero/fb-tinymce@1.7.22) (2021-05-31)
 
 
