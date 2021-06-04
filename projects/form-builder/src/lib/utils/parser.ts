@@ -434,7 +434,9 @@ export class Parser {
       pointer: string
     }
   ) {
-    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
+    const pointers = parentArray ?
+      (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
+      this.pointers;
     const target = pointers[pointer];
     const control = pointers[pointer].control as FormArray;
 
@@ -473,7 +475,9 @@ export class Parser {
       pointer: string
     }
   ) {
-    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
+    const pointers = parentArray ?
+      (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
+      this.pointers;
     const target = pointers[pointer];
     const control = pointers[pointer].control as FormArray;
 

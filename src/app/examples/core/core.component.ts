@@ -433,7 +433,14 @@ export class CoreComponent implements OnInit, AfterViewInit {
             {address: 'Example Two Nested One', some: 'Example Two Nested One'},
             {address: 'Example Two Nested Two', some: 'Example Two Nested Two'}
           ]
-        }
+        },
+        {
+          city: 'Example Three',
+          nnAddresses: [
+            {address: 'Example Three Nested One', some: 'Example Three Nested One'},
+            {address: 'Example Three Nested Two', some: 'Example Three Nested Two'}
+          ]
+        },
       ]
     },
     schema: {

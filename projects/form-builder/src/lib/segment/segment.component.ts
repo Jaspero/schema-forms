@@ -9,7 +9,7 @@ import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
-import {Parser, Pointers} from '../utils/parser';
+import {Parser, Pointer, Pointers} from '../utils/parser';
 import {safeEval} from '../utils/safe-eval';
 
 export interface SegmentData {
@@ -32,6 +32,7 @@ export class SegmentComponent<T = any> implements OnInit {
 
   segment: CompiledSegment<T>;
   pointers: Pointers;
+  pointer: Pointer;
   nestedSegments: CompiledSegment<T>[];
   nestedArraySegments: Array<CompiledSegment[]> = [];
   arrayFields: Array<CompiledField[]> = [];
@@ -43,12 +44,30 @@ export class SegmentComponent<T = any> implements OnInit {
   @HostBinding('id')
   id: string;
 
+  get parentIndex() {
+    if (!this.sData.parent) {
+      return 0;
+    }
+
+    console.log({
+      entryIndex: this.sData.index,
+      pointers: (this.pointers[this.sData.parent] as any).arrayPointers,
+      pointer: this.pointer,
+      index: (this.pointers[this.sData.parent] as any).arrayPointers.indexOf(this.pointer)
+    })
+
+    return (this.pointers[this.sData.parent] as any).arrayPointers.indexOf(this.pointer);
+  }
+
   ngOnInit() {
     this.segment = this.sData.segment;
     this.classes = this.sData.segment.classes.join(' ');
     this.pointers = this.sData.parser.pointers;
     this.id = this.sData.segment.id || '';
     this.components = this.segment.customComponents || [];
+    this.pointer = this.sData.parent ?
+      (this.pointers[this.sData.parent] as any).arrayPointers[this.sData.index as number] :
+      this.pointers as any
 
     /**
      * Each segment compiles all nested segments
@@ -79,9 +98,7 @@ export class SegmentComponent<T = any> implements OnInit {
       if (values) {
         values.forEach((v, i) => this.addArrayItem(false, false, i));
 
-        const pointer = this.sData.parent ?
-          (this.pointers[this.sData.parent] as any).arrayPointers[this.sData.index as number][array] :
-          this.pointers[array] as any;
+        const pointer = this.pointer[array] as any;
 
           (pointer.control as FormControl).patchValue(
             values
@@ -175,9 +192,9 @@ export class SegmentComponent<T = any> implements OnInit {
         this.sData.parser,
         this.sData.definitions,
         this.injector,
-        this.segment.entryValue,
+        index ? this.segment.entryValue : undefined,
         this.segment.array,
-        index
+        index || (reverse ? 0 : this.nestedArraySegments.length)
       )
     );
   }
@@ -209,7 +226,7 @@ export class SegmentComponent<T = any> implements OnInit {
       toIndex,
       this.sData.parent ? {
         pointer: this.sData.parent,
-        index: 0
+        index: this.parentIndex
       } : undefined
     );
   }
@@ -220,7 +237,7 @@ export class SegmentComponent<T = any> implements OnInit {
       index,
       this.sData.parent ? {
         pointer: this.sData.parent,
-        index: 0
+        index: this.parentIndex
       } : undefined
     );
     this.nestedArraySegments.splice(index, 1);
