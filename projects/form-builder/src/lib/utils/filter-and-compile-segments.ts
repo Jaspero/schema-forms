@@ -11,7 +11,8 @@ export function filterAndCompileSegments(
   definitions: Definitions,
   injector: Injector,
   value: any,
-  parent?: string
+  parent?: string,
+  index?: number
 ) {
   return segments.reduce((acc, cur) => {
     if (!cur.authorization || cur.authorization.includes(parser.role)) {
@@ -22,7 +23,8 @@ export function filterAndCompileSegments(
         definitions,
         injector,
         value,
-        parent
+        parent,
+        index
       );
 
       /**

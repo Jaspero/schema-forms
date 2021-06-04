@@ -418,19 +418,20 @@ export class CoreComponent implements OnInit, AfterViewInit {
 
   arrayExamples = {
     value: {
-      addresses: [
-        {
-          city: 'osijek'
-        }
-      ],
+      addresses: [{city: 'osijek'}],
       nAddresses: [
         {
-          city: 'Example',
+          city: 'Example One',
           nnAddresses: [
-            {
-              address: "One",
-              some: "Two"
-            }
+            {address: 'Example One Nested One', some: 'Example One Nested One'},
+            {address: 'Example One Nested Two', some: 'Example One Nested Two'}
+          ]
+        },
+        {
+          city: 'Example Two',
+          nnAddresses: [
+            {address: 'Example Two Nested One', some: 'Example Two Nested One'},
+            {address: 'Example Two Nested Two', some: 'Example Two Nested Two'}
           ]
         }
       ]
@@ -449,9 +450,7 @@ export class CoreComponent implements OnInit, AfterViewInit {
             type: 'number'
           }
         },
-        chips: {
-          type: 'array'
-        },
+        chips: {type: 'array'},
         addresses: {
           type: 'array',
           items: {
@@ -497,7 +496,6 @@ export class CoreComponent implements OnInit, AfterViewInit {
           '/city'
         ],
         nestedSegments: [{
-          type: 'empty',
           title: 'Addresses',
           array: '/nnAddresses',
           fields: [
