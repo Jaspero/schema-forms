@@ -580,22 +580,7 @@ export class Parser {
    * - Handle items or contains as array not object
    */
   private buildArray(base: string, definition: ArrayPropertyDefinition) {
-    if (!definition.items) {
-      return {
-        control: new FormControl([]),
-        ...(definition.items
-          ? {
-              arrayType: definition.items.type,
-              properties: definition.items.properties,
-              required: definition.items.required,
-              validation: {}
-            }
-          : {
-              arrayType: SchemaType.String,
-              validation: {}
-            })
-      };
-    } else {
+    if (definition.items) {
       return {
         arrayType: definition.items.type,
         properties: definition.items.properties,
@@ -603,6 +588,12 @@ export class Parser {
         validation: {},
         control: new FormArray([]),
         arrayPointers: []
+      };
+    } else {
+      return {
+        control: new FormControl([]),
+        arrayType: SchemaType.String,
+        validation: {}
       };
     }
   }

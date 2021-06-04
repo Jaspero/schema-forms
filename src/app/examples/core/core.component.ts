@@ -418,9 +418,21 @@ export class CoreComponent implements OnInit, AfterViewInit {
 
   arrayExamples = {
     value: {
-      addresses: [
+      addresses: [{city: 'osijek'}],
+      nAddresses: [
         {
-          city: 'osijek'
+          city: 'Example One',
+          nnAddresses: [
+            {address: 'Example One Nested One', some: 'Example One Nested One'},
+            {address: 'Example One Nested Two', some: 'Example One Nested Two'}
+          ]
+        },
+        {
+          city: 'Example Two',
+          nnAddresses: [
+            {address: 'Example Two Nested One', some: 'Example Two Nested One'},
+            {address: 'Example Two Nested Two', some: 'Example Two Nested Two'}
+          ]
         }
       ]
     },
@@ -438,9 +450,7 @@ export class CoreComponent implements OnInit, AfterViewInit {
             type: 'number'
           }
         },
-        chips: {
-          type: 'array'
-        },
+        chips: {type: 'array'},
         addresses: {
           type: 'array',
           items: {
@@ -468,12 +478,8 @@ export class CoreComponent implements OnInit, AfterViewInit {
                 items: {
                   type: 'object',
                   properties: {
-                    address: {
-                      type: 'string'
-                    },
-                    some: {
-                      type: 'string'
-                    }
+                    address: {type: 'string'},
+                    some: {type: 'string'}
                   }
                 }
               }
@@ -484,33 +490,12 @@ export class CoreComponent implements OnInit, AfterViewInit {
     },
     segments: [
       {
-        title: 'Strings',
-        array: '/zips'
-      },
-      {
-        title: 'Numbers',
-        array: '/ages'
-      },
-      {
-        title: 'As chips',
-        fields: [
-          '/chips'
-        ]
-      },
-      {
-        title: 'Objects',
-        fields: [
-          '/addresses'
-        ]
-      },
-      {
         title: 'Nested Arrays',
         array: '/nAddresses',
         fields: [
           '/city'
         ],
         nestedSegments: [{
-          type: 'empty',
           title: 'Addresses',
           array: '/nnAddresses',
           fields: [
