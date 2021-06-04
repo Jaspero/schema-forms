@@ -1,3 +1,11 @@
+## @jaspero/form-builder [3.28.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.4...@jaspero/form-builder@3.28.5) (2021-06-04)
+
+
+### Bug Fixes
+
+* **form-builder:** populate nested arrays with initial values closes [#50](https://github.com/Jaspero/schema-forms/issues/50) ([03e2fc4](https://github.com/Jaspero/schema-forms/commit/03e2fc43a76929ac228a51f81e67b33710745484))
+* working on nested arrays bug :construction: [#50](https://github.com/Jaspero/schema-forms/issues/50) ([e2cec3f](https://github.com/Jaspero/schema-forms/commit/e2cec3f8486af0c056704f439267c570e07f76ee))
+
 ## @jaspero/form-builder [3.28.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.3...@jaspero/form-builder@3.28.4) (2021-05-31)
 
 
