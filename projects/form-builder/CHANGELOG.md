@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.5...@jaspero/form-builder@3.28.6) (2021-06-04)
+
+
+### Bug Fixes
+
+* **form-builder:** index in nested array ([9a0cea6](https://github.com/Jaspero/schema-forms/commit/9a0cea6c8448dbb4216857e1c23ba32175d0814e))
+
 ## @jaspero/form-builder [3.28.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.4...@jaspero/form-builder@3.28.5) (2021-06-04)
 
 
