@@ -49,13 +49,6 @@ export class SegmentComponent<T = any> implements OnInit {
       return 0;
     }
 
-    console.log({
-      entryIndex: this.sData.index,
-      pointers: (this.pointers[this.sData.parent] as any).arrayPointers,
-      pointer: this.pointer,
-      index: (this.pointers[this.sData.parent] as any).arrayPointers.indexOf(this.pointer)
-    })
-
     return (this.pointers[this.sData.parent] as any).arrayPointers.indexOf(this.pointer);
   }
 
@@ -67,7 +60,7 @@ export class SegmentComponent<T = any> implements OnInit {
     this.components = this.segment.customComponents || [];
     this.pointer = this.sData.parent ?
       (this.pointers[this.sData.parent] as any).arrayPointers[this.sData.index as number] :
-      this.pointers as any
+      this.pointers as any;
 
     /**
      * Each segment compiles all nested segments
@@ -192,7 +185,7 @@ export class SegmentComponent<T = any> implements OnInit {
         this.sData.parser,
         this.sData.definitions,
         this.injector,
-        index ? this.segment.entryValue : undefined,
+        index !== undefined ? this.segment.entryValue : undefined,
         this.segment.array,
         index || (reverse ? 0 : this.nestedArraySegments.length)
       )

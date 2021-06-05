@@ -54,7 +54,7 @@
     "@angular/router": "11.0.0",
     "@jaspero/fb-page-builder": "2.15.41",
     "@jaspero/fb-tinymce": "1.7.21",
-    "@jaspero/form-builder": "3.28.3",
+    "@jaspero/form-builder": "3.28.6",
     "@jaspero/ng-helpers": "4.3.1",
     "@monaco-editor/loader": "1.0.1",
     "@ngneat/transloco": "2.19.1",
