@@ -35,6 +35,7 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/print';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/wordcount';
+import 'tinymce/plugins/emoticons';
 
 declare const tinymce: any;
 
@@ -123,7 +124,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
         'image',
         'imagetools',
         'fullscreen',
-        'table'
+        'table',
+        'emoticons'
       ],
       menubar: this.cData.menubar || 'edit insert view format table tools help',
       image_advtab: true,
@@ -141,9 +143,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
         'forecolor backcolor',
         'alignleft aligncenter alignright alignjustify',
         'bullist numlist outdent indent',
-        'link',
-        'image',
-        'youTube',
+        'link emoticons',
+        'image youTube',
         'fullscreen',
       ].join(' | '),
 

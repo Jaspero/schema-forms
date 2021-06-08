@@ -11,7 +11,8 @@
   "license": "MIT",
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "3.28.3"
+    "@jaspero/form-builder": "3.28.7",
+    "@ngneat/until-destroy": "8.0.4"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-page-builder",

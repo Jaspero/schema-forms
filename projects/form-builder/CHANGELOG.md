@@ -1,3 +1,32 @@
+## @jaspero/form-builder [3.28.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.6...@jaspero/form-builder@3.28.7) (2021-06-05)
+
+
+### Bug Fixes
+
+* **form-builder:** populating first item in nested arrays ([6f89ead](https://github.com/Jaspero/schema-forms/commit/6f89ead26e6c87815c23753021d4016beada09c1))
+
+## @jaspero/form-builder [3.28.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.5...@jaspero/form-builder@3.28.6) (2021-06-04)
+
+
+### Bug Fixes
+
+* **form-builder:** index in nested array ([9a0cea6](https://github.com/Jaspero/schema-forms/commit/9a0cea6c8448dbb4216857e1c23ba32175d0814e))
+
+## @jaspero/form-builder [3.28.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.4...@jaspero/form-builder@3.28.5) (2021-06-04)
+
+
+### Bug Fixes
+
+* **form-builder:** populate nested arrays with initial values closes [#50](https://github.com/Jaspero/schema-forms/issues/50) ([03e2fc4](https://github.com/Jaspero/schema-forms/commit/03e2fc43a76929ac228a51f81e67b33710745484))
+* working on nested arrays bug :construction: [#50](https://github.com/Jaspero/schema-forms/issues/50) ([e2cec3f](https://github.com/Jaspero/schema-forms/commit/e2cec3f8486af0c056704f439267c570e07f76ee))
+
+## @jaspero/form-builder [3.28.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.3...@jaspero/form-builder@3.28.4) (2021-05-31)
+
+
+### Bug Fixes
+
+* **form-builder:** formatting date when value is undefined and format isn't a number ([cf2704c](https://github.com/Jaspero/schema-forms/commit/cf2704c11ddffa464df3d4da8bee1a75baca7469))
+
 ## @jaspero/form-builder [3.28.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.2...@jaspero/form-builder@3.28.3) (2021-05-20)
 
 

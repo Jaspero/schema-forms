@@ -77,7 +77,8 @@
               "tinymce/plugins/code",
               "tinymce/plugins/autolink",
               "tinymce/plugins/advlist"
-            ]
+            ],
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {

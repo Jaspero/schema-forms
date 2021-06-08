@@ -11,7 +11,7 @@ import {
   NgModule,
   OnDestroy,
   OnInit,
-  Optional,
+  Optional, Renderer2,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
@@ -89,6 +89,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private domSanitizer: DomSanitizer,
     @Inject(DOCUMENT)
     private document: any,
+    private renderer: Renderer2
   ) {
     super(cData);
   }
@@ -233,6 +234,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     } else {
       this.selectBlock(topBlock, this.blocks.length - 1);
     }
+
+    const index = this.compRefs.length - 1;
+
+    this.bindSelect(this.compRefs[index], topBlock, index);
   }
 
   closeAdd() {
@@ -341,14 +346,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   closeBlock() {
-    this.toProcess[(this.selected as Selected).id] = {
-      save: this.blockComponent.formBuilderComponent
-        .save
-        .bind(
-          this.blockComponent.formBuilderComponent
-        ),
-      components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
-    };
+    if (this.blockComponent) {
+      this.toProcess[(this.selected as Selected).id] = {
+        save: this.blockComponent.formBuilderComponent
+          .save
+          .bind(
+            this.blockComponent.formBuilderComponent
+          ),
+        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+      };
+    }
+
     this.removeFocus(this.selectedIndex);
     this.selected = null;
     // @ts-ignore
@@ -362,6 +370,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.originalOverflowY = this.document.body.style.overflowY;
     this.document.body.style.overflowY = 'hidden';
 
+    this.document.body.classList.add('page-builder-open');
+
     this.cdr.detectChanges();
 
     this.preview();
@@ -370,11 +380,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   close() {
 
     this.document.body.style.overflowY = this.originalOverflowY;
+    this.document.body.classList.remove('page-builder-open');
 
     /**
      * If we're in a single block edit
      */
-    if (this.selected) {
+    if (this.selected && this.blockComponent) {
       this.toProcess[this.selected.id] = {
         save: this.blockComponent.formBuilderComponent
           .save
@@ -396,9 +407,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
-        this.compRefs = factories.componentFactories.map((f, index) =>
-          this.renderComponent(f, this.blocks[index].value)
-        );
+        this.compRefs = factories.componentFactories.map((f, index) => {
+          const ref = this.renderComponent(f, this.blocks[index].value);
+          this.bindSelect(ref, this.blocks[index], index);
+          return ref;
+        });
         this.cdr.markForCheck();
       });
   }
@@ -487,5 +500,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     return cmpRef;
+  }
+
+  private bindSelect(ref: ComponentRef<any>, block: TopBlock, index: number) {
+    this.renderer.listen(
+      ref.location.nativeElement,
+      'click',
+      () => {
+
+        if (this.selectedIndex !== undefined) {
+
+          /**
+           * Prevent clicking on the same elemnt from impacting anything
+           */
+          if (this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement) {
+            return;
+          }
+
+          this.closeBlock();
+        }
+
+        setTimeout(() =>
+          this.selectBlock(block, index)
+        )
+      }
+    );
   }
 }

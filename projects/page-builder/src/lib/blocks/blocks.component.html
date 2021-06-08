@@ -11,7 +11,7 @@
           <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y">
             <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>
             <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>
-            <span class="pb-sidebar-list-item-label">{{block.label}}</span>
+            <span class="pb-sidebar-list-item-label">{{block.label | transloco}}</span>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
@@ -28,7 +28,7 @@
       <!--inner-->
       <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
         <div class="pb-sidebar-inner-title">
-          <span>{{selected?.label}}</span>
+          <span>{{selected?.label | transloco}}</span>
           <button mat-icon-button (click)="closeBlock()">
             <mat-icon>close</mat-icon>
           </button>
@@ -80,7 +80,7 @@
     <main class="pb-preview" [class.fullscreen]="isFullscreen">
       <div class="pb-preview-inner" [ngClass]="view">
         <ng-container #ipe></ng-container>
-        <iframe #iframe></iframe>
+        <iframe id="fb-pb-iframe" #iframe></iframe>
       </div>
     </main>
   </ng-container>

@@ -21,7 +21,8 @@ export function compileSegment(
   definitions: Definitions,
   injector: Injector,
   entryValue: any,
-  parent = ''
+  parent = '',
+  index?: number
 ) {
   const classes: string[] = [];
 
@@ -227,7 +228,8 @@ export function compileSegment(
         segment: compiledSegment,
         parser,
         definitions,
-        ...parent && {parent}
+        ...parent && {parent},
+        ...index !== undefined && {index}
       })
     ),
     ...compiledSegment

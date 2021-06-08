@@ -1,3 +1,87 @@
+## @jaspero/fb-page-builder [2.17.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.2...@jaspero/fb-page-builder@2.17.3) (2021-06-05)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.28.7
+
+## @jaspero/fb-page-builder [2.17.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.1...@jaspero/fb-page-builder@2.17.2) (2021-06-04)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.28.6
+
+## @jaspero/fb-page-builder [2.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.0...@jaspero/fb-page-builder@2.17.1) (2021-06-04)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.28.5
+
+# @jaspero/fb-page-builder [2.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.3...@jaspero/fb-page-builder@2.17.0) (2021-06-01)
+
+
+### Features
+
+* **page-builder:** adding br instead of new element :construction: ([89aec9e](https://github.com/Jaspero/schema-forms/commit/89aec9eca4bd15a4f4fd9cbaff48aad15ec4f9cd))
+* **page-builder:** inserting br closes [#48](https://github.com/Jaspero/schema-forms/issues/48) ([50f53fa](https://github.com/Jaspero/schema-forms/commit/50f53fa75f3ce0cfaa23c3296b6ad204d2260b80))
+
+## @jaspero/fb-page-builder [2.16.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.2...@jaspero/fb-page-builder@2.16.3) (2021-06-01)
+
+
+### Bug Fixes
+
+* **page-builder:** missing translations in sidebar ([4e1c592](https://github.com/Jaspero/schema-forms/commit/4e1c592eedc120abab2fceab48e1f7f9e1b0a93f))
+
+## @jaspero/fb-page-builder [2.16.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.1...@jaspero/fb-page-builder@2.16.2) (2021-05-31)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 3.28.4
+
+## @jaspero/fb-page-builder [2.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.16.0...@jaspero/fb-page-builder@2.16.1) (2021-05-30)
+
+
+### Bug Fixes
+
+* **page-builder:** missing translations ([e838381](https://github.com/Jaspero/schema-forms/commit/e83838153d23c0b778239098e996cbe9ae972ef0))
+
+# @jaspero/fb-page-builder [2.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.41...@jaspero/fb-page-builder@2.16.0) (2021-05-30)
+
+
+### Bug Fixes
+
+* **page-builder:** moved until-destroy to peerDependencies ([57600c5](https://github.com/Jaspero/schema-forms/commit/57600c5a2f95d3b27c185c180fc6983425950999))
+* **page-builder:** reference to multiline editor ([841a884](https://github.com/Jaspero/schema-forms/commit/841a884431096089dc8a4d874c58eca05d9d271e))
+
+
+### Features
+
+* **page-builder:** bold, italic and underlined working :tada: ([d56e96c](https://github.com/Jaspero/schema-forms/commit/d56e96ccd5fff1dac919a44f5f2b9746ef1c5577))
+* **page-builder:** connected align options for single-line editor ([a561663](https://github.com/Jaspero/schema-forms/commit/a5616630d2ae68b8351a80840727f0b4b79a933f))
+* **page-builder:** connected inline image editor ([829cb01](https://github.com/Jaspero/schema-forms/commit/829cb01472c2437e1a49c16cf5ad99fc50684e8f))
+* **page-builder:** connected single-line ([c0a51e2](https://github.com/Jaspero/schema-forms/commit/c0a51e2cb7660807b8234a7290c3390161b47a80))
+* **page-builder:** connected toolbar for inline editing ([706d1f6](https://github.com/Jaspero/schema-forms/commit/706d1f62ae894b5f9d08edcac38b8937d49efc3a))
+* **page-builder:** connecting decorator behaviour on single line ([090b5cd](https://github.com/Jaspero/schema-forms/commit/090b5cd2f64ca1b92a6b41ba62fd531cab8355b8))
+* working on selection change ([8c8a6c1](https://github.com/Jaspero/schema-forms/commit/8c8a6c147ba107848cd99b386fb295abea7be93d))
+* **page-builder:** editing tagName on elements inline ([2dfda0a](https://github.com/Jaspero/schema-forms/commit/2dfda0a0bc1c6d1b5bb981d289a06ef2efd67940))
+* **page-builder:** select block when clicking on it in the preview ([73696ad](https://github.com/Jaspero/schema-forms/commit/73696adb330befd35f3e60f86416db24ca1e03de))
+* **page-builder:** toolbar refactor :tada: ([2686f50](https://github.com/Jaspero/schema-forms/commit/2686f50678b647bcabd89ef9078d047d77cf9dba))
+
 ## @jaspero/fb-page-builder [2.15.41](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.15.40...@jaspero/fb-page-builder@2.15.41) (2021-05-20)
 
 

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Edit Image</h2>
+
+<form [formGroup]="form">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>URL</mat-label>
+      <input type="url" matInput formControlName="url" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button matDialogClose type="button">Close</button>
+    &nbsp;
+    <button mat-button type="submit" color="primary" [matDialogClose]="form.getRawValue()">Save</button>
+  </mat-dialog-actions>
+</form>

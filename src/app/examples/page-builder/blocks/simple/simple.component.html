@@ -1,0 +1,6 @@
+<div class="column">
+  <div [fbPbSingleLineIE]="{property: 'singleLine', data: data}" [innerHTML]="data.singleLine | jpSanitize"></div>
+</div>
+<div class="column" [fbPbImageIE]="{property: 'image', data: data}">
+  <img [src]="data.image">
+</div>
