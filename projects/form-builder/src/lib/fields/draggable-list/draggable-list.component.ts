@@ -43,7 +43,7 @@ export class DraggableListComponent extends FieldComponent<DragData> implements 
 
           return {
             ...option,
-            active: control ? control.active : option.active || true
+            active: control ? control.active : option.active ?? true
           }
         })
         .sort((optionOne, optionTwo) => {
