@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.7...@jaspero/form-builder@3.28.8) (2021-06-08)
+
+
+### Bug Fixes
+
+* **gallery:** init control with empty array if control not defined ([83352e2](https://github.com/Jaspero/schema-forms/commit/83352e2cd56d102062a61b1e4ca531743a75bb91))
+
 ## @jaspero/form-builder [3.28.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.6...@jaspero/form-builder@3.28.7) (2021-06-05)
 
 
