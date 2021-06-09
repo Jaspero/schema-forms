@@ -1,3 +1,10 @@
+## @jaspero/form-builder [3.28.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.8...@jaspero/form-builder@3.28.9) (2021-06-09)
+
+
+### Bug Fixes
+
+* **draggable:** falsy value override by default true ([2aab98c](https://github.com/Jaspero/schema-forms/commit/2aab98c403cab3b6a755aa7a4855f9a65d7d6c86))
+
 ## @jaspero/form-builder [3.28.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.7...@jaspero/form-builder@3.28.8) (2021-06-08)
 
 
