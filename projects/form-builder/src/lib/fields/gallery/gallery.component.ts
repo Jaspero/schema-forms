@@ -113,7 +113,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     if (!this.cData.hasOwnProperty('allowServerUpload')) {
       this.cData.allowServerUpload = true;
     }
-
   }
 
   ngAfterViewInit() {
