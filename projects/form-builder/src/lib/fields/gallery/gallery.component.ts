@@ -114,9 +114,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
       this.cData.allowServerUpload = true;
     }
 
-    if (!this.cData.control.value) {
-      this.cData.control.setValue([]);
-    }
   }
 
   ngAfterViewInit() {
