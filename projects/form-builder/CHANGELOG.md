@@ -1,3 +1,11 @@
+## @jaspero/form-builder [3.28.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.9...@jaspero/form-builder@3.28.10) (2021-06-10)
+
+
+### Bug Fixes
+
+* **gallery:** revert back to default control value ([e9f1d18](https://github.com/Jaspero/schema-forms/commit/e9f1d18fa5b008ea3001061b3d4386d3f7cffeb6))
+* **gallery:** revert back to default control value ([0f63925](https://github.com/Jaspero/schema-forms/commit/0f63925715593dc6044721449e979ea52aa0419c))
+
 ## @jaspero/form-builder [3.28.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.8...@jaspero/form-builder@3.28.9) (2021-06-09)
 
 
