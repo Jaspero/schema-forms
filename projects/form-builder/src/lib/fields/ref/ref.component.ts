@@ -36,7 +36,7 @@ interface RefData extends FieldData {
   /**
    * Display provided key to user and its label
    */
-  display?: {
+  display: {
     key?: string;
     label?: string;
   };
