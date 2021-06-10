@@ -13,5 +13,6 @@ export enum ComponentType {
   Autocomplete = 'autocomplete',
   Chips = 'chips',
   Draggable = 'draggable',
-  Textarea = 'textarea'
+  Textarea = 'textarea',
+  Ref = 'ref'
 }

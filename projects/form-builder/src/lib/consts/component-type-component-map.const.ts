@@ -10,6 +10,7 @@ import {ImageComponent} from '../fields/image/image.component';
 import {InputComponent} from '../fields/input/input.component';
 import {RadioComponent} from '../fields/radio/radio.component';
 import {RangeComponent} from '../fields/range/range.component';
+import {RefComponent} from '../fields/ref/ref.component';
 import {SelectComponent} from '../fields/select/select.component';
 import {SliderComponent} from '../fields/slider/slider.component';
 import {TextareaComponent} from '../fields/textarea/textarea.component';
@@ -31,5 +32,6 @@ export const COMPONENT_TYPE_COMPONENT_MAP = {
   [ComponentType.Draggable]: DraggableListComponent,
   [ComponentType.Radio]: RadioComponent,
   [ComponentType.Chips]: ChipsComponent,
-  [ComponentType.Textarea]: TextareaComponent
+  [ComponentType.Textarea]: TextareaComponent,
+  [ComponentType.Ref]: RefComponent
 };

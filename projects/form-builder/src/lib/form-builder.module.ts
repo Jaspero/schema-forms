@@ -21,6 +21,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SanitizeModule} from '@jaspero/ng-helpers';
@@ -38,6 +39,7 @@ import {ImageComponent} from './fields/image/image.component';
 import {InputComponent} from './fields/input/input.component';
 import {RadioComponent} from './fields/radio/radio.component';
 import {RangeComponent} from './fields/range/range.component';
+import {RefComponent} from './fields/ref/ref.component';
 import {SelectComponent} from './fields/select/select.component';
 import {SliderComponent} from './fields/slider/slider.component';
 import {TextareaComponent} from './fields/textarea/textarea.component';
@@ -77,6 +79,7 @@ import { FileSelectComponent } from './components/file-select/file-select.compon
     SliderComponent,
     TextareaComponent,
     ToggleComponent,
+    RefComponent,
 
     /**
      * Segments
@@ -134,6 +137,7 @@ import { FileSelectComponent } from './components/file-select/file-select.compon
     MatCardModule,
     MatTabsModule,
     MatRadioModule,
+    MatTableModule,
 
     /**
      * Jp Helpers
