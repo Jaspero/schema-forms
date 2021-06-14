@@ -1,3 +1,16 @@
+# @jaspero/form-builder [3.29.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.10...@jaspero/form-builder@3.29.0) (2021-06-10)
+
+
+### Bug Fixes
+
+* **form-builder:** possibly undefined objects ([e085cd0](https://github.com/Jaspero/schema-forms/commit/e085cd022db089a6989b35eaad4e545e326b5810))
+* **form-builder:** ref imports ([158653b](https://github.com/Jaspero/schema-forms/commit/158653bc581bbfea0a87c68810a69a7d5395d239))
+
+
+### Features
+
+* **form-builder:** ref component ([06ef818](https://github.com/Jaspero/schema-forms/commit/06ef818a8e15905f84ea085c7da4a7cebadc1f0f))
+
 ## @jaspero/form-builder [3.28.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.9...@jaspero/form-builder@3.28.10) (2021-06-10)
 
 
