@@ -11,23 +11,31 @@ import {COMPONENT_DATA} from '../../utils/create-component-injector';
 interface RefData extends FieldData {
   /**
    * Collection to query for search
+   * @required
    */
   collection: string;
   /**
    * Save value of provided key to database
+   * @default 'id'
    */
   valueKey?: string;
   /**
    * Set to provided value on 'Clear' action
+   * @default null
    */
   clearValue?: string | null;
   /**
    * Max number of rows to show per search
+   * @default 5
    */
   limit?: number;
   /**
    * Search key for querying database
    * Label for showing next to 'Search by...'
+   * @default {
+   *   key: '/name',
+   *   label: 'Name'
+   * }
    */
   search?: {
     key?: string;
@@ -35,6 +43,10 @@ interface RefData extends FieldData {
   };
   /**
    * Display provided key to user and its label
+   * @default {
+   *   key: '/name',
+   *   label: 'Name'
+   * }
    */
   display: {
     key?: string;
@@ -42,6 +54,12 @@ interface RefData extends FieldData {
   };
   /**
    * Table columns for displaying search table
+   * @required
+   * @default {
+   *   tableColumns: [
+   *     {key: '/id', label: 'ID'}
+   *   ]
+   * }
    */
   table?: {
     tableColumns?: {
