@@ -20,7 +20,7 @@ interface MonacoData extends FieldData {
 @Component({
   selector: 'fb-monaco-editor',
   templateUrl: './monaco.component.html',
-  styleUrls: ['./monaco.component.css'],
+  styleUrls: ['./monaco.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MonacoComponent extends FieldComponent<MonacoData> implements AfterViewInit {

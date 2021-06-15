@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormBuilderContextService} from '@jaspero/form-builder';
+import {TranslocoModule} from '@ngneat/transloco';
 import {MonacoComponent} from './monaco.component';
 
 @NgModule({
@@ -9,7 +10,9 @@ import {MonacoComponent} from './monaco.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
+    TranslocoModule
   ]
 })
 export class MonacoEditorModule {
