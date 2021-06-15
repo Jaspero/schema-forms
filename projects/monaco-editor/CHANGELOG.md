@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [1.0.33](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.32...@jaspero/fb-monaco-editor@1.0.33) (2021-06-15)
+
+
+### Bug Fixes
+
+* **monaco:** missing translation pipe on label ([54f33f3](https://github.com/Jaspero/schema-forms/commit/54f33f3b1b24040ed1713e3250b256a72f90a6c3))
+
 ## @jaspero/fb-monaco-editor [1.0.32](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@1.0.31...@jaspero/fb-monaco-editor@1.0.32) (2021-06-10)
 
 
