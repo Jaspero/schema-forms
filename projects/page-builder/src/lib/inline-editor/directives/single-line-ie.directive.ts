@@ -69,6 +69,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    if (!this.toolbarService) {
+      return;
+    }
+
     this.options = {
       ...this.defaultOptions,
       ...this.entryOptions

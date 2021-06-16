@@ -1,9 +1,10 @@
-import {AfterViewInit, Directive, ElementRef, Input, Renderer2} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input, Renderer2, Optional} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {filter} from 'rxjs/operators';
 import {domListener} from '../../utils/dom-listener';
 import {ImageDialogComponent} from '../components/image-dialog/image-dialog.component';
+import {ToolbarService} from '../../toolbar.service';
 
 interface Options {
   property: string;
@@ -18,7 +19,9 @@ export class ImageIEDirective implements AfterViewInit {
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Optional()
+    private toolbarService: ToolbarService
   ) { }
 
   @Input('fbPbImageIE')
@@ -36,6 +39,10 @@ export class ImageIEDirective implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    if (!this.toolbarService) {
+      return;
+    }
+
     this.options = {
       ...this.defaultOptions,
       ...this.entryOptions
