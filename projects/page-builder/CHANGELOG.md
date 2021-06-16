@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [2.17.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.7...@jaspero/fb-page-builder@2.17.8) (2021-06-16)
+
+
+### Bug Fixes
+
+* **PageBuilder:** check does toolbarService is defined ([4ff0cbf](https://github.com/Jaspero/schema-forms/commit/4ff0cbf4a9430e351212ea5136cba526d02bd542))
+
 ## @jaspero/fb-page-builder [2.17.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.6...@jaspero/fb-page-builder@2.17.7) (2021-06-10)
 
 
