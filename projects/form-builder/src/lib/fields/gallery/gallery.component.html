@@ -1,4 +1,4 @@
-<p class="fs-small fg-secondary" *ngIf="cData.label">{{(cData.label || '') | transloco}}</p>
+<p class="fs-small fg-secondary" *ngIf="cData.label">{{cData.label | transloco}}</p>
 
 <div class="fb-gallery" fbDropzone (dropped)="filesUploaded($event)">
   <div class="ta-center p-y-l">

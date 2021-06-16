@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline" class="w-full">
-  <mat-label>{{(cData.label || '') | transloco}}</mat-label>
+  <mat-label *ngIf="cData.label">{{cData.label | transloco}}</mat-label>
   <input
     matInput
     [placeholder]="(cData.placeholder || '') | transloco"
@@ -11,7 +11,7 @@
       {{data.name}}
     </mat-option>
   </mat-autocomplete>
-  <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | jpSanitize"></mat-hint>
+  <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | transloco | jpSanitize"></mat-hint>
   <span *ngIf="cData.suffix" matSuffix [innerHTML]="((suffix$ | async) || '') | jpSanitize"></span>
   <span *ngIf="cData.prefix" matPrefix [innerHTML]="((prefix$ | async) || '') | jpSanitize"></span>
 </mat-form-field>
