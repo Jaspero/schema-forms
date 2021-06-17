@@ -20,15 +20,18 @@ interface Options {
   textDecorations?: string[];
   textAligns?: string[];
   multiline?: boolean;
+  remove?: boolean;
 }
 
 @UntilDestroy()
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: '[fbPbSingleLineIE]',
   template: '',
   styleUrls: ['./toolbar.scss'],
   encapsulation: ViewEncapsulation.None
 })
+// tslint:disable-next-line:component-class-suffix
 export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   constructor(
     private el: ElementRef,
@@ -43,7 +46,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   defaultOptions = {
     elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P'],
     textDecorations: ['b', 'i', 'u'],
-    textAligns: ['left', 'center', 'right', 'justify']
+    textAligns: ['left', 'center', 'right', 'justify'],
+    remove: true
   };
   lastTarget: HTMLElement;
   options: Options;
@@ -81,7 +85,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     this.toolbar = this.toolbarService.createToolbar(
       this.options.elementOptions,
       this.options.textDecorations,
-      this.options.textAligns
+      this.options.textAligns,
+      this.options.remove
     );
 
     this.assignLastTarget();
@@ -269,6 +274,25 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
             this.update();
           })
       })
+    }
+
+    if (this.toolbar.elements.remove) {
+
+      const el = this.toolbar.elements.remove;
+
+      domListener(
+        this.renderer,
+        el,
+        'click'
+      )
+        .pipe(
+          untilDestroyed(this)
+        )
+        .subscribe(() => {
+          this.options.data[this.options.property] = '';
+          this.htmlEl.parentElement.removeChild(this.htmlEl);
+          this.toolbarService.clearToolbar(this.toolbar.id);
+        })
     }
 
     domListener(

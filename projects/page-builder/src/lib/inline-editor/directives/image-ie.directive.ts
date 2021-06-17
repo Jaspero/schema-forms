@@ -11,6 +11,7 @@ interface Options {
   data: any;
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   customElements?: string[];
+  remove?: boolean;
 }
 
 @UntilDestroy()
@@ -27,12 +28,14 @@ export class ImageIEDirective implements AfterViewInit {
   @Input('fbPbImageIE')
   entryOptions: Partial<Options>;
   defaultOptions: Partial<Options> = {
-    position: 'top-right'
+    position: 'top-right',
+    remove: true
   };
 
   options: Options;
   toolbar: HTMLDivElement;
   triggerEl: HTMLButtonElement;
+  removeEl: HTMLButtonElement;
 
   get htmlEl() {
     return this.el.nativeElement;
@@ -105,6 +108,19 @@ export class ImageIEDirective implements AfterViewInit {
             this.htmlEl.querySelector('img').src = url;
           })
       });
+
+    domListener(
+      this.renderer,
+      this.removeEl,
+      'click',
+    )
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(() => {
+        this.options.data[this.options.property] = '';
+        this.htmlEl.parentElement.removeChild(this.htmlEl);
+      })
   }
 
   private buildToolbar() {
@@ -126,27 +142,44 @@ export class ImageIEDirective implements AfterViewInit {
         this.toolbar.style[it] = 0;
       });
 
-    this.triggerEl = document.createElement('button');
-    this.triggerEl.style.width = '40px';
-    this.triggerEl.style.height = '40px';
-    this.triggerEl.style.display = 'flex';
-    this.triggerEl.style.justifyContent = 'center';
-    this.triggerEl.style.alignItems = 'center';
-    this.triggerEl.style.cursor = 'pointer';
-    this.triggerEl.style.background = 'none';
-    this.triggerEl.style.border = 'none';
+    const drawButton = (icon: string, color = '#000') => {
+      const buttonEl = document.createElement('button');
+      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
-    const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      buttonEl.style.width = '40px';
+      buttonEl.style.height = '40px';
+      buttonEl.style.display = 'flex';
+      buttonEl.style.justifyContent = 'center';
+      buttonEl.style.alignItems = 'center';
+      buttonEl.style.cursor = 'pointer';
+      buttonEl.style.background = 'none';
+      buttonEl.style.border = 'none';
 
-    svgEl.setAttribute('viewBox', '0 0 24 24');
-    svgEl.setAttribute('fill', '#000');
-    svgEl.setAttribute('height', '24px');
-    svgEl.setAttribute('width', '24px');
+      svgEl.setAttribute('viewBox', '0 0 24 24');
+      svgEl.setAttribute('fill', color);
+      svgEl.setAttribute('height', '24px');
+      svgEl.setAttribute('width', '24px');
 
-    svgEl.innerHTML = `<path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/>`;
-    svgEl.style.pointerEvents = 'none';
+      svgEl.innerHTML = icon;
+      svgEl.style.pointerEvents = 'none';
 
-    this.triggerEl.appendChild(svgEl);
+      buttonEl.appendChild(svgEl);
+
+      return buttonEl;
+    }
+
+    this.triggerEl = drawButton(
+      `<path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/>`
+    );
+
+    if (this.options.remove) {
+      this.removeEl = drawButton(
+        `<path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/>`,
+        '#f44336'
+      );
+
+      this.toolbar.appendChild(this.removeEl);
+    }
 
     this.toolbar.appendChild(this.triggerEl);
 

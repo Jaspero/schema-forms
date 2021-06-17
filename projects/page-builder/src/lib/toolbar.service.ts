@@ -14,6 +14,7 @@ export interface Toolbar {
     center?: HTMLButtonElement;
     justify?: HTMLButtonElement;
     right?: HTMLButtonElement;
+    remove?: HTMLButtonElement;
   };
 }
 
@@ -49,11 +50,30 @@ export class ToolbarService {
   createToolbar(
     elementOptions?: string[],
     textDecorations?: string[],
-    textAligns?: string[]
+    textAligns?: string[],
+    remove?: boolean
   ): Toolbar {
     const toolbar = document.createElement('div');
     const id = this.uniqueId.next();
     const elements: any = {};
+    const iconButton = (icon: string, color = '#000') => {
+      const el = document.createElement('button');
+      el.classList.add('pb-t-button');
+
+      const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+      svgEl.setAttribute('viewBox', '0 0 24 24');
+      svgEl.setAttribute('fill', color);
+      svgEl.setAttribute('width', '24px');
+      svgEl.setAttribute('height', '24px');
+
+      svgEl.innerHTML = icon;
+      svgEl.style.pointerEvents = 'none';
+
+      el.appendChild(svgEl);
+
+      return el;
+    }
 
     toolbar.classList.add('pb-t');
     toolbar.style.height = `${this.toolbarProps.height}px`;
@@ -133,27 +153,24 @@ export class ToolbarService {
       wrapperEl.classList.add('pb-t-w');
 
       textAligns.forEach(align => {
-        const el = document.createElement('button');
-        el.classList.add('pb-t-button');
-
-        const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-
-        svgEl.setAttribute('viewBox', '0 0 24 24');
-        svgEl.setAttribute('fill', '#000');
-        svgEl.setAttribute('width', '24px');
-        svgEl.setAttribute('height', '24px');
-
-        svgEl.innerHTML = textAlignsMap[align];
-        svgEl.style.pointerEvents = 'none';
-
-        el.appendChild(svgEl);
-
+        const el = iconButton(textAlignsMap[align]);
         wrapperEl.appendChild(el);
-
         elements[align] = el;
       });
 
       toolbar.appendChild(wrapperEl);
+    }
+
+    if (remove) {
+
+      const el = iconButton(
+        '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/>',
+        '#f44336'
+      );
+
+      elements.remove = el;
+
+      toolbar.appendChild(el);
     }
 
     this.toolbars[id] = {
@@ -173,6 +190,10 @@ export class ToolbarService {
   clearToolbar(id: number) {
 
     const toolbar = this.toolbars[id];
+
+    if (!toolbar) {
+      return;
+    }
 
     if (toolbar.visible) {
       this.hideToolbar(id);

@@ -189,20 +189,24 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       this.compRefs.splice(this.compRefs.length - 1, 1);
     }
 
+    const value = block.hasOwnProperty('previewValue') ?
+      JSON.parse(JSON.stringify(block.previewValue)) :
+      {};
+
     this.compiler.compileModuleAndAllComponentsAsync(
       this.tempModule([{
         id: this.counter.next(),
-        value: block.previewValue || {},
         type: block.id,
         icon: block.icon,
         label: block.label,
-        visible: true
+        visible: true,
+        value,
       }])
     )
       .then((factories) => {
         this.compRefs.push(
           ...factories.componentFactories.map(f =>
-            this.renderComponent(f, block.previewValue || {})
+            this.renderComponent(f, value)
           )
         );
 
