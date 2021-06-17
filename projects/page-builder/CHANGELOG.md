@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [2.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.8...@jaspero/fb-page-builder@2.18.0) (2021-06-17)
+
+
+### Features
+
+* **page-builder:** remove button in single-line and image editors ([156d91f](https://github.com/Jaspero/schema-forms/commit/156d91f776c8a09fb2b7a0306bb651824a92b3a5))
+
 ## @jaspero/fb-page-builder [2.17.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.17.7...@jaspero/fb-page-builder@2.17.8) (2021-06-16)
 
 
