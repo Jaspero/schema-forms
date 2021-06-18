@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.31.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.30.0...@jaspero/form-builder@3.31.0) (2021-06-18)
+
+
+### Features
+
+* **form-builder:** RefComponent style adjustments ([a5ff3c6](https://github.com/Jaspero/schema-forms/commit/a5ff3c6b0c8d2eefec735d0dba5178c9d0925655))
+
 # @jaspero/form-builder [3.30.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.29.0...@jaspero/form-builder@3.30.0) (2021-06-18)
 
 
