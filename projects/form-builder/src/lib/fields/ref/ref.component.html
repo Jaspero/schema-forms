@@ -6,7 +6,7 @@
 <!--    </mat-form-field>-->
 <!--    -->
 <!--  </div>-->
-  <mat-form-field class="w-full">
+  <mat-form-field class="w-full mat-form-field-no-hint">
     <mat-label>{{cData.display.label | transloco}}</mat-label>
     <input matInput autocomplete="off" [matAutocomplete]="auto" [value]="display$ | async">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">

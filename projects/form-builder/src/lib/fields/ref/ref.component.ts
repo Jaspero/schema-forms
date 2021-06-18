@@ -76,7 +76,6 @@ interface RefData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RefComponent extends FieldComponent<RefData> implements OnInit {
-
   constructor(
     @Inject(COMPONENT_DATA) public cData: RefData,
     private db: DbService
@@ -91,7 +90,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
 
   searchControl: FormControl;
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.searchControl = new FormControl('');
 
