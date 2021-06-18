@@ -1,3 +1,10 @@
+# @jaspero/form-builder [3.30.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.29.0...@jaspero/form-builder@3.30.0) (2021-06-18)
+
+
+### Features
+
+* **form-builder:** added translations for RefComponent ([fb3207a](https://github.com/Jaspero/schema-forms/commit/fb3207a487cf15306480539d1a63f2731a742137))
+
 # @jaspero/form-builder [3.29.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.28.10...@jaspero/form-builder@3.29.0) (2021-06-10)
 
 
