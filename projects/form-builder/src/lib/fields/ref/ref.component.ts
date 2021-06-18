@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable, of, combineLatest} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
 import {FilterMethod} from '../../enums/filter-method.enum';
 import {FieldComponent} from '../../field/field.component';

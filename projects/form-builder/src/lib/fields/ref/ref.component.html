@@ -7,14 +7,14 @@
 <!--    -->
 <!--  </div>-->
   <mat-form-field class="w-full">
-    <mat-label>{{cData.display.label}}</mat-label>
+    <mat-label>{{cData.display.label | transloco}}</mat-label>
     <input matInput autocomplete="off" [matAutocomplete]="auto" [value]="display$ | async">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       <section class="ref-container" *ngIf="auto.isOpen">
         <div *ngIf="input.focus()"></div>
         <div class="p-x-m p-t-s">
-          <mat-form-field>
-            <mat-label>Search by {{cData.search.label}}</mat-label>
+          <mat-form-field class="w-full">
+            <mat-label>{{'FIELDS.REF.SEARCH_BY' | transloco}} {{cData.search.label}}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off">
           </mat-form-field>
         </div>
@@ -24,7 +24,7 @@
             <ng-container *ngIf="data.length; else empty">
               <table mat-table [dataSource]="data">
                 <ng-container *ngFor="let column of cData.table.tableColumns" [matColumnDef]="column.key.slice(1)">
-                  <th mat-header-cell *matHeaderCellDef>{{column.label}}</th>
+                  <th mat-header-cell *matHeaderCellDef>{{column.label | transloco}}</th>
                   <td mat-cell *matCellDef="let element">{{element[column.key.slice(1)]}}</td>
                 </ng-container>
 
@@ -35,7 +35,7 @@
 
             <ng-template #empty>
               <div class="flex jc-center p-b-m">
-                <button mat-raised-button (click)="applySearchValue()" color="primary">Apply Value</button>
+                <button mat-raised-button (click)="applySearchValue()" color="primary">{{'FIELDS.REF.APPLY_VALUE' | transloco}}</button>
               </div>
             </ng-template>
           </ng-container>
