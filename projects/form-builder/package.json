@@ -11,15 +11,15 @@
   "homepage": "https://jaspero.co",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0",
-    "@angular/forms": "^11.0.0",
-    "@angular/animations": "^11.0.0",
-    "@angular/platform-browser": "^11.0.0",
-    "@angular/material": "^11.0.0",
-    "@jaspero/ng-helpers": "^4.3.0",
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@angular/forms": "^12.0.0",
+    "@angular/animations": "^12.0.0",
+    "@angular/platform-browser": "^12.0.0",
+    "@angular/material": "^12.0.0",
+    "@jaspero/ng-helpers": "^5.0.0",
     "@ngneat/transloco": "^2.19.1",
-    "tslib": "^2.0.3",
+    "tslib": "^2.0.0",
     "rxjs": "^6.6.3"
   },
   "dependencies": {
