@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/fb-form-ui",
-  "version": "0.0.1",
+  "version": "1.9.53",
   "author": {
     "name": "Jaspero Ltd",
     "email": "info@jaspero.co"
@@ -12,7 +12,7 @@
   "homepage": "https://jaspero.co",
   "peerDependencies": {
     "@jaspero/form-builder": ">=3",
-    "@jaspero/fb-tinymce": ">=1.8"
+    "@jaspero/fb-tinymce": ">=1.8.9"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-form-ui",
