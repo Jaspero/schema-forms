@@ -112,20 +112,24 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
+            },
+            "development": {}
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "schema-forms:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "schema-forms:build:production"
+            },
+            "development": {
+              "browserTarget": "schema-forms:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -167,14 +171,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "schema-forms:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "schema-forms:serve:production"
+            },
+            "development": {
+              "devServerTarget": "schema-forms:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         }
       }
     },
@@ -194,8 +201,10 @@
             "production": {
               "tsConfig": "projects/form-builder/tsconfig.lib.prod.json",
               "project": "projects/form-builder/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -235,8 +244,10 @@
             "production": {
               "tsConfig": "projects/page-builder/tsconfig.lib.prod.json",
               "project": "projects/page-builder/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -276,8 +287,10 @@
             "production": {
               "tsConfig": "projects/tinymce/tsconfig.lib.prod.json",
               "project": "projects/tinymce/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -317,8 +330,10 @@
             "production": {
               "tsConfig": "projects/form-ui/tsconfig.lib.prod.json",
               "project": "projects/form-ui/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -358,8 +373,10 @@
             "production": {
               "tsConfig": "projects/ref-table/tsconfig.lib.prod.json",
               "project": "projects/ref-table/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -399,8 +416,10 @@
             "production": {
               "tsConfig": "projects/monaco-editor/tsconfig.lib.prod.json",
               "project": "projects/monaco-editor/ng-package.prod.json"
-            }
-          }
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
