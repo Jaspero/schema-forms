@@ -1,3 +1,21 @@
+# @jaspero/fb-page-builder [3.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.18.2...@jaspero/fb-page-builder@3.0.0) (2021-06-20)
+
+
+### Bug Fixes
+
+* libraries compiling with v12 ([d8d8219](https://github.com/Jaspero/schema-forms/commit/d8d8219103d67618f99c219cd82041d9d6fed8f4))
+* page-builder compiling with v12 ([5689b34](https://github.com/Jaspero/schema-forms/commit/5689b3435dabe016897cfc6948bf327969418d92))
+
+
+### Features
+
+* updated to angular v12 closes [#46](https://github.com/Jaspero/schema-forms/issues/46) ([a503537](https://github.com/Jaspero/schema-forms/commit/a503537a15dfab646f67e1cacde681a303e8ab01))
+
+
+### BREAKING CHANGES
+
+* angular v12 update
+
 ## @jaspero/fb-page-builder [2.18.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@2.18.1...@jaspero/fb-page-builder@2.18.2) (2021-06-18)
 
 
