@@ -1,3 +1,21 @@
+# @jaspero/form-builder [4.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.31.0...@jaspero/form-builder@4.0.0) (2021-06-20)
+
+
+### Bug Fixes
+
+* libraries compiling with v12 ([d8d8219](https://github.com/Jaspero/schema-forms/commit/d8d8219103d67618f99c219cd82041d9d6fed8f4))
+* node version mismatch ([bb92208](https://github.com/Jaspero/schema-forms/commit/bb92208f24441a301934b6c312c63385763d545d))
+
+
+### Features
+
+* updated to angular v12 closes [#46](https://github.com/Jaspero/schema-forms/issues/46) ([a503537](https://github.com/Jaspero/schema-forms/commit/a503537a15dfab646f67e1cacde681a303e8ab01))
+
+
+### BREAKING CHANGES
+
+* angular v12 update
+
 # @jaspero/form-builder [3.31.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.30.0...@jaspero/form-builder@3.31.0) (2021-06-18)
 
 

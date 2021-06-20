@@ -1,3 +1,29 @@
+# @jaspero/fb-form-ui [2.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.9.53...@jaspero/fb-form-ui@2.0.0) (2021-06-20)
+
+
+### Bug Fixes
+
+* libraries compiling with v12 ([d8d8219](https://github.com/Jaspero/schema-forms/commit/d8d8219103d67618f99c219cd82041d9d6fed8f4))
+
+
+### Features
+
+* updated to angular v12 closes [#46](https://github.com/Jaspero/schema-forms/issues/46) ([a503537](https://github.com/Jaspero/schema-forms/commit/a503537a15dfab646f67e1cacde681a303e8ab01))
+
+
+### BREAKING CHANGES
+
+* angular v12 update
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.0.0
+* **@jaspero/fb-tinymce:** upgraded to 2.0.0
+
 ## @jaspero/fb-form-ui [1.9.53](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@1.9.52...@jaspero/fb-form-ui@1.9.53) (2021-06-18)
 
 
