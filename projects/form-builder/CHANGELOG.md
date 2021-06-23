@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.0.0...@jaspero/form-builder@4.0.1) (2021-06-23)
+
+
+### Bug Fixes
+
+* **form-builder:** appending type on custom generated images ([ed8ee03](https://github.com/Jaspero/schema-forms/commit/ed8ee038cbcec0703bc538d934bab51234a3775d))
+
 # @jaspero/form-builder [4.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@3.31.0...@jaspero/form-builder@4.0.0) (2021-06-20)
 
 
