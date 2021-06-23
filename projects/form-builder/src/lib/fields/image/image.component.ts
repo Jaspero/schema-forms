@@ -215,7 +215,13 @@ export class ImageComponent extends FieldComponent<ImageData>
           moduleId,
           documentId,
           random.string()
-        ].join('-');
+        ].join('-') +
+          /**
+           * TODO:
+           * Maybe we should put a type extension based on type
+           * instead of taking from the name
+           */
+          (this.value.name.split('.')[1]);
 
         return from(
           this.storage.upload(name, this.value, {
