@@ -1,3 +1,20 @@
+## @jaspero/fb-form-ui [2.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.0.1...@jaspero/fb-form-ui@2.0.2) (2021-06-23)
+
+
+### Bug Fixes
+
+* dependency in package.json ([af246fa](https://github.com/Jaspero/schema-forms/commit/af246fa292a3fe34a4ac63a0e5203494fde9cc04))
+* **form-ui:** dependency errors ([5ffd0fa](https://github.com/Jaspero/schema-forms/commit/5ffd0fafbd5f17821bbbc4b553fdd392884dba49))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.0.1
+* **@jaspero/fb-tinymce:** upgraded to 2.0.1
+
 ## @jaspero/fb-form-ui [2.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.0.0...@jaspero/fb-form-ui@2.0.1) (2021-06-20)
 
 
