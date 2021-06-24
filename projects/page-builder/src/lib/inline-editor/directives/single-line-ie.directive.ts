@@ -1,15 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  Optional,
-  Renderer2,
-  ViewEncapsulation
-} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Renderer2, ViewEncapsulation} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {filter} from 'rxjs/operators';
+import {merge} from 'rxjs';
+import {filter, switchMap, tap} from 'rxjs/operators';
+import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
 import {domListener} from '../../utils/dom-listener';
 
@@ -37,7 +30,9 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     private el: ElementRef,
     private renderer: Renderer2,
     @Optional()
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
+    @Optional()
+    private ctx: PageBuilderCtxService
   ) { }
 
   @Input('fbPbSingleLineIE')
@@ -64,12 +59,11 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   }
 
   get shadowRoot() {
-    return (
-      (this.iFrame.contentDocument as Document)
-        .body
-        .children[0] as HTMLElement
-    )
-      .shadowRoot as ShadowRoot;
+    return this.el.nativeElement.getRootNode() as ShadowRoot;
+  }
+
+  get host() {
+    return this.htmlEl.getRootNode().host;
   }
 
   ngAfterViewInit() {
@@ -107,125 +101,129 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       'relative'
     );
 
-    domListener(
-      this.renderer,
-      this.htmlEl,
-      'keydown'
-    )
-      .pipe(
-        untilDestroyed(this)
-      )
-      .subscribe((e: KeyboardEvent) => {
-
-        /**
-         * Prevent creating new elements and adding br instead
-         */
-        if (e.key === 'Enter') {
-
-          const selection = (this.shadowRoot.getSelection() as Selection);
-          const range = selection.getRangeAt(0);
-          const br = document.createElement('br');
-
-          range.insertNode(br);
-          range.setStartAfter(br);
-          selection.removeAllRanges();
-          selection.addRange(range);
-
-          e.preventDefault();
-        }
-      });
-
-    if (this.toolbar.elements.typeSelect) {
+    const events: any[] = [];
+    const filteredEvents: any[] = [
       domListener(
         this.renderer,
-        this.toolbar.elements.typeSelect,
-        'change'
+        this.htmlEl,
+        'keydown'
       )
         .pipe(
-          untilDestroyed(this)
+          tap((e: KeyboardEvent) => {
+
+            /**
+             * Prevent creating new elements and adding br instead
+             */
+            if (e.key === 'Enter') {
+
+              const selection = (this.shadowRoot.getSelection() as Selection);
+              const range = selection.getRangeAt(0);
+              const br = document.createElement('br');
+
+              range.insertNode(br);
+              range.setStartAfter(br);
+              selection.removeAllRanges();
+              selection.addRange(range);
+
+              e.preventDefault();
+            }
+          })
         )
-        .subscribe(() => {
+    ];
 
-          if (!this.lastTarget) {
-            return;
-          }
+    if (this.toolbar.elements.typeSelect) {
+      filteredEvents.push(
+        domListener(
+          this.renderer,
+          this.toolbar.elements.typeSelect,
+          'change'
+        )
+          .pipe(
+            tap(() => {
 
-          const currentTag = this.lastTarget.tagName.toLowerCase();
-          const newTag = this.toolbar.elements.typeSelect?.value.toLowerCase();
+              if (!this.lastTarget) {
+                return;
+              }
 
-          this.lastTarget.outerHTML = this.lastTarget.outerHTML
-            .replace(new RegExp(`\<${currentTag}`), `<${newTag}`)
-            .replace(new RegExp(`${currentTag}/>`), `${newTag}/>`);
+              const currentTag = this.lastTarget.tagName.toLowerCase();
+              const newTag = this.toolbar.elements.typeSelect?.value.toLowerCase();
 
-          /**
-           * Updating outerHTML detaches the element and
-           * creates a new one in its place
-           */
-          setTimeout(() => {
-            this.assignLastTarget();
-          });
+              this.lastTarget.outerHTML = this.lastTarget.outerHTML
+                .replace(new RegExp(`\<${currentTag}`), `<${newTag}`)
+                .replace(new RegExp(`${currentTag}/>`), `${newTag}/>`);
 
-          this.update();
-        });
+              /**
+               * Updating outerHTML detaches the element and
+               * creates a new one in its place
+               */
+              setTimeout(() => {
+                this.assignLastTarget();
+              });
+
+              this.update();
+            })
+          )
+      );
     }
 
     if (this.options.textDecorations) {
 
-      domListener(
-        this.renderer,
-        this.iFrame.contentDocument as any,
-        'selectionchange'
-      )
-        .pipe(
-          filter(() => this.toolbar.visible),
-          untilDestroyed(this)
+      filteredEvents.push(
+        domListener(
+          this.renderer,
+          this.iFrame.contentDocument as any,
+          'selectionchange'
         )
-        .subscribe(() =>
-          this.triggerSelection()
-        );
+          .pipe(
+            filter(() => this.toolbar.visible),
+            tap(() =>
+              this.triggerSelection()
+            )
+          )
+      );
 
       this.options.textDecorations.forEach((el) => {
         const toolbarEl = this.toolbar.elements[el];
 
-        domListener(
-          this.renderer,
-          toolbarEl,
-          'mousedown'
-        )
-          .pipe(
-            untilDestroyed(this)
+        events.push(
+          domListener(
+            this.renderer,
+            toolbarEl,
+            'mousedown'
           )
-          .subscribe((e: MouseEvent) =>
-            e.preventDefault()
-          );
-
-        domListener(
-          this.renderer,
-          toolbarEl,
-          'click'
+            .pipe(tap((e: MouseEvent) =>
+              e.preventDefault()
+            ))
         )
-          .pipe(
-            untilDestroyed(this)
+
+        filteredEvents.push(
+          domListener(
+            this.renderer,
+            toolbarEl,
+            'click'
           )
-          .subscribe(() => {
-            const {classList} = toolbarEl;
-            const active = classList.contains(this.activeCls);
-            const execMap = {
-              i: 'italic',
-              b: 'bold',
-              u: 'underline'
-            };
+            .pipe(
+              tap(() => {
+                const {classList} = toolbarEl;
+                const active = classList.contains(this.activeCls);
+                const execMap = {
+                  i: 'italic',
+                  b: 'bold',
+                  u: 'underline'
+                };
 
-            if (active) {
-              classList.remove(this.activeCls);
-            } else {
-              classList.add(this.activeCls);
-            }
+                if (active) {
+                  classList.remove(this.activeCls);
+                } else {
+                  classList.add(this.activeCls);
+                }
 
-            (this.iFrame.contentDocument as Document).execCommand(execMap[el]);
+                (this.iFrame.contentDocument as Document).execCommand(execMap[el]);
 
-            this.update();
-          })
+                this.update();
+              })
+            )
+        )
       })
     }
 
@@ -233,46 +231,45 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.options.textAligns.forEach(el => {
         const toolbarEl = this.toolbar.elements[el];
 
-        domListener(
-          this.renderer,
-          toolbarEl,
-          'mousedown'
-        )
-          .pipe(
-            untilDestroyed(this)
+        events.push(
+          domListener(
+            this.renderer,
+            toolbarEl,
+            'mousedown'
           )
-          .subscribe((e: MouseEvent) =>
-            e.preventDefault()
-          );
-
-        domListener(
-          this.renderer,
-          toolbarEl,
-          'click'
-        )
-          .pipe(
-            untilDestroyed(this)
+            .pipe(
+              tap((e: MouseEvent) => e.preventDefault())
+            ),
+          domListener(
+            this.renderer,
+            toolbarEl,
+            'click'
           )
-          .subscribe(() => {
+            .pipe(
+              tap(() => {
 
-            const {classList} = toolbarEl;
+                const {classList} = toolbarEl;
 
-            if (classList.contains(this.activeCls)) {
-              this.lastTarget.removeAttribute('style');
-              classList.remove(this.activeCls);
-            } else {
-              this.lastTarget.setAttribute('style', `text-align:${el}`);
-              classList.add(this.activeCls);
-            }
+                console.log(this.lastTarget);
 
-            this.options.textAligns?.forEach(key => {
-              if (this.toolbar.elements[key] !== toolbarEl) {
-                this.toolbar.elements[key].classList.remove(this.activeCls);
-              }
-            });
+                if (classList.contains(this.activeCls)) {
+                  this.lastTarget.removeAttribute('style');
+                  classList.remove(this.activeCls);
+                } else {
+                  this.lastTarget.setAttribute('style', `text-align:${el}`);
+                  classList.add(this.activeCls);
+                }
 
-            this.update();
-          })
+                this.options.textAligns?.forEach(key => {
+                  if (this.toolbar.elements[key] !== toolbarEl) {
+                    this.toolbar.elements[key].classList.remove(this.activeCls);
+                  }
+                });
+
+                this.update();
+              })
+            )
+        );
       })
     }
 
@@ -280,58 +277,88 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
       const el = this.toolbar.elements.remove;
 
-      domListener(
-        this.renderer,
-        el,
-        'click'
-      )
-        .pipe(
-          untilDestroyed(this)
+      filteredEvents.push(
+        domListener(
+          this.renderer,
+          el,
+          'click'
         )
-        .subscribe(() => {
-          this.options.data[this.options.property] = '';
-          this.htmlEl.parentElement.removeChild(this.htmlEl);
-          this.toolbarService.clearToolbar(this.toolbar.id);
-        })
+          .pipe(
+            tap(() => {
+              this.update('');
+              this.htmlEl.parentElement.removeChild(this.htmlEl);
+              this.toolbarService.clearToolbar(this.toolbar.id);
+            })
+          )
+      )
     }
 
-    domListener(
-      this.renderer,
-      this.htmlEl,
-      'input'
+    filteredEvents.push(
+      domListener(
+        this.renderer,
+        this.htmlEl,
+        'input'
+      )
+        .pipe(
+          tap(() => this.update())
+        ),
+      domListener(
+        this.renderer,
+        this.htmlEl,
+        'click',
+      )
+        .pipe(
+          tap(() => this.showToolbar())
+        )
+    );
+
+    merge(
+      ...events
     )
       .pipe(
         untilDestroyed(this)
       )
-      .subscribe(() =>
-        this.update()
-      );
+      .subscribe()
 
-    domListener(
-      this.renderer,
-      this.htmlEl,
-      'click',
-    )
+    this.ctx.selectedBlock$
       .pipe(
+        filter(index => {
+          const match = [...this.host.parentElement.children].indexOf(this.host) === index;
+
+          if (!match) {
+            this.toolbarService.hideToolbar(this.toolbar.id);
+          } else if (
+            this.htmlEl.contains((this.shadowRoot.getSelection() as Selection).anchorNode?.parentElement)
+          ) {
+            this.showToolbar();
+          }
+
+          return match;
+        }),
+        switchMap(() =>
+          merge(...filteredEvents)
+        ),
         untilDestroyed(this)
       )
-      .subscribe(() => {
-        if (this.toolbar.visible) {
-          return;
-        }
-
-        this.triggerSelection();
-
-        const {top, left} = this.htmlEl.getBoundingClientRect();
-
-        this.toolbarService.showToolbar(top, left, this.toolbar.id);
-      });
+      .subscribe();
   }
 
   ngOnDestroy() {
     if (this.toolbar) {
       this.toolbarService.clearToolbar(this.toolbar.id);
     }
+  }
+
+  showToolbar() {
+    if (this.toolbar.visible) {
+      return;
+    }
+
+    this.triggerSelection();
+
+    const {top, left} = this.htmlEl.getBoundingClientRect();
+
+    this.toolbarService.showToolbar(top, left, this.toolbar.id);
   }
 
   triggerSelection() {
@@ -368,8 +395,9 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     });
   }
 
-  update() {
-    this.options.data[this.options.property] = this.htmlEl.innerHTML;
+  update(data = this.htmlEl.innerHTML) {
+    this.options.data[this.options.property] = data;
+    this.ctx.triggerUpdate$.next(this.options.data);
   }
 
   private assignLastTarget() {

@@ -1,7 +1,9 @@
 import {AfterViewInit, Directive, ElementRef, Input, Renderer2, Optional} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {filter} from 'rxjs/operators';
+import {merge} from 'rxjs';
+import {filter, switchMap, tap} from 'rxjs/operators';
+import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {domListener} from '../../utils/dom-listener';
 import {ImageDialogComponent} from '../components/image-dialog/image-dialog.component';
 import {ToolbarService} from '../../toolbar.service';
@@ -22,7 +24,9 @@ export class ImageIEDirective implements AfterViewInit {
     private renderer: Renderer2,
     private dialog: MatDialog,
     @Optional()
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
+    @Optional()
+    private ctx: PageBuilderCtxService
   ) { }
 
   @Input('fbPbImageIE')
@@ -37,8 +41,15 @@ export class ImageIEDirective implements AfterViewInit {
   triggerEl: HTMLButtonElement;
   removeEl: HTMLButtonElement;
 
+  isHoovered: boolean;
+  isActive: boolean;
+
   get htmlEl() {
     return this.el.nativeElement;
+  }
+
+  get host() {
+    return this.htmlEl.getRootNode().host;
   }
 
   ngAfterViewInit() {
@@ -59,68 +70,94 @@ export class ImageIEDirective implements AfterViewInit {
       'relative'
     );
 
-    domListener(
-      this.renderer,
-      this.htmlEl,
-      'mouseenter'
-    )
-      .pipe(
-        untilDestroyed(this)
+    merge(
+      domListener(
+        this.renderer,
+        this.htmlEl,
+        'mouseenter'
       )
-      .subscribe(() =>
-        this.toolbar.style.opacity = '1'
-      );
-
-    domListener(
-      this.renderer,
-      this.htmlEl,
-      'mouseleave'
-    )
-      .pipe(
-        untilDestroyed(this)
-      )
-      .subscribe(() =>
-        this.toolbar.style.opacity = '0'
-      );
-
-    domListener(
-      this.renderer,
-      this.triggerEl,
-      'click'
-    )
-      .pipe(
-        untilDestroyed(this)
-      )
-      .subscribe(() => {
-        this.dialog.open(
-          ImageDialogComponent,
-          {
-            width: '500px',
-            data: this.options.data[this.options.property]
-          }
-        )
-          .afterClosed()
-          .pipe(
-            filter(it => it)
-          )
-          .subscribe(({url}) => {
-            this.options.data[this.options.property] = url;
-            this.htmlEl.querySelector('img').src = url;
+        .pipe(
+          tap(() => {
+            if (this.isActive) {
+              this.toolbar.style.opacity = '1';
+            }
+            this.isHoovered = true;
           })
-      });
-
-    domListener(
-      this.renderer,
-      this.removeEl,
-      'click',
+        ),
+      domListener(
+        this.renderer,
+        this.htmlEl,
+        'mouseleave'
+      )
+        .pipe(
+          tap(() => {
+            if (this.isActive) {
+              this.toolbar.style.opacity = '0';
+            }
+            this.isHoovered = false;
+          })
+        )
     )
       .pipe(
         untilDestroyed(this)
       )
-      .subscribe(() => {
-        this.options.data[this.options.property] = '';
-        this.htmlEl.parentElement.removeChild(this.htmlEl);
-      })
+      .subscribe()
+
+    this.ctx.selectedBlock$
+      .pipe(
+        filter(index => {
+          this.isActive = [...this.host.parentElement.children].indexOf(this.host) === index;
+
+          if (!this.isActive) {
+            this.toolbar.style.opacity = '0';
+          } else if (this.isHoovered) {
+            this.toolbar.style.opacity = '1';
+          }
+
+          return this.isActive;
+        }),
+        switchMap(() =>
+          merge(
+            domListener(
+              this.renderer,
+              this.triggerEl,
+              'click'
+            )
+              .pipe(
+                tap(() => {
+                  this.dialog.open(
+                    ImageDialogComponent,
+                    {
+                      width: '500px',
+                      data: this.options.data[this.options.property]
+                    }
+                  )
+                    .afterClosed()
+                    .pipe(
+                      filter(it => it)
+                    )
+                    .subscribe(({url}) => {
+                      this.update(url);
+                      this.htmlEl.querySelector('img').src = url;
+                    })
+                })
+              ),
+            domListener(
+              this.renderer,
+              this.removeEl,
+              'click',
+            )
+              .pipe(
+                tap(() => {
+                  this.update('');
+                  this.htmlEl.parentElement.removeChild(this.htmlEl);
+                })
+              )
+          )
+        ),
+        untilDestroyed(this)
+      )
+      .subscribe()
   }
 
   private buildToolbar() {
@@ -190,5 +227,10 @@ export class ImageIEDirective implements AfterViewInit {
     }
 
     this.htmlEl.appendChild(this.toolbar);
+  }
+
+  update(value: string) {
+    this.options.data[this.options.property] = value;
+    this.ctx.triggerUpdate$.next(this.options.data);
   }
 }

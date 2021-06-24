@@ -12,6 +12,7 @@ import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
+import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
@@ -55,7 +56,8 @@ export function createCompiler(compilerFactory: CompilerFactory) {
       useFactory: createCompiler,
       deps: [CompilerFactory]
     },
-    ToolbarService
+    ToolbarService,
+    PageBuilderCtxService
   ]
 })
 export class PageBuilderModule {

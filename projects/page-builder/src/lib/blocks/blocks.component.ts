@@ -27,11 +27,13 @@ import {
   safeEval
 } from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {forkJoin, Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
+import {PageBuilderCtxService} from '../page-builder-ctx.service';
 import {Selected} from '../selected.interface';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
@@ -68,6 +70,7 @@ interface BlocksData extends FieldData {
   styleUrls?: string | string[];
 }
 
+@UntilDestroy()
 @Component({
   selector: 'fb-pb-blocks',
   templateUrl: './blocks.component.html',
@@ -89,7 +92,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private domSanitizer: DomSanitizer,
     @Inject(DOCUMENT)
     private document: any,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private ctx: PageBuilderCtxService
   ) {
     super(cData);
   }
@@ -171,6 +175,15 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     });
 
     this.service.saveComponents.push(this);
+
+    this.ctx.triggerUpdate$
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(data => {
+        this.blockComponent.formBuilderComponent.form.setValue(data, {emitEvent: false});
+        this.blocks[this.selectedIndex].value = data;
+      })
   }
 
   ngOnDestroy() {
@@ -314,6 +327,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     };
 
     this.focusBlock();
+    this.ctx.selectedBlock$.next(this.selectedIndex);
 
     this.state = 'inner';
     this.cdr.markForCheck();
@@ -366,6 +380,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     // @ts-ignore
     this.selectedIndex = undefined;
     this.state = '';
+    this.ctx.selectedBlock$.next(undefined);
     this.cdr.markForCheck();
   }
 
