@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [3.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.0.1...@jaspero/fb-page-builder@3.1.0) (2021-06-24)
+
+
+### Bug Fixes
+
+* dependency errors ([70f3176](https://github.com/Jaspero/schema-forms/commit/70f31764ca1567d25abea0d4ebb66f66d2451d69))
+
+
+### Features
+
+* **page-builder:** updated how we detect changes throguh inline editing ([a2a58b9](https://github.com/Jaspero/schema-forms/commit/a2a58b9fc0bc5b4e58dbb90e9497635ecdefac96))
+
 ## @jaspero/fb-page-builder [3.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.0.0...@jaspero/fb-page-builder@3.0.1) (2021-06-23)
 
 
