@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.0.0...@jaspero/fb-tinymce@2.0.1) (2021-06-24)
+
+
+### Bug Fixes
+
+* dependency in package.json ([af246fa](https://github.com/Jaspero/schema-forms/commit/af246fa292a3fe34a4ac63a0e5203494fde9cc04))
+
 # @jaspero/fb-tinymce [2.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@1.8.9...@jaspero/fb-tinymce@2.0.0) (2021-06-20)
 
 
