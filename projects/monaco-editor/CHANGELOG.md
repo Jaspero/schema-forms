@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [2.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.1...@jaspero/fb-monaco-editor@2.0.2) (2021-06-24)
+
+
+### Bug Fixes
+
+* dependency errors ([70f3176](https://github.com/Jaspero/schema-forms/commit/70f31764ca1567d25abea0d4ebb66f66d2451d69))
+
 ## @jaspero/fb-monaco-editor [2.0.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.0...@jaspero/fb-monaco-editor@2.0.1) (2021-06-23)
 
 
