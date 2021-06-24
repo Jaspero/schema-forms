@@ -1,0 +1,41 @@
+{
+  "name": "@jaspero/background",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^12.0.5",
+    "@angular/core": "^12.0.5",
+    "@jaspero/form-builder": "file:./dist/@jaspero/form-builder"
+  },
+  "dependencies": {
+    "tslib": "^2.1.0"
+  },
+  "release": {
+    "pkgRoot": "../../dist/@jaspero/fb-background",
+    "branch": "master",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "dist/@jaspero/fb-background"
+          ]
+        }
+      ]
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator"
+    ]
+  }
+}

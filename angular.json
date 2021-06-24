@@ -442,6 +442,38 @@
           }
         }
       }
+    },
+    "background": {
+      "projectType": "library",
+      "root": "projects/background",
+      "sourceRoot": "projects/background/src",
+      "prefix": "fb-background",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/background/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/background/tsconfig.lib.prod.json",
+              "project": "projects/background/ng-package.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/background/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/background/src/test.ts",
+            "tsConfig": "projects/background/tsconfig.spec.json",
+            "karmaConfig": "projects/background/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "schema-forms",

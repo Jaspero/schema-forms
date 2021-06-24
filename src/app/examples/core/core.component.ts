@@ -52,6 +52,9 @@ export class CoreComponent implements OnInit, AfterViewInit {
         module: {
           type: 'string'
         },
+        test: {
+          type: 'string'
+        },
         showModule: {
           type: 'boolean'
         },
@@ -60,6 +63,12 @@ export class CoreComponent implements OnInit, AfterViewInit {
       }
     },
     definitions: {
+      test: {
+        label: 'test',
+        component: {
+          type: 'background'
+        }
+      },
       'items2/type': {
         label: 'type',
         component: {
@@ -202,74 +211,77 @@ export class CoreComponent implements OnInit, AfterViewInit {
     },
     segments: [
       {
-        components: [{
-          selector: 'example'
-        }]
-      },
-      {
-        array: '/items2',
-        fields: [
-          '/type',
-          {
-            field: '/title',
-            deps: ['/items2/type'],
-            action: [
-              {
-                type: 'show',
-                function: `(row, i) => { return row.items2[i].type === 'title'}`
-              },
-            ]
-          }
-        ],
-        title: 'Items'
-      },
-      {
-        fields: [
-          // '/between',
-          // '/createdOn',
-          // '/File',
-          // '/photos',
-          // '/description',
-          // '/address',
-          '/endDate',
-          '/startDate',
-          '/showModule',
-          {
-            field: '/module',
-            deps: ['/showModule'],
-            action: [
-              {
-                type: 'show',
-                function: `(row) => row.showModule`
-              },
-              {
-                type: 'set-to',
-                configuration: {
-                  value: 'Placeholder Module'
-                },
-                function: `(row) => !row.module`
-              }
-            ]
-          },
-          {
-            field: '/module',
-            deps: ['/showModule'],
-            action: [
-              {
-                type: 'show',
-                function: `(row) => row.showModule`
-              },
-              {
-                type: 'set-to',
-                configuration: {
-                  value: 'Placeholder Module'
-                },
-                function: `(row) => !row.module`
-              }
-            ]
-          }
-        ]
+        fields: ['/test']
       }
+      // {
+      //   components: [{
+      //     selector: 'example'
+      //   }]
+      // },
+      // {
+      //   array: '/items2',
+      //   fields: [
+      //     '/type',
+      //     {
+      //       field: '/title',
+      //       deps: ['/items2/type'],
+      //       action: [
+      //         {
+      //           type: 'show',
+      //           function: `(row, i) => { return row.items2[i].type === 'title'}`
+      //         },
+      //       ]
+      //     }
+      //   ],
+      //   title: 'Items'
+      // },
+      // {
+      //   fields: [
+      //     // '/between',
+      //     // '/createdOn',
+      //     // '/File',
+      //     // '/photos',
+      //     // '/description',
+      //     // '/address',
+      //     '/endDate',
+      //     '/startDate',
+      //     '/showModule',
+      //     {
+      //       field: '/module',
+      //       deps: ['/showModule'],
+      //       action: [
+      //         {
+      //           type: 'show',
+      //           function: `(row) => row.showModule`
+      //         },
+      //         {
+      //           type: 'set-to',
+      //           configuration: {
+      //             value: 'Placeholder Module'
+      //           },
+      //           function: `(row) => !row.module`
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       field: '/module',
+      //       deps: ['/showModule'],
+      //       action: [
+      //         {
+      //           type: 'show',
+      //           function: `(row) => row.showModule`
+      //         },
+      //         {
+      //           type: 'set-to',
+      //           configuration: {
+      //             value: 'Placeholder Module'
+      //           },
+      //           function: `(row) => !row.module`
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }
       // {
       //   title: 'Card Array Segment',
       //   array: '/age',

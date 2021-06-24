@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {FormBuilderModule} from '@jaspero/form-builder';
 import {CoreComponent} from './core.component';
+import {BackgroundModule} from '../../../../projects/background/src/lib/background.module';
 
 const routes: Routes = [{
   path: '',
@@ -15,7 +16,8 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
 
-    FormBuilderModule
+    FormBuilderModule,
+    BackgroundModule
   ]
 })
 export class CoreModule { }

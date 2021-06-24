@@ -450,7 +450,7 @@ This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor
       }
     }
     ```
-5. In `angular.json` extend the `architect.configurations.production` with `ng-package.prod.json`
+5. In `angular.json` extend the `architect.build.configurations.production` with `ng-package.prod.json`
     ```json
      "configurations": {
        "production": {

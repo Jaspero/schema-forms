@@ -1,0 +1,13 @@
+<div [formGroup]="form" class="w-full">
+  <mat-form-field class="w-full" appearance="outline">
+    <mat-label>Background</mat-label>
+    <input matInput formControlName="background">
+
+    <div matSuffix class="flex ai-center">
+      <input class="color-input" type="color" #colorInput (input)="writeValue($event)">
+      <button mat-icon-button (click)="colorInput.click();"><mat-icon>image</mat-icon></button>
+    </div>
+    <!--  <button mat-icon-button><mat-icon>add</mat-icon></button>-->
+  </mat-form-field>
+</div>
+

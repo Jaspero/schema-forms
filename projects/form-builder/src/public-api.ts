@@ -52,5 +52,9 @@ export * from './lib/utils/custom-components';
 /**
  * Directives
  */
-
 export * from './lib/directives/dropzone/dropzone.directive';
+
+/**
+ * Components
+ */
+export * from './lib/fields/image/image.component';

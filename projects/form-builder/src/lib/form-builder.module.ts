@@ -149,7 +149,7 @@ import { FileSelectComponent } from './components/file-select/file-select.compon
      */
     TranslocoModule
   ],
-  exports: [FormBuilderComponent]
+  exports: [FormBuilderComponent, ImageComponent]
 })
 export class FormBuilderModule {
   static forRoot(): ModuleWithProviders<FormBuilderModule> {
