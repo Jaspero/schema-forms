@@ -1,28 +1,21 @@
-<section class="flex ai-base">
-<!--  <div class="p-x-m p-t-s flex ai-base">-->
-<!--    <mat-form-field class="flex-4">-->
-<!--      <mat-label>Search by {{cData.search.label}}</mat-label>-->
-<!--      <input matInput [formControl]="searchControl" #input autocomplete="off">-->
-<!--    </mat-form-field>-->
-<!--    -->
-<!--  </div>-->
+<section class="flex ai-base m-y-s">
   <mat-form-field class="w-full mat-form-field-no-hint">
     <mat-label>{{cData.display.label | transloco}}</mat-label>
     <input matInput autocomplete="off" [matAutocomplete]="auto" [value]="display$ | async">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
       <section class="ref-container" *ngIf="auto.isOpen">
         <div *ngIf="input.focus()"></div>
-        <div class="p-x-m p-t-s">
+        <div class="p-x-m p-t-s search-field">
           <mat-form-field class="w-full">
             <mat-label>{{'FIELDS.REF.SEARCH_BY' | transloco}} {{cData.search.label}}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off">
           </mat-form-field>
         </div>
 
-        <div class="ref-content">
+        <div class="ref-content m-b-m">
           <ng-container *ngIf="data$ | async as data">
             <ng-container *ngIf="data.length; else empty">
-              <table mat-table [dataSource]="data">
+              <table mat-table [dataSource]="data" class="m-b-m">
                 <ng-container *ngFor="let column of cData.table.tableColumns" [matColumnDef]="column.key.slice(1)">
                   <th mat-header-cell *matHeaderCellDef>{{column.label | transloco}}</th>
                   <td mat-cell *matCellDef="let element">{{element[column.key.slice(1)]}}</td>
@@ -38,13 +31,18 @@
                 <button mat-raised-button (click)="applySearchValue()" color="primary">{{'FIELDS.REF.APPLY_VALUE' | transloco}}</button>
               </div>
             </ng-template>
+
+            <div class="flex jc-center">
+              <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="!hasMore">{{'FIELDS.REF.LOAD_MORE' | transloco}}</button>
+            </div>
           </ng-container>
         </div>
       </section>
       <mat-option style="display: none;"></mat-option>
     </mat-autocomplete>
+
+    <button matSuffix mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined">
+      <mat-icon>clear</mat-icon>
+    </button>
   </mat-form-field>
-  <button mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined">
-    <mat-icon>clear</mat-icon>
-  </button>
 </section>

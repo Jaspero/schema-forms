@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {combineLatest, Observable, of} from 'rxjs';
-import {map, startWith, switchMap, tap} from 'rxjs/operators';
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {BehaviorSubject, combineLatest, Observable, of} from 'rxjs';
+import {distinctUntilChanged, map, scan, startWith, switchMap, tap} from 'rxjs/operators';
 import {FilterMethod} from '../../enums/filter-method.enum';
 import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
@@ -67,6 +68,12 @@ interface RefData extends FieldData {
       label: string;
     }[];
   }
+
+  /**
+   * Close search dialog after selecting item
+   * @default true
+   */
+  closeOnSelect?: boolean;
 }
 
 @Component({
@@ -90,6 +97,18 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
 
   searchControl: FormControl;
 
+  cursor = null;
+
+  loadMore$ = new BehaviorSubject(true);
+
+  lastSearch: string;
+
+  hasMore: boolean;
+
+  cleared: boolean;
+
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
+
   ngOnInit() {
 
     this.searchControl = new FormControl('');
@@ -102,7 +121,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
       this.cData.clearValue = this.cData.clearValue ?? null;
     }
 
-    this.cData.limit = Math.abs(this.cData.limit || 5);
+    this.cData.limit = Math.abs(this.cData.limit || 4);
 
     this.cData.display = this.cData.display || {};
     this.cData.display.key = this.cData.display.key || '/name';
@@ -114,6 +133,8 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
     this.cData.table = this.cData.table || {};
     this.cData.table.tableColumns = this.cData.table.tableColumns || [{key: '/id', label: 'ID'}];
     this.displayedColumns = this.cData.table.tableColumns.map(column => column.key.slice(1)) as string[];
+
+    this.cData.closeOnSelect = this.cData.closeOnSelect ?? true;
 
     this.display$ = this.cData.control.valueChanges.pipe(
       startWith(this.cData.control.value),
@@ -135,14 +156,20 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
         );
       }),
       tap(display => {
+        if (this.cleared) {
+          this.cleared = false;
+          return;
+        }
+
         this.searchControl.setValue(display);
       })
     );
 
-    this.data$ = combineLatest([this.searchControl.valueChanges, this.display$]).pipe(
-      switchMap(([search]: [string, any]) => {
+    this.data$ = combineLatest([this.searchControl.valueChanges
+      .pipe(distinctUntilChanged(), tap(() => this.cursor = null)), this.display$, this.loadMore$]).pipe(
+      switchMap(([search]: [string, any, boolean]) => {
         search = search || '';
-        return this.db.getDocuments(this.cData.collection, this.cData.limit, undefined, null, [
+        return this.db.getDocuments(this.cData.collection, this.cData.limit, undefined, this.cursor, [
           {
             // @ts-ignore
             key: this.cData.search.key.slice(1),
@@ -162,26 +189,69 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
         ]);
       }),
       map((snaps: any) => {
+        if (snaps.length) {
+          this.cursor = snaps[snaps.length - 1];
+        } else {
+          this.cursor = null;
+        }
+
         return snaps.map(doc => {
           return {
             id: doc.id,
             ...doc.data()
           };
         });
-      })
+      }),
+      scan((documents, cur) => {
+        if (cur.length) {
+          this.hasMore = true;
+        } else {
+          this.hasMore = false;
+          this.cursor = null;
+        }
+
+        if (this.lastSearch !== this.searchControl.value) {
+          this.lastSearch = this.searchControl.value;
+          return cur;
+        }
+
+        this.lastSearch = this.searchControl.value;
+
+        return [...documents, ...(this.hasMore ? cur : [])];
+      }, [])
     );
   }
 
   selectRow(row) {
+    if (this.cData.closeOnSelect) {
+      this.autocomplete.closePanel();
+    }
+
     // @ts-ignore
     this.cData.control.setValue(row[this.cData.valueKey]);
   }
 
   resetValue() {
     this.cData.control.setValue(this.cData.clearValue);
+    this.searchControl.setValue('');
+
+    setTimeout(() => {
+      if (this.cData.closeOnSelect) {
+        this.autocomplete.closePanel();
+      }
+    });
   }
 
   applySearchValue() {
+    if (this.cData.closeOnSelect) {
+      this.autocomplete.closePanel();
+    }
+
     this.cData.control.setValue(this.searchControl.value || '');
+    this.cleared = true;
+  }
+
+  loadMore() {
+    this.loadMore$.next(true);
   }
 }
