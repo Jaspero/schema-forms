@@ -1,11 +1,8 @@
-//.ref-container {
-//  overflow-y: hidden !important;
-//  height: 300px;
-//
-//  .ref-content {
-//    overflow-y: scroll;
-//  }
-//}
+.search-field {
+  position: sticky;
+  top: 0;
+  background: var(--sidebar-theme);
+}
 
 .ref-row {
   &:hover {
