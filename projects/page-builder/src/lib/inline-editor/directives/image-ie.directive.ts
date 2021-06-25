@@ -10,6 +10,7 @@ import {ToolbarService} from '../../toolbar.service';
 
 interface Options {
   property: string;
+  parent?: any;
   data: any;
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   customElements?: string[];
@@ -231,6 +232,6 @@ export class ImageIEDirective implements AfterViewInit {
 
   update(value: string) {
     this.options.data[this.options.property] = value;
-    this.ctx.triggerUpdate$.next(this.options.data);
+    this.ctx.triggerUpdate$.next(this.options.parent || this.options.data);
   }
 }

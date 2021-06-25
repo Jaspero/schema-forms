@@ -9,6 +9,7 @@ import {domListener} from '../../utils/dom-listener';
 interface Options {
   property: string;
   data: any;
+  parent?: any;
   elementOptions?: string[];
   textDecorations?: string[];
   textAligns?: string[];
@@ -397,7 +398,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   update(data = this.htmlEl.innerHTML) {
     this.options.data[this.options.property] = data;
-    this.ctx.triggerUpdate$.next(this.options.data);
+    this.ctx.triggerUpdate$.next(this.options.parent || this.options.data);
   }
 
   private assignLastTarget() {

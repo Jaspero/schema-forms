@@ -1,0 +1,6 @@
+<div *ngFor="let card of data.cards">
+  <div *ngIf="card.image" [fbPbImageIE]="{property: 'image', data: card, parent: data}">
+    <img [src]="card.image">
+  </div>
+  <div *ngIf="card.title" [fbPbSingleLineIE]="{property: 'title', data: card, parent: data}" [innerHTML]="card.title | jpSanitize"></div>
+</div>

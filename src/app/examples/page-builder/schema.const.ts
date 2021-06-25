@@ -39,14 +39,40 @@ export const SCHEMA = {
               }
             },
             {
-              id: 'space',
-              label: 'Space',
-              previewTemplate: `<hr>`,
-              skipOpen: true,
+              id: 'cards',
+              label: 'Cards',
+              previewTemplate: `<sc-cards [data]="data"></sc-cards>`,
+              previewValue: {
+                cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any'}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any'}]
+              },
               form: {
-                segments: [],
+                segments: [
+                  {
+                    array: '/cards',
+                    fields: [
+                      '/title'
+                    ]
+                  }
+                ],
                 schema: {
-                  properties: {}
+                  properties: {
+                    cards: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          title: {
+                            type: 'string',
+                            default: '<h1>Example 1</h1>'
+                          },
+                          image: {
+                            type: 'string',
+                            default: 'http://placeimg.com/200/200/any'
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
                 definitions: {}
               }
