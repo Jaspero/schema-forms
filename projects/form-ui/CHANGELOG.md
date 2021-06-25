@@ -1,3 +1,19 @@
+## @jaspero/fb-form-ui [2.0.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.0.3...@jaspero/fb-form-ui@2.0.4) (2021-06-25)
+
+
+### Bug Fixes
+
+* **page-builder:** updating array in inline editor ([4c9f05d](https://github.com/Jaspero/schema-forms/commit/4c9f05d7f65db458f6d99f5d1561c86976dfc6e0))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.0.2
+* **@jaspero/fb-tinymce:** upgraded to 2.0.2
+
 ## @jaspero/fb-form-ui [2.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.0.2...@jaspero/fb-form-ui@2.0.3) (2021-06-24)
 
 
