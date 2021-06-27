@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.1.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.1.1...@jaspero/fb-page-builder@3.1.2) (2021-06-27)
+
+
+### Bug Fixes
+
+* **form-builder:** rxjs dependency ([5d22d35](https://github.com/Jaspero/schema-forms/commit/5d22d35184f62bdb056c02ee70913cf615ddb9e8))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.0.3
+
 ## @jaspero/fb-page-builder [3.1.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.1.0...@jaspero/fb-page-builder@3.1.1) (2021-06-25)
 
 
