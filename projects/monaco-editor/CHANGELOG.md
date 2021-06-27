@@ -1,3 +1,18 @@
+## @jaspero/fb-monaco-editor [2.0.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.3...@jaspero/fb-monaco-editor@2.0.4) (2021-06-27)
+
+
+### Bug Fixes
+
+* **form-builder:** rxjs dependency ([5d22d35](https://github.com/Jaspero/schema-forms/commit/5d22d35184f62bdb056c02ee70913cf615ddb9e8))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.0.3
+
 ## @jaspero/fb-monaco-editor [2.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.2...@jaspero/fb-monaco-editor@2.0.3) (2021-06-25)
 
 
