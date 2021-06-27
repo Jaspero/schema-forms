@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.0.2...@jaspero/form-builder@4.0.3) (2021-06-27)
+
+
+### Bug Fixes
+
+* **form-builder:** rxjs dependency ([7af08a7](https://github.com/Jaspero/schema-forms/commit/7af08a77b7709465a131efae363d2308bf3b155c))
+
 ## @jaspero/form-builder [4.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.0.1...@jaspero/form-builder@4.0.2) (2021-06-25)
 
 
