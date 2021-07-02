@@ -1,3 +1,18 @@
+# @jaspero/fb-monaco-editor [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.4...@jaspero/fb-monaco-editor@2.1.0) (2021-07-02)
+
+
+### Features
+
+* **page-builder:** option for restricting number of blocks per page closes [#57](https://github.com/Jaspero/schema-forms/issues/57) ([a22676c](https://github.com/Jaspero/schema-forms/commit/a22676ca782fcb17277dd34d1d21451e6b5937ee))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.1.0
+
 ## @jaspero/fb-monaco-editor [2.0.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.0.3...@jaspero/fb-monaco-editor@2.0.4) (2021-06-27)
 
 
