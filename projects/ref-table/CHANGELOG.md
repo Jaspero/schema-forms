@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.0.0...@jaspero/fb-ref-table@2.1.0) (2021-07-02)
+
+
+### Features
+
+* **page-builder:** option for restricting number of blocks per page closes [#57](https://github.com/Jaspero/schema-forms/issues/57) ([a22676c](https://github.com/Jaspero/schema-forms/commit/a22676ca782fcb17277dd34d1d21451e6b5937ee))
+
 # @jaspero/fb-ref-table [2.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@1.0.0...@jaspero/fb-ref-table@2.0.0) (2021-06-20)
 
 
