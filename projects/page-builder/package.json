@@ -1,6 +1,7 @@
 {
   "name": "@jaspero/fb-page-builder",
-  "version": "2.18.1",
+  "description": "Page builder plugin for @jaspero/form-builder",
+  "version": "3.1.2",
   "author": {
     "name": "Jaspero Ltd",
     "email": "info@jaspero.co"

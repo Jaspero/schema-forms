@@ -61,6 +61,11 @@ interface Block {
    */
   previewFormat?: string;
   icon?: string;
+
+  /**
+   * Limit the number of instances per page
+   */
+  maxInstances?: number;
 }
 
 interface BlocksData extends FieldData {
@@ -459,6 +464,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       ],
       encapsulation: ViewEncapsulation.ShadowDom
     })(class {})
+  }
+
+  isDisabled(block: Block) {
+    if (!block.maxInstances) {
+      return false;
+    }
+
+    return this.blocks.filter(it => it.type === block.id).length >= block.maxInstances;
   }
 
   save(moduleId: string, documentId: string) {

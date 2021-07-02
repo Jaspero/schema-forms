@@ -41,6 +41,7 @@ export const SCHEMA = {
             {
               id: 'cards',
               label: 'Cards',
+              maxInstances: 1,
               previewTemplate: `<sc-cards [data]="data"></sc-cards>`,
               previewValue: {
                 cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any'}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any'}]

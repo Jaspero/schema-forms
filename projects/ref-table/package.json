@@ -1,6 +1,7 @@
 {
   "name": "@jaspero/fb-ref-table",
-  "version": "0.0.1",
+  "version": "2.0.0",
+  "description": "Reference Table plugin for @jaspero/form-builder",
   "peerDependencies": {
     "@angular/common": "^12.0.0",
     "@angular/core": "^12.0.0"

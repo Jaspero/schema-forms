@@ -49,7 +49,12 @@
           </button>
         </div>
 
-        <div class="pb-sidebar-add-block" matRipple *ngFor="let block of cData.blocks; index as index" (click)="previewBlock(block, index)">
+        <div
+          class="pb-sidebar-add-block"
+          matRipple
+          *ngFor="let block of cData.blocks; index as index"
+          [class.b-dis]="isDisabled(block)"
+          (click)="previewBlock(block, index)">
           {{block.label | transloco}}
           <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
             {{'PB.ADD' | transloco}}

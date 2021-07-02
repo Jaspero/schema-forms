@@ -119,6 +119,11 @@
         border-top: 1px solid var(--tertiary);
         cursor: pointer;
 
+        &.b-dis {
+          pointer-events: none;
+          opacity: .7;
+        }
+
         &:last-of-type {
           border-bottom: 1px solid var(--tertiary);
         }

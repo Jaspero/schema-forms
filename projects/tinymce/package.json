@@ -1,6 +1,7 @@
 {
   "name": "@jaspero/fb-tinymce",
-  "version": "1.8.9",
+  "version": "2.0.3",
+  "description": "TinyMCE plugin for @jaspero/form-builderxwsdxwd",
   "author": {
     "name": "Jaspero Ltd",
     "email": "info@jaspero.co"

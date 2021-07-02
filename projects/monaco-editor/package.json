@@ -1,6 +1,7 @@
 {
   "name": "@jaspero/fb-monaco-editor",
-  "version": "1.0.35",
+  "version": "2.0.4",
+  "description": "Code editor plugin for @jaspero/form-builder",
   "peerDependencies": {
     "@angular/common": "^12.0.0",
     "@angular/core": "^12.0.0",

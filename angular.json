@@ -77,7 +77,6 @@
               "tinymce/plugins/autolink",
               "tinymce/plugins/advlist"
             ],
-            "showCircularDependencies": false,
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
