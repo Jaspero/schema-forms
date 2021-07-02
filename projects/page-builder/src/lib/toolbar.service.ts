@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {fromEvent, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 import {UniqueId, uniqueId} from './utils/unique-id';
 
 export interface Toolbar {
@@ -29,6 +31,7 @@ export class ToolbarService {
   toolbarProps = {height: 40};
 
   private toolbarListener: any;
+  private _scroll$: Observable<number>;
   private toggleToolbars = (e) => {
     for (const key in this.toolbars) {
       if (this.toolbars[key].el.contains(e.target)) {
@@ -73,7 +76,7 @@ export class ToolbarService {
       el.appendChild(svgEl);
 
       return el;
-    }
+    };
 
     toolbar.classList.add('pb-t');
     toolbar.style.height = `${this.toolbarProps.height}px`;
@@ -246,5 +249,22 @@ export class ToolbarService {
       this.parentEl.removeChild(toolbar.el);
       toolbar.visible = false;
     }
+  }
+
+  scroll$() {
+    if (this._scroll$) {
+      return this._scroll$;
+    }
+
+    this._scroll$ = fromEvent(
+      this.iframeEl.contentWindow,
+      'scroll',
+      {passive: true}
+    )
+      .pipe(
+        map((e: any) => (e.path[1] as Window).scrollY)
+      );
+
+    return this._scroll$;
   }
 }

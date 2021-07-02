@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Renderer2, ViewEncapsulation} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {merge} from 'rxjs';
+import {merge, Subscription} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
 import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
@@ -66,6 +66,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   get host() {
     return this.htmlEl.getRootNode().host;
   }
+
+  private scrollListener: Subscription;
 
   ngAfterViewInit() {
     if (!this.toolbarService) {
@@ -195,7 +197,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
             .pipe(tap((e: MouseEvent) =>
               e.preventDefault()
             ))
-        )
+        );
 
         filteredEvents.push(
           domListener(
@@ -250,8 +252,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               tap(() => {
 
                 const {classList} = toolbarEl;
-
-                console.log(this.lastTarget);
 
                 if (classList.contains(this.activeCls)) {
                   this.lastTarget.removeAttribute('style');
@@ -319,7 +319,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       .pipe(
         untilDestroyed(this)
       )
-      .subscribe()
+      .subscribe();
 
     this.ctx.selectedBlock$
       .pipe(
@@ -328,6 +328,12 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
           if (!match) {
             this.toolbarService.hideToolbar(this.toolbar.id);
+
+            if (this.scrollListener) {
+              this.scrollListener.unsubscribe();
+              this.scrollListener = null;
+            }
+
           } else if (
             this.htmlEl.contains((this.shadowRoot.getSelection() as Selection).anchorNode?.parentElement)
           ) {
@@ -360,6 +366,20 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     const {top, left} = this.htmlEl.getBoundingClientRect();
 
     this.toolbarService.showToolbar(top, left, this.toolbar.id);
+
+    let {scrollY} = this.iFrame.contentWindow;
+
+    /**
+     * Add the offset from top for the begining of the iframe
+     * and remove the default height of the toolbar and border
+     */
+    scrollY += this.iFrame.getBoundingClientRect().y - 40;
+
+    this.scrollListener = this.toolbarService.scroll$()
+      .pipe(untilDestroyed(this))
+      .subscribe(num => {
+        this.toolbar.el.style.top = (top + scrollY - num) + 'px'
+      })
   }
 
   triggerSelection() {
