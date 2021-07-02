@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.1.2...@jaspero/fb-page-builder@3.2.0) (2021-07-02)
+
+
+### Features
+
+* **page-builder:** option for restricting number of blocks per page closes [#57](https://github.com/Jaspero/schema-forms/issues/57) ([a22676c](https://github.com/Jaspero/schema-forms/commit/a22676ca782fcb17277dd34d1d21451e6b5937ee))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.1.0
+
 ## @jaspero/fb-page-builder [3.1.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.1.1...@jaspero/fb-page-builder@3.1.2) (2021-06-27)
 
 
