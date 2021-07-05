@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.2.0...@jaspero/fb-page-builder@3.3.0) (2021-07-05)
+
+
+### Features
+
+* **page-builder:** toolbar fixed with iframe scroll closes [#49](https://github.com/Jaspero/schema-forms/issues/49) ([0ee1546](https://github.com/Jaspero/schema-forms/commit/0ee1546aad75243b8cf7c1e26defef282a3692b2))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.2.0
+
 # @jaspero/fb-page-builder [3.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.1.2...@jaspero/fb-page-builder@3.2.0) (2021-07-02)
 
 
