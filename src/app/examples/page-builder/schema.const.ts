@@ -44,14 +44,14 @@ export const SCHEMA = {
               maxInstances: 1,
               previewTemplate: `<sc-cards [data]="data"></sc-cards>`,
               previewValue: {
-                cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any'}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any'}]
+                cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any', link: ''}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any', link: ''}]
               },
               form: {
                 segments: [
                   {
                     array: '/cards',
                     fields: [
-                      '/title'
+                      '/link'
                     ]
                   }
                 ],
@@ -69,7 +69,8 @@ export const SCHEMA = {
                           image: {
                             type: 'string',
                             default: 'http://placeimg.com/200/200/any'
-                          }
+                          },
+                          link: {type: 'string'}
                         }
                       }
                     }
