@@ -80,6 +80,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   @ViewChild('text', {static: true}) textField: TemplateRef<any>;
+  @ViewChild('color', {static: true}) colorField: TemplateRef<any>;
   @ViewChild('number', {static: true}) numberField: TemplateRef<any>;
   @ViewChild('tel', {static: true}) telField: TemplateRef<any>;
   @ViewChild('email', {static: true}) emailField: TemplateRef<any>;

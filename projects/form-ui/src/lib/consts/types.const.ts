@@ -233,6 +233,15 @@ export const TYPES = [
     }
   },
   {
+    value: 'color',
+    label: 'Color',
+    settings,
+    default: {
+      label: 'Color'
+    },
+    required: true
+  },
+  {
     value: 'content',
     label: 'Content',
     settings: {

@@ -22,6 +22,14 @@
   </mat-form-field>
 </ng-template>
 
+<ng-template #color let-control="control">
+  <mat-form-field>
+    <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
+    <input matInput type="color" [formControl]="control.get('value')" [placeholder]="control.get('placeholder').value">
+    <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
+  </mat-form-field>
+</ng-template>
+
 <ng-template #email let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
