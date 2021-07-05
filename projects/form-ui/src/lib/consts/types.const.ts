@@ -74,13 +74,47 @@ const options: FormBuilderData = {
   }
 };
 
+const standardValidation: FormBuilderData = {
+  segments: [{
+    title: 'Validation',
+    fields: [
+      '/minlength',
+      '/maxlength',
+      '/pattern'
+    ]
+  }],
+  schema: {
+    properties: {
+      minlength: {type: 'number'},
+      maxlength: {type: 'number'},
+      pattern: {type: 'string'},
+    }
+  },
+  definitions: {
+    minlength: {label: 'Minimum Length'},
+    maxlength: {label: 'Maximum Length'},
+    pattern: {label: 'Pattern'},
+  }
+};
+
 export const TYPES = [
   {
     value: 'text',
     label: 'Text',
     settings,
+    added: standardValidation,
     default: {
       label: 'Text',
+    },
+    required: true
+  },
+  {
+    value: 'tel',
+    label: 'Phone',
+    settings,
+    added: standardValidation,
+    default: {
+      label: 'Phone'
     },
     required: true
   },
@@ -88,6 +122,28 @@ export const TYPES = [
     value: 'number',
     label: 'Number',
     settings,
+    added: {
+      segments: [{
+        title: 'Validation',
+        fields: [
+          '/min',
+          '/max',
+          '/step'
+        ]
+      }],
+      schema: {
+        properties: {
+          min: {type: 'number'},
+          max: {type: 'number'},
+          step: {type: 'number'},
+        }
+      },
+      definitions: {
+        min: {label: 'Minimum'},
+        max: {label: 'Maximum'},
+        step: {label: 'Step Size'}
+      }
+    },
     default: {
       label: 'Number',
     },
@@ -119,18 +175,23 @@ export const TYPES = [
       value: {
         rows: 5
       },
-      segments: [{
-        fields: [
-          '/rows'
-        ]
-      }],
+      segments: [
+        {
+          fields: [
+            '/rows'
+          ]
+        },
+        ...standardValidation.segments
+      ],
       schema: {
         properties: {
-          rows: {type: 'number'}
+          rows: {type: 'number'},
+          ...standardValidation.schema.properties
         }
       },
       definitions: {
-        rows: {label: 'FU.ROWS'}
+        rows: {label: 'FU.ROWS'},
+        ...standardValidation.schema.definitions
       }
     },
     default: {

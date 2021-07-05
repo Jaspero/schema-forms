@@ -81,6 +81,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   @ViewChild('text', {static: true}) textField: TemplateRef<any>;
   @ViewChild('number', {static: true}) numberField: TemplateRef<any>;
+  @ViewChild('tel', {static: true}) telField: TemplateRef<any>;
   @ViewChild('email', {static: true}) emailField: TemplateRef<any>;
   @ViewChild('date', {static: true}) dateField: TemplateRef<any>;
   @ViewChild('textarea', {static: true}) textareaField: TemplateRef<any>;
