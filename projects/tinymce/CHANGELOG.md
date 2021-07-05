@@ -1,3 +1,18 @@
+# @jaspero/fb-tinymce [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.1.0...@jaspero/fb-tinymce@2.2.0) (2021-07-05)
+
+
+### Features
+
+* **page-builder:** toolbar fixed with iframe scroll closes [#49](https://github.com/Jaspero/schema-forms/issues/49) ([0ee1546](https://github.com/Jaspero/schema-forms/commit/0ee1546aad75243b8cf7c1e26defef282a3692b2))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.2.0
+
 # @jaspero/fb-tinymce [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.0.3...@jaspero/fb-tinymce@2.1.0) (2021-07-02)
 
 
