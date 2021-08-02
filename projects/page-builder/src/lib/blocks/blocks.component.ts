@@ -162,7 +162,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     let {blocks = [], control} = this.cData;
 
     // @ts-ignore
-    const addedBlocks = STATE.blocks.pages;
+    const addedBlocks = STATE.blocks[this.service.module];
 
     if (addedBlocks) {
       blocks = [
