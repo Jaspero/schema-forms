@@ -52,7 +52,7 @@
         <div
           class="pb-sidebar-add-block"
           matRipple
-          *ngFor="let block of cData.blocks; index as index"
+          *ngFor="let block of availableBlocks; index as index"
           [class.b-dis]="isDisabled(block)"
           (click)="previewBlock(block, index)">
           {{block.label | transloco}}

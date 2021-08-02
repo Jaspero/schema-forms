@@ -35,6 +35,7 @@ import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {PageBuilderCtxService} from '../page-builder-ctx.service';
 import {Selected} from '../selected.interface';
+import {STATE} from '../states.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
 
@@ -117,6 +118,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   selectedIndex: number;
   selection: {[key: string]: Selected};
   blocks: TopBlock[];
+  availableBlocks: Block[];
   previewed: number | undefined;
   toProcess: {
     [key: string]: {
@@ -157,16 +159,27 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.counter = uniqueId();
 
-    const {
-      blocks = [],
-      control
-    } = this.cData;
+    let {blocks = [], control} = this.cData;
+
+    // @ts-ignore
+    const addedBlocks = STATE.blocks.pages;
+
+    if (addedBlocks) {
+      blocks = [
+        ...blocks,
+        ...Object.entries(addedBlocks).map(([id, block]) => ({
+          id,
+          ...block
+        }))
+      ]
+    }
 
     this.selection = blocks.reduce((acc, cur) => {
       acc[cur.id] = cur;
       return acc;
     }, {});
 
+    this.availableBlocks = [...blocks];
     this.blocks = control.value.map(it => {
       const item = this.selection[it.type];
       return {
