@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.4.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.2...@jaspero/fb-page-builder@3.4.3) (2021-08-03)
+
+
+### Bug Fixes
+
+* **page-builder:** added component property to blocks when applying decorator ([d4fd9a6](https://github.com/Jaspero/schema-forms/commit/d4fd9a6697c2dcdb4e1e52ad4b796354a1b62727))
+
 ## @jaspero/fb-page-builder [3.4.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.1...@jaspero/fb-page-builder@3.4.2) (2021-08-03)
 
 
