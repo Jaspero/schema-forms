@@ -1,3 +1,11 @@
+## @jaspero/fb-page-builder [3.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.0...@jaspero/fb-page-builder@3.4.1) (2021-08-03)
+
+
+### Bug Fixes
+
+* **page-builder:** bad import in blocks ([ad0de39](https://github.com/Jaspero/schema-forms/commit/ad0de39ac0365959d82622ac7a8013fcb85bd471))
+* **page-builder:** states instead of state file ([7024fd3](https://github.com/Jaspero/schema-forms/commit/7024fd3a2f57fb2b89c47d240433cc1a1d2e0e96))
+
 # @jaspero/fb-page-builder [3.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.3.0...@jaspero/fb-page-builder@3.4.0) (2021-08-03)
 
 
