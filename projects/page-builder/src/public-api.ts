@@ -15,5 +15,5 @@ export * from './lib/inline-editor/directives/single-line-ie.directive';
 /**
  * Block Decorator
  */
-export * from './lib/states.const';
+export * from './lib/state.const';
 export * from './lib/decorators/block.decorator';

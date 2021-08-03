@@ -1,6 +1,6 @@
 import {Definitions, Segment} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
-import {STATE} from '../states.const';
+import {STATE} from '../state.const';
 
 export interface BlockOptions {
   /**
