@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.3.0...@jaspero/fb-page-builder@3.4.0) (2021-08-03)
+
+
+### Features
+
+* **page-builder:** Block decorator [#59](https://github.com/Jaspero/schema-forms/issues/59) ([8e2d691](https://github.com/Jaspero/schema-forms/commit/8e2d691cacaa93946ed7e8833c62a5c8ea753b96))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.3.0
+
 # @jaspero/fb-page-builder [3.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.2.0...@jaspero/fb-page-builder@3.3.0) (2021-07-05)
 
 
