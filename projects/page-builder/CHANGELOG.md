@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.4.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.1...@jaspero/fb-page-builder@3.4.2) (2021-08-03)
+
+
+### Bug Fixes
+
+* **page-builder:** using ctx on blocks ([c781f7d](https://github.com/Jaspero/schema-forms/commit/c781f7db485b48f4de0afda8bc6321e3ecca0221))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.3.1
+
 ## @jaspero/fb-page-builder [3.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.0...@jaspero/fb-page-builder@3.4.1) (2021-08-03)
 
 
