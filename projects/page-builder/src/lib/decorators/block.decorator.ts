@@ -31,7 +31,10 @@ export interface BlockOptions {
   }
 }
 
-
+/**
+ * TODO:
+ * When in render mode only the "component property is needed
+ */
 export function Block(options: BlockOptions): ClassDecorator {
   return (type: any) => {
 
@@ -51,6 +54,7 @@ export function Block(options: BlockOptions): ClassDecorator {
 
     STATE.blocks[module][id] = {
       ...options,
+      component: type,
       label: options.label || label.join(' ')
     };
   }
