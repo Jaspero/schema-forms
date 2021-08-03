@@ -11,3 +11,9 @@ export * from './lib/options.token';
  */
 export * from './lib/inline-editor/directives/image-ie.directive';
 export * from './lib/inline-editor/directives/single-line-ie.directive';
+
+/**
+ * Block Decorator
+ */
+export * from './lib/states.const';
+export * from './lib/decorators/block.decorator';

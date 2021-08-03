@@ -18,6 +18,13 @@ export class FormBuilderService {
    */
   saveComponents: any[] = [];
 
+  /**
+   * Currently active module. Important for
+   * components where the module is needed
+   * before save triggers.
+   */
+  module: string;
+
   removeComponent(component) {
     const index = this.saveComponents.indexOf(component);
 
