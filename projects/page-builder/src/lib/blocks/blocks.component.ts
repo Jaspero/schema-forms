@@ -21,7 +21,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData,
+  FieldData, FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
   safeEval
@@ -89,6 +89,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     public cData: BlocksData,
     public transloco: TranslocoService,
     private service: FormBuilderService,
+    private formCtx: FormBuilderContextService,
     @Optional()
     @Inject(FB_PAGE_BUILDER_OPTIONS)
     private options: FbPageBuilderOptions,
@@ -162,7 +163,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     let {blocks = [], control} = this.cData;
 
     // @ts-ignore
-    const addedBlocks = STATE.blocks[this.service.module];
+    const addedBlocks = STATE.blocks[this.formCtx.module];
 
     if (addedBlocks) {
       blocks = [
