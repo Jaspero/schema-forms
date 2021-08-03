@@ -35,7 +35,7 @@ import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {PageBuilderCtxService} from '../page-builder-ctx.service';
 import {Selected} from '../selected.interface';
-import {STATE} from '../states.const';
+import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
 
