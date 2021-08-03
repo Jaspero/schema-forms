@@ -13,6 +13,13 @@ export class FormBuilderContextService {
   fields: CustomFields = {};
   components: CustomComponents = {};
 
+  /**
+   * Currently active module. Important for
+   * components where the module is needed
+   * before save triggers.
+   */
+  module: string;
+
   get componentMap() {
     return {
       ...this.injectedComponents || {},
