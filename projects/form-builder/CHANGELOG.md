@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.3.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.3.0...@jaspero/form-builder@4.3.1) (2021-08-03)
+
+
+### Bug Fixes
+
+* **page-builder:** added module to context instead of form-builder service ([4b6d946](https://github.com/Jaspero/schema-forms/commit/4b6d946518ec63ad2eafa0df0d0056d0a4a3d236))
+
 # @jaspero/form-builder [4.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.2.0...@jaspero/form-builder@4.3.0) (2021-08-03)
 
 
