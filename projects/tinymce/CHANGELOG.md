@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.2.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.2...@jaspero/fb-tinymce@2.2.3) (2021-08-04)
+
+
+### Bug Fixes
+
+* **tinymce:** removed material-icon dependency from template-editor ([8b3c88a](https://github.com/Jaspero/schema-forms/commit/8b3c88a08b18570e829a1ae1aabcd6f0d62d84df))
+
 ## @jaspero/fb-tinymce [2.2.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.1...@jaspero/fb-tinymce@2.2.2) (2021-08-03)
 
 
