@@ -70,14 +70,12 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
 
     el.innerHTML = segment.content;
 
-    cleanUpTrigger.classList.add('material-icons');
-
     cleanUpTrigger.style.position = 'absolute';
     cleanUpTrigger.style.right = '-50px';
     cleanUpTrigger.style.top = '0';
     cleanUpTrigger.style.cursor = 'pointer';
 
-    cleanUpTrigger.innerText = 'close';
+    cleanUpTrigger.innerText = 'x';
 
     cleanUpTrigger.onclick = () => {
       const index = this.segments.findIndex(it => it === segment);
