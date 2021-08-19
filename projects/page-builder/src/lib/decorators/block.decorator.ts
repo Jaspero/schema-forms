@@ -11,7 +11,7 @@ export interface BlockOptions {
   /**
    * Defaults to 'pages'
    */
-  module?: string;
+  module?: string | string[];
 
   /**
    * Defaults to component name
@@ -43,19 +43,27 @@ export function Block(options: BlockOptions): ClassDecorator {
     const module = options.module || 'pages';
     const id = options.id || label.join('-').toLowerCase();
 
-    if (!STATE.blocks[module]) {
-      STATE.blocks[module] = {};
-    }
-
     if (!options.previewTemplate) {
       const [selector] = type.prototype.constructor.ɵcmp.selectors[0];
       options.previewTemplate = `<${selector} [data]="data"></${selector}>`;
     }
 
-    STATE.blocks[module][id] = {
-      ...options,
-      component: type,
-      label: options.label || label.join(' ')
-    };
+    function assignBlock(m: string) {
+      if (!STATE.blocks[m]) {
+        STATE.blocks[m] = {};
+      }
+
+      STATE.blocks[m][id] = {
+        ...options,
+        component: type,
+        label: options.label || label.join(' ')
+      };
+    }
+
+    if (Array.isArray(module)) {
+      module.forEach(m => assignBlock(m));
+    } else {
+      assignBlock(module);
+    }
   }
 }
