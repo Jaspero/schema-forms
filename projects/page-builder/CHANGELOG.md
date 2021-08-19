@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.3...@jaspero/fb-page-builder@3.5.0) (2021-08-19)
+
+
+### Features
+
+* **page-builder:** decorator now supports module as string array ([1ac3074](https://github.com/Jaspero/schema-forms/commit/1ac307479c9363ec59884734da2bfa391e65bf03))
+
 ## @jaspero/fb-page-builder [3.4.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.4.2...@jaspero/fb-page-builder@3.4.3) (2021-08-03)
 
 
