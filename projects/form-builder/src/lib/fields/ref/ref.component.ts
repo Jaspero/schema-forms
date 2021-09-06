@@ -8,6 +8,7 @@ import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {DbService} from '../../services/db.service';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {WhereFilter} from '../../interfaces/where-filter.interface';
 
 interface RefData extends FieldData {
   /**
@@ -70,6 +71,12 @@ interface RefData extends FieldData {
   }
 
   /**
+   * Additional Filters for provided collection
+   * @default []
+   */
+  filters?: WhereFilter[];
+
+  /**
    * Close search dialog after selecting item
    * @default true
    */
@@ -114,6 +121,8 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
     this.searchControl = new FormControl('');
 
     this.cData.collection = this.cData.collection || '';
+
+    this.cData.filters = this.cData.filters || [];
 
     this.cData.valueKey = this.cData.valueKey || 'id';
 
@@ -170,6 +179,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
       switchMap(([search]: [string, any, boolean]) => {
         search = search || '';
         return this.db.getDocuments(this.cData.collection, this.cData.limit, undefined, this.cursor, [
+          ...this.cData.filters,
           {
             // @ts-ignore
             key: this.cData.search.key.slice(1),
