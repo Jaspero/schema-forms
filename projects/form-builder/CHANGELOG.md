@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.3.1...@jaspero/form-builder@4.4.0) (2021-09-06)
+
+
+### Features
+
+* **ref:** allow applying custom filters ([d8ba029](https://github.com/Jaspero/schema-forms/commit/d8ba02985fe9a4aa8df72a9c2da7bb9f5387e9a8))
+
 ## @jaspero/form-builder [4.3.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.3.0...@jaspero/form-builder@4.3.1) (2021-08-03)
 
 
