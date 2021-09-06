@@ -117,7 +117,6 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   ngOnInit() {
-
     this.searchControl = new FormControl('');
 
     this.cData.collection = this.cData.collection || '';
