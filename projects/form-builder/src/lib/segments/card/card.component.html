@@ -12,7 +12,7 @@
 
   <mat-card-content>
     <div class="fb-fields">
-      <p class="mat-form-field-wrapper" *ngIf="segment.description">{{segment.description | transloco}}</p>
+      <p class="fb-fields-12" *ngIf="segment.description">{{segment.description | transloco}}</p>
 
       <ng-container *ngFor="let comp of components">
         <ng-template [cdkPortalOutlet]="comp"></ng-template>
