@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.4.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.2...@jaspero/form-builder@4.4.3) (2021-09-09)
+
+
+### Bug Fixes
+
+* **form-builder:** details in cards not full width ([4b92875](https://github.com/Jaspero/schema-forms/commit/4b9287500b7955d31dc4579caa2d06877a7857d4))
+
 ## @jaspero/form-builder [4.4.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.1...@jaspero/form-builder@4.4.2) (2021-09-09)
 
 
