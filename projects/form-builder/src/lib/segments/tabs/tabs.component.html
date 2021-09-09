@@ -21,7 +21,7 @@
         [label]="tab.title"
         [disabled]="tab.disabled">
 
-        <div class="p-a-s">
+        <div class="p-a-s fb-fields">
           <ng-container *ngFor="let field of tab.fields | showField:sData.parser:index | async">
             <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
           </ng-container>

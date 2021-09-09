@@ -2,3 +2,9 @@
   margin-left: -16px;
   margin-right: -16px;
 }
+
+::ng-deep .add-item.mat-icon-button {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+}
