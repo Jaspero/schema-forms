@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.0...@jaspero/form-builder@4.4.1) (2021-09-09)
+
+
+### Bug Fixes
+
+* **form-builder:** card with button has a title with a larger height from cards with no title; tabs support filed width; ([3f61607](https://github.com/Jaspero/schema-forms/commit/3f61607026e6dc242eeda10030d8ae3abe8055ca))
+
 # @jaspero/form-builder [4.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.3.1...@jaspero/form-builder@4.4.0) (2021-09-06)
 
 
