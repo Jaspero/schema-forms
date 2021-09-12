@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.4.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.3...@jaspero/form-builder@4.4.4) (2021-09-12)
+
+
+### Bug Fixes
+
+* **page-builder:** tabs title missing translation pipe ([5cedb09](https://github.com/Jaspero/schema-forms/commit/5cedb095d9fa2a3100fd6d23502b5472554d02db))
+
 ## @jaspero/form-builder [4.4.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.2...@jaspero/form-builder@4.4.3) (2021-09-09)
 
 
