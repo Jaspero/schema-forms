@@ -18,7 +18,7 @@
       (selectedTabChange)="tabChange($event)">
       <mat-tab
         *ngFor="let tab of tabs; index as index"
-        [label]="tab.title"
+        [label]="tab.title | transloco"
         [disabled]="tab.disabled">
 
         <div class="p-a-s fb-fields">
