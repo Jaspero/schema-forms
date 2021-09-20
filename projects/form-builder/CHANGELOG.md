@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.4...@jaspero/form-builder@4.5.0) (2021-09-20)
+
+
+### Features
+
+* **form-builder:** added components to public-api so they can be extended ([ea8f3f3](https://github.com/Jaspero/schema-forms/commit/ea8f3f38f9a19fadac0a80f5c22ebe530043ebbd))
+
 ## @jaspero/form-builder [4.4.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.4.3...@jaspero/form-builder@4.4.4) (2021-09-12)
 
 
