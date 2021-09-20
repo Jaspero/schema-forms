@@ -57,14 +57,14 @@ export class ImageComponent extends FieldComponent<ImageData>
   implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
-    @Optional() private storage: StorageService,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService,
-    private transloco: TranslocoService,
-    private snackBar: MatSnackBar,
-    private domSanitizer: DomSanitizer,
-    private http: HttpClient,
-    private dialog: MatDialog
+    @Optional() public storage: StorageService,
+    public cdr: ChangeDetectorRef,
+    public formBuilderService: FormBuilderService,
+    public transloco: TranslocoService,
+    public snackBar: MatSnackBar,
+    public domSanitizer: DomSanitizer,
+    public http: HttpClient,
+    public dialog: MatDialog
   ) {
     super(cData);
   }
