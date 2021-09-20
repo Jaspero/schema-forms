@@ -296,10 +296,4 @@ export class ImageComponent extends FieldComponent<ImageData>
         };
       });
   }
-
-  openUploadDialog() {
-    this.dialog.open(this.modalTemplate, {
-      width: '420px'
-    });
-  }
 }
