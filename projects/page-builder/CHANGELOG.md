@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.5.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.7...@jaspero/fb-page-builder@3.5.8) (2021-09-21)
+
+
+### Bug Fixes
+
+* **page-builder:** assign true instead of void from addEventListener ([d33bb91](https://github.com/Jaspero/schema-forms/commit/d33bb91a886702de7813a2ede0c72425bc3f43ac))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.6.1
+
 ## @jaspero/fb-page-builder [3.5.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.6...@jaspero/fb-page-builder@3.5.7) (2021-09-20)
 
 
