@@ -353,9 +353,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   focusBlock(index = this.selectedIndex) {
-    const activeBlock = this.compRefs[index].location.nativeElement;
-    activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+    setTimeout(() => {
+      const activeBlock = this.compRefs[index].location.nativeElement;
+      activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+    });
   }
 
   removeFocus(index = this.selectedIndex) {

@@ -33,7 +33,7 @@ export class ToolbarService {
   private toolbarListener: any;
   private _scroll$: Observable<number>;
   private toggleToolbars = (e) => {
-    for (const key in this.toolbars) {
+    for (const key of Object.keys(this.toolbars)) {
       if (this.toolbars[key].el.contains(e.target)) {
         return;
       }
@@ -80,6 +80,7 @@ export class ToolbarService {
 
     toolbar.classList.add('pb-t');
     toolbar.style.height = `${this.toolbarProps.height}px`;
+    toolbar.style.zIndex = '99999999';
 
     if (elementOptions?.length) {
       const typeSelectEl = document.createElement('select');
@@ -184,14 +185,14 @@ export class ToolbarService {
     };
 
     if (!this.toolbarListener) {
-      this.toolbarListener = document.addEventListener('click', this.toggleToolbars)
+      document.addEventListener('click', this.toggleToolbars);
+      this.toolbarListener = true;
     }
 
     return this.toolbars[id];
   }
 
   clearToolbar(id: number) {
-
     const toolbar = this.toolbars[id];
 
     if (!toolbar) {
@@ -211,7 +212,6 @@ export class ToolbarService {
   }
 
   showToolbar(top: number, left: number, id: number) {
-
     const toolbar = this.toolbars[id];
 
     if (toolbar.visible) {
@@ -221,7 +221,7 @@ export class ToolbarService {
     /**
      * Clear any other open toolbars
      */
-    for (const key in this.toolbars) {
+    for (const key of Object.keys(this.toolbars)) {
       const tb = this.toolbars[key];
 
       if (tb.visible) {
@@ -242,7 +242,6 @@ export class ToolbarService {
   }
 
   hideToolbar(id: number) {
-
     const toolbar = this.toolbars[id];
 
     if (toolbar.visible) {
