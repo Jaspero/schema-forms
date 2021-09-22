@@ -29,7 +29,7 @@ import {
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {forkJoin, Observable, of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
@@ -133,6 +133,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
   counter: UniqueId;
 
+  intro$: Observable<string>;
+
   private compRefs: ComponentRef<any>[];
 
   get isFullscreen() {
@@ -141,19 +143,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
-  }
-
-  get intro() {
-
-    if (!this.cData.intro) {
-      return `<p><b>Page Builder</b><br>Create and edit contents of your web page.</p>`;
-    }
-
-    if (typeof this.cData.intro === 'string') {
-      return this.cData.intro;
-    } else {
-      return this.cData.intro[this.transloco.getActiveLang()];
-    }
   }
 
   ngOnInit() {
@@ -202,7 +191,21 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       .subscribe(data => {
         this.blockComponent.formBuilderComponent.form.setValue(data, {emitEvent: false});
         this.blocks[this.selectedIndex].value = data;
+      });
+
+    this.intro$ = this.transloco.langChanges$.pipe(
+      map(() => {
+        if (!this.cData.intro) {
+          return `<p><b>Page Builder</b><br>Create and edit contents of your web page.</p>`;
+        }
+
+        if (typeof this.cData.intro === 'string') {
+          return this.cData.intro;
+        } else {
+          return this.cData.intro[this.transloco.getActiveLang()];
+        }
       })
+    );
   }
 
   ngOnDestroy() {
@@ -436,6 +439,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.state = 'blocks';
     this.isOpen = false;
+
+    this.iFrameDoc.location.reload();
   }
 
   preview() {

@@ -209,6 +209,8 @@ export class ToolbarService {
       removeEventListener('click', this.toggleToolbars);
       this.toolbarListener = null;
     }
+
+    toolbar.el.remove();
   }
 
   showToolbar(top: number, left: number, id: number) {

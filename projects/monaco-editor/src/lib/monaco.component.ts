@@ -1,4 +1,12 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  ViewChild
+} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {
   COMPONENT_DATA,
@@ -26,7 +34,8 @@ interface MonacoData extends FieldData {
 export class MonacoComponent extends FieldComponent<MonacoData> implements AfterViewInit {
 
   constructor(
-    @Inject(COMPONENT_DATA) public cData: MonacoData
+    @Inject(COMPONENT_DATA) public cData: MonacoData,
+    private cdr: ChangeDetectorRef
   ) {
     super(cData);
   }
@@ -60,6 +69,7 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
       const model = this.editor.getModel();
       model.onDidChangeContent(() => {
         this.cData.control.setValue(model.getValue());
+        this.cdr.detectChanges();
       });
     });
   }

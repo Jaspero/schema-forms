@@ -1,6 +1,6 @@
 <section class="pb">
   <article class="pb-intro">
-    <div [innerHTML]="intro | jpSanitize"></div>
+    <div [innerHTML]="intro$ | async | jpSanitize"></div>
     <button mat-stroked-button (click)="open()">{{'PB.START' | transloco}}</button>
   </article>
 
@@ -21,7 +21,7 @@
       </ng-container>
 
       <button class="pb-sidebar-new" (click)="openAdd()" matRipple>
-        <mat-icon class="pb-sidebar-new-icon">add_circle_outline</mat-icon>
+        <mat-icon class="pb-sidebar-new-icon">add</mat-icon>
         <span class="pb-sidebar-new-label">{{'PB.OPEN_ADD' | transloco}}</span>
       </button>
 
