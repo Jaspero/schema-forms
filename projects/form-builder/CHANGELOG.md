@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.6.0...@jaspero/form-builder@4.6.1) (2021-09-21)
+
+
+### Bug Fixes
+
+* **page-builder:** assign true instead of void from addEventListener ([d33bb91](https://github.com/Jaspero/schema-forms/commit/d33bb91a886702de7813a2ede0c72425bc3f43ac))
+
 # @jaspero/form-builder [4.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.5.0...@jaspero/form-builder@4.6.0) (2021-09-20)
 
 
