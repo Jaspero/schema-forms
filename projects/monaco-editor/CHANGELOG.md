@@ -1,3 +1,10 @@
+## @jaspero/fb-monaco-editor [2.2.11](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.2.10...@jaspero/fb-monaco-editor@2.2.11) (2021-09-22)
+
+
+### Bug Fixes
+
+* **page-builder:** improve performance for rendering pb intro. clear toolbars on exit and cleanup ([e38bbb2](https://github.com/Jaspero/schema-forms/commit/e38bbb2946cf310d8cbf4703c4a10b4e6d154a40))
+
 ## @jaspero/fb-monaco-editor [2.2.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.2.9...@jaspero/fb-monaco-editor@2.2.10) (2021-09-21)
 
 
