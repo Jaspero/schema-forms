@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.5.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.8...@jaspero/fb-page-builder@3.5.9) (2021-09-22)
+
+
+### Bug Fixes
+
+* **page-builder:** improve performance for rendering pb intro. clear toolbars on exit and cleanup ([e38bbb2](https://github.com/Jaspero/schema-forms/commit/e38bbb2946cf310d8cbf4703c4a10b4e6d154a40))
+
 ## @jaspero/fb-page-builder [3.5.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.7...@jaspero/fb-page-builder@3.5.8) (2021-09-21)
 
 
