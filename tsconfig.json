@@ -24,6 +24,9 @@
       "dom"
     ],
     "paths": {
+      "path": [
+        "./node_modules/path-browserify"
+      ],
       "form-builder": [
         "dist/form-builder/form-builder",
         "dist/form-builder"
@@ -43,6 +46,10 @@
       "ref-table": [
         "dist/ref-table/ref-table",
         "dist/ref-table"
+      ],
+      "seo-editor": [
+        "dist/seo-editor/seo-editor",
+        "dist/seo-editor"
       ],
       "monaco-editor": [
         "dist/monaco-editor/monaco-editor",

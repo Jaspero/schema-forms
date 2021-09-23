@@ -26,6 +26,11 @@ const routes: Routes = [
     path: 'page-builder',
     loadChildren: () => import('./examples/page-builder/page-builder.module')
       .then(m => m.PageBuilderModule)
+  },
+  {
+    path: 'seo',
+    loadChildren: () => import('./examples/seo/seo.module')
+      .then(m => m.SeoModule)
   }
 ];
 

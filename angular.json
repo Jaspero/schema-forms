@@ -442,6 +442,37 @@
           }
         }
       }
+    },
+    "seo-editor": {
+      "projectType": "library",
+      "root": "projects/seo-editor",
+      "sourceRoot": "projects/seo-editor/src",
+      "prefix": "fb-seo-editor",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/seo-editor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/seo-editor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/seo-editor/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/seo-editor/src/test.ts",
+            "tsConfig": "projects/seo-editor/tsconfig.spec.json",
+            "karmaConfig": "projects/seo-editor/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "schema-forms",

@@ -1,0 +1,8 @@
+{
+  "configurations": {
+    "production": {
+      "tsConfig": "projects/seo-editor/tsconfig.lib.prod.json",
+      "project": "projects/seo-editor/ng-package.prod.json"
+    }
+  }
+}
