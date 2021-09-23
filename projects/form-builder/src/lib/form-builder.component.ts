@@ -21,10 +21,13 @@ import {FormBuilderContextService} from './form-builder-context.service';
 import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
+import {GlobalState} from './interfaces/global-state.interface';
 import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
 import {ROLE} from './utils/role';
+
+declare const window: Window & {jpFb: GlobalState};
 
 @Component({
   selector: 'fb-form-builder',
@@ -53,7 +56,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   value: any;
 
   @Input()
-  id: string;
+  id = 'main';
 
   @Output()
   valueChanges = new EventEmitter<any>();
@@ -89,6 +92,11 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     if (this.statusSubscription) {
       this.statusSubscription.unsubscribe();
     }
+
+    try {
+      delete window.jpFb.forms[this.id];
+      delete window.jpFb.parsers[this.id];
+    } catch (e) {}
   }
 
   process() {
@@ -170,6 +178,16 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       '/',
       false
     );
+
+    if (!window.jpFb) {
+      window.jpFb = {
+        forms: {},
+        parsers: {}
+      }
+    }
+
+    window.jpFb.forms[this.id] = this.form;
+    window.jpFb.parsers[this.id] = this.parser;
 
     this.parser.loadHooks();
 

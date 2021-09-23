@@ -9,8 +9,7 @@ export class FormBuilderService {
   constructor(
     private transloco: TranslocoService,
     private snackBar: MatSnackBar
-  ) {
-  }
+  ) {}
 
   /**
    * Array of components that need to

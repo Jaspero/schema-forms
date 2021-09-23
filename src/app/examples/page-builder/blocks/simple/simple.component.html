@@ -1,2 +1,3 @@
+<h3 *ngIf="data.title">{{data.title}}</h3>
 <div class="column" *ngIf="data.singleLine" [fbPbSingleLineIE]="{property: 'singleLine', data: data}" [innerHTML]="data.singleLine | jpSanitize"></div>
 <div class="column" *ngIf="data.image" [fbPbImageIE]="{property: 'image', data: data}"><img [src]="data.image"></div>

@@ -29,9 +29,12 @@ export const SCHEMA = {
                 image: 'http://placeimg.com/640/360/any'
               },
               form: {
-                segments: [],
+                segments: [{
+                  fields: ['/title']
+                }],
                 schema: {
                   properties: {
+                    title: {type: 'string'},
                     singleLine: {type: 'string'},
                     image: {type: 'string'}
                   }
