@@ -1,3 +1,11 @@
+## @jaspero/fb-page-builder [3.5.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.9...@jaspero/fb-page-builder@3.5.10) (2021-09-23)
+
+
+### Bug Fixes
+
+* **page-builder:** properly clear selection when page builder closes ([7b4ed66](https://github.com/Jaspero/schema-forms/commit/7b4ed662162e1a0641ebe1dfdf0298d6f056708b))
+* **page-builder:** toolbar scroll listener properly resets when page builder is open multiple times ([83babb6](https://github.com/Jaspero/schema-forms/commit/83babb6936631d2e2f469c3af8fef7306d46f974))
+
 ## @jaspero/fb-page-builder [3.5.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.8...@jaspero/fb-page-builder@3.5.9) (2021-09-22)
 
 
