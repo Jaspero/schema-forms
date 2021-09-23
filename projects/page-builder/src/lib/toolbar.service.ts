@@ -207,6 +207,11 @@ export class ToolbarService {
 
     if (!Object.keys(this.toolbars).length && this.toolbarListener) {
       removeEventListener('click', this.toggleToolbars);
+
+      /**
+       * Clear state
+       */
+      this._scroll$ = null;
       this.toolbarListener = null;
     }
 

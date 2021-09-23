@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
 import {tap} from 'rxjs/operators';
 import {SCHEMA} from './schema.const';
@@ -9,12 +9,18 @@ import {SCHEMA} from './schema.const';
   styleUrls: ['./page-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PageBuilderComponent {
+export class PageBuilderComponent implements AfterViewInit {
 
   @ViewChild(FormBuilderComponent)
   component: FormBuilderComponent;
 
   pageBuilderExample = SCHEMA;
+
+  ngAfterViewInit() {
+    this.component.form.valueChanges.subscribe(value =>
+      console.log('changes', value)
+    )
+  }
 
   save() {
     return () =>
