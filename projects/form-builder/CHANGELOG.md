@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.7.0...@jaspero/form-builder@4.8.0) (2021-09-23)
+
+
+### Features
+
+* **page-builder:** refactored to use controls instead of updating data and depending on references not being lost ([71ff07c](https://github.com/Jaspero/schema-forms/commit/71ff07cf8fa971b54e80e8042bdc6572e4391191))
+
 # @jaspero/form-builder [4.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.6.1...@jaspero/form-builder@4.7.0) (2021-09-23)
 
 
