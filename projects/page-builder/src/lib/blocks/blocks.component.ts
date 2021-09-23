@@ -439,6 +439,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.state = 'blocks';
     this.isOpen = false;
+    this.selectedIndex = undefined;
 
     this.iFrameDoc.location.reload();
   }
@@ -564,7 +565,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         if (this.selectedIndex !== undefined) {
 
           /**
-           * Prevent clicking on the same elemnt from impacting anything
+           * Prevent clicking on the same element from impacting anything
            */
           if (this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement) {
             return;
