@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
@@ -13,6 +22,8 @@ export class BlockComponent implements OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef
   ) {}
+
+  @Input() parentFormId = 'main';
 
   @Input()
   set selected(selected: Selected) {
@@ -31,6 +42,7 @@ export class BlockComponent implements OnDestroy {
       return;
     }
 
+    this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
     this.formData = selected.form;
     this.formData.value = selected.value;
     this.cdr.detectChanges();
@@ -50,6 +62,7 @@ export class BlockComponent implements OnDestroy {
   @ViewChild(FormBuilderComponent, {static: false})
   formBuilderComponent: FormBuilderComponent;
 
+  id: string;
   formData: FormBuilderData | undefined;
 
   private formSub: Subscription;

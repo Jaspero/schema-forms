@@ -74,6 +74,7 @@ interface BlocksData extends FieldData {
   intro?: string | {[key: string] : string};
   styles?: string | string[];
   styleUrls?: string | string[];
+  parentFormId?: string;
 }
 
 @UntilDestroy()
@@ -184,6 +185,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.service.saveComponents.push(this);
 
+    /**
+     * TODO:
+     * Once image directive is refactored "triggerUpdate$"
+     * can be removed
+     */
     this.ctx.triggerUpdate$
       .pipe(
         untilDestroyed(this)
@@ -343,6 +349,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   selectBlock(block: TopBlock, index: number) {
     this.selectedIndex = index;
     this.selected = {
+      index: this.selectedIndex,
       ...this.selection[block.type],
       id: block.id,
       value: block.value

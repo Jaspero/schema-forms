@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Renderer2, ViewEncapsulation} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  Optional,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
+import {GlobalState, Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {merge, Subscription} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
@@ -6,10 +16,13 @@ import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
 import {domListener} from '../../utils/dom-listener';
 
+declare const window: Window & {jpFb: GlobalState};
+
 interface Options {
-  property: string;
-  data: any;
-  parent?: any;
+  formId?: string;
+  array?: string;
+  index?: number;
+  pointer: string;
   elementOptions?: string[];
   textDecorations?: string[];
   textAligns?: string[];
@@ -49,6 +62,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   options: Options;
   toolbar: Toolbar;
 
+  id: string;
+  pointer: string;
+
+
   activeCls = 'pb-t-active';
 
   get htmlEl() {
@@ -67,6 +84,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     return this.htmlEl.getRootNode().host;
   }
 
+  get index() {
+    return [...this.host.parentElement.children].indexOf(this.host);
+  }
+
   private scrollListener: Subscription;
 
   ngAfterViewInit() {
@@ -78,6 +99,13 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       ...this.defaultOptions,
       ...this.entryOptions
     };
+
+    this.id = this.options.formId || 'main';
+    this.pointer = Parser.standardizeKeyWithSlash(this.options.pointer);
+
+    if (this.options.array) {
+      this.pointer = this.options.array + this.pointer;
+    }
 
     this.toolbar = this.toolbarService.createToolbar(
       this.options.elementOptions,
@@ -104,7 +132,18 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       'relative'
     );
 
-    const events: any[] = [];
+    const events: any[] = [
+      domListener(
+        this.renderer,
+        this.htmlEl,
+        'blur'
+      )
+        .pipe(
+          tap(() =>
+            this.update()
+          )
+        )
+    ];
     const filteredEvents: any[] = [
       domListener(
         this.renderer,
@@ -162,8 +201,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               setTimeout(() => {
                 this.assignLastTarget();
               });
-
-              this.update();
             })
           )
       );
@@ -222,8 +259,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
                 }
 
                 (this.iFrame.contentDocument as Document).execCommand(execMap[el]);
-
-                this.update();
               })
             )
         )
@@ -266,8 +301,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
                     this.toolbar.elements[key].classList.remove(this.activeCls);
                   }
                 });
-
-                this.update();
               })
             )
         );
@@ -298,14 +331,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       domListener(
         this.renderer,
         this.htmlEl,
-        'input'
-      )
-        .pipe(
-          tap(() => this.update())
-        ),
-      domListener(
-        this.renderer,
-        this.htmlEl,
         'click',
       )
         .pipe(
@@ -324,7 +349,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     this.ctx.selectedBlock$
       .pipe(
         filter(index => {
-          const match = [...this.host.parentElement.children].indexOf(this.host) === index;
+          const match = this.index === index;
 
           if (!match) {
             this.toolbarService.hideToolbar(this.toolbar.id);
@@ -333,7 +358,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               this.scrollListener.unsubscribe();
               this.scrollListener = null;
             }
-
           } else if (
             this.htmlEl.contains((this.shadowRoot.getSelection() as Selection).anchorNode?.parentElement)
           ) {
@@ -416,9 +440,25 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     });
   }
 
-  update(data = this.htmlEl.innerHTML) {
-    this.options.data[this.options.property] = data;
-    this.ctx.triggerUpdate$.next(this.options.parent || this.options.data);
+  update(data = this.htmlEl.innerHTML, onlySelf = false) {
+    this.getControl().setValue(data, {onlySelf});
+  }
+
+  /**
+   * TODO:
+   * Array updating isn't recursive at the moment
+   * and only supports one level of nesting
+   */
+  getControl() {
+    const key = [this.id, 'blocks', this.index].join('-');
+
+    let {pointers} = window.jpFb.parsers[key];
+
+    if (this.options.array) {
+      pointers = pointers[this.options.array].arrayPointers[this.options.index];
+    }
+
+    return pointers[this.pointer].control
   }
 
   private assignLastTarget() {

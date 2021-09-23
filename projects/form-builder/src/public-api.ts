@@ -42,6 +42,7 @@ export * from './lib/fields/toggle/toggle.component';
 /**
  * Interfaces
  */
+export * from './lib/interfaces/global-state.interface';
 export * from './lib/interfaces/definitions.interface';
 export * from './lib/interfaces/definitions.interface';
 export * from './lib/interfaces/option.interface';
@@ -72,5 +73,4 @@ export * from './lib/utils/custom-components';
 /**
  * Directives
  */
-
 export * from './lib/directives/dropzone/dropzone.directive';
