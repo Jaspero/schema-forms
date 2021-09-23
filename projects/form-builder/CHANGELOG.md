@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.6.1...@jaspero/form-builder@4.7.0) (2021-09-23)
+
+
+### Features
+
+* **form-builder:** added global state for form-builder ([cdf02f2](https://github.com/Jaspero/schema-forms/commit/cdf02f26de22b2fd3ce1520c2090ceb5073fb104))
+
 ## @jaspero/form-builder [4.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.6.0...@jaspero/form-builder@4.6.1) (2021-09-21)
 
 
