@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.11...@jaspero/fb-page-builder@3.6.0) (2021-09-23)
+
+
+### Features
+
+* **page-builder:** refactored to use controls instead of updating data and depending on references not being lost ([71ff07c](https://github.com/Jaspero/schema-forms/commit/71ff07cf8fa971b54e80e8042bdc6572e4391191))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.8.0
+
 ## @jaspero/fb-page-builder [3.5.11](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.5.10...@jaspero/fb-page-builder@3.5.11) (2021-09-23)
 
 
