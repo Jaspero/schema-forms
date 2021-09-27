@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.8.0...@jaspero/form-builder@4.9.0) (2021-09-27)
+
+
+### Features
+
+* **form-builder:** made slider full width ([cc02623](https://github.com/Jaspero/schema-forms/commit/cc02623e867f5b6ac04c7af9253df77f890bb464))
+
 # @jaspero/form-builder [4.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.7.0...@jaspero/form-builder@4.8.0) (2021-09-23)
 
 
