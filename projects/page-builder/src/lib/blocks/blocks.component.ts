@@ -223,7 +223,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   openAdd() {
     this.state = 'add';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.cdr.markForCheck();
   }
 

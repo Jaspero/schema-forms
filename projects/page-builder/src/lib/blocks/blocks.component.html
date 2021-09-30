@@ -73,9 +73,9 @@
       </div>
     </main>
 
-    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="state === 'inner'">
+    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="['inner', 'add'].includes(state)">
       <!--inner-->
-      <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
+      <article class="pb-sidebar-inner">
         <div class="pb-sidebar-inner-title">
           <span>{{selected?.label | transloco}}</span>
           <button mat-icon-button (click)="closeBlock()">
