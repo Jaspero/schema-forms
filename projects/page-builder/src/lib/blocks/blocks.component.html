@@ -76,11 +76,11 @@
     <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="['inner', 'add'].includes(state)">
       <!--inner-->
       <article class="pb-sidebar-inner">
-        <div class="pb-sidebar-inner-title">
-          <span>{{selected?.label | transloco}}</span>
+        <div class="pb-sidebar-inner-title flex jc-between ai-center">
           <button mat-icon-button (click)="closeBlock()">
             <mat-icon>close</mat-icon>
           </button>
+          <span class="m-r-s">{{selected?.label | transloco}}</span>
         </div>
 
         <fb-pb-block
