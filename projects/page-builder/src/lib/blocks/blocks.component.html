@@ -25,23 +25,6 @@
         <span class="pb-sidebar-new-label">{{'PB.OPEN_ADD' | transloco}}</span>
       </button>
 
-      <!--inner-->
-      <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
-        <div class="pb-sidebar-inner-title">
-          <span>{{selected?.label | transloco}}</span>
-          <button mat-icon-button (click)="closeBlock()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-
-        <fb-pb-block
-          [selected]="selected"
-          [parentFormId]="cData.parentFormId"
-          (remove)="removeBlock()"
-          (optionsChanged)="optionsChanged($event)">
-        </fb-pb-block>
-      </article>
-
       <article class="pb-sidebar-add" *ngIf="state === 'add'">
         <div class="pb-sidebar-add-title">
           <span>{{'PB.OPEN_ADD' | transloco}}</span>
@@ -89,5 +72,24 @@
         <iframe id="fb-pb-iframe" #iframe></iframe>
       </div>
     </main>
+
+    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="state === 'inner'">
+      <!--inner-->
+      <article class="pb-sidebar-inner" *ngIf="state === 'inner'">
+        <div class="pb-sidebar-inner-title">
+          <span>{{selected?.label | transloco}}</span>
+          <button mat-icon-button (click)="closeBlock()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <fb-pb-block
+          [selected]="selected"
+          [parentFormId]="cData.parentFormId"
+          (remove)="removeBlock()"
+          (optionsChanged)="optionsChanged($event)">
+        </fb-pb-block>
+      </article>
+    </aside>
   </ng-container>
 </section>

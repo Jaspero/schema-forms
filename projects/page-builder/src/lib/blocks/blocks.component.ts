@@ -4,14 +4,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component, ComponentFactory,
+  Component,
+  ComponentFactory,
   ComponentRef,
   ElementRef,
   Inject,
   NgModule,
   OnDestroy,
   OnInit,
-  Optional, Renderer2,
+  Optional,
+  Renderer2,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
@@ -21,7 +23,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData, FormBuilderContextService,
+  FieldData,
+  FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
   safeEval
@@ -359,6 +362,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.ctx.selectedBlock$.next(this.selectedIndex);
 
     this.state = 'inner';
+    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
     this.cdr.markForCheck();
   }
 
@@ -411,6 +415,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     // @ts-ignore
     this.selectedIndex = undefined;
     this.state = '';
+    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.ctx.selectedBlock$.next(undefined);
     this.cdr.markForCheck();
   }
