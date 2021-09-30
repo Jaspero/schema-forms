@@ -4,14 +4,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Compiler,
-  Component, ComponentFactory,
+  Component,
+  ComponentFactory,
   ComponentRef,
   ElementRef,
   Inject,
   NgModule,
   OnDestroy,
   OnInit,
-  Optional, Renderer2,
+  Optional,
+  Renderer2,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
@@ -21,7 +23,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData, FormBuilderContextService,
+  FieldData,
+  FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
   safeEval
@@ -101,8 +104,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     @Inject(DOCUMENT)
     private document: any,
     private renderer: Renderer2,
-    private ctx: PageBuilderCtxService,
-    private element: ElementRef
+    private ctx: PageBuilderCtxService
   ) {
     super(cData);
   }
