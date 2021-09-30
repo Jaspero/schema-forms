@@ -41,6 +41,7 @@ import {Selected} from '../selected.interface';
 import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
+import {FlatTreeControl} from '@angular/cdk/tree';
 
 interface Block {
   label: string;
@@ -148,6 +149,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
   }
+  treeControl = new FlatTreeControl<any>(
+    node => node.level, node => node.expandable);
 
   ngOnInit() {
 
@@ -168,6 +171,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       ]
     }
 
+
     this.selection = blocks.reduce((acc, cur) => {
       acc[cur.id] = cur;
       return acc;
@@ -182,7 +186,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         type: it.type,
         icon: item.icon,
         label: item.label,
-        visible: true
+        visible: true,
+        form: item.form
       } as TopBlock;
     });
 
@@ -244,6 +249,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         icon: block.icon,
         label: block.label,
         visible: true,
+        form: block.form,
         value,
       }])
     )
@@ -269,6 +275,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       type: block.id,
       icon: block.icon,
       label: block.label,
+      form: block.form,
       visible: true
     };
 
@@ -290,7 +297,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   closeAdd() {
     this.state = '';
-
+    if(!this.selected){
+      (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
+    }
     if (this.previewed !== undefined) {
       this.compRefs[this.compRefs.length - 1].destroy();
       this.compRefs.splice(this.compRefs.length - 1, 1);
@@ -373,6 +382,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
     });
   }
+
 
   removeFocus(index = this.selectedIndex) {
     const block = this.compRefs[index].location.nativeElement;

@@ -14,6 +14,8 @@ import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
+import {MatTreeModule} from '@angular/material/tree';
+import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
@@ -22,7 +24,8 @@ export function createCompiler(compilerFactory: CompilerFactory) {
 @NgModule({
   declarations: [
     BlocksComponent,
-    BlockComponent
+    BlockComponent,
+    BlockNavigationComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     StopPropagationModule,
     SanitizeModule,
 
-    TranslocoModule
+    TranslocoModule,
+    MatTreeModule
   ],
   providers: [
     {

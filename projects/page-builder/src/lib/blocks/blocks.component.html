@@ -9,13 +9,14 @@
       <ng-container *ngIf="blocks.length">
         <ul class="pb-sidebar-list" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
           <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y">
-            <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>
-            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>
-            <span class="pb-sidebar-list-item-label">{{block.label | transloco}}</span>
-            <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
-              <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </button>
-            <mat-icon class="pb-sidebar-list-item-drag" cdkDragHandle>drag_indicator</mat-icon>
+<!--            <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>-->
+<!--            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>-->
+<!--            <span class="pb-sidebar-list-item-label">{{block.label | transloco}}</span>-->
+<!--            <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">-->
+<!--              <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>-->
+<!--            </button>-->
+<!--            <mat-icon class="pb-sidebar-list-item-drag" cdkDragHandle>drag_indicator</mat-icon>-->
+            <fb-pb-block-navigation [block]="block"></fb-pb-block-navigation>
           </li>
         </ul>
       </ng-container>
@@ -73,7 +74,7 @@
       </div>
     </main>
 
-    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="['inner', 'add'].includes(state)">
+    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="selected">
       <!--inner-->
       <article class="pb-sidebar-inner">
         <div class="pb-sidebar-inner-title flex jc-between ai-center">

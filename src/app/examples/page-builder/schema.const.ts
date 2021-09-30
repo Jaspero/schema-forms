@@ -30,6 +30,7 @@ export const SCHEMA = {
               },
               form: {
                 segments: [{
+                  title: 'title',
                   fields: ['/title']
                 }],
                 schema: {
