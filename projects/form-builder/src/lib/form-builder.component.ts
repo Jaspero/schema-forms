@@ -49,14 +49,10 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     private ctx: FormBuilderContextService
   ) { }
 
-  @Input()
-  data: FormBuilderData;
-
-  @Input()
-  value: any;
-
-  @Input()
-  id = 'main';
+  @Input() data: FormBuilderData;
+  @Input() value: any;
+  @Input() id = 'main';
+  @Input() parser: Parser;
 
   @Output()
   valueChanges = new EventEmitter<any>();
@@ -65,7 +61,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   validityChanges = new EventEmitter<boolean>();
 
   form: FormGroup;
-  parser: Parser;
   segments: CompiledSegment[];
 
   @Input()
@@ -160,24 +155,28 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     const value = this.data.value || {};
     const definitions = this.data.definitions || {};
 
-    this.parser = new Parser(
-      this.data.schema,
-      this.injector,
-      this.state,
-      this.role,
-      definitions,
-      {
-        ...this.customFields || {},
-        ...this.ctx.fields
-      }
-    );
+    if (!this.parser) {
+      this.parser = new Parser(
+        this.data.schema,
+        this.injector,
+        this.state,
+        this.role,
+        definitions,
+        {
+          ...this.customFields || {},
+          ...this.ctx.fields
+        }
+      );
 
-    this.form = this.parser.buildForm(
-      value,
-      null,
-      '/',
-      false
-    );
+      this.form = this.parser.buildForm(
+        value,
+        null,
+        '/',
+        false
+      );
+    } else {
+      this.form = this.parser.form;
+    }
 
     if (!window.jpFb) {
       window.jpFb = {
