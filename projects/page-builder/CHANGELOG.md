@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.6.2...@jaspero/fb-page-builder@3.7.0) (2021-09-30)
+
+
+### Features
+
+* **page-builder:** removed need for triggerUpdate ([e84a5b8](https://github.com/Jaspero/schema-forms/commit/e84a5b84ea6cee0a5323e3fc1e6ab8dfa4e37a8e))
+
 ## @jaspero/fb-page-builder [3.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.6.1...@jaspero/fb-page-builder@3.6.2) (2021-09-30)
 
 
