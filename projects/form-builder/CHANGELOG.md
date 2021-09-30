@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.9.0...@jaspero/form-builder@4.10.0) (2021-09-30)
+
+
+### Features
+
+* **form-builder:** parser can now optionally be provided to a form builder ([8f78a45](https://github.com/Jaspero/schema-forms/commit/8f78a4562123cc1ac277e738601c638547659bf4))
+
 # @jaspero/form-builder [4.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.8.0...@jaspero/form-builder@4.9.0) (2021-09-27)
 
 
