@@ -1,21 +1,22 @@
+
 .pb {
   --sidebar-width: 300px;
   --header-height: 64px;
-
+  --inner-sidebar-width: 0px;
   &-intro {
     border: 1px solid var(--panel-tertiary);
     padding: 10px;
   }
 
-  &-sidebar {
+  &-sidebar, &-right-sidebar {
     position: fixed;
     z-index: 1001;
     top: 0;
-    left: 0;
     width: var(--sidebar-width);
     height: 100vh;
     background: var(--theme);
     border-right: 1px solid var(--tertiary);
+    border-left: 1px solid var(--tertiary);
     overflow-x: hidden;
     overflow-y: auto;
     transition: .2s;
@@ -34,7 +35,7 @@
         z-index: 1;
         display: flex;
         align-items: center;
-        padding: 11.5px;
+        padding: 5px;
         border-bottom: 1px solid var(--tertiary);
         background: var(--theme);
 
@@ -74,7 +75,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 19px 10px;
+      padding: 10px 8px;
       border: none;
       border-top: 1px solid var(--tertiary);
       border-bottom: 1px solid var(--tertiary);
@@ -130,34 +131,15 @@
       }
     }
 
-    &-inner {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 128px);
-      margin-top: 64px;
-      background: var(--theme);
-      overflow-x: hidden;
-      overflow-y: auto;
 
-      &-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 11.5px;
-        margin-bottom: 20px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: var(--sidebar-width);
-        z-index: 3;
-        background: var(--theme);
-        border-bottom: 1px solid var(--tertiary);
-        border-right: 1px solid var(--tertiary);
-      }
-    }
+  }
+  &-right-sidebar {
+    right: 0;
+    width: var(--inner-sidebar-width);
+  }
+
+  &-sidebar {
+    left: 0;
   }
 
   &-header {
@@ -165,10 +147,11 @@
     z-index: 1001;
     top: 0;
     left: var(--sidebar-width);
+    right: var(--inner-sidebar-width);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100vw - var(--sidebar-width));
+    width: calc(100vw - var(--sidebar-width) - var(--inner-sidebar-width));
     height: var(--header-height);
     background: var(--theme);
     border-bottom: 1px solid var(--tertiary);
@@ -190,7 +173,7 @@
     z-index: 1001;
     top: var(--header-height);
     left: var(--sidebar-width);
-    width: calc(100vw - var(--sidebar-width));
+    width: calc(100vw - var(--sidebar-width) - var(--inner-sidebar-width));
     height: calc(100vh - var(--header-height));
     background: #f2f2f2;
     padding: 10px;

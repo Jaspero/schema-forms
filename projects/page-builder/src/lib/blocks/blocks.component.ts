@@ -101,7 +101,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     @Inject(DOCUMENT)
     private document: any,
     private renderer: Renderer2,
-    private ctx: PageBuilderCtxService
+    private ctx: PageBuilderCtxService,
+    private element: ElementRef
   ) {
     super(cData);
   }
@@ -359,6 +360,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.ctx.selectedBlock$.next(this.selectedIndex);
 
     this.state = 'inner';
+    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
     this.cdr.markForCheck();
   }
 
@@ -411,6 +413,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     // @ts-ignore
     this.selectedIndex = undefined;
     this.state = '';
+    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.ctx.selectedBlock$.next(undefined);
     this.cdr.markForCheck();
   }
