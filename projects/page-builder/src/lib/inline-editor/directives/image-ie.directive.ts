@@ -1,17 +1,20 @@
 import {AfterViewInit, Directive, ElementRef, Input, Renderer2, Optional} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {merge} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
 import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {domListener} from '../../utils/dom-listener';
+import {getControl} from '../../utils/get-control';
 import {ImageDialogComponent} from '../components/image-dialog/image-dialog.component';
 import {ToolbarService} from '../../toolbar.service';
 
 interface Options {
-  property: string;
-  parent?: any;
-  data: any;
+  formId?: string;
+  array?: string;
+  index?: number;
+  pointer: string;
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   customElements?: string[];
   remove?: boolean;
@@ -32,11 +35,9 @@ export class ImageIEDirective implements AfterViewInit {
 
   @Input('fbPbImageIE')
   entryOptions: Partial<Options>;
-  defaultOptions: Partial<Options> = {
-    position: 'top-right',
-    remove: true
-  };
-
+  defaultOptions: Partial<Options> = {position: 'top-right', remove: true};
+  id: string;
+  pointer: string;
   options: Options;
   toolbar: HTMLDivElement;
   triggerEl: HTMLButtonElement;
@@ -53,6 +54,20 @@ export class ImageIEDirective implements AfterViewInit {
     return this.htmlEl.getRootNode().host;
   }
 
+  get index() {
+    return [...this.host.parentElement.children].indexOf(this.host);
+  }
+
+  get control() {
+    return getControl(
+      this.id,
+      this.index,
+      this.pointer,
+      this.options.array,
+      this.options.index
+    )
+  }
+
   ngAfterViewInit() {
     if (!this.toolbarService) {
       return;
@@ -62,6 +77,13 @@ export class ImageIEDirective implements AfterViewInit {
       ...this.defaultOptions,
       ...this.entryOptions
     } as Options;
+
+    this.id = this.options.formId || 'main';
+    this.pointer = Parser.standardizeKeyWithSlash(this.options.pointer);
+
+    if (this.options.array) {
+      this.pointer = this.options.array + this.pointer;
+    }
 
     this.buildToolbar();
 
@@ -102,12 +124,12 @@ export class ImageIEDirective implements AfterViewInit {
       .pipe(
         untilDestroyed(this)
       )
-      .subscribe()
+      .subscribe();
 
     this.ctx.selectedBlock$
       .pipe(
         filter(index => {
-          this.isActive = [...this.host.parentElement.children].indexOf(this.host) === index;
+          this.isActive = this.index === index;
 
           if (!this.isActive) {
             this.toolbar.style.opacity = '0';
@@ -130,7 +152,7 @@ export class ImageIEDirective implements AfterViewInit {
                     ImageDialogComponent,
                     {
                       width: '500px',
-                      data: this.options.data[this.options.property]
+                      data: this.control.value
                     }
                   )
                     .afterClosed()
@@ -230,8 +252,7 @@ export class ImageIEDirective implements AfterViewInit {
     this.htmlEl.appendChild(this.toolbar);
   }
 
-  update(value: string) {
-    this.options.data[this.options.property] = value;
-    this.ctx.triggerUpdate$.next(this.options.parent || this.options.data);
+  update(value: string, onlySelf = false) {
+    this.control.setValue(value, {onlySelf});
   }
 }
