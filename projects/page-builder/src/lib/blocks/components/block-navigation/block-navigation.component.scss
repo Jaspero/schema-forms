@@ -1,0 +1,10 @@
+mat-tree-node{
+  border-radius: 0;
+  transition:background-color 0.1s;
+  &:hover{
+    background-color: rgba(157, 157, 157, 0.31);
+  }
+}
+.hidden{
+  opacity: 0;
+}

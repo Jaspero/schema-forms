@@ -53,7 +53,7 @@ export class BlockNavigationComponent implements OnInit {
     this.dataSource.data = [
       {
         name: this.block.label,
-        children: this.block.form.segments.map((segment, index) => {
+        children: this.block.form.segments.length > 1 ? this.block.form.segments.map((segment, index) => {
           segment.title = segment.title || `Segment ${index + 1}`;
           return {
             ...this.block,
@@ -66,17 +66,17 @@ export class BlockNavigationComponent implements OnInit {
               ]
             }
           };
-        })
+        }) : []
       }];
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
-    return this.selectBlock({
+    return this.block.form.segments.length > 1 ? this.selectBlock({
       ...node,
       value: this.block.value
-    }, this.index);
+    }, this.index) : this.selectBlock(this.block,this.index);
   }
 
   private _transformer = (node: FoodNode, level: number) => {
