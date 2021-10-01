@@ -16,7 +16,7 @@
 <!--              <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>-->
 <!--            </button>-->
 <!--            <mat-icon class="pb-sidebar-list-item-drag" cdkDragHandle>drag_indicator</mat-icon>-->
-            <fb-pb-block-navigation [block]="block"></fb-pb-block-navigation>
+            <fb-pb-block-navigation class="w-full" [block]="block" [index]="index" [selectBlock]="selectBlock.bind(this)"></fb-pb-block-navigation>
           </li>
         </ul>
       </ng-container>

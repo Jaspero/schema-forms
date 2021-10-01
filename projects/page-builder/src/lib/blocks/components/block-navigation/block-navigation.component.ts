@@ -12,7 +12,6 @@ interface FoodNode {
 }
 
 
-
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
   expandable: boolean;
@@ -23,26 +22,25 @@ interface ExampleFlatNode {
 @Component({
   selector: 'fb-pb-block-navigation',
   templateUrl: './block-navigation.component.html',
-  styleUrls: ['./block-navigation.component.css']
+  styleUrls: ['./block-navigation.component.scss']
 })
 export class BlockNavigationComponent implements OnInit {
-  constructor() {
-  }
 
   @Input()
   block: any;
 
-  _transformer = (node: FoodNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level
-    };
-  };
+  @Input()
+  index: number;
+
+  @Input()
+  selectBlock: any;
 
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
+
+  constructor() {
+  }
 
   ngOnInit() {
     this.treeControl = new FlatTreeControl<ExampleFlatNode>(
@@ -52,14 +50,41 @@ export class BlockNavigationComponent implements OnInit {
       this._transformer, node => node.level, node => node.expandable, node => node.children);
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-    this.dataSource.data = [{
-      name: this.block.label,
-      children: this.block.form.segments
-    }];
-
-    console.log(this.block);
+    this.dataSource.data = [
+      {
+        name: this.block.label,
+        children: this.block.form.segments.map((segment, index) => {
+          segment.title = segment.title || `Segment ${index + 1}`;
+          return {
+            ...this.block,
+            ...segment,
+            name: segment.title,
+            form: {
+              ...this.block.form,
+              segments: [
+                segment
+              ]
+            }
+          };
+        })
+      }];
   }
 
-
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+  selectCustomBlock(node) {
+    return this.selectBlock({
+      ...node,
+      value: this.block.value
+    }, this.index);
+  }
+
+  private _transformer = (node: FoodNode, level: number) => {
+    return {
+      ...node,
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level
+    };
+  };
 }

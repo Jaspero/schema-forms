@@ -23,16 +23,22 @@ export const SCHEMA = {
             {
               id: 'banner',
               label: 'Banner',
-              previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
+              previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
               previewValue: {
                 singleLine: '<p>Single Line Example. This is <b>bold</b>, <u>underlined</u> and <i>italic</i>. <b>This is bold with a <u>underlined</u> part.</b></p>',
                 image: 'http://placeimg.com/640/360/any'
               },
               form: {
-                segments: [{
-                  title: 'title',
-                  fields: ['/title']
-                }],
+                segments: [
+                  {
+                    title: 'title',
+                    fields: ['/title']
+                  },
+                  {
+                    title: 'image',
+                    fields: ['/image']
+                  }
+                ],
                 schema: {
                   properties: {
                     title: {type: 'string'},
@@ -46,9 +52,13 @@ export const SCHEMA = {
               id: 'cards',
               label: 'Cards',
               maxInstances: 3,
-              previewTemplate: `<sc-cards [data]="data"></sc-cards>`,
+              previewTemplate: `<sc-cards [data]='data'></sc-cards>`,
               previewValue: {
-                cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any', link: ''}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any', link: ''}]
+                cards: [{
+                  title: '<h1>Example 1</h1>',
+                  image: 'http://placeimg.com/200/200/any',
+                  link: '1'
+                }, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any', link: '2'}]
               },
               form: {
                 segments: [

@@ -282,13 +282,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.previewed = undefined;
     this.blocks.push(topBlock);
 
-    if (block.skipOpen) {
-      this.state = '';
-      this.removeFocus(this.compRefs.length - 1);
-      this.cdr.markForCheck();
-    } else {
-      this.selectBlock(topBlock, this.blocks.length - 1);
-    }
+    this.state = '';
+    this.cdr.markForCheck();
 
     const index = this.compRefs.length - 1;
 
@@ -361,10 +356,11 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   selectBlock(block: TopBlock, index: number) {
     this.selectedIndex = index;
     this.selected = {
-      index: this.selectedIndex,
+      index,
       ...this.selection[block.type],
       id: block.id,
-      value: block.value
+      value: block.value,
+      form: block.form
     };
 
     this.focusBlock();
@@ -378,7 +374,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
       const activeBlock = this.compRefs[index].location.nativeElement;
-      activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      activeBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
     });
   }
@@ -409,6 +405,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   closeBlock() {
+    if (!this.selected) {
+      return;
+    }
+
     if (this.blockComponent) {
       this.toProcess[(this.selected as Selected).id] = {
         save: this.blockComponent.formBuilderComponent
