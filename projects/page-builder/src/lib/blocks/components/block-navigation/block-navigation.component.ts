@@ -73,6 +73,7 @@ export class BlockNavigationComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
+    console.log('selectCustomBlock', JSON.parse(JSON.stringify(this.block.value)));
     return this.block.form.segments.length > 1 ? this.selectBlock({
       ...node,
       value: this.block.value

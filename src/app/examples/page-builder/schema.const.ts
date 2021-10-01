@@ -54,15 +54,27 @@ export const SCHEMA = {
               maxInstances: 3,
               previewTemplate: `<sc-cards [data]='data'></sc-cards>`,
               previewValue: {
-                cards: [{
-                  title: '<h1>Example 1</h1>',
-                  image: 'http://placeimg.com/200/200/any',
-                  link: '1'
-                }, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any', link: '2'}]
+                title: `<h3>Title</h3>`,
+                cards: [
+                  {
+                    title: '<h1>Example 1</h1>',
+                    image: 'http://placeimg.com/200/200/any',
+                    link: '1'
+                  },
+                  {
+                    title: '<h1>Example 2</h1>',
+                    image: 'http://placeimg.com/200/200/any',
+                    link: '2'
+                  }]
               },
               form: {
                 segments: [
                   {
+                    title: 'Title',
+                    fields: ['/title']
+                  },
+                  {
+                    title: 'Cards',
                     array: '/cards',
                     fields: [
                       '/link'
@@ -71,6 +83,9 @@ export const SCHEMA = {
                 ],
                 schema: {
                   properties: {
+                    title: {
+                      type: 'string'
+                    },
                     cards: {
                       type: 'array',
                       items: {

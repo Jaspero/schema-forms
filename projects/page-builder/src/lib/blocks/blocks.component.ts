@@ -355,6 +355,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   selectBlock(block: TopBlock, index: number) {
     this.selectedIndex = index;
+    console.log('selectBlock', JSON.parse(JSON.stringify(block.value)))
+    // console.log(block.form);
     this.selected = {
       index,
       ...this.selection[block.type],
@@ -363,8 +365,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       form: block.form
     };
 
-    this.focusBlock();
     this.ctx.selectedBlock$.next(this.selectedIndex);
+    this.focusBlock();
 
     this.state = 'inner';
     (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
@@ -376,7 +378,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       const activeBlock = this.compRefs[index].location.nativeElement;
       activeBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
-    });
+    }, 50);
   }
 
 
@@ -386,6 +388,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   optionsChanged(data: any) {
+    console.log('optionsChanged', JSON.parse(JSON.stringify(data)));
 
     const selected = this.selected as Selected;
 
@@ -398,6 +401,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         });
       }
     }
+
+    console.log(data);
 
     this.blocks[this.selectedIndex].value = data;
     this.compRefs[this.selectedIndex].instance.data = data;

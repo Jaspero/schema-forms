@@ -27,7 +27,6 @@ export class BlockComponent implements OnDestroy {
 
   @Input()
   set selected(selected: Selected) {
-
     if (this.formSub) {
       this.formSub.unsubscribe();
     }
@@ -44,13 +43,22 @@ export class BlockComponent implements OnDestroy {
 
     this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
     this.formData = selected.form;
+    console.log('selected.value', JSON.parse(JSON.stringify(selected.value)));
     this.formData.value = selected.value;
     this.cdr.detectChanges();
 
-    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(v => {
-      selected.value = v;
-      this.optionsChanged.next(v);
-    })
+    setTimeout(() => {
+      console.log('form.getRawValue', this.formBuilderComponent.form.getRawValue());
+    }, 5000);
+
+    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+      console.log('formSub.valueChanges', JSON.parse(JSON.stringify(formValue)));
+      selected.value = {
+        ...selected.value,
+        ...formValue
+      };
+      this.optionsChanged.next(formValue);
+    });
   }
 
   @Output()
