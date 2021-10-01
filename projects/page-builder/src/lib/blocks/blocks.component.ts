@@ -30,7 +30,7 @@ import {
   safeEval
 } from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {UntilDestroy} from '@ngneat/until-destroy';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {BlockComponent} from '../block/block.component';
@@ -192,20 +192,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     });
 
     this.service.saveComponents.push(this);
-
-    /**
-     * TODO:
-     * Once image directive is refactored "triggerUpdate$"
-     * can be removed
-     */
-    this.ctx.triggerUpdate$
-      .pipe(
-        untilDestroyed(this)
-      )
-      .subscribe(data => {
-        this.blockComponent.formBuilderComponent.form.setValue(data, {emitEvent: false});
-        this.blocks[this.selectedIndex].value = data;
-      });
 
     this.intro$ = this.transloco.langChanges$.pipe(
       map(() => {

@@ -8,15 +8,14 @@ import {
   Renderer2,
   ViewEncapsulation
 } from '@angular/core';
-import {GlobalState, Parser} from '@jaspero/form-builder';
+import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {merge, Subscription} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
 import {PageBuilderCtxService} from '../../page-builder-ctx.service';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
 import {domListener} from '../../utils/dom-listener';
-
-declare const window: Window & {jpFb: GlobalState};
+import {getControl} from '../../utils/get-control';
 
 interface Options {
   formId?: string;
@@ -86,6 +85,16 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   get index() {
     return [...this.host.parentElement.children].indexOf(this.host);
+  }
+
+  get control() {
+    return getControl(
+      this.id,
+      this.index,
+      this.pointer,
+      this.options.array,
+      this.options.index
+    )
   }
 
   private scrollListener: Subscription;
@@ -441,24 +450,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   }
 
   update(data = this.htmlEl.innerHTML, onlySelf = false) {
-    this.getControl().setValue(data, {onlySelf});
-  }
-
-  /**
-   * TODO:
-   * Array updating isn't recursive at the moment
-   * and only supports one level of nesting
-   */
-  getControl() {
-    const key = [this.id, 'blocks', this.index].join('-');
-
-    let {pointers} = window.jpFb.parsers[key];
-
-    if (this.options.array) {
-      pointers = pointers[this.options.array].arrayPointers[this.options.index];
-    }
-
-    return pointers[this.pointer].control
+    this.control.setValue(data, {onlySelf});
   }
 
   private assignLastTarget() {
