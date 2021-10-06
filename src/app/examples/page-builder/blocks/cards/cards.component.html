@@ -2,7 +2,7 @@
 
 <div class="cards">
   <div class="card" *ngFor="let card of data.cards; index as index;">
-    <div *ngIf="card.image" [fbPbImageIE]="{property: 'image', data: card, parent: data}">
+    <div *ngIf="card.image" [fbPbImageIE]="{pointer: '/image', data: card, parent: data}">
       <img [src]="card.image">
     </div>
     <div *ngIf="card.title" [fbPbSingleLineIE]="{pointer: '/title', index: index, array: '/cards'}" [innerHTML]="card.title | jpSanitize"></div>

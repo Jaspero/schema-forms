@@ -55,7 +55,8 @@ export class BlockNavigationComponent implements OnInit {
         name: this.block.label,
         children: this.block.form.segments.length > 1 ? this.block.form.segments.map((segment, index) => {
           segment.title = segment.title || `Segment ${index + 1}`;
-          return {
+
+          const child = {
             ...this.block,
             ...segment,
             name: segment.title,
@@ -66,14 +67,35 @@ export class BlockNavigationComponent implements OnInit {
               ]
             }
           };
+
+          if (child.array) {
+            child.form = {
+              ...child.form,
+              segments: [
+                {
+                  fields: segment.fields
+                }
+              ],
+              schema: child.form.schema.properties[child.array.slice(1)].items
+            }
+
+            delete child.array;
+          }
+
+          console.log(JSON.parse(JSON.stringify(child)));
+
+          return child;
         }) : []
       }];
+
+    console.log(this.dataSource.data);
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
     console.log('selectCustomBlock', JSON.parse(JSON.stringify(this.block.value)));
+    console.log(node);
     return this.block.form.segments.length > 1 ? this.selectBlock({
       ...node,
       value: this.block.value

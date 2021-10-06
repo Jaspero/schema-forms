@@ -8,7 +8,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
+import {FormBuilderComponent, FormBuilderData, Parser} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
 
@@ -19,11 +19,22 @@ import {Selected} from '../selected.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlockComponent implements OnDestroy {
+  @Input() parentFormId = 'main';
+  @Output()
+  optionsChanged = new EventEmitter<any>();
+  @Output()
+  remove = new EventEmitter();
+  @ViewChild(FormBuilderComponent, {static: false})
+  formBuilderComponent: FormBuilderComponent;
+  parser: Parser;
+  id: string;
+  formData: FormBuilderData | undefined;
+  private formSub: Subscription;
+
   constructor(
     private cdr: ChangeDetectorRef
-  ) {}
-
-  @Input() parentFormId = 'main';
+  ) {
+  }
 
   @Input()
   set selected(selected: Selected) {
@@ -46,6 +57,19 @@ export class BlockComponent implements OnDestroy {
     console.log('selected.value', JSON.parse(JSON.stringify(selected.value)));
     this.formData.value = selected.value;
     this.cdr.detectChanges();
+    //
+    // this.parser = new Parser(
+    //   selected.form.schema,
+    //   this.injector,
+    //   // TODO: Replace with correct state
+    //   State.Create,
+    //   this.role,
+    //   selected.form.definitions,
+    //   {
+    //     ...this.customFields || {},
+    //     ...this.ctx.fields
+    //   }
+    // );
 
     setTimeout(() => {
       console.log('form.getRawValue', this.formBuilderComponent.form.getRawValue());
@@ -60,20 +84,6 @@ export class BlockComponent implements OnDestroy {
       this.optionsChanged.next(formValue);
     });
   }
-
-  @Output()
-  optionsChanged = new EventEmitter<any>();
-
-  @Output()
-  remove = new EventEmitter();
-
-  @ViewChild(FormBuilderComponent, {static: false})
-  formBuilderComponent: FormBuilderComponent;
-
-  id: string;
-  formData: FormBuilderData | undefined;
-
-  private formSub: Subscription;
 
   ngOnDestroy() {
     if (this.formSub) {
