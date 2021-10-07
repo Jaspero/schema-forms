@@ -1,12 +1,17 @@
-import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription} from 'rxjs';
 import {distinctUntilChanged, map, scan, startWith, switchMap, take, tap} from 'rxjs/operators';
-import {COMPONENT_DATA, DbService, FieldComponent, FieldData} from '@jaspero/form-builder';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FilterMethod} from '../../enums/filter-method.enum';
 import {WhereFilter} from '../../interfaces/where-filter.interface';
+import {FieldComponent} from '../../field/field.component';
+import {COMPONENT_DATA} from '../../utils/create-component-injector';
+import {DbService} from '../../services/db.service';
+import {FieldData} from '../../interfaces/field-data.interface';
+import {ADDITIONAL_CONTEXT} from '../../utils/additional-context';
+import {ROLE} from '../../utils/role';
 
 interface RefData extends FieldData {
   /**
@@ -72,7 +77,7 @@ interface RefData extends FieldData {
    * Additional Filters for provided collection
    * @default []
    */
-  filters?: WhereFilter[];
+  filters?: Array<WhereFilter | ((options) => WhereFilter)>;
 
   /**
    * Close search dialog after selecting item
@@ -109,7 +114,13 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
 
   constructor(
     @Inject(COMPONENT_DATA) public cData: RefData,
-    private db: DbService
+    @Optional()
+    @Inject(ROLE)
+    private role: string,
+    @Optional()
+    @Inject(ADDITIONAL_CONTEXT)
+    private additionalContext: any,
+    private db: DbService,
   ) {
     super(cData);
   }
@@ -216,7 +227,16 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       switchMap(([search]: [string, any, boolean]) => {
         search = search || '';
         return this.db.getDocuments(this.cData.collection, this.cData.limit, undefined, this.cursor, [
-          ...this.cData.filters,
+          ...this.cData.filters.map(filter => {
+            return typeof filter === 'function'
+              ? filter({
+                fieldData: this.cData,
+                value: this.cData.form.getRawValue(),
+                role: this.role,
+                additionalContext: this.additionalContext
+              })
+              : filter;
+          }),
           {
             // @ts-ignore
             key: this.cData.search.key.slice(1),
