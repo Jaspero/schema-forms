@@ -36,7 +36,7 @@
             </ng-container>
 
             <ng-template #empty>
-              <div class="flex jc-center p-b-m">
+              <div class="flex jc-center p-b-m" *ngIf="!cData.hideApplyValue">
                 <button mat-raised-button (click)="applySearchValue()" color="primary">{{'FIELDS.REF.APPLY_VALUE' | transloco}}</button>
               </div>
             </ng-template>

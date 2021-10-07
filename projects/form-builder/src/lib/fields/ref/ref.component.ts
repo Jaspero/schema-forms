@@ -87,8 +87,15 @@ interface RefData extends FieldData {
 
   /**
    * Allow multiple selection
+   * @default false
    */
   multiple?: boolean;
+
+  /**
+   * Allow apply value
+   * @default false
+   */
+  hideApplyValue?: boolean;
 }
 
 @Component({
