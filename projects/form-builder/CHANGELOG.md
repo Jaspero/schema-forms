@@ -1,3 +1,12 @@
+# @jaspero/form-builder [4.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.10.0...@jaspero/form-builder@4.11.0) (2021-10-07)
+
+
+### Features
+
+* **form-builder:** dynamic filters for ref component ([08da696](https://github.com/Jaspero/schema-forms/commit/08da69662c4dd3d9d08167a605d6dadcd0b2373a))
+* **form-builder:** extended ref component to support multiple selection ([5e12cdc](https://github.com/Jaspero/schema-forms/commit/5e12cdc4be3c43d54ad88fb531ba892b58fcad99))
+* **form-builder:** extended ref component to support multiple selection ([9e22b26](https://github.com/Jaspero/schema-forms/commit/9e22b26f1cf2051f5c67c0005b3b1dd82aca6a5e))
+
 # @jaspero/form-builder [4.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.9.0...@jaspero/form-builder@4.10.0) (2021-09-30)
 
 
