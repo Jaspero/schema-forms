@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.2...@jaspero/form-builder@4.12.0) (2021-10-07)
+
+
+### Features
+
+* **ref:** added hideApplyValue option ([c25439c](https://github.com/Jaspero/schema-forms/commit/c25439c38a01a73792c7cc1e3987e8b5a4510b49))
+
 ## @jaspero/form-builder [4.11.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.1...@jaspero/form-builder@4.11.2) (2021-10-07)
 
 
