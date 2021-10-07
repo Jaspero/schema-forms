@@ -135,27 +135,27 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   ngOnInit() {
     this.searchControl = new FormControl('');
 
-    this.cData.collection = this.cData.collection || '';
+    this.cData = {
+      ...this.cData,
+      collection: this.cData.collection || '',
+      filters: this.cData.filters || [],
+      valueKey: this.cData.valueKey || 'id',
+      limit: Math.abs(this.cData.limit || 4),
+      display: {
+        key: this.cData.display?.key || '/name',
+        label: this.cData.display?.label || 'Name'
+      },
+      search: {
+        key: this.cData.search?.key || '/name',
+        label: this.cData.search?.label || 'Name'
+      },
+      table: {
+        tableColumns: this.cData.table?.tableColumns || [{key: '/id', label: 'ID'}]
+      },
+      clearValue: this.cData.clearValue !== undefined ? this.cData.clearValue ?? (this.cData.multiple ? [] : null) : this.cData.clearValue,
+      closeOnSelect: this.cData.closeOnSelect ?? !this.cData.multiple
+    };
 
-    this.cData.filters = this.cData.filters || [];
-
-    this.cData.valueKey = this.cData.valueKey || 'id';
-
-    if (this.cData.clearValue !== undefined) {
-      this.cData.clearValue = this.cData.clearValue ?? (this.cData.multiple ? [] : null);
-    }
-
-    this.cData.limit = Math.abs(this.cData.limit || 4);
-
-    this.cData.display = this.cData.display || {};
-    this.cData.display.key = this.cData.display.key || '/name';
-    this.cData.display.label = this.cData.display.label || 'Name';
-
-    this.cData.search = this.cData.search || {};
-    this.cData.search.key = this.cData.search.key || '/name';
-    this.cData.search.label = this.cData.search.label || 'Name';
-    this.cData.table = this.cData.table || {};
-    this.cData.table.tableColumns = this.cData.table.tableColumns || [{key: '/id', label: 'ID'}];
     this.displayedColumns = [
       ...(this.cData.multiple ? ['select'] : []),
       ...this.cData.table.tableColumns.map(column => column.key.slice(1)) as string[]
@@ -173,8 +173,6 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
         this.selection.select(...documents);
       });
     }
-
-    this.cData.closeOnSelect = this.cData.closeOnSelect ?? !this.cData.multiple;
 
     this.display$ = this.cData.control.valueChanges.pipe(
       startWith(false),
@@ -196,7 +194,6 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
                   return value;
                 }
 
-                // @ts-ignore
                 return data[this.cData.display.key.slice(1)] || '';
               })
             );
@@ -208,7 +205,6 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
                 return value;
               }
 
-              // @ts-ignore
               return data[this.cData.display.key.slice(1)] || '';
             })
           );
@@ -245,17 +241,13 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
               : filter;
           }),
           {
-            // @ts-ignore
             key: this.cData.search.key.slice(1),
-            // @ts-ignore
             label: this.cData.search.label,
             operator: FilterMethod.GreaterThenOrEqual,
             value: search
           },
           {
-            // @ts-ignore
             key: this.cData.search.key.slice(1),
-            // @ts-ignore
             label: this.cData.search.label,
             operator: FilterMethod.LessThen,
             value: search.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1))
@@ -326,7 +318,6 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       this.autocomplete.closePanel();
     }
 
-    // @ts-ignore
     this.cData.control.setValue(row[this.cData.valueKey]);
   }
 
