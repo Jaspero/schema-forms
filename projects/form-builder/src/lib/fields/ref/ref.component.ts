@@ -3,10 +3,10 @@ import {FormControl} from '@angular/forms';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription} from 'rxjs';
 import {distinctUntilChanged, map, scan, startWith, switchMap, take, tap} from 'rxjs/operators';
-import {WhereFilter} from '@jaspero/form-builder/lib/interfaces/where-filter.interface';
 import {COMPONENT_DATA, DbService, FieldComponent, FieldData} from '@jaspero/form-builder';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FilterMethod} from '../../enums/filter-method.enum';
+import {WhereFilter} from '../../interfaces/where-filter.interface';
 
 interface RefData extends FieldData {
   /**
