@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.0...@jaspero/form-builder@4.12.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **ref:** cleanup ([cbaca1e](https://github.com/Jaspero/schema-forms/commit/cbaca1e432259bde83ce85748eb2c8c70d751375))
+
 # @jaspero/form-builder [4.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.2...@jaspero/form-builder@4.12.0) (2021-10-07)
 
 
