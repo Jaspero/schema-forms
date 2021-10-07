@@ -27,7 +27,7 @@
                 </ng-container>
                 <ng-container *ngFor="let column of cData.table.tableColumns" [matColumnDef]="column.key.slice(1)">
                   <th mat-header-cell *matHeaderCellDef>{{column.label | transloco}}</th>
-                  <td mat-cell *matCellDef="let element">{{element[column.key.slice(1)]}}</td>
+                  <td mat-cell *matCellDef="let element" [attr.data-label]="column.label | transloco">{{element[column.key.slice(1)]}}</td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
