@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.11.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.1...@jaspero/form-builder@4.11.2) (2021-10-07)
+
+
+### Bug Fixes
+
+* **form-builder:** initialize selection nodel on init ([1580fd2](https://github.com/Jaspero/schema-forms/commit/1580fd2be8b95376e36684e368e897996b35529e))
+
 ## @jaspero/form-builder [4.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.0...@jaspero/form-builder@4.11.1) (2021-10-07)
 
 
