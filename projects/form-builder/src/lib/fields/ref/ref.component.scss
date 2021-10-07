@@ -2,6 +2,8 @@
   position: sticky;
   top: 0;
   background: var(--sidebar-theme);
+
+  z-index: 9999;
 }
 
 .ref-row {
@@ -12,5 +14,11 @@
     td {
       background: inherit !important;
     }
+  }
+}
+
+::ng-deep {
+  .autocomplete {
+    min-height: 300px;
   }
 }
