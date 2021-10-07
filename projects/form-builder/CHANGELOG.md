@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.0...@jaspero/form-builder@4.11.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **form-builder:** ref component add labels to mobile table. closes [#61](https://github.com/Jaspero/schema-forms/issues/61) ([2ab49a7](https://github.com/Jaspero/schema-forms/commit/2ab49a7cfb108c330d37d4e7351827d96b1ec51b))
+
 # @jaspero/form-builder [4.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.10.0...@jaspero/form-builder@4.11.0) (2021-10-07)
 
 
