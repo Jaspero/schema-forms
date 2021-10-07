@@ -98,6 +98,21 @@ interface RefData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RefComponent extends FieldComponent<RefData> implements OnInit, OnDestroy {
+  constructor(
+    @Inject(COMPONENT_DATA) public cData: RefData,
+    @Optional()
+    @Inject(ROLE)
+    private role: string,
+    @Optional()
+    @Inject(ADDITIONAL_CONTEXT)
+    private additionalContext: any,
+    private db: DbService
+  ) {
+    super(cData);
+  }
+
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
+
   data$: Observable<any>;
   display$: Observable<any>;
   displayedColumns: string[] = [];
@@ -108,22 +123,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   hasMore: boolean;
   cleared: boolean;
   selection: SelectionModel<any>;
-  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
-
   subscriptions: Subscription[] = [];
-
-  constructor(
-    @Inject(COMPONENT_DATA) public cData: RefData,
-    @Optional()
-    @Inject(ROLE)
-    private role: string,
-    @Optional()
-    @Inject(ADDITIONAL_CONTEXT)
-    private additionalContext: any,
-    private db: DbService,
-  ) {
-    super(cData);
-  }
 
   ngOnInit() {
     this.searchControl = new FormControl('');
@@ -154,8 +154,8 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       ...this.cData.table.tableColumns.map(column => column.key.slice(1)) as string[]
     ];
 
+    this.selection = new SelectionModel(true, []);
     if (this.cData.multiple) {
-      this.selection = new SelectionModel(true, []);
       forkJoin(
         (this.cData.control.value || []).map(id => {
           return this.db.getDocument(this.cData.collection, id);
