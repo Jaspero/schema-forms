@@ -3,12 +3,23 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
+  Injector,
   Input,
   OnDestroy,
+  Optional,
   Output,
   ViewChild
 } from '@angular/core';
-import {FormBuilderComponent, FormBuilderData, Parser} from '@jaspero/form-builder';
+import {
+  CUSTOM_FIELDS,
+  CustomFields,
+  FormBuilderComponent,
+  FormBuilderContextService,
+  FormBuilderData,
+  Parser,
+  State
+} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
 
@@ -32,62 +43,75 @@ export class BlockComponent implements OnDestroy {
   private formSub: Subscription;
 
   constructor(
-    private cdr: ChangeDetectorRef
+    private injector: Injector,
+    @Optional()
+    @Inject(CUSTOM_FIELDS)
+    private customFields: CustomFields,
+    private cdr: ChangeDetectorRef,
+    private ctx: FormBuilderContextService
   ) {
   }
 
   @Input()
   set selected(selected: Selected) {
-    if (this.formSub) {
-      this.formSub.unsubscribe();
-    }
-
-    if (!selected) {
-
-      if (this.formData) {
-        this.formData = undefined;
-        this.cdr.markForCheck();
+    this.formData = null;
+    this.cdr.markForCheck();
+    setTimeout(() => {
+      if (this.formSub) {
+        this.formSub.unsubscribe();
       }
 
-      return;
-    }
+      if (!selected) {
 
-    this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
-    this.formData = selected.form;
-    console.log('selected.value', JSON.parse(JSON.stringify(selected.value)));
-    this.formData.value = selected.value;
-    this.cdr.detectChanges();
-    //
-    // this.parser = new Parser(
-    //   selected.form.schema,
-    //   this.injector,
-    //   // TODO: Replace with correct state
-    //   State.Create,
-    //   this.role,
-    //   selected.form.definitions,
-    //   {
-    //     ...this.customFields || {},
-    //     ...this.ctx.fields
-    //   }
-    // );
+        if (this.formData) {
+          this.formData = undefined;
+          this.cdr.markForCheck();
+        }
 
-    setTimeout(() => {
-      console.log('form.getRawValue', this.formBuilderComponent.form.getRawValue());
-    }, 5000);
+        return;
+      }
 
-    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
-      console.log('formSub.valueChanges', JSON.parse(JSON.stringify(formValue)));
-      selected.value = {
-        ...selected.value,
-        ...formValue
-      };
-      this.optionsChanged.next(formValue);
-    });
+      this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
+      this.formData = selected.form;
+      // console.log('selected.value', JSON.parse(JSON.stringify(selected.value)));
+      this.formData.value = selected.value;
+      this.cdr.detectChanges();
+
+      this.parser = new Parser(
+        selected.form.schema,
+        this.injector,
+        // TODO: Replace with correct state
+        State.Create,
+        'admin',
+        selected.form.definitions,
+        {
+          ...this.customFields || {},
+          ...this.ctx.fields
+        }
+      );
+
+      this.parser.form = this.parser.buildForm(
+        selected.value,
+        null,
+        '/',
+        false
+      );
+
+      this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+        // console.log('formSub.valueChanges', JSON.parse(JSON.stringify(formValue)));
+        selected.value = {
+          ...selected.value,
+          ...formValue
+        };
+        this.optionsChanged.next(formValue);
+      });
+    }, 500);
   }
 
   ngOnDestroy() {
     if (this.formSub) {
       this.formSub.unsubscribe();
     }
+    console.log('ngOnDestroy');
   }
 }
