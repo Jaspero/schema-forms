@@ -116,6 +116,16 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
 
         if (data.type === 'file') {
           this.fileChange(data.event);
+        } else if (data.type === 'url') {
+          /**
+           * If has direct flag, save provided url directly to db
+           */
+          if (data.direct) {
+            this.value = null;
+            this.cData.control.setValue(data.url);
+          } else {
+            // TODO: Handle file upload via URL
+          }
         }
       })
     ).subscribe();
