@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.1...@jaspero/form-builder@4.12.2) (2021-10-08)
+
+
+### Bug Fixes
+
+* **form-builder:** extended file.component to handle file selection from file-manager-select.component, trigger release. ([8e0ec0c](https://github.com/Jaspero/schema-forms/commit/8e0ec0c80671d5ebe7c658c7d0bbc53bcb9162ac))
+
 ## @jaspero/form-builder [4.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.0...@jaspero/form-builder@4.12.1) (2021-10-07)
 
 
