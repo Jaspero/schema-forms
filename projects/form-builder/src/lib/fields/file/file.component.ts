@@ -124,7 +124,9 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
             this.value = null;
             this.cData.control.setValue(data.url);
           } else {
-            // TODO: Handle file upload via URL
+            /**
+             * TODO: Handle file upload via URL
+             */
           }
         }
       })
