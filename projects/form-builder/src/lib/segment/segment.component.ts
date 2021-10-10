@@ -1,8 +1,7 @@
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {get} from 'json-pointer';
+import {get, has} from 'json-pointer';
 import {CustomComponent} from '../custom/custom.component';
 import {CompiledField, Condition} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
@@ -79,28 +78,42 @@ export class SegmentComponent<T = any> implements OnInit {
       array;
 
     /**
-     * Add array items if necessary
+     * Populate array fields
      */
-    if (array && this.segment.entryValue) {
-      let values;
+    if (
+      array &&
+      this.segment.entryValue &&
+      has(this.segment.entryValue, arrayPointer)
+    ) {
 
-      try {
-        values = get(this.segment.entryValue, arrayPointer);
-      } catch (e) {}
+      const pointer = this.pointer[array] as any;
+      const values = get(this.segment.entryValue, arrayPointer);
 
-      if (values) {
-        values.forEach((v, i) => this.addArrayItem(false, false, i));
+      values.forEach((v, i) => {
+        // console.log({pointer});
+        const fields = this.generateArrayFields(
+          this.segment.array,
+          pointer.arrayPointers[i]
+        );
 
-        const pointer = this.pointer[array] as any;
+        this.arrayFields.push(fields);
 
-          (pointer.control as FormControl).patchValue(
-            values
-          );
+        this.nestedArraySegments.push(
+          filterAndCompileSegments(
+            this.sData.segment.nestedSegments || [],
+            this.sData.parser,
+            this.sData.definitions,
+            this.injector,
+            this.segment.entryValue,
+            this.segment.array,
+            i
+          )
+        );
+      });
 
-        for (let i = 0; i < values.length; i++) {
-          // @ts-ignore
-          this.sData.parser.loadHooks(pointer.arrayPointers[i]);
-        }
+      for (let i = 0; i < values.length; i++) {
+        // @ts-ignore
+        this.sData.parser.loadHooks(pointer.arrayPointers[i]);
       }
     }
   }
@@ -118,66 +131,17 @@ export class SegmentComponent<T = any> implements OnInit {
       this.sData.parent ? {
         pointer: this.sData.parent,
         index: this.sData.index || 0
-      } : undefined
+      } : undefined,
+      undefined,
+      reverse
     );
 
-    let fields: CompiledField[];
+    const fields = this.generateArrayFields(
+      array,
+      pointers
+    );
 
-    if (this.segment.fields && this.segment.fields.length) {
-      fields = (this.segment.fields as Array<string | Condition>).map((keyObject) => {
-        let condition: any;
-        let key: string;
-
-        if (keyObject?.constructor === Object) {
-
-          const {field, action, deps} = keyObject as any;
-
-          condition = {field};
-
-          switch (action?.constructor) {
-            case Object:
-              condition.action = [action];
-              break;
-            case Array:
-              condition.action = action;
-              break;
-            default:
-              condition.action = [{}];
-              break;
-          }
-
-          condition.action.forEach((item) => {
-            item.type = item.type || 'show';
-            item.eval = safeEval(item.function) || null;
-          });
-          condition.deps = deps || [];
-
-          key = (this.sData.parent || '') + field;
-        } else {
-          key = (this.sData.parent || '') + (keyObject as string);
-        }
-
-        return this.sData.parser.field(
-          key,
-          pointers[key],
-          this.sData.definitions,
-          true,
-          array,
-          condition
-        );
-      });
-    } else {
-      fields = [this.sData.parser.field(
-        array,
-        {
-          ...this.pointers[array],
-          control: pointers
-        },
-        this.sData.definitions
-      )];
-    }
-
-    this.arrayFields.unshift(fields);
+    this.arrayFields[operation](fields);
 
     this.nestedArraySegments[operation](
       filterAndCompileSegments(
@@ -235,5 +199,68 @@ export class SegmentComponent<T = any> implements OnInit {
     );
     this.nestedArraySegments.splice(index, 1);
     this.arrayFields.splice(index, 1);
+  }
+
+  generateArrayFields(
+    array: string,
+    pointers: any
+  ) {
+    let fields: CompiledField[];
+
+    if (this.segment.fields && this.segment.fields.length) {
+      fields = (this.segment.fields as Array<string | Condition>).map((keyObject) => {
+        let condition: any;
+        let key: string;
+
+        if (keyObject?.constructor === Object) {
+
+          const {field, action, deps} = keyObject as any;
+
+          condition = {field};
+
+          switch (action?.constructor) {
+            case Object:
+              condition.action = [action];
+              break;
+            case Array:
+              condition.action = action;
+              break;
+            default:
+              condition.action = [{}];
+              break;
+          }
+
+          condition.action.forEach((item) => {
+            item.type = item.type || 'show';
+            item.eval = safeEval(item.function) || null;
+          });
+          condition.deps = deps || [];
+
+          key = (this.sData.parent || '') + field;
+        } else {
+          key = (this.sData.parent || '') + (keyObject as string);
+        }
+
+        return this.sData.parser.field(
+          key,
+          pointers[key],
+          this.sData.definitions,
+          true,
+          array,
+          condition
+        );
+      });
+    } else {
+      fields = [this.sData.parser.field(
+        array,
+        {
+          ...this.pointers[array],
+          control: pointers
+        },
+        this.sData.definitions
+      )];
+    }
+
+    return fields;
   }
 }

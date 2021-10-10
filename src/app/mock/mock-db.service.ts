@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {DbService} from '@jaspero/form-builder';
 import {Observable, of} from 'rxjs';
 import {WhereFilter} from '../../../projects/form-builder/src/lib/interfaces/where-filter.interface';
+import {DbService} from '../../../projects/form-builder/src/lib/services/db.service';
 
 @Injectable()
 export class MockDbService implements DbService {
