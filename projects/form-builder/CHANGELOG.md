@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.2...@jaspero/form-builder@4.13.0) (2021-10-08)
+
+
+### Features
+
+* **form-builder:** show file name when selected via file manager component ([7bb7f48](https://github.com/Jaspero/schema-forms/commit/7bb7f4855b4f4d6632c88c68fa04a47171d63ebf))
+
 ## @jaspero/form-builder [4.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.1...@jaspero/form-builder@4.12.2) (2021-10-08)
 
 
