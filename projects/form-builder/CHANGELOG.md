@@ -1,3 +1,15 @@
+# @jaspero/form-builder [4.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.13.0...@jaspero/form-builder@4.14.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* **gallery:** drag & drop reordering images :bug: closes [#67](https://github.com/Jaspero/schema-forms/issues/67) ([20faae1](https://github.com/Jaspero/schema-forms/commit/20faae108a769ba0f687e90bb65320b970485800))
+
+
+### Features
+
+* **page-builder:** autocomplete flag for hiding value key in selection list ([2d5db3f](https://github.com/Jaspero/schema-forms/commit/2d5db3fe321e006d2cae67e4d57a372725a4dc46))
+
 # @jaspero/form-builder [4.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.2...@jaspero/form-builder@4.13.0) (2021-10-08)
 
 
