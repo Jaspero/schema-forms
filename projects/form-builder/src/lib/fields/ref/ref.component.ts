@@ -162,17 +162,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
     ];
 
     this.selection = new SelectionModel(true, []);
-    if (this.cData.multiple) {
-      forkJoin(
-        (this.cData.control.value || []).map(id => {
-          return this.db.getDocument(this.cData.collection, id);
-        })
-      ).pipe(
-        take(1)
-      ).subscribe(documents => {
-        this.selection.select(...documents);
-      });
-    }
+    this.selectionInitialValue();
 
     this.display$ = this.cData.control.valueChanges.pipe(
       startWith(false),
@@ -313,6 +303,12 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
     );
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
+
   selectRow(row) {
     if (this.cData.closeOnSelect) {
       this.autocomplete.closePanel();
@@ -324,6 +320,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   resetValue() {
     this.cData.control.setValue(this.cData.clearValue);
     this.searchControl.setValue('');
+    this.selectionInitialValue();
 
     setTimeout(() => {
       if (this.cData.closeOnSelect) {
@@ -345,9 +342,17 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
     this.loadMore$.next(true);
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
+  selectionInitialValue() {
+    if (this.cData.multiple) {
+      forkJoin(
+        (this.cData.control.value || []).map(id => {
+          return this.db.getDocument(this.cData.collection, id);
+        })
+      ).pipe(
+        take(1)
+      ).subscribe(documents => {
+        this.selection.select(...documents);
+      });
+    }
   }
 }

@@ -9,7 +9,7 @@
           <mat-form-field class="w-full">
             <mat-label>{{'FIELDS.REF.SEARCH_BY' | transloco}} {{cData.search.label}}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off">
-            <button mat-icon-button matSuffix><mat-icon (click)="searchControl.reset()">close</mat-icon></button>
+            <button mat-icon-button matSuffix><mat-icon *ngIf="searchControl.value" (click)="searchControl.reset()">close</mat-icon></button>
           </mat-form-field>
         </div>
 
@@ -51,7 +51,7 @@
       <mat-option style="display: none;"></mat-option>
     </mat-autocomplete>
 
-    <button matSuffix mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined">
+    <button matSuffix mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined && cData.multiple ? cData.control.value.length : cData.control.value">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-form-field>
