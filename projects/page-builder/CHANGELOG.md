@@ -1,3 +1,13 @@
+## @jaspero/fb-page-builder [3.7.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.8...@jaspero/fb-page-builder@3.7.9) (2021-10-14)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.14.1
+
 ## @jaspero/fb-page-builder [3.7.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.7...@jaspero/fb-page-builder@3.7.8) (2021-10-13)
 
 
