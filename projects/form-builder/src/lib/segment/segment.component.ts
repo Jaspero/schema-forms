@@ -89,11 +89,24 @@ export class SegmentComponent<T = any> implements OnInit {
       const pointer = this.pointer[array] as any;
       const values = get(this.segment.entryValue, arrayPointer);
 
+      console.log('parent', this.sData.parent);
+      console.log(pointer, this.segment);
+
       values.forEach((v, i) => {
-        // console.log({pointer});
+
+        const pointers = pointer.arrayPointers[i];
+
+        if (this.sData.parent) {
+          // tslint:disable-next-line:forin
+          for (const key in pointers) {
+            pointers[this.sData.parent + key] = pointers[key];
+            delete pointers[key];
+          }
+        }
+
         const fields = this.generateArrayFields(
           this.segment.array,
-          pointer.arrayPointers[i]
+          pointers
         );
 
         this.arrayFields.push(fields);
@@ -205,6 +218,7 @@ export class SegmentComponent<T = any> implements OnInit {
     array: string,
     pointers: any
   ) {
+    console.log('pointers', pointers);
     let fields: CompiledField[];
 
     if (this.segment.fields && this.segment.fields.length) {

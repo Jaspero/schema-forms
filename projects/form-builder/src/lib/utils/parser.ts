@@ -450,7 +450,7 @@ export class Parser {
       (entryPointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
       entryPointers;
     const target = pointers[pointer];
-    const control = pointers[pointer].control as FormArray;
+    const control = target.control as FormArray;
 
     if (
       target.arrayType === SchemaType.Array ||
@@ -618,7 +618,8 @@ export class Parser {
     pointer: string,
     properties: any,
     entryValue: any,
-    pointers: any
+    pointers: any,
+    parentArray?: {index: number, pointer: string}
   ) {
     if (
       properties.type === SchemaType.Array &&
@@ -631,31 +632,44 @@ export class Parser {
           const items = this.addArrayItem(
             pointer,
             false,
-            undefined,
+            parentArray,
             pointers
           );
 
           for (const key in items) {
-            const finalKey = key.replace(pointer, '');
-            const standardizedKey = Parser.standardizeKey(finalKey);
+            if (items[key] && items[key].arrayPointers) {
 
-            if (
-              !properties.items?.properties ||
-              !properties.items.properties[standardizedKey] ||
-              !pointers[pointer] ||
-              !pointers[pointer].arrayPointers
-            ) {
-              continue;
+              const finalKey = key.replace(pointer, '');
+              const standardizedKey = Parser.standardizeKey(finalKey);
+
+              const props = this.buildProperties(
+                {
+                  [standardizedKey]: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: items[key].properties
+                    }
+                  }
+                },
+                items[key].required,
+                '/',
+                true,
+                v
+              );
+
+              items[key].arrayPointers = props.pointers[finalKey].arrayPointers;
+              items[key].required = props.pointers[finalKey].required;
+              items[key].control = props.form.controls[standardizedKey];
+
+              if (items[key].arrayPointers.length) {
+
+                // tslint:disable-next-line:forin
+                for (const arrayKey in items[key].arrayPointers[0]) {
+                  pointers[pointer + arrayKey] = items[key].arrayPointers[0][arrayKey];
+                }
+              }
             }
-
-            console.log('here', properties.items.properties[standardizedKey]);
-
-            this.populateArray(
-              key,
-              properties.items.properties[standardizedKey],
-              v,
-              pointers[pointer].arrayPointers
-            )
           }
         })
       }
