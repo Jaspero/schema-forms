@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.7.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.9...@jaspero/fb-page-builder@3.7.10) (2021-10-14)
+
+
+### Bug Fixes
+
+* **page-builder:** single-line-ie tagName change breaks further tagName changes and doesn't save ([27e15be](https://github.com/Jaspero/schema-forms/commit/27e15beb5da107d868a08e560327c184b93b6966))
+
 ## @jaspero/fb-page-builder [3.7.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.8...@jaspero/fb-page-builder@3.7.9) (2021-10-14)
 
 
