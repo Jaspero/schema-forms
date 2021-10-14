@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.14.0...@jaspero/form-builder@4.14.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **ref:** clear selection and reset value ([fd26e2b](https://github.com/Jaspero/schema-forms/commit/fd26e2bb6753363a01bf342ccbb7afec4139556d))
+
 # @jaspero/form-builder [4.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.13.0...@jaspero/form-builder@4.14.0) (2021-10-13)
 
 
