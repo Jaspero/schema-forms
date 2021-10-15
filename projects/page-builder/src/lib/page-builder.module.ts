@@ -6,16 +6,16 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTreeModule} from '@angular/material/tree';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlockComponent} from './block/block.component';
 import {BlocksComponent} from './blocks/blocks.component';
+import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
-import {MatTreeModule} from '@angular/material/tree';
-import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
