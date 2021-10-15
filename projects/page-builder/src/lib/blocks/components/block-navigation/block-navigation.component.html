@@ -1,12 +1,12 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCustomBlock(node)" class="pointer flex">
-    <mat-icon class="mat-icon-rtl-mirror hidden">chevron_right</mat-icon>
+    <mat-icon class="mat-icon-rtl-mirror hidden" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
+    <mat-icon class="tree-label" [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
     {{node.name}}
   </mat-tree-node>
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle class="mat-button mat-flat-button flex">
-    <mat-icon class="mat-icon-rtl-mirror">
-      {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-    </mat-icon>
+  <mat-tree-node *matTreeNodeDef="let node;when:hasChild" matTreeNodePadding matTreeNodeToggle class="pointer flex">
+    <mat-icon class="mat-icon-rtl-mirror">{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}</mat-icon>
+    <mat-icon class="tree-label">{{node.icon || 'tab'}}</mat-icon>
     {{node.name}}
   </mat-tree-node>
 </mat-tree>

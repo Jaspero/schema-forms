@@ -4,12 +4,18 @@ import {MatCardModule} from '@angular/material/card';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {InlineEditorModule} from '../../../../../projects/page-builder/src/lib/inline-editor/inline-editor.module';
 import {CardsComponent} from './cards/cards.component';
-import {DecExampleComponent} from './dec-example/dec-example.component';
+import {DividerComponent} from './divider/divider.component';
 import {SimpleComponent} from './simple/simple.component';
 
+const BLOCKS = [
+  SimpleComponent,
+  CardsComponent,
+  DividerComponent
+];
+
 @NgModule({
-  declarations: [SimpleComponent, CardsComponent, DecExampleComponent],
-  exports: [SimpleComponent, CardsComponent, DecExampleComponent],
+  declarations: BLOCKS,
+  exports: BLOCKS,
   imports: [
     CommonModule,
     InlineEditorModule,

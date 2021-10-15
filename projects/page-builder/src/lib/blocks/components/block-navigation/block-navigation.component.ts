@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
 /**
@@ -22,25 +22,18 @@ interface ExampleFlatNode {
 @Component({
   selector: 'fb-pb-block-navigation',
   templateUrl: './block-navigation.component.html',
-  styleUrls: ['./block-navigation.component.scss']
+  styleUrls: ['./block-navigation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlockNavigationComponent implements OnInit {
 
-  @Input()
-  block: any;
-
-  @Input()
-  index: number;
-
-  @Input()
-  selectBlock: any;
+  @Input() block: any;
+  @Input() index: number;
+  @Input() selectBlock: any;
 
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
-
-  constructor() {
-  }
 
   ngOnInit() {
     this.treeControl = new FlatTreeControl<ExampleFlatNode>(
@@ -54,7 +47,7 @@ export class BlockNavigationComponent implements OnInit {
     this.dataSource.data = [
       {
         name: this.block.label,
-        children: this.block.form.segments.length > 1 ? this.block.form.segments.map((segment, index) => {
+        children: (this.block.form.segments || []).length > 1 ? this.block.form.segments.map((segment, index) => {
           segment.title = segment.title || `Segment ${index + 1}`;
 
           // const child = {
@@ -104,16 +97,12 @@ export class BlockNavigationComponent implements OnInit {
           return child;
         }) : []
       }];
-
-    // console.log(this.dataSource.data);
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
-    // console.log('selectCustomBlock', JSON.parse(JSON.stringify(this.block.value)));
-    // console.log(node);
-    return this.block.form.segments.length > 1 ? this.selectBlock({
+    return (this.block.form.segments || []).length > 1 ? this.selectBlock({
       ...node,
       value: this.block.value
     }, this.index) : this.selectBlock(this.block, this.index);

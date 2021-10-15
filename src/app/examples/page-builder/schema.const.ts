@@ -21,6 +21,19 @@ export const SCHEMA = {
           styleUrls: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
           blocks: [
             {
+              id: 'divide',
+              label: 'Divider',
+              previewTemplate: `<sc-divider></sc-divider>`,
+              form: {
+                schema: {
+                  properties: {
+                    id: {type: 'string'}
+                  }
+                },
+                definitions: {}
+              }
+            },
+            {
               id: 'banner',
               label: 'Banner',
               previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
