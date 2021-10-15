@@ -628,7 +628,7 @@ export class Parser {
       const values = get(entryValue, pointer);
 
       if (Array.isArray(values) && values.length) {
-        values.forEach(v => {
+        values.forEach((v, index) => {
           const items = this.addArrayItem(
             pointer,
             false,
@@ -637,39 +637,24 @@ export class Parser {
           );
 
           for (const key in items) {
-            if (items[key] && items[key].arrayPointers) {
 
-              const finalKey = key.replace(pointer, '');
-              const standardizedKey = Parser.standardizeKey(finalKey);
-
-              const props = this.buildProperties(
-                {
-                  [standardizedKey]: {
-                    type: 'array',
-                    items: {
-                      type: 'object',
-                      properties: items[key].properties
-                    }
-                  }
-                },
-                items[key].required,
-                '/',
-                true,
-                v
-              );
-
-              items[key].arrayPointers = props.pointers[finalKey].arrayPointers;
-              items[key].required = props.pointers[finalKey].required;
-              items[key].control = props.form.controls[standardizedKey];
-
-              if (items[key].arrayPointers.length) {
-
-                // tslint:disable-next-line:forin
-                for (const arrayKey in items[key].arrayPointers[0]) {
-                  pointers[pointer + arrayKey] = items[key].arrayPointers[0][arrayKey];
-                }
-              }
+            if (!items[key] || !items[key].arrayPointers) {
+              continue;
             }
+
+            this.populateArray(
+              key,
+              {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: items[key].properties
+                }
+              },
+              {[Parser.standardizeKey(pointer)]: v},
+              pointers,
+              {pointer, index}
+            )
           }
         })
       }
