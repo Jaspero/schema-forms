@@ -2,6 +2,7 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {get, has} from 'json-pointer';
 import {COMPONENT_TYPE_COMPONENT_MAP} from '../consts/component-type-component-map.const';
 import {SchemaType} from '../enums/schema-type.enum';
 import {State} from '../enums/state.enum';
@@ -206,7 +207,8 @@ export class Parser {
       this.schema.properties || {},
       required || this.schema.required,
       base,
-      addId
+      addId,
+      value
     );
 
     this.form = properties.form;
@@ -223,7 +225,8 @@ export class Parser {
     properties: object,
     required: string[] = [],
     base = '/',
-    addId = true
+    addId = true,
+    entryValue = null
   ) {
     const {form, pointers} = [
       ...Object.entries(properties),
@@ -244,6 +247,8 @@ export class Parser {
     ].reduce(
       (group, [key, value]: [string, any]) => {
         const isRequired = required.includes(key);
+        const pointerKey = base + key;
+        const definition = this.getFromDefinitions(pointerKey) || {};
 
         let parsed: {
           control: any;
@@ -275,7 +280,7 @@ export class Parser {
                */
               value.properties || (value.items && value.items.properties ? value.items.properties : {}),
               value.required || value.items && value.items.required ? value.items.required : [],
-              base + key + '/',
+              pointerKey + '/',
               false
             );
 
@@ -297,9 +302,6 @@ export class Parser {
             break;
         }
 
-        const pointerKey = base + key;
-        const definition = this.getFromDefinitions(pointerKey) || {};
-
         // @ts-ignore
         group.form[key] = parsed.control;
         // @ts-ignore
@@ -317,6 +319,16 @@ export class Parser {
           // @ts-ignore
           ...parsed
         };
+
+        /**
+         * Creat all FormArray controls
+         */
+        this.populateArray(
+          pointerKey,
+          value,
+          entryValue,
+          group.pointers
+        );
 
         return group;
       },
@@ -429,16 +441,16 @@ export class Parser {
   addArrayItem(
     pointer: string,
     loadHooks = false,
-    parentArray?: {
-      index: number,
-      pointer: string
-    }
+    parentArray?: {index: number, pointer: string},
+    entryPointers = this.pointers,
+    reverse = true
   ) {
+    const operation = reverse ? 'unshift' : 'push';
     const pointers = parentArray ?
-      (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
-      this.pointers;
+      (entryPointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
+      entryPointers;
     const target = pointers[pointer];
-    const control = pointers[pointer].control as FormArray;
+    const control = target.control as FormArray;
 
     if (
       target.arrayType === SchemaType.Array ||
@@ -455,7 +467,7 @@ export class Parser {
         this.loadHooks(properties.pointers);
       }
       // @ts-ignore
-      target.arrayPointers.unshift(properties.pointers);
+      target.arrayPointers[operation](properties.pointers);
       control.insert(0, properties.form);
 
       return properties.pointers;
@@ -599,6 +611,53 @@ export class Parser {
         arrayType: SchemaType.String,
         validation: {}
       };
+    }
+  }
+
+  private populateArray(
+    pointer: string,
+    properties: any,
+    entryValue: any,
+    pointers: any,
+    parentArray?: {index: number, pointer: string}
+  ) {
+    if (
+      properties.type === SchemaType.Array &&
+      has(entryValue, pointer)
+    ) {
+      const values = get(entryValue, pointer);
+
+      if (Array.isArray(values) && values.length) {
+        values.forEach((v, index) => {
+          const items = this.addArrayItem(
+            pointer,
+            false,
+            parentArray,
+            pointers
+          );
+
+          for (const key in items) {
+
+            if (!items[key] || !items[key].arrayPointers) {
+              continue;
+            }
+
+            this.populateArray(
+              key,
+              {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: items[key].properties
+                }
+              },
+              {[Parser.standardizeKey(pointer)]: v},
+              pointers,
+              {pointer, index}
+            )
+          }
+        })
+      }
     }
   }
 }

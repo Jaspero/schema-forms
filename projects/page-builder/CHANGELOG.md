@@ -1,3 +1,110 @@
+## @jaspero/fb-page-builder [3.7.11](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.10...@jaspero/fb-page-builder@3.7.11) (2021-10-15)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.15.0
+
+## @jaspero/fb-page-builder [3.7.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.9...@jaspero/fb-page-builder@3.7.10) (2021-10-14)
+
+
+### Bug Fixes
+
+* **page-builder:** single-line-ie tagName change breaks further tagName changes and doesn't save ([27e15be](https://github.com/Jaspero/schema-forms/commit/27e15beb5da107d868a08e560327c184b93b6966))
+
+## @jaspero/fb-page-builder [3.7.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.8...@jaspero/fb-page-builder@3.7.9) (2021-10-14)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.14.1
+
+## @jaspero/fb-page-builder [3.7.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.7...@jaspero/fb-page-builder@3.7.8) (2021-10-13)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.14.0
+
+## @jaspero/fb-page-builder [3.7.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.6...@jaspero/fb-page-builder@3.7.7) (2021-10-08)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.13.0
+
+## @jaspero/fb-page-builder [3.7.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.5...@jaspero/fb-page-builder@3.7.6) (2021-10-08)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.12.2
+
+## @jaspero/fb-page-builder [3.7.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.4...@jaspero/fb-page-builder@3.7.5) (2021-10-07)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.12.1
+
+## @jaspero/fb-page-builder [3.7.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.3...@jaspero/fb-page-builder@3.7.4) (2021-10-07)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.12.0
+
+## @jaspero/fb-page-builder [3.7.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.2...@jaspero/fb-page-builder@3.7.3) (2021-10-07)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.11.2
+
+## @jaspero/fb-page-builder [3.7.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.1...@jaspero/fb-page-builder@3.7.2) (2021-10-07)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.11.1
+
+## @jaspero/fb-page-builder [3.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.0...@jaspero/fb-page-builder@3.7.1) (2021-10-07)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.11.0
+
 # @jaspero/fb-page-builder [3.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.6.2...@jaspero/fb-page-builder@3.7.0) (2021-09-30)
 
 

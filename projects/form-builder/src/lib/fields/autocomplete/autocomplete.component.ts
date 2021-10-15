@@ -18,6 +18,7 @@ interface AutocompleteData extends FieldData {
     orderBy?: string;
     filter?: WhereFilter;
     limit?: number;
+    hideValueKey?: boolean;
   };
   autocomplete?: string;
   suffix?: HSD | string;
@@ -94,7 +95,7 @@ export class AutocompleteComponent extends FieldComponent<AutocompleteData>
           map(docs => {
             return docs.map(doc => {
               return {
-                name: `${doc[nameKey]} (${doc[valueKey]})`,
+                name: `${doc[nameKey]} ${this.cData.populate.hideValueKey ? '' : '(' + doc[valueKey] + ')'}`,
                 value: doc[valueKey]
               };
             });

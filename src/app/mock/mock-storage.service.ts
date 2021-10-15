@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {StorageService} from '@jaspero/form-builder';
+import {StorageService} from '../../../projects/form-builder/src/lib/services/storage.service';
 
 @Injectable()
 export class MockStorageService implements StorageService {

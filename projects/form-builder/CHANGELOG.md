@@ -1,3 +1,81 @@
+# @jaspero/form-builder [4.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.14.1...@jaspero/form-builder@4.15.0) (2021-10-15)
+
+
+### Features
+
+* **form-builder:** arrays populating properly in parser ([5c894ba](https://github.com/Jaspero/schema-forms/commit/5c894baf67b6c8064074d7ee4c8791d0a9a3fdb9))
+* **form-builder:** parser properly populates arrays instead of segments doing it ([50835c0](https://github.com/Jaspero/schema-forms/commit/50835c0a6856d6c9d977bab4f7a0fd1dfb1ad5f6))
+
+## @jaspero/form-builder [4.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.14.0...@jaspero/form-builder@4.14.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **ref:** clear selection and reset value ([fd26e2b](https://github.com/Jaspero/schema-forms/commit/fd26e2bb6753363a01bf342ccbb7afec4139556d))
+
+# @jaspero/form-builder [4.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.13.0...@jaspero/form-builder@4.14.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* **gallery:** drag & drop reordering images :bug: closes [#67](https://github.com/Jaspero/schema-forms/issues/67) ([20faae1](https://github.com/Jaspero/schema-forms/commit/20faae108a769ba0f687e90bb65320b970485800))
+
+
+### Features
+
+* **page-builder:** autocomplete flag for hiding value key in selection list ([2d5db3f](https://github.com/Jaspero/schema-forms/commit/2d5db3fe321e006d2cae67e4d57a372725a4dc46))
+
+# @jaspero/form-builder [4.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.2...@jaspero/form-builder@4.13.0) (2021-10-08)
+
+
+### Features
+
+* **form-builder:** show file name when selected via file manager component ([7bb7f48](https://github.com/Jaspero/schema-forms/commit/7bb7f4855b4f4d6632c88c68fa04a47171d63ebf))
+
+## @jaspero/form-builder [4.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.1...@jaspero/form-builder@4.12.2) (2021-10-08)
+
+
+### Bug Fixes
+
+* **form-builder:** extended file.component to handle file selection from file-manager-select.component, trigger release. ([8e0ec0c](https://github.com/Jaspero/schema-forms/commit/8e0ec0c80671d5ebe7c658c7d0bbc53bcb9162ac))
+
+## @jaspero/form-builder [4.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.12.0...@jaspero/form-builder@4.12.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **ref:** cleanup ([cbaca1e](https://github.com/Jaspero/schema-forms/commit/cbaca1e432259bde83ce85748eb2c8c70d751375))
+
+# @jaspero/form-builder [4.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.2...@jaspero/form-builder@4.12.0) (2021-10-07)
+
+
+### Features
+
+* **ref:** added hideApplyValue option ([c25439c](https://github.com/Jaspero/schema-forms/commit/c25439c38a01a73792c7cc1e3987e8b5a4510b49))
+
+## @jaspero/form-builder [4.11.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.1...@jaspero/form-builder@4.11.2) (2021-10-07)
+
+
+### Bug Fixes
+
+* **form-builder:** initialize selection nodel on init ([1580fd2](https://github.com/Jaspero/schema-forms/commit/1580fd2be8b95376e36684e368e897996b35529e))
+
+## @jaspero/form-builder [4.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.11.0...@jaspero/form-builder@4.11.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* **form-builder:** ref component add labels to mobile table. closes [#61](https://github.com/Jaspero/schema-forms/issues/61) ([2ab49a7](https://github.com/Jaspero/schema-forms/commit/2ab49a7cfb108c330d37d4e7351827d96b1ec51b))
+
+# @jaspero/form-builder [4.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.10.0...@jaspero/form-builder@4.11.0) (2021-10-07)
+
+
+### Features
+
+* **form-builder:** dynamic filters for ref component ([08da696](https://github.com/Jaspero/schema-forms/commit/08da69662c4dd3d9d08167a605d6dadcd0b2373a))
+* **form-builder:** extended ref component to support multiple selection ([5e12cdc](https://github.com/Jaspero/schema-forms/commit/5e12cdc4be3c43d54ad88fb531ba892b58fcad99))
+* **form-builder:** extended ref component to support multiple selection ([9e22b26](https://github.com/Jaspero/schema-forms/commit/9e22b26f1cf2051f5c67c0005b3b1dd82aca6a5e))
+
 # @jaspero/form-builder [4.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.9.0...@jaspero/form-builder@4.10.0) (2021-09-30)
 
 

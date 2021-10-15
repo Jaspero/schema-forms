@@ -148,9 +148,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         'blur'
       )
         .pipe(
-          tap(() =>
-            this.update()
-          )
+          tap(() => {
+            this.update();
+            setTimeout(() => this.assignLastTarget())
+          })
         )
     ];
     const filteredEvents: any[] = [
@@ -191,7 +192,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         )
           .pipe(
             tap(() => {
-
               if (!this.lastTarget) {
                 return;
               }
@@ -210,6 +210,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               setTimeout(() => {
                 this.assignLastTarget();
               });
+
+              this.update();
             })
           )
       );
