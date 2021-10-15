@@ -1,3 +1,11 @@
+# @jaspero/form-builder [4.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.14.1...@jaspero/form-builder@4.15.0) (2021-10-15)
+
+
+### Features
+
+* **form-builder:** arrays populating properly in parser ([5c894ba](https://github.com/Jaspero/schema-forms/commit/5c894baf67b6c8064074d7ee4c8791d0a9a3fdb9))
+* **form-builder:** parser properly populates arrays instead of segments doing it ([50835c0](https://github.com/Jaspero/schema-forms/commit/50835c0a6856d6c9d977bab4f7a0fd1dfb1ad5f6))
+
 ## @jaspero/form-builder [4.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.14.0...@jaspero/form-builder@4.14.1) (2021-10-14)
 
 
