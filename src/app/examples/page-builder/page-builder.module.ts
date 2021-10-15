@@ -1,8 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FormBuilderModule} from '@jaspero/form-builder';
 import {LoadClickModule} from '@jaspero/ng-helpers';
+import {FormBuilderModule} from '../../../../projects/form-builder/src/lib/form-builder.module';
 import {FB_PAGE_BUILDER_OPTIONS} from '../../../../projects/page-builder/src/lib/options.token';
 import {PageBuilderModule as PBModule} from '../../../../projects/page-builder/src/lib/page-builder.module';
 import {BlocksModule} from './blocks/blocks.module';
