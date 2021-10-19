@@ -1,6 +1,7 @@
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {SegmentType} from '@jaspero/form-builder';
 
 /**
  * Food data with nested structure.
@@ -43,69 +44,77 @@ export class BlockNavigationComponent implements OnInit {
       this._transformer, node => node.level, node => node.expandable, node => node.children);
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
     console.log(this.block.form.segments);
-    this.dataSource.data = [
-      {
-        name: this.block.label,
-        children: (this.block.form.segments || []).length > 1 ? this.block.form.segments.map((segment, index) => {
-          segment.title = segment.title || `Segment ${index + 1}`;
 
-          // const child = {
-          //   ...this.block,
-          //   ...segment,
-          //   name: segment.title,
-          //   form: {
-          //     ...this.block.form,
-          //     segments: [
-          //       segmentz
-          //     ]
-          //   }
-          // };
-          const child = {
-            ...this.block,
-            ...segment,
-            name: segment.title,
-            form: {
-              ...this.block.form,
-              segments: this.block.form.segments.map((item, i) => {
-                if (i === index) {
-                  return item;
-                }
-                return {...item, fields: []};
-              })
+    const children = (this.block.form.segments || []).map((segment, index) => {
+
+      segment.type = SegmentType.Empty;
+
+      // const child = {
+      //   ...this.block,
+      //   ...segment,
+      //   name: segment.title,
+      //   form: {
+      //     ...this.block.form,
+      //     segments: [
+      //       segmentz
+      //     ]
+      //   }
+      // };
+      const child = {
+        ...this.block,
+        ...segment,
+        name: segment.title || `Segment ${index + 1}`,
+        form: {
+          ...this.block.form,
+          segments: this.block.form.segments.map((item, i) => {
+            if (i === index) {
+              return item;
             }
-          };
+            return {...item, fields: []};
+          })
+        }
+      };
 
-          console.log(child);
+      segment.title = '';
 
-          // if (child.array) {
-          //   child.form = {
-          //     ...child.form,
-          //     segments: [
-          //       {
-          //         fields: segment.fields
-          //       }
-          //     ],
-          //     schema: child.form.schema.properties[child.array.slice(1)].items
-          //   }
-          //
-          //   delete child.array;
-          // }
+      console.log(child);
 
-          // console.log(JSON.parse(JSON.stringify(child)));
+      // if (child.array) {
+      //   child.form = {
+      //     ...child.form,
+      //     segments: [
+      //       {
+      //         fields: segment.fields
+      //       }
+      //     ],
+      //     schema: child.form.schema.properties[child.array.slice(1)].items
+      //   }
+      //
+      //   delete child.array;
+      // }
 
-          return child;
-        }) : []
-      }];
+      // console.log(JSON.parse(JSON.stringify(child)));
+
+      return child;
+    })
+
+    this.dataSource.data = [{
+      name: this.block.label,
+      icon: this.block.icon,
+      children
+    }];
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
-    return (this.block.form.segments || []).length > 1 ? this.selectBlock({
-      ...node,
-      value: this.block.value
-    }, this.index) : this.selectBlock(this.block, this.index);
+    if ((this.block.form.segments || []).length > 1) {
+      return this.selectBlock({...node, value: this.block.value}, this.index);
+    }
+
+    return this.selectBlock(this.block, this.index);
   }
 
   private _transformer = (node: FoodNode, level: number) => {

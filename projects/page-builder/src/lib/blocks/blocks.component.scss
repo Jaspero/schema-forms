@@ -2,7 +2,7 @@
 .pb {
   --sidebar-width: 300px;
   --header-height: 64px;
-  --inner-sidebar-width: 0px;
+  --inner-sidebar-width: 300px;
   &-intro {
     border: 1px solid var(--panel-tertiary);
     padding: 10px;
@@ -137,6 +137,14 @@
   &-right-sidebar {
     right: 0;
     width: var(--inner-sidebar-width);
+
+    header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px solid var(--tertiary);
+    }
   }
 
   &-sidebar {

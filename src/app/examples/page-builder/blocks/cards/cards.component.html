@@ -1,5 +1,3 @@
-<div [innerHTML]="data.title || 'No Title'"></div>
-
 <div class="cards">
   <div class="card" *ngFor="let card of data.cards; index as index;">
     <div *ngIf="card.image" [fbPbImageIE]="{pointer: '/image', index: index, array: '/cards'}">

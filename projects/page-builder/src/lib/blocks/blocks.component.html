@@ -9,9 +9,6 @@
       <ng-container *ngIf="blocks.length">
         <ul class="pb-sidebar-list" cdkDropList (cdkDropListDropped)="moveBlocks($event)">
           <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y">
-<!--            <button class="pb-sidebar-list-item-button" (click)="selectBlock(block, index)" matRipple></button>-->
-<!--            <mat-icon class="pb-sidebar-list-item-icon">{{block.icon || 'tab'}}</mat-icon>-->
-<!--            <span class="pb-sidebar-list-item-label">{{block.label | transloco}}</span>-->
             <fb-pb-block-navigation class="w-full" [block]="block" [index]="index" [selectBlock]="selectBlock.bind(this)"></fb-pb-block-navigation>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
@@ -74,22 +71,28 @@
       </div>
     </main>
 
-    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen" *ngIf="selected">
-      <!--inner-->
+    <aside class="pb-right-sidebar" [class.fullscreen]="isFullscreen">
       <article class="pb-sidebar-inner">
-        <div class="pb-sidebar-inner-title flex jc-between ai-center">
-          <button mat-icon-button (click)="closeBlock()">
-            <mat-icon>close</mat-icon>
-          </button>
-          <span class="m-r-s">{{selected?.label | transloco}}</span>
-        </div>
 
-        <fb-pb-block
-          [selected]="selected"
-          [parentFormId]="cData.parentFormId"
-          (remove)="removeBlock()"
-          (optionsChanged)="optionsChanged($event)">
-        </fb-pb-block>
+        <ng-container *ngIf="selected; else emptyRight">
+          <header>
+            <mat-icon>{{selected.icon || 'tab'}}</mat-icon>
+            <span class="m-l-s">{{selected?.label | transloco}}</span>
+          </header>
+
+          <main>
+            <fb-pb-block
+              [selected]="selected"
+              [parentFormId]="cData.parentFormId"
+              (remove)="removeBlock()"
+              (optionsChanged)="optionsChanged($event)">
+            </fb-pb-block>
+          </main>
+        </ng-container>
+
+        <ng-template #emptyRight>
+
+        </ng-template>
       </article>
     </aside>
   </ng-container>

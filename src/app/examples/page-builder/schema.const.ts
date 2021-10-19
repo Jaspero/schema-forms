@@ -23,6 +23,7 @@ export const SCHEMA = {
             {
               id: 'divide',
               label: 'Divider',
+              icon: 'minimize',
               previewTemplate: `<sc-divider></sc-divider>`,
               form: {
                 schema: {
@@ -36,6 +37,7 @@ export const SCHEMA = {
             {
               id: 'banner',
               label: 'Banner',
+              icon: 'image',
               previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
               previewValue: {
                 singleLine: '<p class="this-is-here">Single Line Example. This is <b>bold</b>, <u>underlined</u> and <i>italic</i>. <b>This is bold with a <u>underlined</u> part.</b></p>',

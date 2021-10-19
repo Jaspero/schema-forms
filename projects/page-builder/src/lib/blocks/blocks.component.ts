@@ -1,4 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {FlatTreeControl} from '@angular/cdk/tree';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -27,7 +28,8 @@ import {
   FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
-  safeEval
+  safeEval,
+  Segment
 } from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
@@ -41,12 +43,19 @@ import {Selected} from '../selected.interface';
 import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
-import {FlatTreeControl} from '@angular/cdk/tree';
+
+interface BlockSegment extends Segment {
+  icon: string | ((value: any) => string)
+}
+
+interface BlockFormBuilderData extends FormBuilderData {
+  segments?: BlockSegment[];
+}
 
 interface Block {
   label: string;
   id: string;
-  form: FormBuilderData;
+  form: BlockFormBuilderData;
 
   /**
    * Prevents automatically opening
@@ -374,8 +383,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   optionsChanged(data: any) {
-    console.log('optionsChanged', JSON.parse(JSON.stringify(data)));
-
     const selected = this.selected as Selected;
 
     if (selected.previewFormat) {
@@ -387,8 +394,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         });
       }
     }
-
-    console.log(data);
 
     this.blocks[this.selectedIndex].value = data;
     this.compRefs[this.selectedIndex].instance.data = data;
