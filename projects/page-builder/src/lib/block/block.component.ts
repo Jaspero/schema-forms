@@ -105,7 +105,7 @@ export class BlockComponent implements OnDestroy {
         };
         this.optionsChanged.next(formValue);
       });
-    }, 500);
+    }, 50);
   }
 
   ngOnDestroy() {

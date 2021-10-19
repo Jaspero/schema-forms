@@ -58,11 +58,11 @@ export class BlockNavigationComponent implements OnInit {
       //   form: {
       //     ...this.block.form,
       //     segments: [
-      //       segmentz
+      //       segment
       //     ]
       //   }
       // };
-      const child = {
+      let child = {
         ...this.block,
         ...segment,
         name: segment.title || `Segment ${index + 1}`,
@@ -79,7 +79,31 @@ export class BlockNavigationComponent implements OnInit {
 
       segment.title = '';
 
-      console.log(child);
+      if (child.array) {
+
+        child.form = {
+          ...child.form,
+          segments: [
+            {
+              fields: segment.fields
+            }
+          ],
+          schema: child.form.schema.properties[child.array.slice(1)].items
+        };
+
+        delete child.array;
+
+        child = [
+          {
+            ...child,
+            name: 'Child 1'
+          },
+          {
+            ...child,
+            name: 'Child 2'
+          }
+        ];
+      }
 
       // if (child.array) {
       //   child.form = {
@@ -98,7 +122,9 @@ export class BlockNavigationComponent implements OnInit {
       // console.log(JSON.parse(JSON.stringify(child)));
 
       return child;
-    })
+    }).reduce((acc, child: Array<any> | object) => {
+      return [...acc, ...(child.constructor === Array ? child : [child])];
+    }, []);
 
     this.dataSource.data = [{
       name: this.block.label,

@@ -161,6 +161,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   treeControl = new FlatTreeControl<any>(
     node => node.level, node => node.expandable);
 
+  dragStarted() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
+  }
+
+  dragStopped() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(1)';
+  }
+
   ngOnInit() {
 
     this.counter = uniqueId();
@@ -300,7 +308,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.cdr.markForCheck();
   }
 
-  moveBlocks(event: CdkDragDrop<string[]>) {
+  moveBlocks(event: CdkDragDrop<string[]> | any) {
     this.swapElements(
       this.compRefs[event.previousIndex].location.nativeElement,
       this.compRefs[event.currentIndex].location.nativeElement
@@ -308,6 +316,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
     moveItemInArray(this.compRefs, event.previousIndex, event.currentIndex);
+    setTimeout(() => {
+      this.focusBlock(event.currentIndex);
+    }, 200);
   }
 
   swapElements(previous, current) {
@@ -349,23 +360,24 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   selectBlock(block: TopBlock, index: number) {
-    this.selectedIndex = index;
-    console.log('selectBlock', JSON.parse(JSON.stringify(block.value)))
-    // console.log(block.form);
-    this.selected = {
-      index,
-      ...this.selection[block.type],
-      id: block.id,
-      value: block.value,
-      form: block.form
-    };
+    setTimeout(() => {
+      this.selectedIndex = index;
+      console.log('selectBlock', JSON.parse(JSON.stringify(block.value)))
+      this.selected = {
+        index,
+        ...this.selection[block.type],
+        id: block.id,
+        value: block.value,
+        form: block.form
+      };
 
-    this.ctx.selectedBlock$.next(this.selectedIndex);
-    this.focusBlock();
+      this.ctx.selectedBlock$.next(this.selectedIndex);
+      this.focusBlock();
 
-    this.state = 'inner';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
-    this.cdr.markForCheck();
+      this.state = 'inner';
+      (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
+      this.cdr.markForCheck();
+    }, 50);
   }
 
   focusBlock(index = this.selectedIndex) {

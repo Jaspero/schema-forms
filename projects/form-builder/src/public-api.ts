@@ -51,6 +51,7 @@ export * from './lib/interfaces/field-data.interface';
 export * from './lib/interfaces/form-builder-data.interface';
 export * from './lib/interfaces/custom-component-definition.interface';
 export * from './lib/interfaces/generated-image.interface';
+export * from './lib/interfaces/where-filter.interface';
 
 /**
  * Enums
@@ -59,6 +60,7 @@ export * from './lib/enums/component-type.enum';
 export * from './lib/enums/schema-type.enum';
 export * from './lib/enums/segment-type.enum';
 export * from './lib/enums/state.enum';
+export * from './lib/enums/filter-method.enum';
 
 /**
  * Injectors
@@ -74,3 +76,8 @@ export * from './lib/utils/custom-components';
  * Directives
  */
 export * from './lib/directives/dropzone/dropzone.directive';
+
+/**
+ * Utils
+ */
+export * from './lib/utils/get-hsd';
