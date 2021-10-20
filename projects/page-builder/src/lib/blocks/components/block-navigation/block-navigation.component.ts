@@ -1,7 +1,18 @@
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SegmentType} from '@jaspero/form-builder';
+import {TranslocoService} from '@ngneat/transloco';
+import {MatDialog} from '@angular/material/dialog';
 
 /**
  * Food data with nested structure.
@@ -28,47 +39,79 @@ interface ExampleFlatNode {
 })
 export class BlockNavigationComponent implements OnInit {
 
-  @Input() block: any;
+  constructor(
+    private transloco: TranslocoService,
+    private dialog: MatDialog
+  ) {
+  }
+
+  @ViewChild('itemOptions')
+  itemOptionsDialog: TemplateRef<any>;
+
   @Input() index: number;
   @Input() selectBlock: any;
-
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
 
-  ngOnInit() {
-    this.treeControl = new FlatTreeControl<ExampleFlatNode>(
-      node => node.level, node => node.expandable);
+  valueCache: any;
+  blockCache: any;
 
-    this.treeFlattener = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable, node => node.children);
+  selectLastItem = false;
 
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  @Input()
+  set value(value: any) {
 
-    console.log(this.block.form.segments);
+    if (this.valueCache) {
+      this.populateNavigation({
+        ...this.blockCache,
+        value
+      });
 
-    const children = (this.block.form.segments || []).map((segment, index) => {
+      this.treeControl.expandAll();
+    }
+
+    this.valueCache = value;
+  }
+
+  @Input()
+  set block(block: any) {
+    this.blockCache = block;
+
+    this.populateNavigation(block);
+  }
+
+  @Output()
+  optionsChanged = new EventEmitter<any>();
+
+  ngOnInit() {}
+
+  populateNavigation(block) {
+    if (!this.treeControl) {
+      this.treeControl = new FlatTreeControl<ExampleFlatNode>(
+        node => node.level, node => node.expandable);
+    }
+
+    if (!this.treeFlattener) {
+      this.treeFlattener = new MatTreeFlattener(
+        this._transformer, node => node.level, node => node.expandable, node => node.children);
+    }
+
+    if (!this.dataSource) {
+      this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    }
+
+    const children = (block.form.segments || []).map((segment, index) => {
 
       segment.type = SegmentType.Empty;
 
-      // const child = {
-      //   ...this.block,
-      //   ...segment,
-      //   name: segment.title,
-      //   form: {
-      //     ...this.block.form,
-      //     segments: [
-      //       segment
-      //     ]
-      //   }
-      // };
       let child = {
-        ...this.block,
+        ...block,
         ...segment,
-        name: segment.title || `Segment ${index + 1}`,
+        name: segment.title,
         form: {
-          ...this.block.form,
-          segments: this.block.form.segments.map((item, i) => {
+          ...block.form,
+          segments: block.form.segments.map((item, i) => {
             if (i === index) {
               return item;
             }
@@ -77,49 +120,56 @@ export class BlockNavigationComponent implements OnInit {
         }
       };
 
-      segment.title = '';
 
       if (child.array) {
 
+        const arrayProperty = child.array.slice(1);
         child.form = {
           ...child.form,
           segments: [
             {
+              type: 'empty',
               fields: segment.fields
             }
           ],
-          schema: child.form.schema.properties[child.array.slice(1)].items
+          schema: child.form.schema.properties[arrayProperty].items
         };
 
         delete child.array;
 
-        child = [
-          {
+        const addButton = {
+          ...child,
+          name: this.transloco.translate('PB.ADD') + ' ' + child.singleLabel || child.label,
+          button: true,
+          icon: 'add_circle_outline',
+          class: 'navigation-button',
+          action: 'add',
+          arrayProperty,
+          value: {}
+        };
+
+        child = (child.value?.[arrayProperty] || []).map((item, i) => {
+          return {
             ...child,
-            name: 'Child 1'
-          },
-          {
-            ...child,
-            name: 'Child 2'
-          }
-        ];
+            name: child.singleLabel || child.label,
+            value: child.value?.[arrayProperty]?.[i],
+            nested: {
+              arrayProperty,
+              index: i
+            }
+          };
+        });
+
+        if (this.selectLastItem) {
+          this.selectLastItem = false;
+          setTimeout(() => {
+            this.selectCustomBlock(child[child.length - 2]);
+            this.optionsChanged.next(this.valueCache);
+          });
+        }
+
+        child.push(addButton);
       }
-
-      // if (child.array) {
-      //   child.form = {
-      //     ...child.form,
-      //     segments: [
-      //       {
-      //         fields: segment.fields
-      //       }
-      //     ],
-      //     schema: child.form.schema.properties[child.array.slice(1)].items
-      //   }
-      //
-      //   delete child.array;
-      // }
-
-      // console.log(JSON.parse(JSON.stringify(child)));
 
       return child;
     }).reduce((acc, child: Array<any> | object) => {
@@ -127,8 +177,8 @@ export class BlockNavigationComponent implements OnInit {
     }, []);
 
     this.dataSource.data = [{
-      name: this.block.label,
-      icon: this.block.icon,
+      name: block.label,
+      icon: block.icon,
       children
     }];
   }
@@ -136,11 +186,76 @@ export class BlockNavigationComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   selectCustomBlock(node) {
-    if ((this.block.form.segments || []).length > 1) {
-      return this.selectBlock({...node, value: this.block.value}, this.index);
+    if (node.button) {
+
+      if (node.action === 'add') {
+        this.blockCache.value[node.arrayProperty] = [
+          ...(this.blockCache.value[node.arrayProperty] || []),
+          // TODO: Here define value from copied item
+          {}
+        ];
+
+        this.valueCache = this.blockCache;
+
+        this.selectBlock({
+          ...node,
+          nested: {
+            ...node.nested,
+            completeValue: this.valueCache,
+            arrayProperty: node.arrayProperty,
+            index: this.blockCache.value[node.arrayProperty].length - 1
+          },
+          value: {}
+        }
+        , this.index);
+
+        setTimeout(() => {
+          this.optionsChanged.next(this.blockCache.value);
+
+          this.selectLastItem = true;
+        }, 100);
+      }
+
+      return;
     }
 
-    return this.selectBlock(this.block, this.index);
+    if (node.nested) {
+      return this.selectBlock({
+        ...node,
+        nested: {
+          ...node.nested,
+          completeValue: this.valueCache
+        },
+        value: {
+          ...this.blockCache.value[node.nested.arrayProperty][node.nested.index]
+        }
+      }, this.index);
+    }
+
+    if ((this.blockCache.form.segments || []).length > 1) {
+      return this.selectBlock({...node, value: this.blockCache.value}, this.index);
+    }
+
+    return this.selectBlock(this.blockCache, this.index);
+  }
+
+  openItemOptions(event, block) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.dialog.open(this.itemOptionsDialog, {
+      autoFocus: false,
+      position: {
+        top: event.clientY + 'px',
+        left: event.clientX + 'px'
+      },
+      backdropClass: 'clear-backdrop',
+      panelClass: 'contextmenu-dialog',
+      width: '200px',
+      data: {
+        block
+      }
+    });
   }
 
   private _transformer = (node: FoodNode, level: number) => {

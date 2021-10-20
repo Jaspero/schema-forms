@@ -45,7 +45,7 @@ import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
 
 interface BlockSegment extends Segment {
-  icon: string | ((value: any) => string)
+  icon: string | ((value: any) => string);
 }
 
 interface BlockFormBuilderData extends FormBuilderData {
@@ -84,7 +84,7 @@ interface Block {
 
 interface BlocksData extends FieldData {
   blocks: Block[];
-  intro?: string | {[key: string] : string};
+  intro?: string | {[key: string]: string};
   styles?: string | string[];
   styleUrls?: string | string[];
   parentFormId?: string;
@@ -98,6 +98,34 @@ interface BlocksData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlocksComponent extends FieldComponent<BlocksData> implements OnInit, OnDestroy {
+  @ViewChild('ipe', {static: false, read: ViewContainerRef})
+  vce: ViewContainerRef;
+  @ViewChild('iframe', {static: false})
+  iframeEl: ElementRef<HTMLIFrameElement>;
+  @ViewChild(BlockComponent, {static: false})
+  blockComponent: BlockComponent;
+  state = 'blocks';
+  selected: Selected | null;
+  selectedIndex: number;
+  selection: {[key: string]: Selected};
+  blocks: TopBlock[];
+  availableBlocks: Block[];
+  previewed: number | undefined;
+  toProcess: {
+    [key: string]: {
+      save: (c: string, d: string, comp: any[]) => Observable<any>;
+      components: any[];
+    }
+  } = {};
+  isOpen = false;
+  originalOverflowY: string;
+  view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
+  counter: UniqueId;
+  intro$: Observable<string>;
+  treeControl = new FlatTreeControl<any>(
+    node => node.level, node => node.expandable);
+  private compRefs: ComponentRef<any>[];
+
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
@@ -119,38 +147,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     super(cData);
   }
 
-  @ViewChild('ipe', {static: false, read: ViewContainerRef})
-  vce: ViewContainerRef;
-
-  @ViewChild('iframe', {static: false})
-  iframeEl: ElementRef<HTMLIFrameElement>;
-
-  @ViewChild(BlockComponent, {static: false})
-  blockComponent: BlockComponent;
-
-  state = 'blocks';
-  selected: Selected | null;
-  selectedIndex: number;
-  selection: {[key: string]: Selected};
-  blocks: TopBlock[];
-  availableBlocks: Block[];
-  previewed: number | undefined;
-  toProcess: {
-    [key: string]: {
-      save: (c: string, d: string, comp: any[]) => Observable<any>;
-      components: any[];
-    }
-  } = {};
-
-  isOpen = false;
-  originalOverflowY: string;
-  view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
-  counter: UniqueId;
-
-  intro$: Observable<string>;
-
-  private compRefs: ComponentRef<any>[];
-
   get isFullscreen() {
     return this.view === 'fullscreen';
   }
@@ -158,8 +154,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
   }
-  treeControl = new FlatTreeControl<any>(
-    node => node.level, node => node.expandable);
 
   dragStarted() {
     (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
@@ -185,7 +179,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           id,
           ...block
         }))
-      ]
+      ];
     }
 
 
@@ -253,7 +247,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         label: block.label,
         visible: true,
         form: block.form,
-        value,
+        value
       }])
     )
       .then((factories) => {
@@ -295,7 +289,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   closeAdd() {
     this.state = '';
-    if(!this.selected){
+    if (!this.selected) {
       (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     }
     if (this.previewed !== undefined) {
@@ -324,10 +318,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   swapElements(previous, current) {
     const parent = this.iFrameDoc.body;
 
-    if (current.nextSibling) {
+    const after = current.nextElementSibling;
+    if (previous === after) {
       parent.insertBefore(previous, current);
     } else {
-      parent.appendChild(previous);
+      previous.replaceWith(current);
+      parent.insertBefore(previous, after);
     }
   }
 
@@ -360,30 +356,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   selectBlock(block: TopBlock, index: number) {
-    setTimeout(() => {
-      this.selectedIndex = index;
-      console.log('selectBlock', JSON.parse(JSON.stringify(block.value)))
-      this.selected = {
-        index,
-        ...this.selection[block.type],
-        id: block.id,
-        value: block.value,
-        form: block.form
-      };
+    this.selectedIndex = index;
+    this.selected = {
+      index,
+      ...this.selection[block.type],
+      id: block.id,
+      value: block.value,
+      form: block.form,
+      nested: block.nested
+    };
 
-      this.ctx.selectedBlock$.next(this.selectedIndex);
-      this.focusBlock();
+    this.cdr.markForCheck();
 
-      this.state = 'inner';
-      (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
-      this.cdr.markForCheck();
-    }, 50);
+    this.ctx.selectedBlock$.next(this.selectedIndex);
+    this.focusBlock();
+
+    this.state = 'inner';
+    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
+    this.cdr.markForCheck();
   }
 
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
       const activeBlock = this.compRefs[index].location.nativeElement;
-      activeBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
     }, 50);
   }
@@ -397,7 +393,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   optionsChanged(data: any) {
     const selected = this.selected as Selected;
 
-    if (selected.previewFormat) {
+    if (selected?.previewFormat) {
       const format = safeEval(selected.previewFormat);
 
       if (format) {
@@ -408,6 +404,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     this.blocks[this.selectedIndex].value = data;
+    this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
     this.compRefs[this.selectedIndex].instance.data = data;
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
@@ -464,7 +461,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           .save
           .bind(this.blockComponent.formBuilderComponent),
         components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
-      }
+      };
     }
 
     this.state = 'blocks';
@@ -501,21 +498,23 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         CommonModule,
         ...(this.options && this.options.previewModules) || []
       ]
-    })(class A { });
+    })(class A {
+    });
   }
 
   createPreviewComponent(block: TopBlock) {
     const type = this.selection[block.type];
 
     return Component({
-      template: `<div id="fb-pb-${block.id}">${type.previewTemplate}</div>`,
+      template: `<div id='fb-pb-${block.id}'>${type.previewTemplate}</div>`,
       styles: [
         ...type.previewStyle ? [type.previewStyle] : [],
         ...(this.cData.styles ? (typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles) : [])
 
       ],
       encapsulation: ViewEncapsulation.ShadowDom
-    })(class {})
+    })(class {
+    });
   }
 
   isDisabled(block: Block) {
@@ -542,7 +541,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
               }))
             );
           })
-        )
+        );
     } else {
       this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
       return of(true);
@@ -606,7 +605,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
         setTimeout(() =>
           this.selectBlock(block, index)
-        )
+        );
       }
     );
   }

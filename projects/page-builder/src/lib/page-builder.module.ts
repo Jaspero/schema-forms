@@ -16,6 +16,7 @@ import {BlocksComponent} from './blocks/blocks.component';
 import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
+import {MatListModule} from '@angular/material/list';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
@@ -37,12 +38,13 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     MatButtonToggleModule,
     MatIconModule,
     DragDropModule,
+    MatTreeModule,
+    MatListModule,
 
     StopPropagationModule,
     SanitizeModule,
 
-    TranslocoModule,
-    MatTreeModule
+    TranslocoModule
   ],
   providers: [
     {
@@ -75,6 +77,6 @@ export class PageBuilderModule {
     this.ctx.registerField(
       'pb-block',
       BlockComponent
-    )
+    );
   }
 }

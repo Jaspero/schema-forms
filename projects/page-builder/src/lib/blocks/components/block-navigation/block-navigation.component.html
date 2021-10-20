@@ -1,7 +1,9 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCustomBlock(node)" class="pointer flex">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCustomBlock(node)"
+                 [class]="'pointer flex w-full ' + node.class || ''" (contextmenu)="openItemOptions($event, node)">
     <mat-icon class="mat-icon-rtl-mirror hidden" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
-    <mat-icon class="tree-label" [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
+    <mat-icon class="tree-label"
+              [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
     {{node.name}}
   </mat-tree-node>
   <mat-tree-node *matTreeNodeDef="let node;when:hasChild" matTreeNodePadding matTreeNodeToggle class="pointer flex">
@@ -10,3 +12,13 @@
     {{node.name}}
   </mat-tree-node>
 </mat-tree>
+
+
+<ng-template #itemOptions let-data>
+  <mat-list>
+    <button class="w-full" mat-flat-button>
+      Delete
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
+  </mat-list>
+</ng-template>

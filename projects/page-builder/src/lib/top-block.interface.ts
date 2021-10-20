@@ -5,5 +5,6 @@ export interface TopBlock {
   icon?: string;
   label?: string;
   value?: any;
-  form?:any;
+  form?: any;
+  nested?: any;
 }

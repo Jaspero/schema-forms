@@ -56,62 +56,76 @@ export class BlockComponent implements OnDestroy {
   set selected(selected: Selected) {
     this.formData = null;
     this.cdr.markForCheck();
+    if (this.formSub) {
+      this.formSub.unsubscribe();
+    }
+
+    this.parser = new Parser(
+      selected.form.schema,
+      this.injector,
+      // TODO: Replace with correct state
+      State.Create,
+      'admin',
+      selected.form.definitions,
+      {
+        ...this.customFields || {},
+        ...this.ctx.fields
+      }
+    );
+
+    this.parser.form = this.parser.buildForm(
+      selected.value,
+      null,
+      '/',
+      false
+    );
+
     setTimeout(() => {
-      if (this.formSub) {
-        this.formSub.unsubscribe();
-      }
-
-      if (!selected) {
-
-        if (this.formData) {
-          this.formData = undefined;
-          this.cdr.markForCheck();
-        }
-
-        return;
-      }
-
       this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
-      this.formData = selected.form;
-      // console.log('selected.value', JSON.parse(JSON.stringify(selected.value)));
-      this.formData.value = selected.value;
-      this.cdr.detectChanges();
 
-      this.parser = new Parser(
-        selected.form.schema,
-        this.injector,
-        // TODO: Replace with correct state
-        State.Create,
-        'admin',
-        selected.form.definitions,
-        {
-          ...this.customFields || {},
-          ...this.ctx.fields
-        }
-      );
-
-      this.parser.form = this.parser.buildForm(
-        selected.value,
-        null,
-        '/',
-        false
-      );
-
-      this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
-        // console.log('formSub.valueChanges', JSON.parse(JSON.stringify(formValue)));
-        selected.value = {
-          ...selected.value,
-          ...formValue
+      if (selected.form.segments) {
+        this.formData = {
+          ...selected.form,
+          segments: (selected.form.segments || []).map(segment => {
+            return {
+              ...segment,
+              title: ''
+            };
+          })
         };
-        this.optionsChanged.next(formValue);
-      });
-    }, 50);
+      } else {
+        this.formData = selected.form;
+      }
+
+      this.formData.value = selected.value;
+      this.cdr.markForCheck();
+
+      setTimeout(() => {
+        this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+          if (selected.nested) {
+            selected.value = {
+              ...selected.nested.completeValue,
+            }
+
+            selected.value[selected.nested.arrayProperty][selected.nested.index] = formValue;
+
+            this.optionsChanged.next(selected.value);
+          } else {
+            selected.value = {
+              ...selected.value,
+              ...formValue
+            };
+
+            this.optionsChanged.next(formValue);
+          }
+        });
+      }, 50);
+    });
   }
 
   ngOnDestroy() {
     if (this.formSub) {
       this.formSub.unsubscribe();
     }
-    console.log('ngOnDestroy');
   }
 }

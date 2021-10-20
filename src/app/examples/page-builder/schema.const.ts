@@ -91,6 +91,7 @@ export const SCHEMA = {
                   {
                     title: 'Cards',
                     array: '/cards',
+                    singleLabel: 'Card',
                     fields: [
                       '/link'
                     ]

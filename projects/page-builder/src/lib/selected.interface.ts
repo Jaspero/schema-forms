@@ -10,4 +10,5 @@ export interface Selected {
   previewFormat?: string;
   icon?: string;
   value?: any;
+  nested?: any;
 }
