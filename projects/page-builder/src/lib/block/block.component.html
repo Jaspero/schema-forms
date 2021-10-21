@@ -1,1 +1,1 @@
-<fb-form-builder *ngIf="formData" [data]="formData" [id]="id" [parser]="parser" (cdkObserveContent)="changedFormBuilder()"></fb-form-builder>
+<fb-form-builder *ngIf="formData && id" [data]="formData" [id]="id" [parser]="parser" (cdkObserveContent)="changedFormBuilder()"></fb-form-builder>

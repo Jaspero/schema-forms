@@ -162,10 +162,16 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   dragStarted() {
     (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
+    // this.closeBlock();
   }
 
   dragStopped() {
     (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(1)';
+    this.blocks.forEach((_, i) => {
+      this.removeFocus(i);
+    });
+    // this.closeBlock();
+    this.preview();
   }
 
   ngOnInit() {
@@ -285,11 +291,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.state = '';
     this.cdr.markForCheck();
-    this.preview();
 
     const index = this.compRefs.length - 1;
 
     this.bindSelect(this.compRefs[index], topBlock, index);
+
+    setTimeout(() => {
+      this.preview();
+    });
   }
 
   closeAdd() {
@@ -360,7 +369,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
   }
 
-  selectBlock(block: TopBlock, index: number) {
+  selectBlock(block: TopBlock, index: number, focus = true) {
     this.selectedIndex = index;
     this.selected = {
       index,
@@ -375,6 +384,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.ctx.selectedBlock$.next(this.selectedIndex);
     this.focusBlock();
+    if (focus) {
+    }
 
     this.state = 'inner';
     (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
@@ -383,19 +394,50 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
+
       const activeBlock = this.compRefs[index]?.location.nativeElement;
+      activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+
+      if (index === 0) {
+        console.log(this.iFrameDoc);
+        this.iFrameDoc.body.scrollTo({
+          behavior: 'smooth',
+          top: 0
+        });
+      }
+
+      // const activeBlock = this.compRefs[index]?.location.nativeElement;
 
       if (activeBlock) {
         activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
-        activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+        // activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
       }
-    }, 50);
+    });
+    // setTimeout(() => {
+    //
+    //   if (index === 0) {
+    //     // this.iFrameDoc.body.scrollTo({
+    //     //   behavior: 'smooth',
+    //     //   top: 0
+    //     // });
+    //     return;
+    //   }
+    //
+    //   const activeBlock = this.compRefs[index]?.location.nativeElement;
+    //
+    //   if (activeBlock) {
+    //     // activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
+    //     // activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+    //   }
+    // }, 50);
   }
 
 
   removeFocus(index = this.selectedIndex) {
-    const block = this.compRefs[index].location.nativeElement;
-    block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+    const block = this.compRefs[index]?.location.nativeElement;
+    if (block) {
+      block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+    }
   }
 
   optionsChanged(data: any) {
@@ -517,7 +559,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     const type = this.selection[block.type];
 
     return Component({
-      template: `<div id='fb-pb-${block.id}'>${type.previewTemplate}</div>`,
+      template: `<div id="fb-pb-${block.id}">${type.previewTemplate}</div>`,
       styles: [
         ...type.previewStyle ? [type.previewStyle] : [],
         ...(this.cData.styles ? (typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles) : [])
@@ -607,16 +649,39 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           /**
            * Prevent clicking on the same element from impacting anything
            */
-          if (this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement) {
+          // if (
+          //   this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement
+          //   // && this.selected.form.segments === block.form.segments
+          // ) {
+          //   return;
+          // }
+
+          // TODO: When clicked on single edit after editing array in right sidebar,
+          //  block should be reopened with new (original) schema instead
+          //  of the one containing just single array object properties
+
+          if (block.navigationSelected) {
+            this.closeBlock();
             return;
           }
-
-          this.closeBlock();
         }
 
-        setTimeout(() =>
-          this.selectBlock(block, index)
-        );
+        // this.selectBlock(block, index);
+
+        this.cdr.markForCheck();
+        setTimeout(() => {
+          console.log('\n+++++++++');
+          console.log({block});
+          console.log('+++++++++\n');
+          this.selectBlock({
+            ...block,
+            navigationSelected: false,
+            form: {
+              ...block.form,
+              segments: []
+            }
+          }, index);
+        });
       }
     );
   }

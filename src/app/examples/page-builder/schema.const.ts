@@ -89,9 +89,14 @@ export const SCHEMA = {
                     fields: ['/title']
                   },
                   {
-                    title: 'Cards',
                     array: '/cards',
-                    singleLabel: 'Card',
+                    title: (index) => {
+                      if (index !== undefined) {
+                        return `Card ${index}`;
+                      }
+
+                      return 'Card';
+                    },
                     fields: [
                       '/link'
                     ]

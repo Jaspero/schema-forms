@@ -17,11 +17,24 @@ export function getControl(
 
   const key = [id, 'blocks', index].join('-');
 
-  let {pointers} = window.jpFb.parsers[key];
+  const parser = window.jpFb.parsers[key];
+  let pointers;
+  if (parser) {
+    pointers = parser.pointers;
+  } else {
+    pointers = window.jpFb.parsers.main.pointers;
+  }
+  console.log('id', id);
+  console.log('index', index);
+  console.log('pointer', pointer);
+  console.log('array', array);
+  console.log('arrayIndex', arrayIndex);
+  console.log('pointers', pointers);
+  console.log('----------');
 
   if (array) {
     pointers = pointers[array].arrayPointers[arrayIndex];
   }
 
-  return pointers[pointer].control
+  return pointers[pointer].control;
 }

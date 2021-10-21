@@ -113,6 +113,7 @@ export class BlockNavigationComponent implements OnInit {
       let child = {
         ...block,
         ...segment,
+        navigationSelected: true,
         name: segment.title,
         form: {
           ...block.form,
@@ -144,7 +145,7 @@ export class BlockNavigationComponent implements OnInit {
 
         const addButton = {
           ...child,
-          name: this.transloco.translate('PB.ADD') + ' ' + child.singleLabel || child.label,
+          name: this.transloco.translate('PB.ADD') + ' ' + this.parseTitle(child.title) || child.label,
           button: true,
           icon: 'add_circle_outline',
           class: 'navigation-button',
@@ -156,7 +157,7 @@ export class BlockNavigationComponent implements OnInit {
         child = (child.value?.[arrayProperty] || []).map((item, i) => {
           return {
             ...child,
-            name: child.singleLabel || child.label,
+            name: this.parseTitle(child.title, i) || child.label,
             value: child.value?.[arrayProperty]?.[i],
             nested: {
               arrayProperty,
@@ -327,6 +328,13 @@ export class BlockNavigationComponent implements OnInit {
     );
 
     this.optionsChanged.next(this.blockCache.value);
+  }
+
+  parseTitle(title: string | ((_) => string), index?) {
+    if (typeof title === 'function') {
+      return title(index);
+    }
+    return title;
   }
 
   private _transformer = (node: ParentNode, level: number) => {
