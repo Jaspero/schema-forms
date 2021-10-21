@@ -35,7 +35,7 @@ export class BlockComponent implements OnDestroy {
   optionsChanged = new EventEmitter<any>();
   @Output()
   remove = new EventEmitter();
-  @ViewChild(FormBuilderComponent, {static: false})
+  @ViewChild(FormBuilderComponent)
   formBuilderComponent: FormBuilderComponent;
   parser: Parser;
   id: string;
@@ -51,6 +51,8 @@ export class BlockComponent implements OnDestroy {
     private ctx: FormBuilderContextService
   ) {
   }
+
+  private _selected: Selected;
 
   @Input()
   set selected(selected: Selected) {
@@ -100,26 +102,32 @@ export class BlockComponent implements OnDestroy {
       this.formData.value = selected.value;
       this.cdr.markForCheck();
 
-      setTimeout(() => {
-        this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
-          if (selected.nested) {
-            selected.value = {
-              ...selected.nested.completeValue,
-            }
+      this._selected = selected;
+    });
+  }
 
-            selected.value[selected.nested.arrayProperty][selected.nested.index] = formValue;
+  changedFormBuilder() {
+    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+      if (this._selected.nested?.arrayProperty && typeof this._selected.nested?.index === 'number') {
+        this._selected.value = {
+          ...this._selected.nested.completeValue
+        };
 
-            this.optionsChanged.next(selected.value);
-          } else {
-            selected.value = {
-              ...selected.value,
-              ...formValue
-            };
+        this._selected.value[this._selected.nested.arrayProperty][this._selected.nested.index] = formValue;
 
-            this.optionsChanged.next(formValue);
-          }
-        });
-      }, 50);
+        this.optionsChanged.next(this._selected.value);
+      } else {
+        this._selected.value = {
+          ...this._selected.value,
+          ...formValue
+        };
+
+        this.optionsChanged.next(formValue);
+      }
+    });
+
+    setTimeout(() => {
+      this.formBuilderComponent?.form.setValue(this.formBuilderComponent.form.getRawValue());
     });
   }
 

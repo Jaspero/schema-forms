@@ -80,6 +80,11 @@ interface Block {
    * Limit the number of instances per page
    */
   maxInstances?: number;
+
+  /**
+   * Default value to use when duplicated
+   */
+  duplicateValue?: any;
 }
 
 interface BlocksData extends FieldData {
@@ -265,10 +270,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   addBlock(block: Block) {
-
     const topBlock = {
       id: this.counter.next(),
-      value: block.previewValue || {},
+      value: block.duplicateValue || block.previewValue || {},
       type: block.id,
       icon: block.icon,
       label: block.label,
@@ -281,6 +285,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.state = '';
     this.cdr.markForCheck();
+    this.preview();
 
     const index = this.compRefs.length - 1;
 
@@ -378,9 +383,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
-      const activeBlock = this.compRefs[index].location.nativeElement;
-      activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
-      activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+      const activeBlock = this.compRefs[index]?.location.nativeElement;
+
+      if (activeBlock) {
+        activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
+        activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+      }
     }, 50);
   }
 
@@ -401,6 +409,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           ds: this.domSanitizer
         });
       }
+    }
+
+    if (!this.blocks[this.selectedIndex]) {
+      return;
     }
 
     this.blocks[this.selectedIndex].value = data;
@@ -430,7 +442,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     // @ts-ignore
     this.selectedIndex = undefined;
     this.state = '';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.ctx.selectedBlock$.next(undefined);
     this.cdr.markForCheck();
   }

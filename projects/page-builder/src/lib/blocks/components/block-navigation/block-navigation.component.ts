@@ -7,25 +7,20 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SegmentType} from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface FoodNode {
+interface ParentNode {
   name: string;
-  children?: FoodNode[];
+  children?: ParentNode[];
 }
 
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
+interface FlatNode {
   expandable: boolean;
   name: string;
   level: number;
@@ -35,7 +30,8 @@ interface ExampleFlatNode {
   selector: 'fb-pb-block-navigation',
   templateUrl: './block-navigation.component.html',
   styleUrls: ['./block-navigation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class BlockNavigationComponent implements OnInit {
 
@@ -46,10 +42,18 @@ export class BlockNavigationComponent implements OnInit {
   }
 
   @ViewChild('itemOptions')
-  itemOptionsDialog: TemplateRef<any>;
+  itemOptionsRef: TemplateRef<any>;
+
+  @ViewChild('blockOptions')
+  blockOptionsRef: TemplateRef<any>;
+
+  optionsDialog: MatDialogRef<any>;
 
   @Input() index: number;
   @Input() selectBlock: any;
+  @Input() closeBlock: any;
+  @Input() removeBlock: any;
+  @Input() addBlock: any;
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
@@ -88,7 +92,7 @@ export class BlockNavigationComponent implements OnInit {
 
   populateNavigation(block) {
     if (!this.treeControl) {
-      this.treeControl = new FlatTreeControl<ExampleFlatNode>(
+      this.treeControl = new FlatTreeControl<FlatNode>(
         node => node.level, node => node.expandable);
     }
 
@@ -164,7 +168,6 @@ export class BlockNavigationComponent implements OnInit {
           this.selectLastItem = false;
           setTimeout(() => {
             this.selectCustomBlock(child[child.length - 2]);
-            this.optionsChanged.next(this.valueCache);
           });
         }
 
@@ -183,15 +186,13 @@ export class BlockNavigationComponent implements OnInit {
     }];
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: FlatNode) => node.expandable;
 
   selectCustomBlock(node) {
     if (node.button) {
-
       if (node.action === 'add') {
         this.blockCache.value[node.arrayProperty] = [
           ...(this.blockCache.value[node.arrayProperty] || []),
-          // TODO: Here define value from copied item
           {}
         ];
 
@@ -205,7 +206,9 @@ export class BlockNavigationComponent implements OnInit {
             arrayProperty: node.arrayProperty,
             index: this.blockCache.value[node.arrayProperty].length - 1
           },
-          value: {}
+          value: {
+            link: '123'
+          }
         }
         , this.index);
 
@@ -213,7 +216,7 @@ export class BlockNavigationComponent implements OnInit {
           this.optionsChanged.next(this.blockCache.value);
 
           this.selectLastItem = true;
-        }, 100);
+        });
       }
 
       return;
@@ -232,6 +235,13 @@ export class BlockNavigationComponent implements OnInit {
       }, this.index);
     }
 
+    if (node.expandable) {
+      return this.selectBlock({
+        ...this.blockCache,
+        ...node
+      }, this.index);
+    }
+
     if ((this.blockCache.form.segments || []).length > 1) {
       return this.selectBlock({...node, value: this.blockCache.value}, this.index);
     }
@@ -239,11 +249,15 @@ export class BlockNavigationComponent implements OnInit {
     return this.selectBlock(this.blockCache, this.index);
   }
 
-  openItemOptions(event, block) {
+  openOptions(event, block, isBlock = false) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.dialog.open(this.itemOptionsDialog, {
+    if (!block.expandable) {
+      this.selectCustomBlock(block);
+    }
+
+    this.optionsDialog = this.dialog.open(isBlock ? this.blockOptionsRef : this.itemOptionsRef, {
       autoFocus: false,
       position: {
         top: event.clientY + 'px',
@@ -251,14 +265,55 @@ export class BlockNavigationComponent implements OnInit {
       },
       backdropClass: 'clear-backdrop',
       panelClass: 'contextmenu-dialog',
-      width: '200px',
+      width: '140px',
       data: {
         block
       }
     });
   }
 
-  private _transformer = (node: FoodNode, level: number) => {
+  deleteItem(block: any) {
+    if (block.nested) {
+
+      this.blockCache.value[block.nested.arrayProperty].splice(block.nested.index, 1);
+      this.blockCache.value[block.nested.arrayProperty] = [...this.blockCache.value[block.nested.arrayProperty]];
+      this.valueCache = this.blockCache;
+
+      setTimeout(() => {
+        this.optionsChanged.next(this.blockCache.value);
+
+        setTimeout(() => {
+          this.closeBlock();
+        });
+      });
+    } else {
+      this.deleteBlock(block);
+    }
+
+    this.optionsDialog.close();
+  }
+
+  deleteBlock(block: any) {
+    this.selectCustomBlock(block);
+    this.removeBlock();
+
+    this.optionsDialog.close();
+  }
+
+  duplicateBlock(block: any) {
+    const duplicate = {
+      ...this.blockCache,
+      ...block,
+      duplicateValue: this.valueCache,
+      id: this.blockCache.type,
+      name: this.blockCache.name
+    };
+
+    this.addBlock(duplicate);
+    this.optionsDialog.close();
+  }
+
+  private _transformer = (node: ParentNode, level: number) => {
     return {
       ...node,
       expandable: !!node.children && node.children.length > 0,

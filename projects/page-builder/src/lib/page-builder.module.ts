@@ -17,6 +17,7 @@ import {BlockNavigationComponent} from './blocks/components/block-navigation/blo
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
 import {MatListModule} from '@angular/material/list';
+import {ObserversModule} from '@angular/cdk/observers';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
@@ -43,6 +44,7 @@ export function createCompiler(compilerFactory: CompilerFactory) {
 
     StopPropagationModule,
     SanitizeModule,
+    ObserversModule,
 
     TranslocoModule
   ],

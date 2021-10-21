@@ -1,38 +1,37 @@
-mat-tree-node {
-  border-radius: 0;
-  transition: background-color 0.1s;
-  min-height: 40px;
+.block-navigation {
+  mat-tree-node {
+    border-radius: 0;
+    transition: background-color 0.1s;
+    min-height: 40px;
 
-  &:hover {
-    background-color: rgba(157, 157, 157, 0.31);
+    &:hover {
+      background-color: rgba(157, 157, 157, 0.31);
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  .not-expandable {
+    margin-left: 24px;
+  }
+
+  .tree-label {
+    margin-right: 5px;
+  }
+
+  .navigation-button {
+    color: var(--primary-theme);
   }
 }
 
-.hidden {
-  opacity: 0;
-}
+.contextmenu-dialog {
+  > mat-dialog-container {
+    padding: 4px 0;
+  }
 
-.not-expandable {
-  margin-left: 24px;
-}
-
-.tree-label {
-  margin-right: 5px;
-}
-
-.navigation-button {
-  color: var(--primary-theme);
-}
-
-:root {
-
-  .contextmenu-dialog {
-    > mat-dialog-container {
-      padding: 0 !important;
-    }
-
-    mat-list.mat-list-base {
-      padding-top: 0 !important;
-    }
+  mat-list.mat-list-base {
+    padding-top: 0;
   }
 }
