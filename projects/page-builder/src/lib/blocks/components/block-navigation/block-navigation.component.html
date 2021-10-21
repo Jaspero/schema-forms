@@ -1,9 +1,9 @@
 <div class="block-navigation">
 
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="selectCustomBlock(node)"
-                   [class]="'pointer flex w-full ' + node.class || ''" (contextmenu)="openOptions($event, node)">
-      <mat-icon class="mat-icon-rtl-mirror hidden" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding cdkDrag [cdkDragData]="node" [cdkDragDisabled]="!node.nested" (click)="selectCustomBlock(node)"
+                   [class]="'pointer flex w-full ' + (node.class || '') + (!!node.nested ? ' movable' : '')" (contextmenu)="openOptions($event, node)">
+      <mat-icon class="mat-icon-rtl-mirror hidden mat-elevation-z12" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
       <mat-icon class="tree-label"
                 [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
       {{node.name}}

@@ -14,6 +14,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SegmentType} from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 interface ParentNode {
   name: string;
@@ -206,11 +207,8 @@ export class BlockNavigationComponent implements OnInit {
             arrayProperty: node.arrayProperty,
             index: this.blockCache.value[node.arrayProperty].length - 1
           },
-          value: {
-            link: '123'
-          }
-        }
-        , this.index);
+          value: {}
+        }, this.index);
 
         setTimeout(() => {
           this.optionsChanged.next(this.blockCache.value);
@@ -311,6 +309,24 @@ export class BlockNavigationComponent implements OnInit {
 
     this.addBlock(duplicate);
     this.optionsDialog.close();
+  }
+
+  drop(event: CdkDragDrop<any[]>) {
+    const items = event.container.getSortedItems().map(item => item.data);
+    const leftBound = items.findIndex(item => item.nested?.arrayProperty === event.item.data.nested.arrayProperty);
+    const rightBound = items.findIndex((item, i) => i >= leftBound && item?.action === 'add') - 1;
+
+    if (event.currentIndex < leftBound || event.currentIndex > rightBound) {
+      return;
+    }
+
+    moveItemInArray(
+      this.blockCache.value[event.item.data.nested.arrayProperty],
+      event.previousIndex - leftBound,
+      event.currentIndex - leftBound
+    );
+
+    this.optionsChanged.next(this.blockCache.value);
   }
 
   private _transformer = (node: ParentNode, level: number) => {
