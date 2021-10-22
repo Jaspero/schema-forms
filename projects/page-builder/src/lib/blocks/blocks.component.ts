@@ -391,11 +391,13 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       const activeBlock = this.compRefs[index]?.location.nativeElement;
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
 
+      console.log(index);
       if (index === 0) {
         this.iFrameDoc.body.scrollTo({
           behavior: 'smooth',
           top: 0
         });
+        return;
       }
 
       if (activeBlock) {
