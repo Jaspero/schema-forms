@@ -113,7 +113,6 @@ export class BlockNavigationComponent implements OnInit {
       let child = {
         ...block,
         ...segment,
-        navigationSelected: true,
         name: segment.title,
         form: {
           ...block.form,
@@ -191,6 +190,7 @@ export class BlockNavigationComponent implements OnInit {
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
   selectCustomBlock(node) {
+
     if (node.button) {
       if (node.action === 'add') {
         this.blockCache.value[node.arrayProperty] = [

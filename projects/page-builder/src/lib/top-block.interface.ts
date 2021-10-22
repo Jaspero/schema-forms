@@ -7,5 +7,4 @@ export interface TopBlock {
   value?: any;
   form?: any;
   nested?: any;
-  navigationSelected?: boolean;
 }

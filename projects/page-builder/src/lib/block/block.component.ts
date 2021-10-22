@@ -103,6 +103,7 @@ export class BlockComponent implements OnDestroy {
       this.cdr.markForCheck();
 
       this._selected = selected;
+      this.cdr.markForCheck();
     });
   }
 

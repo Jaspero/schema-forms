@@ -162,7 +162,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   dragStarted() {
     (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
-    // this.closeBlock();
   }
 
   dragStopped() {
@@ -170,7 +169,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.blocks.forEach((_, i) => {
       this.removeFocus(i);
     });
-    // this.closeBlock();
     this.preview();
   }
 
@@ -303,9 +301,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   closeAdd() {
     this.state = '';
-    if (!this.selected) {
-      (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
-    }
     if (this.previewed !== undefined) {
       this.compRefs[this.compRefs.length - 1].destroy();
       this.compRefs.splice(this.compRefs.length - 1, 1);
@@ -381,15 +376,13 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     };
 
     this.cdr.markForCheck();
-
     this.ctx.selectedBlock$.next(this.selectedIndex);
-    this.focusBlock();
-    if (focus) {
-    }
 
-    this.state = 'inner';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
-    this.cdr.markForCheck();
+    if (focus) {
+      this.focusBlock();
+      this.state = 'inner';
+      this.cdr.markForCheck();
+    }
   }
 
   focusBlock(index = this.selectedIndex) {
@@ -399,37 +392,16 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
 
       if (index === 0) {
-        console.log(this.iFrameDoc);
         this.iFrameDoc.body.scrollTo({
           behavior: 'smooth',
           top: 0
         });
       }
 
-      // const activeBlock = this.compRefs[index]?.location.nativeElement;
-
       if (activeBlock) {
         activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
-        // activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
       }
     });
-    // setTimeout(() => {
-    //
-    //   if (index === 0) {
-    //     // this.iFrameDoc.body.scrollTo({
-    //     //   behavior: 'smooth',
-    //     //   top: 0
-    //     // });
-    //     return;
-    //   }
-    //
-    //   const activeBlock = this.compRefs[index]?.location.nativeElement;
-    //
-    //   if (activeBlock) {
-    //     // activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
-    //     // activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
-    //   }
-    // }, 50);
   }
 
 
@@ -501,27 +473,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   close() {
+    this.closeBlock();
+    setTimeout(() => {
+      this.document.body.style.overflowY = this.originalOverflowY;
+      this.document.body.classList.remove('page-builder-open');
 
-    this.document.body.style.overflowY = this.originalOverflowY;
-    this.document.body.classList.remove('page-builder-open');
+      /**
+       * If we're in a single block edit
+       */
+      if (this.selected && this.blockComponent) {
+        this.toProcess[this.selected.id] = {
+          save: this.blockComponent.formBuilderComponent
+            .save
+            .bind(this.blockComponent.formBuilderComponent),
+          components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+        };
+      }
 
-    /**
-     * If we're in a single block edit
-     */
-    if (this.selected && this.blockComponent) {
-      this.toProcess[this.selected.id] = {
-        save: this.blockComponent.formBuilderComponent
-          .save
-          .bind(this.blockComponent.formBuilderComponent),
-        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
-      };
-    }
-
-    this.state = 'blocks';
-    this.isOpen = false;
-    this.selectedIndex = undefined;
-
-    this.iFrameDoc.location.reload();
+      setTimeout(() => {
+        this.state = 'blocks';
+        this.isOpen = false;
+        this.selectedIndex = undefined;
+        this.cdr.markForCheck();
+      });
+    }, 100);
   }
 
   preview() {
@@ -625,7 +600,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     if (this.cData.styles) {
-
       const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
 
       for (const style of styles) {
@@ -649,39 +623,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           /**
            * Prevent clicking on the same element from impacting anything
            */
-          // if (
-          //   this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement
-          //   // && this.selected.form.segments === block.form.segments
-          // ) {
-          //   return;
-          // }
-
-          // TODO: When clicked on single edit after editing array in right sidebar,
-          //  block should be reopened with new (original) schema instead
-          //  of the one containing just single array object properties
-
-          if (block.navigationSelected) {
-            this.closeBlock();
+          if (
+            this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement
+            && !this.selected.form.segments.length
+          ) {
             return;
           }
-        }
 
-        // this.selectBlock(block, index);
+          this.closeBlock();
+        }
 
         this.cdr.markForCheck();
         setTimeout(() => {
-          console.log('\n+++++++++');
-          console.log({block});
-          console.log('+++++++++\n');
+          this.cdr.markForCheck();
           this.selectBlock({
             ...block,
-            navigationSelected: false,
             form: {
               ...block.form,
               segments: []
             }
           }, index);
-        });
+          this.cdr.markForCheck();
+        }, 50);
       }
     );
   }
