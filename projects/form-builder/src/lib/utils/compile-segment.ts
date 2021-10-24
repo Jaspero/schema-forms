@@ -10,6 +10,7 @@ import {CompiledCondition, ConditionAction, ConditionEvaluate, ConditionType} fr
 import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {SegmentComponent} from '../segment/segment.component';
+import {compileFields} from './compile-fields';
 import {createSegmentInjector} from './create-segment-injector';
 import {createCustomComponentInjector} from './custom-components';
 import {Parser} from './parser';
@@ -71,64 +72,7 @@ export function compileSegment(
         }
       });
     } else {
-      fields = (segment.fields || [])
-        // @ts-ignore
-        .reduce((acc: CompiledField[], keyObject: string | object) => {
-          let condition: any;
-          let key = keyObject as string;
-
-          if (keyObject?.constructor === Object) {
-
-            const {field, action, deps} = keyObject as any;
-
-            condition = {field};
-
-            switch (action?.constructor) {
-              case Object:
-                condition.action = [action];
-                break;
-              case Array:
-                condition.action = action;
-                break;
-              default:
-                condition.action = [{}];
-                break;
-            }
-
-            condition.action.forEach((item) => {
-              item.type = item.type || 'show';
-              item.eval = safeEval(item.eval) || null;
-            });
-            condition.deps = deps || [];
-
-            key = field;
-          }
-
-          const definition = parser.getFromDefinitions(key, definitions);
-
-          if (
-            !definition ||
-            !definition.roles ||
-            (
-              typeof definition.roles === 'string' ?
-                definition.roles === parser.role :
-                definition.roles.includes(parser.role)
-            )
-          ) {
-            acc.push(
-              parser.field(
-                key,
-                parser.pointers[key],
-                definitions,
-                true,
-                undefined,
-                condition
-              )
-            );
-          }
-
-          return acc;
-        }, []);
+      fields = compileFields(parser, definitions, segment.fields);
     }
   }
 
