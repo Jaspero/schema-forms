@@ -66,11 +66,8 @@ export class TinymceComponent extends FieldComponent<TinyData>
     super(cData);
   }
 
-  @ViewChild('textarea', {static: true})
-  textarea: ElementRef;
-
-  @ViewChild('youTubeDialog', {static: true})
-  youTubeDialogTemplate: TemplateRef<any>;
+  @ViewChild('textarea', {static: true}) textarea: ElementRef;
+  @ViewChild('youTubeDialog', {static: true}) youTubeDialogTemplate: TemplateRef<any>;
 
   ytForm: FormGroup;
   ytDefault = {

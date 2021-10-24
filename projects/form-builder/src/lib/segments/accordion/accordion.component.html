@@ -17,12 +17,14 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <ng-container *ngFor="let field of accord.fields | showField:sData.parser | async">
-      <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
-    </ng-container>
+    <ng-template matExpansionPanelContent>
+      <ng-container *ngFor="let field of accord.fields | showField:sData.parser | async">
+        <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
+      </ng-container>
 
-    <ng-container *ngFor="let nested of accord.nestedSegments">
-      <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
-    </ng-container>
+      <ng-container *ngFor="let nested of accord.nestedSegments">
+        <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
+      </ng-container>
+    </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
