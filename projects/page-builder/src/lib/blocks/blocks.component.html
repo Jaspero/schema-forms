@@ -91,7 +91,7 @@
         </ng-container>
 
         <ng-template #emptyRight>
-
+          <div class="empty-state" [innerHTML]="rightEmpty$ | async | jpSanitize"></div>
         </ng-template>
       </article>
     </aside>

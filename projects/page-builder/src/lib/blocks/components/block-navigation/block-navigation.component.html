@@ -1,16 +1,28 @@
 <div class="block-navigation">
-
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding cdkDrag [cdkDragData]="node" [cdkDragDisabled]="!node.nested" (click)="selectCustomBlock(node)"
-                   [class]="'pointer flex w-full ' + (node.class || '') + (!!node.nested ? ' movable' : '')" (contextmenu)="openOptions($event, node)">
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      matTreeNodePadding
+      cdkDrag
+      [cdkDragData]="node"
+      [cdkDragDisabled]="!node.nested"
+      (click)="selectCustomBlock(node)"
+      [class]="'pointer flex w-full ' + (node.class || '') + (!!node.nested ? ' movable' : '')"
+      (contextmenu)="openOptions($event, node)">
       <mat-icon class="mat-icon-rtl-mirror hidden mat-elevation-z12" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
       <mat-icon class="tree-label"
-                [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
+        [class.not-expandable]="!hasChild(0, node) && node.level === 0">{{node.icon || 'tab'}}</mat-icon>
       {{node.name | transloco}}
     </mat-tree-node>
-    <mat-tree-node *matTreeNodeDef="let node;when:hasChild" matTreeNodePadding matTreeNodeToggle class="pointer flex" (contextmenu)="openOptions($event, node, true)">
-      <mat-icon
-        class="mat-icon-rtl-mirror">{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}</mat-icon>
+    <mat-tree-node
+      *matTreeNodeDef="let node;when:hasChild"
+      matTreeNodePadding
+      matTreeNodeToggle
+      class="pointer flex"
+      (contextmenu)="openOptions($event, node, true)">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
       <mat-icon class="tree-label">{{node.icon || 'tab'}}</mat-icon>
       {{node.name | transloco}}
     </mat-tree-node>
@@ -18,29 +30,46 @@
 </div>
 
 <ng-template #itemOptions let-data>
-  <mat-list>
-    <mat-list-item *ngIf="!data.block.nested && data.block.level">No Actions</mat-list-item>
-    <button class="w-full" mat-flat-button (click)="duplicateBlock(data.block)" *ngIf="!data.block.nested && !data.block.level">
-      Duplicate
-      <mat-icon>content_copy</mat-icon>
-    </button>
-    <button class="w-full" mat-flat-button (click)="deleteItem(data.block)" *ngIf="data.block.nested || !data.block.level">
-      Delete
-      <mat-icon color="warn">delete</mat-icon>
-    </button>
-  </mat-list>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    *ngIf="!data.block.nested && data.block.level">
+    No Actions
+  </button>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    (click)="duplicateBlock(data.block)"
+    *ngIf="!data.block.nested && !data.block.level">
+    <mat-icon>content_copy</mat-icon>
+    Duplicate
+  </button>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    color="warn"
+    (click)="deleteItem(data.block)"
+    *ngIf="data.block.nested || !data.block.level">
+    <mat-icon>delete</mat-icon>
+    Delete
+  </button>
 </ng-template>
 
 
 <ng-template #blockOptions let-data>
-  <mat-list>
-    <button class="w-full" mat-flat-button (click)="duplicateBlock(data.block)">
-      Duplicate
-      <mat-icon>content_copy</mat-icon>
-    </button>
-    <button class="w-full" mat-flat-button (click)="deleteBlock(data.block)">
-      Delete
-      <mat-icon color="warn">delete</mat-icon>
-    </button>
-  </mat-list>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    (click)="duplicateBlock(data.block)">
+    <mat-icon>content_copy</mat-icon>
+    Duplicate
+  </button>
+  <button
+    class="contextmenu-dialog-item"
+    mat-button
+    color="warn"
+    (click)="deleteBlock(data.block)">
+    <mat-icon>delete</mat-icon>
+    Delete
+  </button>
 </ng-template>

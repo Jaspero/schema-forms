@@ -1,5 +1,4 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {FlatTreeControl} from '@angular/cdk/tree';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -89,7 +88,10 @@ interface Block {
 
 interface BlocksData extends FieldData {
   blocks: Block[];
-  intro?: string | {[key: string]: string};
+  intro?: string | { [key: string]: string };
+  rightSidebar?: {
+    emptyState?: string;
+  };
   styles?: string | string[];
   styleUrls?: string | string[];
   parentFormId?: string;
@@ -103,34 +105,6 @@ interface BlocksData extends FieldData {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlocksComponent extends FieldComponent<BlocksData> implements OnInit, OnDestroy {
-  @ViewChild('ipe', {static: false, read: ViewContainerRef})
-  vce: ViewContainerRef;
-  @ViewChild('iframe', {static: false})
-  iframeEl: ElementRef<HTMLIFrameElement>;
-  @ViewChild(BlockComponent, {static: false})
-  blockComponent: BlockComponent;
-  state = 'blocks';
-  selected: Selected | null;
-  selectedIndex: number;
-  selection: {[key: string]: Selected};
-  blocks: TopBlock[];
-  availableBlocks: Block[];
-  previewed: number | undefined;
-  toProcess: {
-    [key: string]: {
-      save: (c: string, d: string, comp: any[]) => Observable<any>;
-      components: any[];
-    }
-  } = {};
-  isOpen = false;
-  originalOverflowY: string;
-  view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
-  counter: UniqueId;
-  intro$: Observable<string>;
-  treeControl = new FlatTreeControl<any>(
-    node => node.level, node => node.expandable);
-  private compRefs: ComponentRef<any>[];
-
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
@@ -151,6 +125,32 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   ) {
     super(cData);
   }
+
+  @ViewChild('ipe', {static: false, read: ViewContainerRef}) vce: ViewContainerRef;
+  @ViewChild('iframe', {static: false}) iframeEl: ElementRef<HTMLIFrameElement>;
+  @ViewChild(BlockComponent, {static: false}) blockComponent: BlockComponent;
+
+  state = 'blocks';
+  selected: Selected | null;
+  selectedIndex: number;
+  selection: { [key: string]: Selected };
+  blocks: TopBlock[];
+  availableBlocks: Block[];
+  previewed: number | undefined;
+  toProcess: {
+    [key: string]: {
+      save: (c: string, d: string, comp: any[]) => Observable<any>;
+      components: any[];
+    }
+  } = {};
+  isOpen = false;
+  originalOverflowY: string;
+  view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
+  counter: UniqueId;
+  intro$: Observable<string>;
+  rightEmpty$: Observable<string>;
+
+  private compRefs: ComponentRef<any>[];
 
   get isFullscreen() {
     return this.view === 'fullscreen';
@@ -191,7 +191,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       ];
     }
 
-
     this.selection = blocks.reduce((acc, cur) => {
       acc[cur.id] = cur;
       return acc;
@@ -226,6 +225,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         }
       })
     );
+
+    this.rightEmpty$ = this.transloco.langChanges$.pipe(
+      map(() => {
+        if (!this.cData.rightSidebar?.emptyState) {
+          return `
+            <ul>
+              <li>Use the left sidebar to add additional segments.</li>
+              <li>You can delete and duplicate segments by right clicking on them in the sidebar.</li>
+              <li>Most content can be edited inline.</li>
+            </ul>
+          `;
+        }
+
+        const {emptyState} = this.cData.rightSidebar;
+
+        if (typeof emptyState === 'string') {
+          return emptyState;
+        } else {
+          return emptyState[this.transloco.getActiveLang()];
+        }
+      })
+    )
   }
 
   ngOnDestroy() {
@@ -387,11 +408,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
-
       const activeBlock = this.compRefs[index]?.location.nativeElement;
+
+      if (!activeBlock) {
+        return;
+      }
+
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
 
-      console.log(index);
       if (index === 0) {
         this.iFrameDoc.body.scrollTo({
           behavior: 'smooth',

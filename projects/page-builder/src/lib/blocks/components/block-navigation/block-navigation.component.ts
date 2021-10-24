@@ -35,18 +35,14 @@ interface FlatNode {
   encapsulation: ViewEncapsulation.None
 })
 export class BlockNavigationComponent implements OnInit {
-
   constructor(
     private transloco: TranslocoService,
     private dialog: MatDialog
   ) {
   }
 
-  @ViewChild('itemOptions')
-  itemOptionsRef: TemplateRef<any>;
-
-  @ViewChild('blockOptions')
-  blockOptionsRef: TemplateRef<any>;
+  @ViewChild('itemOptions') itemOptionsRef: TemplateRef<any>;
+  @ViewChild('blockOptions') blockOptionsRef: TemplateRef<any>;
 
   optionsDialog: MatDialogRef<any>;
 
@@ -89,7 +85,8 @@ export class BlockNavigationComponent implements OnInit {
   @Output()
   optionsChanged = new EventEmitter<any>();
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   populateNavigation(block) {
     if (!this.treeControl) {

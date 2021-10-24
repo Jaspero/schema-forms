@@ -1,4 +1,5 @@
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ObserversModule} from '@angular/cdk/observers';
 import {CommonModule} from '@angular/common';
 import {Compiler, COMPILER_OPTIONS, CompilerFactory, NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,8 +17,6 @@ import {BlocksComponent} from './blocks/blocks.component';
 import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {ToolbarService} from './toolbar.service';
-import {MatListModule} from '@angular/material/list';
-import {ObserversModule} from '@angular/cdk/observers';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
   return compilerFactory.createCompiler();
@@ -40,7 +39,6 @@ export function createCompiler(compilerFactory: CompilerFactory) {
     MatIconModule,
     DragDropModule,
     MatTreeModule,
-    MatListModule,
 
     StopPropagationModule,
     SanitizeModule,

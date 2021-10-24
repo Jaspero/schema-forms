@@ -50,10 +50,11 @@
 
 .contextmenu-dialog {
   > mat-dialog-container {
-    padding: 4px 0;
+    padding: 0;
   }
 
-  mat-list.mat-list-base {
-    padding-top: 0;
+  &-item {
+    text-align: left;
+    width: 100%;
   }
 }
