@@ -5,6 +5,15 @@ import {CustomComponentDefinition} from './custom-component-definition.interface
 
 export interface Segment<C = any> {
   components?: CustomComponentDefinition[];
+
+  /**
+   * @example
+   * A regular string field
+   * fields: ['/name'],
+   *
+   * A field that's dependent on another field "/something" to be truthy
+   * fields: [{field: '/name', deps: ['/something'], eval: v => v.something}]
+   */
   fields?: (string | any | FieldCondition)[];
   array?: string;
   type?: SegmentType;

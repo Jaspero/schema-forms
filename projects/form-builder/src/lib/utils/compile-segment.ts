@@ -97,7 +97,7 @@ export function compileSegment(
 
             condition.action.forEach((item) => {
               item.type = item.type || 'show';
-              item.eval = safeEval(item.function) || null;
+              item.eval = safeEval(item.eval) || null;
             });
             condition.deps = deps || [];
 

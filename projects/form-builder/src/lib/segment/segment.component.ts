@@ -37,11 +37,8 @@ export class SegmentComponent<T = any> implements OnInit {
   arrayFields: Array<CompiledField[]> = [];
   components: ComponentPortal<CustomComponent>[];
 
-  @HostBinding('class')
-  classes: string;
-
-  @HostBinding('id')
-  id: string;
+  @HostBinding('class') classes: string;
+  @HostBinding('id') id: string;
 
   get parentIndex() {
     if (!this.sData.parent) {

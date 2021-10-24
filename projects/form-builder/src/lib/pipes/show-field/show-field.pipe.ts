@@ -5,9 +5,7 @@ import {Action, CompiledField} from '../../interfaces/compiled-field.interface';
 import {StateService} from '../../services/state.service';
 import {Parser} from '../../utils/parser';
 
-@Pipe({
-  name: 'showField'
-})
+@Pipe({name: 'showField'})
 export class ShowFieldPipe implements PipeTransform {
 
   constructor(
@@ -20,16 +18,7 @@ export class ShowFieldPipe implements PipeTransform {
     return combineLatest(
       fields.reduce<Array<Observable<CompiledField | null>>>((filtered, field) => {
         if (field.condition) {
-          if (!field.condition.deps.length) {
-            filtered.push(this.getListener('form', parser, index).pipe(
-              map(() => field)
-            ).pipe(
-              startWith(null),
-              map(() => {
-                return this.checkField(field, parser, index) ? field : null;
-              })
-            ));
-          } else {
+          if (field.condition.deps.length) {
             const deps = field.condition.deps.map(dep => this.getListener(dep, parser, index));
 
             filtered.push(combineLatest(deps).pipe(
@@ -39,6 +28,15 @@ export class ShowFieldPipe implements PipeTransform {
               map(() => {
                 return this.checkField(field, parser, index) ? field : null;
               })
+            ));
+          } else {
+            filtered.push(this.getListener('form', parser, index).pipe(
+              map(() => field)
+            ).pipe(
+              startWith(null),
+              map(() =>
+                this.checkField(field, parser, index) ? field : null
+              )
             ));
           }
         } else {
@@ -110,24 +108,27 @@ export class ShowFieldPipe implements PipeTransform {
     }
 
     const row = parser.form.getRawValue();
-    let bool = true;
+
+    let response = true;
+
     (condition.action as Action[]).forEach(action => {
       if (!action.eval) {
         return;
       }
 
       let valid = false;
+
       try {
         valid = action.eval(row, index || 0);
       } catch(error) {}
 
       switch (action.type) {
         case 'show': {
-          bool = valid;
+          response = valid;
           break;
         }
         case 'hide': {
-          bool = !valid;
+          response = !valid;
           break;
         }
         case 'set-to': {
@@ -137,12 +138,12 @@ export class ShowFieldPipe implements PipeTransform {
           break;
         }
         default: {
-          bool = true;
+          response = true;
           break;
         }
       }
     });
 
-    return bool;
+    return response;
   }
 }
