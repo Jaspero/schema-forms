@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.15.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.15.1...@jaspero/form-builder@4.15.2) (2021-10-24)
+
+
+### Bug Fixes
+
+* **form-builder:** lazy loading tab and accordion content, this closes [#51](https://github.com/Jaspero/schema-forms/issues/51) ([71373ff](https://github.com/Jaspero/schema-forms/commit/71373ffb112fbe825f79df883452c2b415728148))
+
 ## @jaspero/form-builder [4.15.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.15.0...@jaspero/form-builder@4.15.1) (2021-10-24)
 
 
