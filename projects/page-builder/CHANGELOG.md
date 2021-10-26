@@ -1,3 +1,35 @@
+# @jaspero/fb-page-builder [3.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.13...@jaspero/fb-page-builder@3.8.0) (2021-10-26)
+
+
+### Bug Fixes
+
+* **page-builder:** apply form value to all segments ([0bee985](https://github.com/Jaspero/schema-forms/commit/0bee985fe755d0bb92b893c3a3b13acf841cd7d0))
+* **page-builder:** open empty block on inline edit, bug fixes and cleanup ([5cd47f6](https://github.com/Jaspero/schema-forms/commit/5cd47f6e662f00cd6bd6ddd547baa2182010085f))
+* **page-builder:** render all segment types correctly, show toolbar on inline edit, cleanup ([35501f1](https://github.com/Jaspero/schema-forms/commit/35501f16ea28f3b8ece116910649231cebfeefdb))
+* **page-builder:** scroll to top when reordering first item ([aa636f9](https://github.com/Jaspero/schema-forms/commit/aa636f9ecfa997889ee81b5207a54beb4f7123b4))
+
+
+### Features
+
+* **page-builder:** add duplicate and delete options for blocks and items. bug fixes and cleanup ([1c0006e](https://github.com/Jaspero/schema-forms/commit/1c0006e7d258f91bd35c6f466475e24dd5304c79))
+* **page-builder:** added icons, visibility and drag handler in mat-tree ([2f1eedb](https://github.com/Jaspero/schema-forms/commit/2f1eedbacd38951612904680439e602b669d869c))
+* **page-builder:** adjusted contextmenu style; right sidebar empty state is now adjustable; ([1acffab](https://github.com/Jaspero/schema-forms/commit/1acffab55bd06b3f34bfab79c5ba90bab3d0702c))
+* **page-builder:** divide block editing in segments ([60732fe](https://github.com/Jaspero/schema-forms/commit/60732fe8ddbba0f05e77224aead9c8796dd97a3d))
+* **page-builder:** list segment array as plain items. add new items from navigation block. zoom out during block reordering ([81cdfc6](https://github.com/Jaspero/schema-forms/commit/81cdfc6f908f9181f55d5e8c44536a53c604a814))
+* **page-builder:** live preview during reordering blocks. export additional utils from form builder package ([132b07d](https://github.com/Jaspero/schema-forms/commit/132b07df8307ea0ee1bc8de3a599493479590d38))
+* **page-builder:** pass custom title for array items. cleanup and bug fixes ([871cc71](https://github.com/Jaspero/schema-forms/commit/871cc71afec9652150d114ebcf4614678db7af3c))
+* **page-builder:** reorder array items in navigation bar ([a009b75](https://github.com/Jaspero/schema-forms/commit/a009b75867a58732e34c2e9f7953d58ad43928f7))
+* **page-builder:** subdivide page builder sidebar into segments ([0b3f2d7](https://github.com/Jaspero/schema-forms/commit/0b3f2d707b4b46517a3f9b7ad94b74dd40902bb6))
+* **page-builder:** working on right sidebar :construction: ([6392fa5](https://github.com/Jaspero/schema-forms/commit/6392fa51eb5bf335008e21fb9bb71341677ce780))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.16.0
+
 ## @jaspero/fb-page-builder [3.7.13](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.7.12...@jaspero/fb-page-builder@3.7.13) (2021-10-24)
 
 
