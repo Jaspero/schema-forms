@@ -1,3 +1,17 @@
+# @jaspero/form-builder [4.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.15.2...@jaspero/form-builder@4.16.0) (2021-10-26)
+
+
+### Bug Fixes
+
+* **form-builder:** extend file component to handle files received from file manager select ([ff3f97d](https://github.com/Jaspero/schema-forms/commit/ff3f97dae8b6e90a17adc56794f5555c32cd47f1))
+
+
+### Features
+
+* **page-builder:** added icons, visibility and drag handler in mat-tree ([2f1eedb](https://github.com/Jaspero/schema-forms/commit/2f1eedbacd38951612904680439e602b669d869c))
+* **page-builder:** live preview during reordering blocks. export additional utils from form builder package ([132b07d](https://github.com/Jaspero/schema-forms/commit/132b07df8307ea0ee1bc8de3a599493479590d38))
+* **page-builder:** subdivide page builder sidebar into segments ([0b3f2d7](https://github.com/Jaspero/schema-forms/commit/0b3f2d707b4b46517a3f9b7ad94b74dd40902bb6))
+
 ## @jaspero/form-builder [4.15.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.15.1...@jaspero/form-builder@4.15.2) (2021-10-24)
 
 
