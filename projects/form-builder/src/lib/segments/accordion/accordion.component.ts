@@ -3,6 +3,7 @@ import {CompiledField} from '../../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../../interfaces/compiled-segment.interface';
 import {Segment} from '../../interfaces/segment.interface';
 import {SegmentComponent} from '../../segment/segment.component';
+import {compileFields} from '../../utils/compile-fields';
 import {filterAndCompileSegments} from '../../utils/filter-and-compile-segments';
 
 interface SegmentAccord {
@@ -37,13 +38,7 @@ export class AccordionComponent extends SegmentComponent implements OnInit {
     this.accordions = (this.sData.segment.configuration || []).map(
       (accord: SegmentAccord) => ({
         title: accord.title,
-        fields: (accord.fields || []).map(key =>
-          this.sData.parser.field(
-            key,
-            this.pointers[key],
-            this.sData.definitions
-          )
-        ),
+        fields: compileFields(this.sData.parser, this.sData.definitions, accord.fields),
         nestedSegments: filterAndCompileSegments(
           accord.nestedSegments || [],
           this.sData.parser,

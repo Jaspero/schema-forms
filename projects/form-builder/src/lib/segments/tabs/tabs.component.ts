@@ -4,6 +4,7 @@ import {CompiledField} from '../../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../../interfaces/compiled-segment.interface';
 import {Segment} from '../../interfaces/segment.interface';
 import {SegmentComponent, SegmentData} from '../../segment/segment.component';
+import {compileFields} from '../../utils/compile-fields';
 import {filterAndCompileSegments} from '../../utils/filter-and-compile-segments';
 import {safeEval} from '../../utils/safe-eval';
 
@@ -60,13 +61,7 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
     this.tabs = this.configuration.tabs.map(
       tab => ({
         ...tab,
-        fields: (tab.fields || []).map(key =>
-          this.sData.parser.field(
-            key,
-            this.pointers[key],
-            this.sData.definitions
-          )
-        ),
+        fields: compileFields(this.sData.parser, this.sData.definitions, tab.fields),
         nestedSegments: filterAndCompileSegments(
           tab.nestedSegments || [],
           this.sData.parser,
