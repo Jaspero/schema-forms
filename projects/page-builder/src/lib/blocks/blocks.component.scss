@@ -2,7 +2,7 @@
 .pb {
   --sidebar-width: 300px;
   --header-height: 64px;
-  --inner-sidebar-width: 0px;
+  --inner-sidebar-width: 300px;
   &-intro {
     border: 1px solid var(--panel-tertiary);
     padding: 10px;
@@ -28,14 +28,13 @@
     &-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px;
+      margin: 0;
 
       &-item {
         position: relative;
         z-index: 1;
         display: flex;
-        align-items: center;
-        padding: 5px;
+        padding: 0;
         border-bottom: 1px solid var(--tertiary);
         background: var(--theme);
 
@@ -67,6 +66,9 @@
           z-index: 2;
           cursor: grab;
           opacity: .25;
+          height: 40px;
+          display: flex;
+          align-items: center;
         }
       }
     }
@@ -131,11 +133,22 @@
       }
     }
 
-
   }
   &-right-sidebar {
     right: 0;
     width: var(--inner-sidebar-width);
+
+    header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px solid var(--tertiary);
+    }
+
+    .empty-state {
+      padding: 1rem;
+    }
   }
 
   &-sidebar {
@@ -194,6 +207,8 @@
       margin: auto;
       background: white;
       box-shadow: 0 0 4px rgba(0,0,0,.16);
+
+      transition: transform .5s;
 
       &.fullscreen {}
 

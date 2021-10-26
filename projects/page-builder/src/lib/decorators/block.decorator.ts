@@ -60,6 +60,8 @@ export function Block(options: BlockOptions): ClassDecorator {
       };
     }
 
+    console.log(module, STATE)
+
     if (Array.isArray(module)) {
       module.forEach(m => assignBlock(m));
     } else {

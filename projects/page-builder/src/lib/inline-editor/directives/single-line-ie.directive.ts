@@ -39,18 +39,8 @@ interface Options {
 })
 // tslint:disable-next-line:component-class-suffix
 export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
-  constructor(
-    private el: ElementRef,
-    private renderer: Renderer2,
-    @Optional()
-    private toolbarService: ToolbarService,
-    @Optional()
-    private ctx: PageBuilderCtxService
-  ) { }
-
   @Input('fbPbSingleLineIE')
   entryOptions: Options;
-
   defaultOptions = {
     elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P'],
     textDecorations: ['b', 'i', 'u'],
@@ -60,12 +50,20 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   lastTarget: HTMLElement;
   options: Options;
   toolbar: Toolbar;
-
   id: string;
   pointer: string;
-
-
   activeCls = 'pb-t-active';
+  private scrollListener: Subscription;
+
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    @Optional()
+    private toolbarService: ToolbarService,
+    @Optional()
+    private ctx: PageBuilderCtxService
+  ) {
+  }
 
   get htmlEl() {
     return this.el.nativeElement;
@@ -94,12 +92,11 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.pointer,
       this.options.array,
       this.options.index
-    )
+    );
   }
 
-  private scrollListener: Subscription;
-
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    await new Promise((resolve) => setTimeout(resolve, 10));
     if (!this.toolbarService) {
       return;
     }
@@ -150,7 +147,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         .pipe(
           tap(() => {
             this.update();
-            setTimeout(() => this.assignLastTarget())
+            setTimeout(() => this.assignLastTarget());
           })
         )
     ];
@@ -272,8 +269,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
                 (this.iFrame.contentDocument as Document).execCommand(execMap[el]);
               })
             )
-        )
-      })
+        );
+      });
     }
 
     if (this.options.textAligns) {
@@ -315,14 +312,21 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               })
             )
         );
-      })
+      });
     }
 
     if (this.toolbar.elements.remove) {
-
       const el = this.toolbar.elements.remove;
 
       filteredEvents.push(
+        domListener(
+          this.renderer,
+          el,
+          'mousedown'
+        )
+          .pipe(
+            tap((e: MouseEvent) => e.preventDefault())
+          ),
         domListener(
           this.renderer,
           el,
@@ -330,19 +334,25 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         )
           .pipe(
             tap(() => {
-              this.update('');
-              this.htmlEl.parentElement.removeChild(this.htmlEl);
-              this.toolbarService.clearToolbar(this.toolbar.id);
+              // this.htmlEl.parentElement.removeChild(this.htmlEl);
+              // this.htmlEl.remove();
+
+              setTimeout(() => {
+                this.update('');
+                setTimeout(() => {
+                  this.toolbarService.clearToolbar(this.toolbar.id);
+                }, 50);
+              }, 10);
             })
           )
-      )
+      );
     }
 
     filteredEvents.push(
       domListener(
         this.renderer,
         this.htmlEl,
-        'click',
+        'click'
       )
         .pipe(
           tap(() => this.showToolbar())
@@ -413,8 +423,13 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     this.scrollListener = this.toolbarService.scroll$()
       .pipe(untilDestroyed(this))
       .subscribe(num => {
-        this.toolbar.el.style.top = (top + scrollY - num) + 'px'
-      })
+        this.toolbar.el.style.top = (top + scrollY - num) + 'px';
+      });
+
+
+    setTimeout(() => {
+      this.toolbar.elements.typeSelect.click();
+    });
   }
 
   triggerSelection() {
@@ -430,7 +445,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       const tag = el.tagName.toLowerCase();
 
       if (existing.includes(tag)) {
-        decorations.push(tag)
+        decorations.push(tag);
       }
 
       el = el.parentElement as HTMLElement;

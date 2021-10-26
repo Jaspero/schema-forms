@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {fromEvent, Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {UniqueId, uniqueId} from './utils/unique-id';
 
 export interface Toolbar {
@@ -22,25 +22,15 @@ export interface Toolbar {
 
 @Injectable()
 export class ToolbarService {
-  constructor() {
-    this.uniqueId = uniqueId();
-  }
-
   uniqueId: UniqueId;
   toolbars: {[key: number]: Toolbar} = {};
   toolbarProps = {height: 40};
-
   private toolbarListener: any;
   private _scroll$: Observable<number>;
-  private toggleToolbars = (e) => {
-    for (const key of Object.keys(this.toolbars)) {
-      if (this.toolbars[key].el.contains(e.target)) {
-        return;
-      }
 
-      this.hideToolbar(key as any);
-    }
-  };
+  constructor() {
+    this.uniqueId = uniqueId();
+  }
 
   get parentEl() {
     return document.body;
@@ -167,21 +157,24 @@ export class ToolbarService {
 
     if (remove) {
 
+      const wrapperEl = document.createElement('div');
       const el = iconButton(
         '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/>',
         '#f44336'
       );
 
+      wrapperEl.appendChild(el);
+
       elements.remove = el;
 
-      toolbar.appendChild(el);
+      toolbar.appendChild(wrapperEl);
     }
 
     this.toolbars[id] = {
       id,
       elements,
       el: toolbar,
-      visible: false,
+      visible: false
     };
 
     if (!this.toolbarListener) {
@@ -273,4 +266,14 @@ export class ToolbarService {
 
     return this._scroll$;
   }
+
+  private toggleToolbars = (e) => {
+    for (const key of Object.keys(this.toolbars)) {
+      if (this.toolbars[key].el.contains(e.target)) {
+        return;
+      }
+
+      this.hideToolbar(key as any);
+    }
+  };
 }

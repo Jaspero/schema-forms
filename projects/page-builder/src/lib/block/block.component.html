@@ -1,7 +1,1 @@
-<fb-form-builder *ngIf="formData" [data]="formData" [id]="id"></fb-form-builder>
-
-<footer>
-  <div>
-    <button mat-button color="warn" (click)="remove.emit()">Remove</button>
-  </div>
-</footer>
+<fb-form-builder *ngIf="formData && id" [data]="formData" [id]="id" [parser]="parser" (cdkObserveContent)="changedFormBuilder()"></fb-form-builder>

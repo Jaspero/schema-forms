@@ -27,7 +27,8 @@ import {
   FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
-  safeEval
+  safeEval,
+  Segment
 } from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
@@ -42,10 +43,18 @@ import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
 
+interface BlockSegment extends Segment {
+  icon: string | ((value: any) => string);
+}
+
+interface BlockFormBuilderData extends FormBuilderData {
+  segments?: BlockSegment[];
+}
+
 interface Block {
   label: string;
   id: string;
-  form: FormBuilderData;
+  form: BlockFormBuilderData;
 
   /**
    * Prevents automatically opening
@@ -70,11 +79,19 @@ interface Block {
    * Limit the number of instances per page
    */
   maxInstances?: number;
+
+  /**
+   * Default value to use when duplicated
+   */
+  duplicateValue?: any;
 }
 
 interface BlocksData extends FieldData {
   blocks: Block[];
-  intro?: string | {[key: string] : string};
+  intro?: string | { [key: string]: string };
+  rightSidebar?: {
+    emptyState?: string;
+  };
   styles?: string | string[];
   styleUrls?: string | string[];
   parentFormId?: string;
@@ -109,19 +126,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     super(cData);
   }
 
-  @ViewChild('ipe', {static: false, read: ViewContainerRef})
-  vce: ViewContainerRef;
-
-  @ViewChild('iframe', {static: false})
-  iframeEl: ElementRef<HTMLIFrameElement>;
-
-  @ViewChild(BlockComponent, {static: false})
-  blockComponent: BlockComponent;
+  @ViewChild('ipe', {static: false, read: ViewContainerRef}) vce: ViewContainerRef;
+  @ViewChild('iframe', {static: false}) iframeEl: ElementRef<HTMLIFrameElement>;
+  @ViewChild(BlockComponent, {static: false}) blockComponent: BlockComponent;
 
   state = 'blocks';
   selected: Selected | null;
   selectedIndex: number;
-  selection: {[key: string]: Selected};
+  selection: { [key: string]: Selected };
   blocks: TopBlock[];
   availableBlocks: Block[];
   previewed: number | undefined;
@@ -131,13 +143,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       components: any[];
     }
   } = {};
-
   isOpen = false;
   originalOverflowY: string;
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
   counter: UniqueId;
-
   intro$: Observable<string>;
+  rightEmpty$: Observable<string>;
 
   private compRefs: ComponentRef<any>[];
 
@@ -147,6 +158,18 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
+  }
+
+  dragStarted() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
+  }
+
+  dragStopped() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(1)';
+    this.blocks.forEach((_, i) => {
+      this.removeFocus(i);
+    });
+    this.preview();
   }
 
   ngOnInit() {
@@ -165,7 +188,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           id,
           ...block
         }))
-      ]
+      ];
     }
 
     this.selection = blocks.reduce((acc, cur) => {
@@ -182,7 +205,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         type: it.type,
         icon: item.icon,
         label: item.label,
-        visible: true
+        visible: true,
+        form: item.form
       } as TopBlock;
     });
 
@@ -201,6 +225,28 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         }
       })
     );
+
+    this.rightEmpty$ = this.transloco.langChanges$.pipe(
+      map(() => {
+        if (!this.cData.rightSidebar?.emptyState) {
+          return `
+            <ul>
+              <li>Use the left sidebar to add additional segments.</li>
+              <li>You can delete and duplicate segments by right clicking on them in the sidebar.</li>
+              <li>Most content can be edited inline.</li>
+            </ul>
+          `;
+        }
+
+        const {emptyState} = this.cData.rightSidebar;
+
+        if (typeof emptyState === 'string') {
+          return emptyState;
+        } else {
+          return emptyState[this.transloco.getActiveLang()];
+        }
+      })
+    )
   }
 
   ngOnDestroy() {
@@ -209,7 +255,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   openAdd() {
     this.state = 'add';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.cdr.markForCheck();
   }
 
@@ -231,7 +276,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         icon: block.icon,
         label: block.label,
         visible: true,
-        value,
+        form: block.form,
+        value
       }])
     )
       .then((factories) => {
@@ -249,35 +295,33 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   addBlock(block: Block) {
-
     const topBlock = {
       id: this.counter.next(),
-      value: block.previewValue || {},
+      value: block.duplicateValue || block.previewValue || {},
       type: block.id,
       icon: block.icon,
       label: block.label,
+      form: block.form,
       visible: true
     };
 
     this.previewed = undefined;
     this.blocks.push(topBlock);
 
-    if (block.skipOpen) {
-      this.state = '';
-      this.removeFocus(this.compRefs.length - 1);
-      this.cdr.markForCheck();
-    } else {
-      this.selectBlock(topBlock, this.blocks.length - 1);
-    }
+    this.state = '';
+    this.cdr.markForCheck();
 
     const index = this.compRefs.length - 1;
 
     this.bindSelect(this.compRefs[index], topBlock, index);
+
+    setTimeout(() => {
+      this.preview();
+    });
   }
 
   closeAdd() {
     this.state = '';
-
     if (this.previewed !== undefined) {
       this.compRefs[this.compRefs.length - 1].destroy();
       this.compRefs.splice(this.compRefs.length - 1, 1);
@@ -288,7 +332,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.cdr.markForCheck();
   }
 
-  moveBlocks(event: CdkDragDrop<string[]>) {
+  moveBlocks(event: CdkDragDrop<string[]> | any) {
     this.swapElements(
       this.compRefs[event.previousIndex].location.nativeElement,
       this.compRefs[event.currentIndex].location.nativeElement
@@ -296,15 +340,20 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
     moveItemInArray(this.compRefs, event.previousIndex, event.currentIndex);
+    setTimeout(() => {
+      this.focusBlock(event.currentIndex);
+    }, 200);
   }
 
   swapElements(previous, current) {
     const parent = this.iFrameDoc.body;
 
-    if (current.nextSibling) {
+    const after = current.nextElementSibling;
+    if (previous === after) {
       parent.insertBefore(previous, current);
     } else {
-      parent.appendChild(previous);
+      previous.replaceWith(current);
+      parent.insertBefore(previous, after);
     }
   }
 
@@ -336,41 +385,63 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
   }
 
-  selectBlock(block: TopBlock, index: number) {
+  selectBlock(block: TopBlock, index: number, focus = true) {
     this.selectedIndex = index;
     this.selected = {
-      index: this.selectedIndex,
+      index,
       ...this.selection[block.type],
       id: block.id,
-      value: block.value
+      value: block.value,
+      form: block.form,
+      nested: block.nested
     };
 
-    this.focusBlock();
+    this.cdr.markForCheck();
     this.ctx.selectedBlock$.next(this.selectedIndex);
 
-    this.state = 'inner';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '300px');
-    this.cdr.markForCheck();
+    if (focus) {
+      this.focusBlock();
+      this.state = 'inner';
+      this.cdr.markForCheck();
+    }
   }
 
   focusBlock(index = this.selectedIndex) {
     setTimeout(() => {
-      const activeBlock = this.compRefs[index].location.nativeElement;
-      activeBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const activeBlock = this.compRefs[index]?.location.nativeElement;
+
+      if (!activeBlock) {
+        return;
+      }
+
       activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+
+      if (index === 0) {
+        this.iFrameDoc.body.scrollTo({
+          behavior: 'smooth',
+          top: 0
+        });
+        return;
+      }
+
+      if (activeBlock) {
+        activeBlock.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
     });
   }
 
+
   removeFocus(index = this.selectedIndex) {
-    const block = this.compRefs[index].location.nativeElement;
-    block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+    const block = this.compRefs[index]?.location.nativeElement;
+    if (block) {
+      block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+    }
   }
 
   optionsChanged(data: any) {
-
     const selected = this.selected as Selected;
 
-    if (selected.previewFormat) {
+    if (selected?.previewFormat) {
       const format = safeEval(selected.previewFormat);
 
       if (format) {
@@ -380,12 +451,21 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       }
     }
 
+    if (!this.blocks[this.selectedIndex]) {
+      return;
+    }
+
     this.blocks[this.selectedIndex].value = data;
+    this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
     this.compRefs[this.selectedIndex].instance.data = data;
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
 
   closeBlock() {
+    if (!this.selected) {
+      return;
+    }
+
     if (this.blockComponent) {
       this.toProcess[(this.selected as Selected).id] = {
         save: this.blockComponent.formBuilderComponent
@@ -402,7 +482,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     // @ts-ignore
     this.selectedIndex = undefined;
     this.state = '';
-    (document.querySelector('.pb') as HTMLElement)?.style.setProperty('--inner-sidebar-width', '0px');
     this.ctx.selectedBlock$.next(undefined);
     this.cdr.markForCheck();
   }
@@ -420,27 +499,30 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   close() {
+    this.closeBlock();
+    setTimeout(() => {
+      this.document.body.style.overflowY = this.originalOverflowY;
+      this.document.body.classList.remove('page-builder-open');
 
-    this.document.body.style.overflowY = this.originalOverflowY;
-    this.document.body.classList.remove('page-builder-open');
-
-    /**
-     * If we're in a single block edit
-     */
-    if (this.selected && this.blockComponent) {
-      this.toProcess[this.selected.id] = {
-        save: this.blockComponent.formBuilderComponent
-          .save
-          .bind(this.blockComponent.formBuilderComponent),
-        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+      /**
+       * If we're in a single block edit
+       */
+      if (this.selected && this.blockComponent) {
+        this.toProcess[this.selected.id] = {
+          save: this.blockComponent.formBuilderComponent
+            .save
+            .bind(this.blockComponent.formBuilderComponent),
+          components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+        };
       }
-    }
 
-    this.state = 'blocks';
-    this.isOpen = false;
-    this.selectedIndex = undefined;
-
-    this.iFrameDoc.location.reload();
+      setTimeout(() => {
+        this.state = 'blocks';
+        this.isOpen = false;
+        this.selectedIndex = undefined;
+        this.cdr.markForCheck();
+      });
+    }, 100);
   }
 
   preview() {
@@ -470,7 +552,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         CommonModule,
         ...(this.options && this.options.previewModules) || []
       ]
-    })(class A { });
+    })(class A {
+    });
   }
 
   createPreviewComponent(block: TopBlock) {
@@ -484,7 +567,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
       ],
       encapsulation: ViewEncapsulation.ShadowDom
-    })(class {})
+    })(class {
+    });
   }
 
   isDisabled(block: Block) {
@@ -511,7 +595,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
               }))
             );
           })
-        )
+        );
     } else {
       this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
       return of(true);
@@ -542,7 +626,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     if (this.cData.styles) {
-
       const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
 
       for (const style of styles) {
@@ -566,16 +649,29 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           /**
            * Prevent clicking on the same element from impacting anything
            */
-          if (this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement) {
+          if (
+            this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement
+            && !this.selected.form.segments.length
+          ) {
+            this.ctx.selectedBlock$.next(this.selectedIndex);
             return;
           }
 
           this.closeBlock();
         }
 
-        setTimeout(() =>
-          this.selectBlock(block, index)
-        )
+        this.cdr.markForCheck();
+        setTimeout(() => {
+          this.cdr.markForCheck();
+          this.selectBlock({
+            ...block,
+            form: {
+              ...block.form,
+              segments: []
+            }
+          }, index);
+          this.cdr.markForCheck();
+        }, 50);
       }
     );
   }

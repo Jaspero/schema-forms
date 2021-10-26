@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {tap} from 'rxjs/operators';
-import {FormBuilderComponent} from '../../../../projects/form-builder/src/lib/form-builder.component';
+import {FormBuilderComponent} from '@jaspero/form-builder';
 import {SCHEMA} from './schema.const';
 
 @Component({

@@ -1,3 +1,5 @@
+import {COMMON_OPTIONS} from './common-options.const';
+
 export const SCHEMA = {
   segments: [{
     type: 'empty',
@@ -21,17 +23,39 @@ export const SCHEMA = {
           styleUrls: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
           blocks: [
             {
+              id: 'divide',
+              label: 'Divider',
+              icon: 'minimize',
+              previewTemplate: `<sc-divider></sc-divider>`,
+              form: {
+                schema: {
+                  properties: {
+                    id: {type: 'string'}
+                  }
+                },
+                definitions: {}
+              }
+            },
+            {
               id: 'banner',
               label: 'Banner',
-              previewTemplate: `<sc-simple [data]="data"></sc-simple>`,
+              icon: 'image',
+              previewTemplate: `<sc-simple [data]='data'></sc-simple>`,
               previewValue: {
                 singleLine: '<p class="this-is-here">Single Line Example. This is <b>bold</b>, <u>underlined</u> and <i>italic</i>. <b>This is bold with a <u>underlined</u> part.</b></p>',
                 image: 'http://placeimg.com/640/360/any'
               },
               form: {
-                segments: [{
-                  fields: ['/title']
-                }],
+                segments: [
+                  {
+                    title: 'title',
+                    fields: ['/title']
+                  },
+                  {
+                    title: 'image',
+                    fields: ['/image']
+                  }
+                ],
                 schema: {
                   properties: {
                     title: {type: 'string'},
@@ -45,21 +69,47 @@ export const SCHEMA = {
               id: 'cards',
               label: 'Cards',
               maxInstances: 3,
-              previewTemplate: `<sc-cards [data]="data"></sc-cards>`,
+              previewTemplate: `<sc-cards [data]='data'></sc-cards>`,
               previewValue: {
-                cards: [{title: '<h1>Example 1</h1>', image: 'http://placeimg.com/200/200/any', link: ''}, {title: '<h1>Example 2</h1>', image: 'http://placeimg.com/200/200/any', link: ''}]
+                title: `<h3>Title</h3>`,
+                cards: [
+                  {
+                    title: '<h1>Example 1</h1>',
+                    image: 'http://placeimg.com/200/200/any',
+                    link: '1'
+                  },
+                  {
+                    title: '<h1>Example 2</h1>',
+                    image: 'http://placeimg.com/200/200/any',
+                    link: '2'
+                  }]
               },
               form: {
                 segments: [
                   {
+                    title: 'Title',
+                    fields: ['/title']
+                  },
+                  {
                     array: '/cards',
+                    title: (index) => {
+                      if (index !== undefined) {
+                        return `Card ${index}`;
+                      }
+
+                      return 'Card';
+                    },
                     fields: [
                       '/link'
                     ]
-                  }
+                  },
+                  ...COMMON_OPTIONS.segment,
                 ],
                 schema: {
                   properties: {
+                    title: {
+                      type: 'string'
+                    },
                     cards: {
                       type: 'array',
                       items: {
@@ -76,10 +126,13 @@ export const SCHEMA = {
                           link: {type: 'string'}
                         }
                       }
-                    }
+                    },
+                    ...COMMON_OPTIONS.properties
                   }
                 },
-                definitions: {}
+                definitions: {
+                  ...COMMON_OPTIONS.definitions,
+                }
               }
             }
           ]

@@ -1,4 +1,4 @@
-export function safeEval(method: string | Function) {
+export function safeEval(method: string | ((...args) => any)) {
 
   if (typeof method !== 'string') {
     return method;

@@ -1,0 +1,60 @@
+.block-navigation {
+  mat-tree-node {
+    border-radius: 0;
+    transition: background-color 0.1s;
+    min-height: 40px;
+
+    &:hover {
+      background-color: rgba(157, 157, 157, 0.31);
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  .not-expandable {
+    margin-left: 24px;
+  }
+
+  .tree-label {
+    margin-right: 5px;
+  }
+
+  .navigation-button {
+    color: var(--primary-theme);
+  }
+
+  .mat-tree-node.movable {
+    &:active {
+      cursor: move;
+    }
+
+    &.cdk-drag-preview {
+      box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12)
+    }
+
+    &.cdk-drag-placeholder {
+      opacity: .7;
+    }
+  }
+
+  .cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .cdk-drag-animating {
+    transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.contextmenu-dialog {
+  > mat-dialog-container {
+    padding: 0;
+  }
+
+  &-item {
+    text-align: left;
+    width: 100%;
+  }
+}

@@ -5,8 +5,17 @@ import {FieldData} from '../../interfaces/field-data.interface';
 import {getHsd, HSD} from '../../utils/get-hsd';
 
 interface InputData extends FieldData {
-  type: 'text' | 'number' | 'email';
+  /**
+   * @default 'text'
+   */
+  type?: 'text' | 'number' | 'email' | 'color';
+
+  /**
+   * HTML autocomplete attribute
+   * @default 'on'
+   */
   autocomplete?: string;
+
   suffix?: HSD | string;
   prefix?: HSD | string;
 }

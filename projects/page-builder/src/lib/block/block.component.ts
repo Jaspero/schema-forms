@@ -3,12 +3,23 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
+  Injector,
   Input,
   OnDestroy,
+  Optional,
   Output,
   ViewChild
 } from '@angular/core';
-import {FormBuilderComponent, FormBuilderData} from '@jaspero/form-builder';
+import {
+  CUSTOM_FIELDS,
+  CustomFields,
+  FormBuilderComponent,
+  FormBuilderContextService,
+  FormBuilderData,
+  Parser,
+  State
+} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
 
@@ -19,53 +30,107 @@ import {Selected} from '../selected.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlockComponent implements OnDestroy {
-  constructor(
-    private cdr: ChangeDetectorRef
-  ) {}
-
   @Input() parentFormId = 'main';
+  @Output()
+  optionsChanged = new EventEmitter<any>();
+  @Output()
+  remove = new EventEmitter();
+  @ViewChild(FormBuilderComponent)
+  formBuilderComponent: FormBuilderComponent;
+  parser: Parser;
+  id: string;
+  formData: FormBuilderData | undefined;
+  private formSub: Subscription;
+
+  constructor(
+    private injector: Injector,
+    @Optional()
+    @Inject(CUSTOM_FIELDS)
+    private customFields: CustomFields,
+    private cdr: ChangeDetectorRef,
+    private ctx: FormBuilderContextService
+  ) {
+  }
+
+  private _selected: Selected;
 
   @Input()
   set selected(selected: Selected) {
-
+    this.formData = null;
+    this.cdr.markForCheck();
     if (this.formSub) {
       this.formSub.unsubscribe();
     }
 
-    if (!selected) {
+    this.parser = new Parser(
+      selected.form.schema,
+      this.injector,
+      // TODO: Replace with correct state
+      State.Create,
+      'admin',
+      selected.form.definitions,
+      {
+        ...this.customFields || {},
+        ...this.ctx.fields
+      }
+    );
 
-      if (this.formData) {
-        this.formData = undefined;
-        this.cdr.markForCheck();
+    this.parser.form = this.parser.buildForm(
+      selected.value,
+      null,
+      '/',
+      false
+    );
+
+    setTimeout(() => {
+      this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
+
+      if (selected.form.segments) {
+        this.formData = {
+          ...selected.form,
+          segments: (selected.form.segments || []).map(segment => {
+            return {
+              ...segment,
+              title: ''
+            };
+          })
+        };
+      } else {
+        this.formData = selected.form;
       }
 
-      return;
-    }
+      this.formData.value = selected.value;
+      this.cdr.markForCheck();
 
-    this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
-    this.formData = selected.form;
-    this.formData.value = selected.value;
-    this.cdr.detectChanges();
-
-    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(v => {
-      selected.value = v;
-      this.optionsChanged.next(v);
-    })
+      this._selected = selected;
+      this.cdr.markForCheck();
+    });
   }
 
-  @Output()
-  optionsChanged = new EventEmitter<any>();
+  changedFormBuilder() {
+    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+      if (this._selected.nested?.arrayProperty && typeof this._selected.nested?.index === 'number') {
+        this._selected.value = {
+          ...this._selected.nested.completeValue
+        };
 
-  @Output()
-  remove = new EventEmitter();
+        this._selected.value[this._selected.nested.arrayProperty][this._selected.nested.index] = formValue;
 
-  @ViewChild(FormBuilderComponent, {static: false})
-  formBuilderComponent: FormBuilderComponent;
+        this.optionsChanged.next(this._selected.value);
+      } else {
+        this._selected.value = {
+          ...this._selected.value,
+          ...formValue
+        };
 
-  id: string;
-  formData: FormBuilderData | undefined;
+        this.optionsChanged.next(formValue);
+      }
+    });
 
-  private formSub: Subscription;
+    setTimeout(() => {
+      this.formBuilderComponent?.form.setValue(this.formBuilderComponent.form.getRawValue());
+    });
+  }
 
   ngOnDestroy() {
     if (this.formSub) {
