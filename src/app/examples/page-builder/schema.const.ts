@@ -1,3 +1,5 @@
+import {COMMON_OPTIONS} from './common-options.const';
+
 export const SCHEMA = {
   segments: [{
     type: 'empty',
@@ -100,7 +102,8 @@ export const SCHEMA = {
                     fields: [
                       '/link'
                     ]
-                  }
+                  },
+                  ...COMMON_OPTIONS.segment,
                 ],
                 schema: {
                   properties: {
@@ -123,10 +126,13 @@ export const SCHEMA = {
                           link: {type: 'string'}
                         }
                       }
-                    }
+                    },
+                    ...COMMON_OPTIONS.properties
                   }
                 },
-                definitions: {}
+                definitions: {
+                  ...COMMON_OPTIONS.definitions,
+                }
               }
             }
           ]

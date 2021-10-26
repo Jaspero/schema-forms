@@ -653,6 +653,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
             this.compRefs[this.selectedIndex].location.nativeElement === ref.location.nativeElement
             && !this.selected.form.segments.length
           ) {
+            this.ctx.selectedBlock$.next(this.selectedIndex);
             return;
           }
 

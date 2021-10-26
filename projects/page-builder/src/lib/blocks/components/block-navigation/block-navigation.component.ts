@@ -104,8 +104,9 @@ export class BlockNavigationComponent implements OnInit {
     }
 
     const children = (block.form.segments || []).map((segment, index) => {
-
-      segment.type = SegmentType.Empty;
+      if (!segment.type || segment.type === SegmentType.Card) {
+        segment.type = SegmentType.Empty;
+      }
 
       let child = {
         ...block,
@@ -113,18 +114,11 @@ export class BlockNavigationComponent implements OnInit {
         name: segment.title,
         form: {
           ...block.form,
-          segments: block.form.segments.map((item, i) => {
-            if (i === index) {
-              return item;
-            }
-            return {...item, fields: []};
-          })
+          segments: block.form.segments.filter((item, i) => i === index)
         }
       };
 
-
       if (child.array) {
-
         const arrayProperty = child.array.slice(1);
         child.form = {
           ...child.form,
