@@ -3,5 +3,6 @@
   "dest": "../../dist/@jaspero/fb-page-builder",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["@jaspero/utils"]
 }
