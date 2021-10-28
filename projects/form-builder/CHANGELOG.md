@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.2...@jaspero/form-builder@4.17.0) (2021-10-28)
+
+
+### Features
+
+* implemented @jaspero/utils; spread working for arrays; ([3e96b93](https://github.com/Jaspero/schema-forms/commit/3e96b93dec19ec0f6c328af17bde79aca6e838c4))
+
 ## @jaspero/form-builder [4.16.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.1...@jaspero/form-builder@4.16.2) (2021-10-28)
 
 
