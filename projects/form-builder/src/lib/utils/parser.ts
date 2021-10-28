@@ -473,7 +473,11 @@ export class Parser {
       return properties.pointers;
     } else {
       const cont = new FormControl('');
-      control.insert(0, cont);
+
+      if (control instanceof FormArray) {
+        control.insert(0, cont);
+      }
+
       return cont;
     }
   }

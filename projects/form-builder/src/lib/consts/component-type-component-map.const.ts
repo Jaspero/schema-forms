@@ -20,7 +20,7 @@ import {ToggleComponent} from '../fields/toggle/toggle.component';
 export const COMPONENT_TYPE_COMPONENT_MAP = {
   [ComponentType.Input]: InputComponent,
   [ComponentType.Toggle]: ToggleComponent,
-  // [ComponentType.Select]: SelectComponent,
+  [ComponentType.Select]: SelectComponent,
   [ComponentType.File]: FileComponent,
   [ComponentType.Image]: ImageComponent,
   [ComponentType.Gallery]: GalleryComponent,
