@@ -9,7 +9,7 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointer, Pointers} from '../utils/parser';
-import {safeEval} from '../utils/safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 export interface SegmentData {
   segment: CompiledSegment;

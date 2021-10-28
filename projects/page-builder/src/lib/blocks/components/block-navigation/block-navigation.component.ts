@@ -128,7 +128,16 @@ export class BlockNavigationComponent implements OnInit {
               fields: segment.fields
             }
           ],
-          schema: child.form.schema.properties[arrayProperty].items
+          schema: child.form.schema.properties[arrayProperty].items,
+          definitions: {
+            ...Object.keys(child.form.definitions || {}).reduce((acc, key) => {
+              if (key.startsWith(child.array) || key.startsWith(arrayProperty)) {
+                acc[key.slice(key.lastIndexOf('/') + 1)] = child.form.definitions[key];
+              }
+
+              return acc;
+            }, {})
+          }
         };
 
         delete child.array;
@@ -145,6 +154,8 @@ export class BlockNavigationComponent implements OnInit {
         };
 
         child = (child.value?.[arrayProperty] || []).map((item, i) => {
+          console.log(this.parseTitle(child.title, i) || child.label);
+          console.log(child.icon);
           return {
             ...child,
             name: this.parseTitle(child.title, i) || child.label,

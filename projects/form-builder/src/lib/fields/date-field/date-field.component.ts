@@ -6,7 +6,7 @@ import {FieldComponent} from '../../field/field.component';
 import {FieldData} from '../../interfaces/field-data.interface';
 import {cloneAbstractControl} from '../../utils/clone-abstract-control';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
-import {safeEval} from '../../utils/safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 interface DateData extends FieldData {
   startYear?: number;

@@ -1,7 +1,7 @@
 import {CompiledField, Condition as FieldCondition} from '../interfaces/compiled-field.interface';
 import {Definitions} from '../interfaces/definitions.interface';
 import {Parser} from './parser';
-import {safeEval} from './safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 export function compileFields(
   parser: Parser,

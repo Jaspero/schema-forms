@@ -6,7 +6,7 @@ import {Segment} from '../../interfaces/segment.interface';
 import {SegmentComponent, SegmentData} from '../../segment/segment.component';
 import {compileFields} from '../../utils/compile-fields';
 import {filterAndCompileSegments} from '../../utils/filter-and-compile-segments';
-import {safeEval} from '../../utils/safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 type SelectedTabChange = (event: MatTabChangeEvent, sData: SegmentData) => void;
 

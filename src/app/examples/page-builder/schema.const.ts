@@ -91,6 +91,7 @@ export const SCHEMA = {
                     fields: ['/title']
                   },
                   {
+                    icon: 'settings',
                     array: '/cards',
                     title: (index) => {
                       if (index !== undefined) {
@@ -132,6 +133,9 @@ export const SCHEMA = {
                 },
                 definitions: {
                   ...COMMON_OPTIONS.definitions,
+                  'cards/link': {
+                    label: 'LINK'
+                  }
                 }
               }
             }

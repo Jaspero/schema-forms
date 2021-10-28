@@ -1,7 +1,7 @@
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {FieldData} from '../interfaces/field-data.interface';
-import {safeEval} from './safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 export interface HSD {
   type?: 'html' | 'static' | 'dynamic';
