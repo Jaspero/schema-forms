@@ -27,7 +27,6 @@ import {
   FormBuilderContextService,
   FormBuilderData,
   FormBuilderService,
-  safeEval,
   Segment
 } from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
@@ -42,6 +41,7 @@ import {Selected} from '../selected.interface';
 import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
+import {safeEval} from '@jaspero/utils';
 
 interface BlockSegment extends Segment {
   icon: string | ((value: any) => string);
