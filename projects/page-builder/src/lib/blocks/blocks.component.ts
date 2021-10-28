@@ -393,7 +393,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       id: block.id,
       value: block.value,
       form: block.form,
-      nested: block.nested
+      nested: block.nested,
+      label: block.name || this.selection[block.type].label,
+      icon: block.icon
     };
 
     this.cdr.markForCheck();

@@ -1,5 +1,4 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
-import {tap} from 'rxjs/operators';
 import {FormBuilderComponent} from '@jaspero/form-builder';
 import {SCHEMA} from './schema.const';
 
@@ -17,16 +16,11 @@ export class PageBuilderComponent implements AfterViewInit {
   pageBuilderExample = SCHEMA;
 
   ngAfterViewInit() {
-    this.component.form.valueChanges.subscribe(value =>
-      console.log('changes', value)
-    )
+    this.component.form.valueChanges.subscribe();
   }
 
   save() {
     return () =>
-      this.component.save('example', 'example-id')
-        .pipe(
-          tap(data => console.log('saved data', data))
-        )
+      this.component.save('example', 'example-id');
   }
 }

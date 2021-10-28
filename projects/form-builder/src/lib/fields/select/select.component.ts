@@ -10,8 +10,8 @@ import {ADDITIONAL_CONTEXT} from '../../utils/additional-context';
 import {COMPONENT_DATA} from '../../utils/create-component-injector';
 import {parseTemplate} from '../../utils/parse-template';
 import {ROLE} from '../../utils/role';
-import {safeEval} from '../../utils/safe-eval';
 import {Parser} from '../../utils/parser';
+import {safeEval} from '@jaspero/utils';
 
 interface Populate {
   collection?: string;

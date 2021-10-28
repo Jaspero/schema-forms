@@ -14,7 +14,7 @@ import {compileFields} from './compile-fields';
 import {createSegmentInjector} from './create-segment-injector';
 import {createCustomComponentInjector} from './custom-components';
 import {Parser} from './parser';
-import {safeEval} from './safe-eval';
+import {safeEval} from '@jaspero/utils';
 
 export function compileSegment(
   segment: Segment,

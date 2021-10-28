@@ -7,4 +7,5 @@ export interface TopBlock {
   value?: any;
   form?: any;
   nested?: any;
+  name?: string;
 }

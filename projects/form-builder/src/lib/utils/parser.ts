@@ -13,7 +13,7 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
 import {createComponentInjector} from './create-component-injector';
 import {CustomFields} from './custom-fields';
-import {safeEval} from './safe-eval';
+import {safeEval} from '@jaspero/utils';
 import {schemaToComponent} from './schema-to-component';
 
 export interface PropertyDefinition {
