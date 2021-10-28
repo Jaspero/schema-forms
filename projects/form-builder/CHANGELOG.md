@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.0...@jaspero/form-builder@4.16.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* **form-builder:** attempting to insert controls in non FormArray instances ([1cf3dad](https://github.com/Jaspero/schema-forms/commit/1cf3dad8fcb2490a21de8730e72d975e8c2d0062))
+
 # @jaspero/form-builder [4.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.15.2...@jaspero/form-builder@4.16.0) (2021-10-26)
 
 
