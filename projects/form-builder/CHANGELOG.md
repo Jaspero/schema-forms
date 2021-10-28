@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.16.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.1...@jaspero/form-builder@4.16.2) (2021-10-28)
+
+
+### Bug Fixes
+
+* **form-builder:** select component excluded ([bf1b5fd](https://github.com/Jaspero/schema-forms/commit/bf1b5fdcf8f969e9196d7e5bd56b5430e5e8e494))
+
 ## @jaspero/form-builder [4.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.0...@jaspero/form-builder@4.16.1) (2021-10-28)
 
 
