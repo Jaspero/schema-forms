@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "whitelistedNonPeerDependencies": ["json-pointer", "json-schema"]
+  "whitelistedNonPeerDependencies": ["json-pointer", "json-schema", "@jaspero/utils"]
 }
