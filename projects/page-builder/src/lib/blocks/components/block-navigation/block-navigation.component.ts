@@ -154,8 +154,6 @@ export class BlockNavigationComponent implements OnInit {
         };
 
         child = (child.value?.[arrayProperty] || []).map((item, i) => {
-          console.log(this.parseTitle(child.title, i) || child.label);
-          console.log(child.icon);
           return {
             ...child,
             name: this.parseTitle(child.title, i) || child.label,
