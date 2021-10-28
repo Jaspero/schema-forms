@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.8.2...@jaspero/fb-page-builder@3.9.0) (2021-10-28)
+
+
+### Features
+
+* implemented @jaspero/utils; spread working for arrays; ([3e96b93](https://github.com/Jaspero/schema-forms/commit/3e96b93dec19ec0f6c328af17bde79aca6e838c4))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.17.0
+
 ## @jaspero/fb-page-builder [3.8.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.8.1...@jaspero/fb-page-builder@3.8.2) (2021-10-28)
 
 
