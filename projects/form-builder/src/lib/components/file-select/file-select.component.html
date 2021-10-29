@@ -30,7 +30,7 @@
       </div>
     </ng-template>
   </mat-tab>
-  <mat-tab *ngFor="let method of data.uploadMethods" [label]="method.label">
+  <mat-tab *ngFor="let method of data.uploadMethods" [label]="method.label | transloco">
     <ng-template matTabContent>
       <div [innerHTML]="method.component | jpSanitize"></div>
     </ng-template>
