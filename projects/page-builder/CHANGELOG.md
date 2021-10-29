@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.9.0...@jaspero/fb-page-builder@3.9.1) (2021-10-29)
+
+
+### Bug Fixes
+
+* **page-builder:** bug fixes regarding array handling, cleanup ([65dbb14](https://github.com/Jaspero/schema-forms/commit/65dbb1422dda8b38b0e02af4cab2c04573729082))
+
 # @jaspero/fb-page-builder [3.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.8.2...@jaspero/fb-page-builder@3.9.0) (2021-10-28)
 
 
