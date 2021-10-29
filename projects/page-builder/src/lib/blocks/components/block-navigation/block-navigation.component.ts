@@ -1,6 +1,6 @@
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -37,7 +37,8 @@ interface FlatNode {
 export class BlockNavigationComponent implements OnInit {
   constructor(
     private transloco: TranslocoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -51,6 +52,7 @@ export class BlockNavigationComponent implements OnInit {
   @Input() closeBlock: any;
   @Input() removeBlock: any;
   @Input() addBlock: any;
+  @Input() preview: any;
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
@@ -215,6 +217,10 @@ export class BlockNavigationComponent implements OnInit {
           this.optionsChanged.next(this.blockCache.value);
 
           this.selectLastItem = true;
+
+          setTimeout(() => {
+            this.preview();
+          }, 50);
         });
       }
 
@@ -328,6 +334,19 @@ export class BlockNavigationComponent implements OnInit {
     );
 
     this.optionsChanged.next(this.blockCache.value);
+    setTimeout(() => {
+      this.preview();
+      this.cdr.markForCheck();
+    });
+  }
+
+  sorted(event) {
+    console.log(event);
+    this.closeBlock();
+    // setTimeout(() => {
+    //   this.preview();
+    //   this.cdr.markForCheck();
+    // });
   }
 
   parseTitle(title: string | ((_) => string), index?) {

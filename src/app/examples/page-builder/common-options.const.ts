@@ -142,6 +142,9 @@ export const COMMON_OPTIONS: {
     },
     background: {
       label: 'PB.FORM.BLOCKS.SHARED.BACKGROUND',
+      component: {
+        type: 'image'
+      }
     },
     verticalAlignment: {
       label: 'PB.FORM.BLOCKS.SHARED.VERTICAL_ALIGNMENT',

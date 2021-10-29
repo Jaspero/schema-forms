@@ -45,6 +45,8 @@ export class CoreComponent implements AfterViewInit {
   }
 
   save() {
-    this.formComponents.toArray()[0].save('example', 'example-id').subscribe();
+    this.formComponents.toArray()[0].save('example', 'example-id').subscribe((data) => {
+      console.log('saved', data);
+    });
   }
 }

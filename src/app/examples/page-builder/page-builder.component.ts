@@ -1,6 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
 import {SCHEMA} from './schema.const';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'sc-page-builder',
@@ -21,6 +22,10 @@ export class PageBuilderComponent implements AfterViewInit {
 
   save() {
     return () =>
-      this.component.save('example', 'example-id');
+      this.component.save('example', 'example-id').pipe(
+        tap(data => {
+          console.log('saved', data);
+        })
+      );
   }
 }

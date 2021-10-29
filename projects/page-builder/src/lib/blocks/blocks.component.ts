@@ -502,6 +502,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   close() {
     this.closeBlock();
+    this.cdr.markForCheck();
+    if (this.blocks.length) {
+      this.selectBlock({
+        ...this.blocks[0],
+        form: {
+          ...this.blocks[0].form,
+          segments: []
+        }
+      }, 0);
+      this.cdr.markForCheck();
+    }
     setTimeout(() => {
       this.document.body.style.overflowY = this.originalOverflowY;
       this.document.body.classList.remove('page-builder-open');

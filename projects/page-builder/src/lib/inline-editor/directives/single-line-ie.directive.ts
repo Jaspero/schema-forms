@@ -82,7 +82,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   }
 
   get index() {
-    return [...this.host.parentElement.children].indexOf(this.host);
+    return [...this.host.parentElement?.children || []].indexOf(this.host);
   }
 
   get control() {
@@ -216,19 +216,21 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
     if (this.options.textDecorations) {
 
-      filteredEvents.push(
-        domListener(
-          this.renderer,
-          this.iFrame.contentDocument as any,
-          'selectionchange'
-        )
-          .pipe(
-            filter(() => this.toolbar.visible),
-            tap(() =>
-              this.triggerSelection()
-            )
+      if (this.iFrame?.contentDocument) {
+        filteredEvents.push(
+          domListener(
+            this.renderer,
+            this.iFrame.contentDocument as any,
+            'selectionchange'
           )
-      );
+            .pipe(
+              filter(() => this.toolbar.visible),
+              tap(() =>
+                this.triggerSelection()
+              )
+            )
+        );
+      }
 
       this.options.textDecorations.forEach((el) => {
         const toolbarEl = this.toolbar.elements[el];
@@ -380,7 +382,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               this.scrollListener = null;
             }
           } else if (
-            this.htmlEl.contains((this.shadowRoot.getSelection() as Selection).anchorNode?.parentElement)
+            this.htmlEl.contains((this.shadowRoot.getSelection() as Selection)?.anchorNode?.parentElement)
           ) {
             this.showToolbar();
           }

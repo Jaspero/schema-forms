@@ -1,5 +1,5 @@
 <div class="block-navigation">
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListDropped)="drop($event)">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListSorted)="sorted($event)" (cdkDropListDropped)="drop($event)">
     <mat-tree-node
       *matTreeNodeDef="let node"
       matTreeNodePadding
