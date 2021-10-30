@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.0...@jaspero/form-builder@4.17.1) (2021-10-30)
+
+
+### Bug Fixes
+
+* **page-builder:** translate file select titles ([8134e2b](https://github.com/Jaspero/schema-forms/commit/8134e2b999e1334c3ced9e438d28493669fbc515))
+
 # @jaspero/form-builder [4.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.16.2...@jaspero/form-builder@4.17.0) (2021-10-28)
 
 
