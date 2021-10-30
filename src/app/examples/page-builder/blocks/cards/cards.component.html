@@ -1,8 +1,9 @@
 <div class="cards">
-  <div class="card" *ngFor="let card of data.cards; index as index;">
-    <div *ngIf="card.image" [fbPbImageIE]="{pointer: '/image', index: index, array: '/cards'}">
+  <div *ngIf="data.slideTitle" [fbPbSingleLineIE]="{pointer: '/slideTitle'}" [innerHTML]="data.slideTitle | jpSanitize"></div>
+  <div class="card" *ngFor="let card of data.slides; index as index;">
+    <div *ngIf="card.image">
       <img [src]="card.image">
     </div>
-    <div *ngIf="card.title" [fbPbSingleLineIE]="{pointer: '/title', index: index, array: '/cards'}" [innerHTML]="card.title | jpSanitize"></div>
+    <div *ngIf="card.title" [innerHTML]="card.title | jpSanitize"></div>
   </div>
 </div>

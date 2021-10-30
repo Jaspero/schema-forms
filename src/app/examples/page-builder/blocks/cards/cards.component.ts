@@ -9,8 +9,8 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 export class CardsComponent {
   @Input()
   data: {
-    title?: string;
-    cards: Array<{
+    slideTitle?: string;
+    slides: Array<{
       title?: string;
       image?: string;
     }>

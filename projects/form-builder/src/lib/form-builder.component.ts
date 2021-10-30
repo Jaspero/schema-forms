@@ -53,18 +53,14 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input() value: any;
   @Input() id = 'main';
   @Input() parser: Parser;
+  @Input() state: State = State.Create;
+  @Input() metadata: any;
 
-  @Output()
-  valueChanges = new EventEmitter<any>();
-
-  @Output()
-  validityChanges = new EventEmitter<boolean>();
+  @Output() valueChanges = new EventEmitter<any>();
+  @Output() validityChanges = new EventEmitter<boolean>();
 
   form: FormGroup;
   segments: CompiledSegment[];
-
-  @Input()
-  state: State = State.Create;
 
   private changeSubscription: Subscription;
   private statusSubscription: Subscription;

@@ -30,18 +30,6 @@ import {Selected} from '../selected.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlockComponent implements OnDestroy {
-  @Input() parentFormId = 'main';
-  @Output()
-  optionsChanged = new EventEmitter<any>();
-  @Output()
-  remove = new EventEmitter();
-  @ViewChild(FormBuilderComponent)
-  formBuilderComponent: FormBuilderComponent;
-  parser: Parser;
-  id: string;
-  formData: FormBuilderData | undefined;
-  private formSub: Subscription;
-
   constructor(
     private injector: Injector,
     @Optional()
@@ -49,9 +37,19 @@ export class BlockComponent implements OnDestroy {
     private customFields: CustomFields,
     private cdr: ChangeDetectorRef,
     private ctx: FormBuilderContextService
-  ) {
-  }
+  ) {}
 
+  @Input() parentFormId = 'main';
+  @Output() optionsChanged = new EventEmitter<any>();
+  @Output() remove = new EventEmitter();
+  @ViewChild(FormBuilderComponent) formBuilderComponent: FormBuilderComponent;
+
+  parser: Parser;
+  id: string;
+  formData: FormBuilderData | undefined;
+  metadata: any;
+
+  private formSub: Subscription;
   private _selected: Selected;
 
   @Input()
@@ -84,6 +82,12 @@ export class BlockComponent implements OnDestroy {
 
     setTimeout(() => {
       this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
+
+      if (selected.nested && typeof selected.nested.index === 'number' && selected.nested.arrayProperty) {
+        this.metadata = {array: selected.nested.arrayProperty, index: selected.nested.index};
+      } else {
+        this.metadata = null;
+      }
 
       if (selected.form.segments) {
         this.formData = {
@@ -127,9 +131,9 @@ export class BlockComponent implements OnDestroy {
       }
     });
 
-    setTimeout(() => {
-      this.formBuilderComponent?.form.setValue(this.formBuilderComponent.form.getRawValue());
-    });
+    setTimeout(() =>
+      this.formBuilderComponent?.form.setValue(this.formBuilderComponent.form.getRawValue())
+    );
   }
 
   ngOnDestroy() {

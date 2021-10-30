@@ -165,9 +165,7 @@ export class BlockNavigationComponent {
 
         if (this.selectLastItem) {
           this.selectLastItem = false;
-          setTimeout(() => {
-            this.selectCustomBlock(child[child.length - 2]);
-          });
+          setTimeout(() => this.selectCustomBlock(child[child.length - 2]));
         }
 
         child.push(addButton);
@@ -266,9 +264,7 @@ export class BlockNavigationComponent {
       backdropClass: 'clear-backdrop',
       panelClass: 'contextmenu-dialog',
       width: '140px',
-      data: {
-        block
-      }
+      data: {block}
     });
   }
 

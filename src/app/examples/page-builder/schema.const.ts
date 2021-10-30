@@ -63,59 +63,39 @@ export const SCHEMA = {
             {
               id: 'cards',
               label: 'Cards',
-              maxInstances: 3,
+              icon: 'linear_scale',
               previewTemplate: `<sc-cards [data]='data'></sc-cards>`,
               previewValue: {
-                title: `<h3>Title</h3>`,
-                cards: [
-                  {
-                    title: '<h1>Example 1</h1>',
-                    image: 'http://placeimg.com/200/200/any',
-                    link: '1'
-                  },
-                  {
-                    title: '<h1>Example 2</h1>',
-                    image: 'http://placeimg.com/200/200/any',
-                    link: '2'
-                  }]
+                title: `<h2>THAT'S NOT ALL</h2>`,
+                slideTitle: `<h3>WHAT'S HOT</h3>`,
+                ...COMMON_OPTIONS.defaults
               },
               form: {
                 segments: [
                   {
-                    icon: 'settings',
-                    array: '/cards',
-                    title: (index) => {
-                      if (index !== undefined) {
-                        return `Card ${index}`;
-                      }
-
-                      return 'Card';
-                    },
-                    fields: [
-                      '/link'
-                    ]
+                    title: (index: number) => index === undefined ? 'Slide' : `Slide ${index + 1}`,
+                    array: '/slides',
+                    fields: ['/image', '/title']
                   },
-                  ...COMMON_OPTIONS.segment,
+                  {
+                    title: 'Appearance',
+                    icon: 'tune',
+                    fields: ['/longImage']
+                  },
+                  ...COMMON_OPTIONS.segment
                 ],
                 schema: {
                   properties: {
-                    title: {
-                      type: 'string'
-                    },
-                    cards: {
+                    longImage: {type: 'boolean'},
+                    title: {type: 'string'},
+                    slideTitle: {type: 'string'},
+                    slides: {
                       type: 'array',
                       items: {
                         type: 'object',
                         properties: {
-                          title: {
-                            type: 'string',
-                            default: '<h1>Example 1</h1>'
-                          },
-                          image: {
-                            type: 'string',
-                            default: 'http://placeimg.com/200/200/any'
-                          },
-                          link: {type: 'string'}
+                          title: {type: 'string'},
+                          image: {type: 'string'}
                         }
                       }
                     },
@@ -123,10 +103,15 @@ export const SCHEMA = {
                   }
                 },
                 definitions: {
-                  ...COMMON_OPTIONS.definitions,
-                  'cards/link': {
-                    label: 'LINK'
-                  }
+                  longImage: {label: 'Long Image'},
+                  'slides/title': {label: 'Title'},
+                  'slides/image': {
+                    label: 'Image',
+                    component: {
+                      type: 'image',
+                    }
+                  },
+                  ...COMMON_OPTIONS.definitions
                 }
               }
             }

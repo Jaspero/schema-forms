@@ -141,6 +141,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     [key: string]: {
       save: (c: string, d: string, comp: any[]) => Observable<any>;
       components: any[];
+      metadata?: any;
     }
   } = {};
   isOpen = false;
@@ -297,7 +298,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   addBlock(block: Block) {
     const topBlock = {
       id: this.counter.next(),
-      value: block.duplicateValue || block.previewValue || {},
+      /**
+       * Stringifying and parsing ensures we lose references.
+       * The value should always be parsable json so this shouldn't
+       * be a problem.
+       */
+      value: JSON.parse(JSON.stringify(block.duplicateValue || block.previewValue || {})),
       type: block.id,
       icon: block.icon,
       label: block.label,
@@ -315,9 +321,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.bindSelect(this.compRefs[index], topBlock, index);
 
-    setTimeout(() => {
-      this.preview();
-    });
+    setTimeout(() => this.preview());
   }
 
   closeAdd() {
@@ -473,6 +477,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           .bind(
             this.blockComponent.formBuilderComponent
           ),
+        metadata: this.blockComponent.formBuilderComponent.metadata,
         components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
       };
     }
@@ -501,31 +506,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   close() {
     this.closeBlock();
     this.cdr.markForCheck();
-    if (this.blocks.length) {
-      this.selectBlock({
-        ...this.blocks[0],
-        form: {
-          ...this.blocks[0].form,
-          segments: []
-        }
-      }, 0);
-      this.cdr.markForCheck();
-    }
+
     setTimeout(() => {
       this.document.body.style.overflowY = this.originalOverflowY;
       this.document.body.classList.remove('page-builder-open');
-
-      /**
-       * If we're in a single block edit
-       */
-      if (this.selected && this.blockComponent) {
-        this.toProcess[this.selected.id] = {
-          save: this.blockComponent.formBuilderComponent
-            .save
-            .bind(this.blockComponent.formBuilderComponent),
-          components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
-        };
-      }
 
       setTimeout(() => {
         this.state = 'blocks';
@@ -594,14 +578,29 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     if (items.length) {
       return forkJoin(items.map(it => it[1].save(moduleId, documentId, it[1].components)))
         .pipe(
-          tap((value) => {
+          tap((values) => {
             this.cData.control.setValue(
-              this.blocks.map(block => ({
-                value: this.toProcess[block.id] ?
-                  value[items.findIndex(it => it[0] === block.id.toString())] :
-                  block.value,
-                type: block.type
-              }))
+              this.blocks.map(block => {
+
+                let value: any = block.value;
+
+                if (this.toProcess[block.id]) {
+                  const itemIndex = items.findIndex(it => it[0] === block.id.toString());
+                  const processedValue = values[itemIndex];
+                  const {metadata} = items[itemIndex][1];
+
+                  if (metadata?.array) {
+                    value[metadata.array][metadata.index] = processedValue;
+                  } else {
+                    value = processedValue;
+                  }
+                }
+
+                return {
+                  value,
+                  type: block.type
+                }
+              })
             );
           })
         );
