@@ -4,7 +4,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   TemplateRef,
   ViewChild,
@@ -34,13 +33,12 @@ interface FlatNode {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class BlockNavigationComponent implements OnInit {
+export class BlockNavigationComponent {
   constructor(
     private transloco: TranslocoService,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   @ViewChild('itemOptions') itemOptionsRef: TemplateRef<any>;
   @ViewChild('blockOptions') blockOptionsRef: TemplateRef<any>;
@@ -53,6 +51,7 @@ export class BlockNavigationComponent implements OnInit {
   @Input() removeBlock: any;
   @Input() addBlock: any;
   @Input() preview: any;
+
   treeControl: FlatTreeControl<any>;
   treeFlattener: MatTreeFlattener<any, any>;
   dataSource: MatTreeFlatDataSource<any, any>;
@@ -86,9 +85,6 @@ export class BlockNavigationComponent implements OnInit {
 
   @Output()
   optionsChanged = new EventEmitter<any>();
-
-  ngOnInit() {
-  }
 
   populateNavigation(block) {
     if (!this.treeControl) {
@@ -178,9 +174,10 @@ export class BlockNavigationComponent implements OnInit {
       }
 
       return child;
-    }).reduce((acc, child: Array<any> | object) => {
-      return [...acc, ...(child.constructor === Array ? child : [child])];
-    }, []);
+    })
+      .reduce((acc, child: Array<any> | object) =>
+        [...acc, ...(child.constructor === Array ? child : [child])], []
+      );
 
     this.dataSource.data = [{
       name: block.label,
@@ -218,9 +215,7 @@ export class BlockNavigationComponent implements OnInit {
 
           this.selectLastItem = true;
 
-          setTimeout(() => {
-            this.preview();
-          }, 50);
+          setTimeout(() => this.preview(), 50);
         });
       }
 
@@ -286,10 +281,7 @@ export class BlockNavigationComponent implements OnInit {
 
       setTimeout(() => {
         this.optionsChanged.next(this.blockCache.value);
-
-        setTimeout(() => {
-          this.closeBlock();
-        });
+        setTimeout(() => this.closeBlock());
       });
     } else {
       this.deleteBlock(block);
@@ -301,7 +293,6 @@ export class BlockNavigationComponent implements OnInit {
   deleteBlock(block: any) {
     this.selectCustomBlock(block);
     this.removeBlock();
-
     this.optionsDialog.close();
   }
 
@@ -341,7 +332,6 @@ export class BlockNavigationComponent implements OnInit {
   }
 
   sorted(event) {
-    console.log(event);
     this.closeBlock();
     // setTimeout(() => {
     //   this.preview();

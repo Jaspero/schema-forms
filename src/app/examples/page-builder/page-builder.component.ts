@@ -17,7 +17,9 @@ export class PageBuilderComponent implements AfterViewInit {
   pageBuilderExample = SCHEMA;
 
   ngAfterViewInit() {
-    this.component.form.valueChanges.subscribe();
+    this.component.form.valueChanges.subscribe((v) => {
+      console.log('change', v);
+    });
   }
 
   save() {

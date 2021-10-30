@@ -340,9 +340,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
     moveItemInArray(this.compRefs, event.previousIndex, event.currentIndex);
-    setTimeout(() => {
-      this.focusBlock(event.currentIndex);
-    }, 200);
+    setTimeout(() => this.focusBlock(event.currentIndex), 200);
   }
 
   swapElements(previous, current) {
@@ -565,8 +563,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         CommonModule,
         ...(this.options && this.options.previewModules) || []
       ]
-    })(class A {
-    });
+    })(class A {});
   }
 
   createPreviewComponent(block: TopBlock) {
@@ -580,8 +577,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
       ],
       encapsulation: ViewEncapsulation.ShadowDom
-    })(class {
-    });
+    })(class {});
   }
 
   isDisabled(block: Block) {

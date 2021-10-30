@@ -1,17 +1,21 @@
 import {COMMON_OPTIONS} from './common-options.const';
 
 export const SCHEMA = {
-  segments: [{
-    type: 'empty',
-    fields: [
-      '/blocks'
-    ]
-  }],
+  segments: [
+    {
+      fields: ['/title']
+    },
+    {
+      type: 'empty',
+      fields: [
+        '/blocks'
+      ]
+    }
+  ],
   schema: {
     properties: {
-      blocks: {
-        type: 'array'
-      }
+      title: {type: 'string'},
+      blocks: {type: 'array'}
     }
   },
   definitions: {
@@ -46,16 +50,7 @@ export const SCHEMA = {
                 image: 'http://placeimg.com/640/360/any'
               },
               form: {
-                segments: [
-                  {
-                    title: 'title',
-                    fields: ['/title']
-                  },
-                  {
-                    title: 'image',
-                    fields: ['/image']
-                  }
-                ],
+                segments: [],
                 schema: {
                   properties: {
                     title: {type: 'string'},
@@ -86,10 +81,6 @@ export const SCHEMA = {
               },
               form: {
                 segments: [
-                  {
-                    title: 'Title',
-                    fields: ['/title']
-                  },
                   {
                     icon: 'settings',
                     array: '/cards',
