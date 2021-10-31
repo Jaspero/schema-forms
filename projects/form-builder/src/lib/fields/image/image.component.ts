@@ -137,6 +137,7 @@ export class ImageComponent extends FieldComponent<ImageData>
             if (data.direct) {
               this.value = null;
               this.imageUrl.setValue(data.url);
+              this.cData.control.setValue(data.url);
             } else {
               this.addImage(data.url);
             }
@@ -206,7 +207,10 @@ export class ImageComponent extends FieldComponent<ImageData>
 
   save(moduleId: string, documentId: string) {
     if (this.value) {
-      if (this.imageUrl.value && this.imageUrl.value !== this.value.name) {
+      if (
+        this.imageUrl.value &&
+        this.imageUrl.value !== this.value.name
+      ) {
         return of(this.imageUrl.value).pipe(
           tap(() => this.cData.control.setValue(this.imageUrl.value))
         );
