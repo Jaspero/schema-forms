@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.2...@jaspero/form-builder@4.17.3) (2021-10-31)
+
+
+### Bug Fixes
+
+* **form-builder:** setting value of image control when picked from form builder ([740130f](https://github.com/Jaspero/schema-forms/commit/740130f291b81da68ba906f08b61a9312c4cbb50))
+
 ## @jaspero/form-builder [4.17.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.1...@jaspero/form-builder@4.17.2) (2021-10-31)
 
 
