@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.1...@jaspero/form-builder@4.17.2) (2021-10-31)
+
+
+### Bug Fixes
+
+* **page-builder:** various array issues ([e2c7444](https://github.com/Jaspero/schema-forms/commit/e2c74448d84eb3259e94d2715f853aba77f3db2b))
+
 ## @jaspero/form-builder [4.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.0...@jaspero/form-builder@4.17.1) (2021-10-30)
 
 
