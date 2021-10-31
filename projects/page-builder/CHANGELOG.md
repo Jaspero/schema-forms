@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.10.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.2...@jaspero/fb-page-builder@3.10.3) (2021-10-31)
+
+
+### Bug Fixes
+
+* **page-builder:** nested segments working in right sidebar closes [#78](https://github.com/Jaspero/schema-forms/issues/78) ([82ca8e5](https://github.com/Jaspero/schema-forms/commit/82ca8e59f8b90e87679a2317b1fd99bea2fbe3ae))
+
 ## @jaspero/fb-page-builder [3.10.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.1...@jaspero/fb-page-builder@3.10.2) (2021-10-31)
 
 
