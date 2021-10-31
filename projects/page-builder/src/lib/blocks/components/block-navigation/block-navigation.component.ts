@@ -123,14 +123,21 @@ export class BlockNavigationComponent {
           segments: [
             {
               type: 'empty',
-              fields: segment.fields
+              fields: segment.fields,
+              ...segment.nestedSegments && {
+                nestedSegments: segment.nestedSegments
+              }
             }
           ],
           schema: child.form.schema.properties[arrayProperty].items,
           definitions: {
             ...Object.keys(child.form.definitions || {}).reduce((acc, key) => {
               if (key.startsWith(child.array) || key.startsWith(arrayProperty)) {
-                acc[key.slice(key.lastIndexOf('/') + 1)] = child.form.definitions[key];
+                /**
+                 * Removes the parent array from the definitions
+                 */
+                const eKey = key.split('/').slice(1).join('/');
+                acc[eKey] = child.form.definitions[key];
               }
 
               return acc;

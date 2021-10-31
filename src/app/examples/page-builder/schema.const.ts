@@ -75,7 +75,14 @@ export const SCHEMA = {
                   {
                     title: (index: number) => index === undefined ? 'Slide' : `Slide ${index + 1}`,
                     array: '/slides',
-                    fields: ['/image', '/title']
+                    fields: ['/image', '/title'],
+                    nestedSegments: [{
+                      title: 'Nested Slides',
+                      array: '/nSlides',
+                      fields: [
+                        '/title'
+                      ]
+                    }]
                   },
                   {
                     title: 'Appearance',
@@ -95,7 +102,16 @@ export const SCHEMA = {
                         type: 'object',
                         properties: {
                           title: {type: 'string'},
-                          image: {type: 'string'}
+                          image: {type: 'string'},
+                          nSlides: {
+                            type: 'array',
+                            items: {
+                              type: 'object',
+                              properties: {
+                                title: {type: 'string'}
+                              }
+                            }
+                          }
                         }
                       }
                     },
@@ -111,6 +127,7 @@ export const SCHEMA = {
                       type: 'image',
                     }
                   },
+                  'slides/nSlides/title': {label: 'Title'},
                   ...COMMON_OPTIONS.definitions
                 }
               }
