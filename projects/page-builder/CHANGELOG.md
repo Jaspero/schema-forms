@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.10.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.3...@jaspero/fb-page-builder@3.10.4) (2021-11-01)
+
+
+### Bug Fixes
+
+* **page-builder:** removing elements in single line edit ([a3654e8](https://github.com/Jaspero/schema-forms/commit/a3654e8739a846ec44ef8fa82028daec33185c8d))
+
 ## @jaspero/fb-page-builder [3.10.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.2...@jaspero/fb-page-builder@3.10.3) (2021-10-31)
 
 
