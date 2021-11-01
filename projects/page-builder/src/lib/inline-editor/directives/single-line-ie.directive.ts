@@ -336,15 +336,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         )
           .pipe(
             tap(() => {
-              // this.htmlEl.parentElement.removeChild(this.htmlEl);
-              // this.htmlEl.remove();
-
-              setTimeout(() => {
-                this.update('');
-                setTimeout(() => {
-                  this.toolbarService.clearToolbar(this.toolbar.id);
-                }, 50);
-              }, 10);
+              this.toolbarService.clearToolbar(this.toolbar.id);
+              this.update('');
             })
           )
       );
