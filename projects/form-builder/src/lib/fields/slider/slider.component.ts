@@ -36,4 +36,8 @@ export class SliderComponent extends FieldComponent<SliderData>
       ? this.cData.validation.maximum
       : 100;
   }
+
+  changed(event) {
+    this.cData.control.setValue(event.value);
+  }
 }

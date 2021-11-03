@@ -64,7 +64,11 @@ export class TinymceComponent extends FieldComponent<TinyData>
     private formBuilderService: FormBuilderService
   ) {
     super(cData);
+
+    this.id = String(Date.now()).slice(-5);
   }
+
+  id: string;
 
   @ViewChild('textarea', {static: true}) textarea: ElementRef;
   @ViewChild('youTubeDialog', {static: true}) youTubeDialogTemplate: TemplateRef<any>;
@@ -101,6 +105,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
   }
 
   ngOnDestroy() {
+    tinymce.remove(`#${this.id}`);
     this.formBuilderService.removeComponent(this);
   }
 
@@ -212,7 +217,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
         });
       },
       ...!!this.cData.options && this.cData.options
-    });
+    }).then();
   }
 
   save(moduleId: string, documentId: string) {

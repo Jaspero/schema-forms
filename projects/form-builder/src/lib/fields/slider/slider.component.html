@@ -1,7 +1,8 @@
 <div class="mat-form-field-wrapper">
   <p class="fs-small fg-secondary" *ngIf="cData.label">{{cData.label | transloco}}</p>
   <mat-slider
-    [formControl]="cData.control"
+    (change)="changed($event)"
+    (input)="changed($event)"
     [thumbLabel]="cData.thumbLabel"
     [tickInterval]="cData.tickInterval"
     [min]="startAt"

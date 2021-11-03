@@ -21,7 +21,8 @@ export const COMMON_OPTIONS: {
     backgroundSize: {type: 'string'},
     backgroundPosition: {type: 'string'},
     customClass: {type: 'string'},
-    elementId: {type: 'string'}
+    elementId: {type: 'string'},
+    slider: {type: 'number'}
   },
   segment: [
     {
@@ -38,7 +39,8 @@ export const COMMON_OPTIONS: {
             '/paddingBottom',
             '/verticalAlignment',
             '/background',
-            '/contained'
+            '/contained',
+            '/slider'
           ]
         },
         {
@@ -53,6 +55,18 @@ export const COMMON_OPTIONS: {
     }
   ],
   definitions: {
+    slider: {
+      label: 'Slider',
+      component: {
+        type: 'slider',
+        // configuration: {
+        //   // thumbLabel: true,
+        //   // tickInterval: 1,
+        //   // starAt: 0,
+        //   // endAt: 100
+        // }
+      }
+    },
     size: {
       label: 'PB.FORM.BLOCKS.SHARED.SIZE',
       component: {

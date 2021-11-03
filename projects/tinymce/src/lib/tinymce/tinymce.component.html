@@ -1,6 +1,6 @@
 <div class="mat-form-field-wrapper">
   <p class="fs-small fg-secondary" *ngIf="cData.label">{{cData.label | transloco}}</p>
-  <textarea #textarea role="textarea">{{cData.control.value}}</textarea>
+  <textarea #textarea role="textarea" [id]="id">{{cData.control.value}}</textarea>
 </div>
 
 <ng-template #youTubeDialog>
