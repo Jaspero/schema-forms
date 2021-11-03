@@ -1,3 +1,18 @@
+## @jaspero/fb-tinymce [2.2.35](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.34...@jaspero/fb-tinymce@2.2.35) (2021-11-03)
+
+
+### Bug Fixes
+
+* **slider/tinymce:** update control value on slider change instead of form control, destroy tinymce instance on component destroy ([fce6196](https://github.com/Jaspero/schema-forms/commit/fce61963a9f96373ece7dc35b911d34f4955d717))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.17.4
+
 ## @jaspero/fb-tinymce [2.2.34](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.33...@jaspero/fb-tinymce@2.2.34) (2021-10-31)
 
 
