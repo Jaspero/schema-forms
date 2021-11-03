@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.3...@jaspero/form-builder@4.17.4) (2021-11-03)
+
+
+### Bug Fixes
+
+* **slider/tinymce:** update control value on slider change instead of form control, destroy tinymce instance on component destroy ([fce6196](https://github.com/Jaspero/schema-forms/commit/fce61963a9f96373ece7dc35b911d34f4955d717))
+
 ## @jaspero/form-builder [4.17.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.2...@jaspero/form-builder@4.17.3) (2021-10-31)
 
 
