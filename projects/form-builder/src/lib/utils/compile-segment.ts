@@ -47,7 +47,7 @@ export function compileSegment(
    * default to full width
    */
   if (!classes.length) {
-    classes.push('col-12');
+    classes.push(parent ? 'fb-field-12' : 'col-12');
   }
 
   if (segment.classes) {

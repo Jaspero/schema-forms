@@ -38,6 +38,8 @@ export class SliderComponent extends FieldComponent<SliderData>
   }
 
   changed(event) {
-    this.cData.control.setValue(event.value);
+    if (this.cData.control.value !== event.value) {
+      this.cData.control.setValue(event.value);
+    }
   }
 }

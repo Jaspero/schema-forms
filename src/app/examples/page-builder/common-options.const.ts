@@ -22,7 +22,8 @@ export const COMMON_OPTIONS: {
     backgroundPosition: {type: 'string'},
     customClass: {type: 'string'},
     elementId: {type: 'string'},
-    slider: {type: 'number'}
+    slider: {type: 'number'},
+    chips: {type: 'array'}
   },
   segment: [
     {
@@ -40,7 +41,8 @@ export const COMMON_OPTIONS: {
             '/verticalAlignment',
             '/background',
             '/contained',
-            '/slider'
+            '/slider',
+            '/chips'
           ]
         },
         {
@@ -65,6 +67,12 @@ export const COMMON_OPTIONS: {
         //   // starAt: 0,
         //   // endAt: 100
         // }
+      }
+    },
+    chips: {
+      label: 'Chips',
+      component: {
+        type: 'chips'
       }
     },
     size: {
