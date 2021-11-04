@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.5...@jaspero/form-builder@4.17.6) (2021-11-04)
+
+
+### Bug Fixes
+
+* **form-builder:** map nested segments to use fb-field-12 class ([1462b36](https://github.com/Jaspero/schema-forms/commit/1462b3609b88f20300865b7f286feea144bc6056))
+
 ## @jaspero/form-builder [4.17.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.4...@jaspero/form-builder@4.17.5) (2021-11-04)
 
 
