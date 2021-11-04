@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.4...@jaspero/form-builder@4.17.5) (2021-11-04)
+
+
+### Bug Fixes
+
+* **form-builder:** add col-12 only to top fields and fb-field-12 for children. slider change distinct until changed ([1c5e52c](https://github.com/Jaspero/schema-forms/commit/1c5e52c5ec422b3821e9782737a2befcd47ca78c))
+
 ## @jaspero/form-builder [4.17.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.3...@jaspero/form-builder@4.17.4) (2021-11-03)
 
 
