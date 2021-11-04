@@ -62,7 +62,13 @@ export class SegmentComponent<T = any> implements OnInit {
      * Each segment compiles all nested segments
      */
     this.nestedSegments = filterAndCompileSegments(
-      this.sData.segment.nestedSegments || [],
+      this.sData.segment.nestedSegments.map(item => {
+        if (!item.classes?.length) {
+          item.classes = ['fb-field-12'];
+        }
+
+        return item;
+      }) || [],
       this.sData.parser,
       this.sData.definitions,
       this.injector,
