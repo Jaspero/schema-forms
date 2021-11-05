@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.7...@jaspero/form-builder@4.17.8) (2021-11-05)
+
+
+### Bug Fixes
+
+* **page-builder:** deleting in inline editor ([43a38e1](https://github.com/Jaspero/schema-forms/commit/43a38e154c32bff04c12fc85b95d2214c65c4a45))
+
 ## @jaspero/form-builder [4.17.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.6...@jaspero/form-builder@4.17.7) (2021-11-05)
 
 
