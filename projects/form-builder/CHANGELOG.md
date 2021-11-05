@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.17.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.6...@jaspero/form-builder@4.17.7) (2021-11-05)
+
+
+### Bug Fixes
+
+* **Select:** show reset button if control has value ([3b6e65f](https://github.com/Jaspero/schema-forms/commit/3b6e65f5155ddd5b3a2614d5bf6ed4e6ecab8ae9))
+
 ## @jaspero/form-builder [4.17.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.5...@jaspero/form-builder@4.17.6) (2021-11-04)
 
 
