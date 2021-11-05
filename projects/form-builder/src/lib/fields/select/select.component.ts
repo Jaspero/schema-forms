@@ -88,6 +88,10 @@ export class SelectComponent extends FieldComponent<SelectData>
     super(cData);
   }
 
+  get hasValue() {
+    return this.cData.control.value || this.cData.control.value === 0 || this.cData.control.value === false;
+  }
+
   ngOnInit() {
     if (this.cData.populate) {
 
