@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.10.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.8...@jaspero/fb-page-builder@3.10.9) (2021-11-05)
+
+
+### Bug Fixes
+
+* **page-builder:** deleting in inline editor ([43a38e1](https://github.com/Jaspero/schema-forms/commit/43a38e154c32bff04c12fc85b95d2214c65c4a45))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.17.8
+
 ## @jaspero/fb-page-builder [3.10.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.7...@jaspero/fb-page-builder@3.10.8) (2021-11-05)
 
 
