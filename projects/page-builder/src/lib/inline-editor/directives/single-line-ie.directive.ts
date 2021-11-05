@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  Optional,
-  Renderer2,
-  ViewEncapsulation
-} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Renderer2, ViewEncapsulation} from '@angular/core';
 import {Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {merge, Subscription} from 'rxjs';
@@ -26,6 +17,7 @@ interface Options {
   textDecorations?: string[];
   textAligns?: string[];
   multiline?: boolean;
+  colorPicker?: boolean;
   remove?: boolean;
 }
 
@@ -45,6 +37,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     elementOptions: ['H1', 'H2', 'H3', 'H4', 'H5', 'P'],
     textDecorations: ['b', 'i', 'u'],
     textAligns: ['left', 'center', 'right', 'justify'],
+    colorPicker: true,
     remove: true
   };
   lastTarget: HTMLElement;
@@ -53,7 +46,9 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   id: string;
   pointer: string;
   activeCls = 'pb-t-active';
+
   private scrollListener: Subscription;
+  private selectListener: Subscription;
 
   constructor(
     private el: ElementRef,
@@ -117,7 +112,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.options.elementOptions,
       this.options.textDecorations,
       this.options.textAligns,
-      this.options.remove
+      this.options.remove,
+      this.options.colorPicker
     );
 
     this.assignLastTarget();
@@ -336,8 +332,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         )
           .pipe(
             tap(() => {
+              this.htmlEl.innerHTML = '';
+              this.htmlEl.parentElement.removeChild(this.htmlEl);
               this.toolbarService.clearToolbar(this.toolbar.id);
-              this.update('');
+              this.selectListener.unsubscribe();
             })
           )
       );
@@ -362,7 +360,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       )
       .subscribe();
 
-    this.ctx.selectedBlock$
+    this.selectListener = this.ctx.selectedBlock$
       .pipe(
         filter(index => {
           const match = this.index === index;
