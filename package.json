@@ -14,6 +14,7 @@
     "build:tinymce": "ng build tinymce && cp ./README.md ./dist/@jaspero/fb-tinymce && cp LICENSE ./dist/@jaspero/fb-tinymce",
     "build:ref-table": "ng build ref-table && cp ./README.md ./dist/@jaspero/fb-ref-table && cp LICENSE ./dist/@jaspero/fb-ref-table",
     "build:monaco-editor": "ng build monaco-editor && cp ./README.md ./dist/@jaspero/fb-monaco-editor && cp LICENSE ./dist/@jaspero/fb-monaco-editor",
+    "build:libraries": "npm run build:page-builder && npm run build:tinymce && npm run build:form-ui && npm run build:ref-table && npm run build:monaco-editor && npm run build:fields-mat && npm run build:segments-mat",
     "build": "npm run build:form-builder && rm -rf node_modules/@jaspero/form-builder && cp -r dist/@jaspero/form-builder node_modules/@jaspero/form-builder && npm run build:page-builder && npm run build:tinymce && npm run build:form-ui && npm run build:ref-table && npm run build:monaco-editor && npm run build:fields-mat && npm run build:segments-mat",
     "lint": "ng lint form-builder && ng lint page-builder && ng lint monaco-editor && ng lint tinymce && ng lint form-ui",
     "lint:fix": "ng lint form-builder --fix && ng lint page-builder --fix && ng lint monaco-editor --fix && ng lint tinymce --fix && ng lint form-ui --fix",

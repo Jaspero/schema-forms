@@ -25,7 +25,7 @@ jobs:
       - name: Copy Form Builder
         run: rm -rf node_modules/@jaspero/form-builder && cp -r dist/@jaspero/form-builder node_modules/@jaspero/form-builder
       - name: Build Plugins
-        run: npm run build:page-builder && npm run build:tinymce && npm run build:form-ui && npm run build:ref-table && npm run build:monaco-editor
+        run: npm run build:libraries
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

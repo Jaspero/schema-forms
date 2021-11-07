@@ -498,7 +498,7 @@ This plugin registers a field `monaco` for rendering the Microsoft Monaco Editor
       }
     }
     ```
-7. Add build scripts for the library in to the root `package.json`
+7. Add build scripts for the library in to the root `package.json`. Make sure to include the build command in the `build:library` script.
 8. Build the library and publish an initial version manually. This is required because since it's a scoped
 package it needs to be explicitly flagged as public. You can do this by running `npm publish --access public` in `dist/@jaspero/[package-name]`.
 
