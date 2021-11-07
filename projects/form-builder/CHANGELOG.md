@@ -1,3 +1,11 @@
+# @jaspero/form-builder [4.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.8...@jaspero/form-builder@4.18.0) (2021-11-07)
+
+
+### Features
+
+* cleaned up other modules closes [#71](https://github.com/Jaspero/schema-forms/issues/71) ([52397bf](https://github.com/Jaspero/schema-forms/commit/52397bf1eb575d86e4ad639d283fadaedfcd357e))
+* **form-builder:** extracted fields and segments [#71](https://github.com/Jaspero/schema-forms/issues/71) ([98b006f](https://github.com/Jaspero/schema-forms/commit/98b006f4860d9d90c712489656a6bd594d321c1b))
+
 ## @jaspero/form-builder [4.17.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.7...@jaspero/form-builder@4.17.8) (2021-11-05)
 
 
