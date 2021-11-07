@@ -2,7 +2,9 @@
  * Modules
  */
 export * from './lib/form-builder.module';
+
 export * from './lib/modules/show-field/show-field.module';
+export * from './lib/modules/show-field/show-field.pipe';
 
 /**
  * Components

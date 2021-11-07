@@ -16,9 +16,10 @@ import {
   FieldData,
   FormBuilderService,
   StorageService,
-  UploadMethod
+  UploadMethod,
+  formatFileName
 } from '@jaspero/form-builder';
-import {sizeToBytes} from '@jaspero/utils';
+import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';

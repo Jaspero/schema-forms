@@ -21,8 +21,11 @@ import {
   FieldData, FormBuilderService,
   GeneratedImage,
   StorageService,
-  UploadMethod
+  UploadMethod,
+  formatFileName,
+  formatGeneratedImages
 } from '@jaspero/form-builder';
+import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
@@ -88,8 +91,8 @@ export class ImageComponent extends FieldComponent<ImageData>
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
-    this.minSizeBytes = this.cData.minSize ? parseSize(this.cData.minSize) : 0;
-    this.maxSizeBytes = this.cData.maxSize ? parseSize(this.cData.maxSize) : 0;
+    this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
+    this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
   }
 
   ngOnDestroy() {

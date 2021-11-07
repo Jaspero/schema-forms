@@ -4,7 +4,8 @@
   "description": "Reference Table plugin for @jaspero/form-builder",
   "peerDependencies": {
     "@angular/common": "^12.0.0",
-    "@angular/core": "^12.0.0"
+    "@angular/core": "^12.0.0",
+    "@jaspero/utils": "^1.2.1"
   },
   "dependencies": {
     "tslib": "^2.0.0"

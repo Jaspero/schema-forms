@@ -1,8 +1,8 @@
-import {FormBuilderData, SegmentType} from '@jaspero/form-builder';
+import {FormBuilderData} from '@jaspero/form-builder';
 
 const settings: FormBuilderData = {
   segments: [{
-    type: SegmentType.Empty,
+    type: 'empty',
     fields: [
       '/id',
       '/label',
@@ -246,7 +246,7 @@ export const TYPES = [
     label: 'Content',
     settings: {
       segments: [{
-        type: SegmentType.Empty,
+        type: 'empty',
         fields: ['/value']
       }],
       definitions: {

@@ -11,7 +11,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {SegmentType} from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -106,8 +105,8 @@ export class BlockNavigationComponent implements OnInit {
     }
 
     const children = (block.form.segments || []).map((segment, index) => {
-      if (!segment.type || segment.type === SegmentType.Card) {
-        segment.type = SegmentType.Empty;
+      if (!segment.type || segment.type === 'card') {
+        segment.type = 'empty';
       }
 
       let child = {

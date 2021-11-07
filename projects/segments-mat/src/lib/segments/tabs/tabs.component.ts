@@ -1,7 +1,15 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatTabChangeEvent} from '@angular/material/tabs';
+import {
+  CompiledField,
+  CompiledSegment,
+  compileFields,
+  filterAndCompileSegments,
+  Segment,
+  SegmentComponent,
+  SegmentData
+} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import {SegmentComponent, CompiledField, compileFields CompiledSegment, filterAndCompileSegments, SegmentComponent, SegmentData, Segment} from '@jaspero/form-builder';
 
 type SelectedTabChange = (event: MatTabChangeEvent, sData: SegmentData) => void;
 

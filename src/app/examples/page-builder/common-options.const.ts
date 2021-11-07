@@ -1,5 +1,3 @@
-import {SegmentType} from '@jaspero/form-builder';
-
 export const COMMON_OPTIONS: {
   properties: {
     [key: string]: {
@@ -26,7 +24,7 @@ export const COMMON_OPTIONS: {
   segment: [
     {
       title: 'Standard Options',
-      type: SegmentType.Accordion,
+      type: 'accordion',
       configuration: [
         {
           title: 'PB.FORM.BLOCKS.SHARED.STANDARD_OPTIONS',

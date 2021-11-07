@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {FieldComponent, FieldData, HSD} from '@jaspero/form-builder';
+import {FieldComponent, FieldData, HSD, getHsd} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
 interface ChipsData extends FieldData {

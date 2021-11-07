@@ -2,8 +2,8 @@ import {formatDate} from '@angular/common';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {cloneAbstractControl, COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
-import {merge, Subscription} from 'rxjs';
 import {safeEval} from '@jaspero/utils';
+import {merge, Subscription} from 'rxjs';
 
 interface DateData extends FieldData {
   startYear?: number;

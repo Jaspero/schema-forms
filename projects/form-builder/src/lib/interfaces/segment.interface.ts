@@ -1,4 +1,3 @@
-import {SegmentType} from '../enums/segment-type.enum';
 import {Condition as FieldCondition} from './compiled-field.interface';
 import {CompiledCondition, Condition} from './condition.interface';
 import {CustomComponentDefinition} from './custom-component-definition.interface';
@@ -16,7 +15,7 @@ export interface Segment<C = any> {
    */
   fields?: (string | any | FieldCondition)[];
   array?: string;
-  type?: SegmentType;
+  type?: string;
   title?: string;
   subTitle?: string;
   description?: string;

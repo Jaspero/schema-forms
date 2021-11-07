@@ -7,9 +7,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
+import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
+import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {FormBuilderModule, DbService, StorageService, CUSTOM_COMPONENTS, ROLE, STORAGE_URL} from '@jaspero/form-builder';
-import {FbFieldsMatModule} from '../../projects/fields-mat/src/lib/fields-mat.module';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {ExampleCustomComponent} from './example-custom/example-custom.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
     TranslocoModule,
     FormBuilderModule.forRoot(),
     FbFieldsMatModule.forRoot({prefix: ''}),
+    FbSegmentsMatModule.forRoot({prefix: ''}),
 
     MatSnackBarModule,
     MatCheckboxModule
