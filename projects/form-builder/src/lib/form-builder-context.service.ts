@@ -11,6 +11,7 @@ export class FormBuilderContextService {
   ) {}
 
   fields: CustomFields = {};
+  segments: CustomFields = {};
   components: CustomComponents = {};
 
   /**
@@ -32,10 +33,21 @@ export class FormBuilderContextService {
     component: any
   ) {
     if (this.fields.hasOwnProperty(name)) {
-      throw new Error(`Field with ${name} already registered.`);
+      throw new Error(`Field with selector ${name} already registered.`);
     }
 
     this.fields[name] = component;
+  }
+
+  registerSegment(
+    selector: string,
+    component: any
+  ) {
+    if (this.segments.hasOwnProperty(selector)) {
+      throw new Error(`Segment with selector ${selector} already registered.`);
+    }
+
+    this.segments[selector] = component;
   }
 
   registerComponent(
@@ -43,7 +55,7 @@ export class FormBuilderContextService {
     component: any
   ) {
     if (this.components.hasOwnProperty(selector)) {
-      throw new Error(`Field with ${selector} already registered.`);
+      throw new Error(`Field with selector ${selector} already registered.`);
     }
 
     this.components[selector] = component;

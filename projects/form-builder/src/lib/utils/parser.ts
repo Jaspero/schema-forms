@@ -2,8 +2,8 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {safeEval} from '@jaspero/utils';
 import {get, has} from 'json-pointer';
-import {COMPONENT_TYPE_COMPONENT_MAP} from '../consts/component-type-component-map.const';
 import {SchemaType} from '../enums/schema-type.enum';
 import {State} from '../enums/state.enum';
 import {FieldComponent} from '../field/field.component';
@@ -13,7 +13,6 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
 import {createComponentInjector} from './create-component-injector';
 import {CustomFields} from './custom-fields';
-import {safeEval} from '@jaspero/utils';
 import {schemaToComponent} from './schema-to-component';
 
 export interface PropertyDefinition {
@@ -404,7 +403,7 @@ export class Parser {
     }
 
     // @ts-ignore
-    const component = COMPONENT_TYPE_COMPONENT_MAP[definition.component.type] || this.customFields[definition.component.type];
+    const component = this.customFields[definition.component.type];
 
     if (!component) {
       // @ts-ignore

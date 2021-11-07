@@ -1,8 +1,7 @@
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
-import {SEGMENT_TYPE_COMPONENT_MAP} from '../consts/segment-type-component-map.const';
+import {safeEval} from '@jaspero/utils';
 import {CustomComponent} from '../custom/custom.component';
-import {SegmentType} from '../enums/segment-type.enum';
 import {FormBuilderContextService} from '../form-builder-context.service';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
@@ -13,8 +12,8 @@ import {SegmentComponent} from '../segment/segment.component';
 import {compileFields} from './compile-fields';
 import {createSegmentInjector} from './create-segment-injector';
 import {createCustomComponentInjector} from './custom-components';
+import {DEFAULT_SEGMENT} from './default-segment';
 import {Parser} from './parser';
-import {safeEval} from '@jaspero/utils';
 
 export function compileSegment(
   segment: Segment,
@@ -164,9 +163,17 @@ export function compileSegment(
     }
   }
 
+  const ctx = injector.get(FormBuilderContextService);
+
+  let defaultSegment: string;
+
+  try {
+    defaultSegment = injector.get(DEFAULT_SEGMENT);
+  } catch (e) {}
+
   return {
     component: new ComponentPortal<SegmentComponent>(
-      SEGMENT_TYPE_COMPONENT_MAP[segment.type || SegmentType.Card],
+      ctx.segments[segment.type || defaultSegment],
       null,
       createSegmentInjector(injector, {
         segment: compiledSegment,

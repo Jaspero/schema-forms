@@ -15,7 +15,6 @@ import {
 import {FormGroup} from '@angular/forms';
 import {forkJoin, of, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {SegmentType} from './enums/segment-type.enum';
 import {State} from './enums/state.enum';
 import {FormBuilderContextService} from './form-builder-context.service';
 import {FormBuilderService} from './form-builder.service';
@@ -23,6 +22,7 @@ import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
 import {GlobalState} from './interfaces/global-state.interface';
 import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
+import {DEFAULT_SEGMENT} from './utils/default-segment';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
 import {ROLE} from './utils/role';
@@ -45,6 +45,9 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     @Optional()
     @Inject(CUSTOM_FIELDS)
     private customFields: CustomFields,
+    @Optional()
+    @Inject(DEFAULT_SEGMENT)
+    private defaultSegment: string,
     private cdr: ChangeDetectorRef,
     private ctx: FormBuilderContextService
   ) { }
@@ -196,7 +199,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
         title: '',
         fields: Object.keys(this.parser.pointers),
         columnsDesktop: 12,
-        type: SegmentType.Empty
+        type: this.defaultSegment || 'empty'
       }],
       this.parser,
       definitions,

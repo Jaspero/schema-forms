@@ -48,6 +48,10 @@
         "dist/ref-table/ref-table",
         "dist/ref-table"
       ],
+      "segments-mat": [
+        "dist/segments-mat/segments-mat",
+        "dist/segments-mat"
+      ],
       "monaco-editor": [
         "dist/monaco-editor/monaco-editor",
         "dist/monaco-editor"
