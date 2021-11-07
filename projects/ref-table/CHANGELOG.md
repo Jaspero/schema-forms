@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.1.0...@jaspero/fb-ref-table@2.2.0) (2021-11-07)
+
+
+### Features
+
+* cleaned up other modules closes [#71](https://github.com/Jaspero/schema-forms/issues/71) ([52397bf](https://github.com/Jaspero/schema-forms/commit/52397bf1eb575d86e4ad639d283fadaedfcd357e))
+
 # @jaspero/fb-ref-table [2.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.0.0...@jaspero/fb-ref-table@2.1.0) (2021-07-02)
 
 
