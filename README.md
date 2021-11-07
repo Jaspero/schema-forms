@@ -4,6 +4,8 @@
 | Library | Version |
 | ---- | ---- |
 | Core | [![NPM Version](https://img.shields.io/npm/v/@jaspero/form-builder.svg)](https://www.npmjs.com/package/@jaspero/form-builder) |
+| Fields Material | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-fields-mat.svg)](https://www.npmjs.com/package/@jaspero/fb-fields-mat) |
+| Segments Materila | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-segments-mat.svg)](https://www.npmjs.com/package/@jaspero/fb-segments-mat) |
 | Page Builder | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-page-builder.svg)](https://www.npmjs.com/package/@jaspero/fb-page-builder) |
 | Form UI | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-form-ui.svg)](https://www.npmjs.com/package/@jaspero/fb-form-ui) |
 | Tinymce | [![NPM Version](https://img.shields.io/npm/v/@jaspero/fb-tinymce.svg)](https://www.npmjs.com/package/@jaspero/fb-tinymce) |
@@ -18,6 +20,30 @@ To install this library, run:
 ```bash
 $ npm install --save @jaspero/form-builder
 ```
+
+### Add Fields and Segments
+
+If you need to render the forms in the UI you'll need to add fields and segments.
+Fields and segments are installed separably from the core module.
+We provide one set of fields and segments built with material.
+
+```bash
+$ npm install --save @jaspero/fb-fields-mat
+$ npm install --save @jaspero/fb-segments-mat
+```
+
+Add them in to your module like this:
+
+```tsv
+@NgModule({
+  imports: [
+    FbFieldsMatModule.forRoot({prefix: ''}),
+    FbSegmentsMatModule.forRoot({prefix: ''}),
+  ]
+})
+```
+
+Giving them an empty `prefix` defines them as the defaults.
 
 ### Provide services and values
 
