@@ -1,11 +1,17 @@
-import {ComponentType} from '../enums/component-type.enum';
 import {SchemaType} from '../enums/schema-type.enum';
 
+/**
+ * TODO:
+ * We need a better approach for defaults.
+ * With the fields being delivered as a separate
+ * module there is no guaranty that an "input"
+ * field will exist
+ */
 export function schemaToComponent(schemaType: SchemaType) {
   switch (schemaType) {
     case SchemaType.String:
       return {
-        type: ComponentType.Input,
+        type: 'input',
         configuration: {
           type: 'text'
         }
@@ -14,7 +20,7 @@ export function schemaToComponent(schemaType: SchemaType) {
     case SchemaType.Number:
     case SchemaType.Integer:
       return {
-        type: ComponentType.Input,
+        type: 'input',
         configuration: {
           type: 'number'
         }
@@ -22,12 +28,12 @@ export function schemaToComponent(schemaType: SchemaType) {
 
     case SchemaType.Boolean:
       return {
-        type: ComponentType.Checkbox
+        type: 'checkbox'
       };
 
     case SchemaType.Array:
       return {
-        type: ComponentType.Chips
+        type: 'chips'
       };
   }
 }

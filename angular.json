@@ -442,6 +442,70 @@
           }
         }
       }
+    },
+    "fields-mat": {
+      "projectType": "library",
+      "root": "projects/fields-mat",
+      "sourceRoot": "projects/fields-mat/src",
+      "prefix": "fb-fields-mat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/fields-mat/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fields-mat/tsconfig.lib.prod.json",
+              "project": "projects/fields-mat/ng-package.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/fields-mat/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fields-mat/src/test.ts",
+            "tsConfig": "projects/fields-mat/tsconfig.spec.json",
+            "karmaConfig": "projects/fields-mat/karma.conf.js"
+          }
+        }
+      }
+    },
+    "segments-mat": {
+      "projectType": "library",
+      "root": "projects/segments-mat",
+      "sourceRoot": "projects/segments-mat/src",
+      "prefix": "fb-segments-mat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/segments-mat/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/segments-mat/tsconfig.lib.prod.json",
+              "project": "projects/segments-mat/ng-package.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/segments-mat/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/segments-mat/src/test.ts",
+            "tsConfig": "projects/segments-mat/tsconfig.spec.json",
+            "karmaConfig": "projects/segments-mat/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "schema-forms",

@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "whitelistedNonPeerDependencies": ["angular", "jaspero", "@ngneat/transloco", "json-pointer", "json-schema", "rxjs", "@jaspero/utils"]
+  "allowedNonPeerDependencies": ["angular", "jaspero", "@ngneat/transloco", "json-pointer", "json-schema", "rxjs", "@jaspero/utils"]
 }

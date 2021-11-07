@@ -1,6 +1,7 @@
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
+import {safeEval} from '@jaspero/utils';
 import {get, has} from 'json-pointer';
 import {CustomComponent} from '../custom/custom.component';
 import {CompiledField, Condition} from '../interfaces/compiled-field.interface';
@@ -9,7 +10,6 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointer, Pointers} from '../utils/parser';
-import {safeEval} from '@jaspero/utils';
 
 export interface SegmentData {
   segment: CompiledSegment;

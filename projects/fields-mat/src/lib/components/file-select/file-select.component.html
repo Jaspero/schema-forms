@@ -1,0 +1,38 @@
+<mat-tab-group mat-stretch-tabs animationDuration="0ms">
+  <mat-tab label="File" *ngIf="!data.preventServerUpload">
+    <ng-template matTabContent>
+      <div class="file">
+        <input #file type="file" hidden (change)="filesChanged($event)">
+
+        <div class="file-dropzone flex jc-center ai-center" jpDropZone (dropped)="filesDropped($event)">
+          <div class="ta-center">
+            <h3>Drop To Upload</h3>
+            <button mat-raised-button color="primary" (click)="openFileSystem()">
+              Select File
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="URL" *ngIf="!data.preventUrlUpload">
+    <ng-template matTabContent>
+      <div class="url">
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>{{'FIELDS.FILE.URL' | transloco}}</mat-label>
+          <input matInput #url>
+        </mat-form-field>
+
+        <div class="flex jc-end">
+          <button mat-flat-button color="primary" [disabled]="!url.value" (click)="urlChanged(url.value)"
+                  mat-dialog-close>{{'FIELDS.FILE.ADD' | transloco}}</button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngFor="let method of data.uploadMethods" [label]="method.label | transloco">
+    <ng-template matTabContent>
+      <div [innerHTML]="method.component | jpSanitize"></div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

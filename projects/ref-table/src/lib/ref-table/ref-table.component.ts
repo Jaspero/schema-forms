@@ -15,9 +15,8 @@ import {
   FieldData, FormBuilderComponent,
   FormBuilderData,
   FormBuilderService,
-  parseTemplate,
-  SegmentType
 } from '@jaspero/form-builder';
+import {parseTemplate} from '@jaspero/utils';
 import {JSONSchema7} from 'json-schema';
 import {forkJoin, of} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
@@ -85,7 +84,7 @@ export class RefTableComponent extends FieldComponent<RefTableData> implements O
               schema: this.cData.schema,
               definitions: this.cData.definitions,
               segments: [{
-                type: SegmentType.Empty,
+                type: 'empty',
                 fields: this.cData.fields
               }]
             }
@@ -109,7 +108,7 @@ export class RefTableComponent extends FieldComponent<RefTableData> implements O
         definitions: this.cData.definitions,
         schema: this.cData.schema,
         segments: [{
-          type: SegmentType.Empty,
+          type: 'empty',
           fields: this.cData.fields
         }]
       }

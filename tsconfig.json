@@ -24,6 +24,10 @@
       "dom"
     ],
     "paths": {
+      "fields-mat": [
+        "dist/fields-mat/fields-mat",
+        "dist/fields-mat"
+      ],
       "form-builder": [
         "dist/form-builder/form-builder",
         "dist/form-builder"
@@ -43,6 +47,10 @@
       "ref-table": [
         "dist/ref-table/ref-table",
         "dist/ref-table"
+      ],
+      "segments-mat": [
+        "dist/segments-mat/segments-mat",
+        "dist/segments-mat"
       ],
       "monaco-editor": [
         "dist/monaco-editor/monaco-editor",
