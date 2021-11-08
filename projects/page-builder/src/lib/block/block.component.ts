@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {FormBuilderComponent, FormBuilderContextService, FormBuilderData, Parser, State} from '@jaspero/form-builder';
+import {FormBuilderComponent, FormBuilderData, Parser, State} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
 
@@ -22,8 +22,7 @@ import {Selected} from '../selected.interface';
 export class BlockComponent implements OnDestroy {
   constructor(
     private injector: Injector,
-    private cdr: ChangeDetectorRef,
-    private ctx: FormBuilderContextService
+    private cdr: ChangeDetectorRef
   ) {}
 
   @Input() parentFormId = 'main';

@@ -1,10 +1,9 @@
-import {SegmentType} from '../../../../../projects/form-builder/src/lib/enums/segment-type.enum';
 import {FormBuilderData} from '../../../../../projects/form-builder/src/lib/interfaces/form-builder-data.interface';
 
 export const CONDITIONS_EXAMPLE: FormBuilderData = {
   segments: [
     {
-      type: SegmentType.Tabs,
+      type: 'tabs',
       configuration: {
         tabs: [
           {
