@@ -19,7 +19,7 @@ import {SegmentComponent} from './segment/segment.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    
+
     /**
      * External
      */

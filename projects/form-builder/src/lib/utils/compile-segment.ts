@@ -77,7 +77,7 @@ export function compileSegment(
 
   if (segment.components) {
 
-    const componentMap = injector.get(FormBuilderContextService).componentMap;
+    const {componentMap} = injector.get(FormBuilderContextService);
 
     if (componentMap) {
       customComponents = segment.components.reduce((acc: ComponentPortal<CustomComponent>[], component) => {
@@ -165,7 +165,7 @@ export function compileSegment(
 
   const ctx = injector.get(FormBuilderContextService);
 
-  let defaultSegment: string;
+  let defaultSegment = 'card';
 
   try {
     defaultSegment = injector.get(DEFAULT_SEGMENT);
