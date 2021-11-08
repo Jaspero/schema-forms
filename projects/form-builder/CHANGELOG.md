@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.18.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.0...@jaspero/form-builder@4.18.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* **form-builder:** context service not singular ([19a2c9f](https://github.com/Jaspero/schema-forms/commit/19a2c9f3acc571e60d5df622e3ea225361c3e601))
+
 # @jaspero/form-builder [4.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.17.8...@jaspero/form-builder@4.18.0) (2021-11-07)
 
 
