@@ -43,9 +43,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     @Inject(ROLE)
     private role: string,
     @Optional()
-    @Inject(CUSTOM_FIELDS)
-    private customFields: CustomFields,
-    @Optional()
     @Inject(DEFAULT_SEGMENT)
     private defaultSegment: string,
     private cdr: ChangeDetectorRef,
@@ -160,11 +157,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
         this.injector,
         this.state,
         this.role,
-        definitions,
-        {
-          ...this.customFields || {},
-          ...this.ctx.fields
-        }
+        definitions
       );
 
       this.form = this.parser.buildForm(

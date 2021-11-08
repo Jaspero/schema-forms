@@ -7,12 +7,13 @@ import {get, has} from 'json-pointer';
 import {SchemaType} from '../enums/schema-type.enum';
 import {State} from '../enums/state.enum';
 import {FieldComponent} from '../field/field.component';
+import {FormBuilderContextService} from '../form-builder-context.service';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {Control} from '../interfaces/control.type';
 import {Definitions} from '../interfaces/definitions.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
 import {createComponentInjector} from './create-component-injector';
-import {CustomFields} from './custom-fields';
+import {CUSTOM_FIELDS, CustomFields} from './custom-fields';
 import {schemaToComponent} from './schema-to-component';
 
 export interface PropertyDefinition {
@@ -83,12 +84,30 @@ export class Parser {
     public injector: Injector,
     public state: State,
     public role: string,
-    public definitions: Definitions = {},
-    public customFields: CustomFields = {}
-  ) {}
+    public definitions: Definitions = {}
+  ) {
+
+    let custom: CustomFields;
+    let ctxFields: CustomFields;
+
+    try {
+      custom = this.injector.get(CUSTOM_FIELDS);
+    } catch (e) {}
+
+    try {
+      const ctx = this.injector.get(FormBuilderContextService);
+      ctxFields = ctx.fields || {};
+    } catch (e) {}
+
+    this.customFields = {
+      ...custom || {},
+      ...ctxFields || {}
+    }
+  }
 
   form: FormGroup;
   pointers: Pointers = {};
+  customFields: CustomFields = {};
 
   static standardizeKey(key: string) {
     if (key[0] === '/') {
