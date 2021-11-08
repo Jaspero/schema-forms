@@ -3,23 +3,13 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Inject,
   Injector,
   Input,
   OnDestroy,
-  Optional,
   Output,
   ViewChild
 } from '@angular/core';
-import {
-  CUSTOM_FIELDS,
-  CustomFields,
-  FormBuilderComponent,
-  FormBuilderContextService,
-  FormBuilderData,
-  Parser,
-  State
-} from '@jaspero/form-builder';
+import {FormBuilderComponent, FormBuilderContextService, FormBuilderData, Parser, State} from '@jaspero/form-builder';
 import {Subscription} from 'rxjs';
 import {Selected} from '../selected.interface';
 
@@ -32,9 +22,6 @@ import {Selected} from '../selected.interface';
 export class BlockComponent implements OnDestroy {
   constructor(
     private injector: Injector,
-    @Optional()
-    @Inject(CUSTOM_FIELDS)
-    private customFields: CustomFields,
     private cdr: ChangeDetectorRef,
     private ctx: FormBuilderContextService
   ) {}
@@ -66,11 +53,7 @@ export class BlockComponent implements OnDestroy {
       // TODO: Replace with correct state
       State.Create,
       'admin',
-      selected.form.definitions,
-      {
-        ...this.customFields || {},
-        ...this.ctx.fields
-      }
+      selected.form.definitions
     );
 
     this.parser.form = this.parser.buildForm(
