@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.18.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.1...@jaspero/form-builder@4.18.2) (2021-11-08)
+
+
+### Bug Fixes
+
+* **form-builder:** no longer require customFields for creating a Parser ([770d8a1](https://github.com/Jaspero/schema-forms/commit/770d8a1240de96f01fed03daeead29b783f6751c))
+
 ## @jaspero/form-builder [4.18.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.0...@jaspero/form-builder@4.18.1) (2021-11-08)
 
 
