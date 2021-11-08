@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.11.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.2...@jaspero/fb-page-builder@3.11.3) (2021-11-08)
+
+
+### Bug Fixes
+
+* **form-ui:** removed SegmentType references ([c519f18](https://github.com/Jaspero/schema-forms/commit/c519f18f740055b2d87889613d924c8997f60556))
+
 ## @jaspero/fb-page-builder [3.11.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.1...@jaspero/fb-page-builder@3.11.2) (2021-11-08)
 
 
