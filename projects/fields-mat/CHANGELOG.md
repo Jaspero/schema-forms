@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.0.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.2...@jaspero/fb-fields-mat@1.0.3) (2021-11-09)
+
+
+### Bug Fixes
+
+* **checkbox:** vertical alignment ([796b2ea](https://github.com/Jaspero/schema-forms/commit/796b2eaab3c5db415f0d229b07849bb5bb834ed9))
+
 ## @jaspero/fb-fields-mat [1.0.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.1...@jaspero/fb-fields-mat@1.0.2) (2021-11-08)
 
 
