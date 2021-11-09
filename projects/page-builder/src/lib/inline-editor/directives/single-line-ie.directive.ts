@@ -92,6 +92,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   async ngAfterViewInit() {
     await new Promise((resolve) => setTimeout(resolve, 10));
+
     if (!this.toolbarService) {
       return;
     }
@@ -231,16 +232,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.options.textDecorations.forEach((el) => {
         const toolbarEl = this.toolbar.elements[el];
 
-        events.push(
-          domListener(
-            this.renderer,
-            toolbarEl,
-            'mousedown'
-          )
-            .pipe(tap((e: MouseEvent) =>
-              e.preventDefault()
-            ))
-        );
+        events.push(this.mouseDown(toolbarEl));
 
         filteredEvents.push(
           domListener(
@@ -276,14 +268,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         const toolbarEl = this.toolbar.elements[el];
 
         events.push(
-          domListener(
-            this.renderer,
-            toolbarEl,
-            'mousedown'
-          )
-            .pipe(
-              tap((e: MouseEvent) => e.preventDefault())
-            ),
+          this.mouseDown(toolbarEl),
           domListener(
             this.renderer,
             toolbarEl,
@@ -295,10 +280,10 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
                 const {classList} = toolbarEl;
 
                 if (classList.contains(this.activeCls)) {
-                  this.lastTarget.removeAttribute('style');
+                  this.adjustStyle({'text-align': ''});
                   classList.remove(this.activeCls);
                 } else {
-                  this.lastTarget.setAttribute('style', `text-align:${el}`);
+                  this.adjustStyle({'text-align': el});
                   classList.add(this.activeCls);
                 }
 
@@ -313,23 +298,31 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       });
     }
 
+    if (this.options.colorPicker) {
+
+      const el = this.toolbar.elements.color;
+      const colorEl = this.toolbar.elements.colorPicker;
+
+      filteredEvents.push(
+        this.mouseDown(el),
+        domListener(this.renderer, el, 'click')
+          .pipe(tap(() => colorEl.click())),
+        domListener(this.renderer, colorEl, 'input')
+          .pipe(
+            tap((event: any) => {
+              const color = event.target.value;
+              (this.iFrame.contentDocument as Document).execCommand('foreColor', false, color);
+            })
+          )
+      )
+    }
+
     if (this.toolbar.elements.remove) {
       const el = this.toolbar.elements.remove;
 
       filteredEvents.push(
-        domListener(
-          this.renderer,
-          el,
-          'mousedown'
-        )
-          .pipe(
-            tap((e: MouseEvent) => e.preventDefault())
-          ),
-        domListener(
-          this.renderer,
-          el,
-          'click'
-        )
+        this.mouseDown(el),
+        domListener(this.renderer, el, 'click')
           .pipe(
             tap(() => {
               this.htmlEl.innerHTML = '';
@@ -465,5 +458,41 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   private assignLastTarget() {
     this.lastTarget = this.htmlEl.children[0] as HTMLElement;
+  }
+
+  private mouseDown(el: HTMLElement) {
+    return domListener(this.renderer, el, 'mousedown')
+      .pipe(tap((e: MouseEvent) => e.preventDefault()))
+  }
+
+  private adjustStyle(style: {[key: string]: any}) {
+    const styleAttr = this.lastTarget.getAttribute('style');
+    const current = styleAttr ? styleAttr.split(';').reduce((acc, cur) => {
+      const [key, value] = cur.split(':');
+      acc[key] = value;
+      return acc;
+    }, {}) : {};
+
+    // tslint:disable-next-line:forin
+    for (const key in style) {
+      current[key] = style[key];
+    }
+
+    let finalString = '';
+
+    for (const key in current) {
+      if (current[key]) {
+        finalString += `${key}:${current[key]};`
+      } else {
+        delete current[key];
+      }
+    }
+
+    if (!Object.keys(current).length) {
+      this.lastTarget.removeAttribute('style');
+      return;
+    }
+
+    this.lastTarget.setAttribute('style', finalString);
   }
 }
