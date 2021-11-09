@@ -5,7 +5,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #number let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -13,7 +12,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #tel let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -21,7 +19,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #color let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -29,7 +26,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #email let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -37,7 +33,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #date let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -45,7 +40,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #textarea let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -57,7 +51,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #select let-control="control">
   <mat-form-field>
     <mat-label *ngIf="control.get('label').value as label">{{label}}</mat-label>
@@ -73,7 +66,6 @@
     <mat-hint *ngIf="control.get('hint').value as hint">{{hint}}</mat-hint>
   </mat-form-field>
 </ng-template>
-
 <ng-template #checkbox let-control="control">
   <p *ngIf="control.get('label').value as label">{{label}}</p>
   <mat-checkbox
@@ -84,11 +76,9 @@
     <div [innerHTML]="option.label"></div>
   </mat-checkbox>
 </ng-template>
-
 <ng-template #content let-control="control">
   <div [innerHTML]="control.get('value').value"></div>
 </ng-template>
-
 <ng-template #editDialog>
   <h4 mat-dialog-title>{{'FU.EDIT' | transloco}}</h4>
   <mat-dialog-content>
@@ -98,7 +88,6 @@
     <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
-
 <ng-template #optionsDialog>
   <h4 mat-dialog-title>{{'FU.SETTINGS' | transloco}}</h4>
   <mat-dialog-content>
@@ -108,7 +97,6 @@
     <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
-
 <ng-template #organizeDialog>
   <h4 mat-dialog-title>{{'FU.ORGANIZE' | transloco}}</h4>
   <mat-dialog-content>
@@ -143,7 +131,6 @@
     <button mat-flat-button color="primary" (click)="saveOrganization()">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
-
 <ng-template #sizesDialog>
   <h4 mat-dialog-title>{{'FU.ADJUST_SIZE' | transloco}}</h4>
   <mat-dialog-content>
@@ -179,7 +166,6 @@
     <button mat-flat-button color="primary" (click)="saveSize()">{{'GENERAL.SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
-
 <ng-template #conditionDialog>
   <mat-dialog-content>
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>

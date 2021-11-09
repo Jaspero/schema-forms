@@ -2,7 +2,7 @@ import {Inject, Injectable, Optional} from '@angular/core';
 import {CUSTOM_COMPONENTS, CustomComponents} from './utils/custom-components';
 import {CustomFields} from './utils/custom-fields';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FormBuilderContextService {
   constructor(
     @Optional()

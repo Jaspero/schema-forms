@@ -1,3 +1,30 @@
+## @jaspero/fb-page-builder [3.11.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.2...@jaspero/fb-page-builder@3.11.3) (2021-11-08)
+
+
+### Bug Fixes
+
+* **form-ui:** removed SegmentType references ([c519f18](https://github.com/Jaspero/schema-forms/commit/c519f18f740055b2d87889613d924c8997f60556))
+
+## @jaspero/fb-page-builder [3.11.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.1...@jaspero/fb-page-builder@3.11.2) (2021-11-08)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.18.2
+
+## @jaspero/fb-page-builder [3.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.0...@jaspero/fb-page-builder@3.11.1) (2021-11-08)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.18.1
+
 # @jaspero/fb-page-builder [3.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.10.9...@jaspero/fb-page-builder@3.11.0) (2021-11-07)
 
 
