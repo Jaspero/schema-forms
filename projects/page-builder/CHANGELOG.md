@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.3...@jaspero/fb-page-builder@3.12.0) (2021-11-09)
+
+
+### Features
+
+* **page-builder:** connected basic color picker support ([3e270ec](https://github.com/Jaspero/schema-forms/commit/3e270ec74bc295ca9d52ab23733d162658cd7050))
+
 ## @jaspero/fb-page-builder [3.11.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.11.2...@jaspero/fb-page-builder@3.11.3) (2021-11-08)
 
 
