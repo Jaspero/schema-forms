@@ -16,12 +16,10 @@ import {FormGroup} from '@angular/forms';
 import {forkJoin, of, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {State} from './enums/state.enum';
-import {FormBuilderContextService} from './form-builder-context.service';
 import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
 import {GlobalState} from './interfaces/global-state.interface';
-import {CUSTOM_FIELDS, CustomFields} from './utils/custom-fields';
 import {DEFAULT_SEGMENT} from './utils/default-segment';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
@@ -45,8 +43,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     @Optional()
     @Inject(DEFAULT_SEGMENT)
     private defaultSegment: string,
-    private cdr: ChangeDetectorRef,
-    private ctx: FormBuilderContextService
+    private cdr: ChangeDetectorRef
   ) { }
 
   @Input() data: FormBuilderData;
