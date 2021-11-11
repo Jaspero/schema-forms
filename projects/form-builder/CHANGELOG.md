@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.18.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.2...@jaspero/form-builder@4.18.3) (2021-11-11)
+
+
+### Bug Fixes
+
+* **FormBuilder:** export Condition interfaces ([dfbe853](https://github.com/Jaspero/schema-forms/commit/dfbe85394b5f52b67fe8e0eaea3d008509b633d1))
+
 ## @jaspero/form-builder [4.18.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.1...@jaspero/form-builder@4.18.2) (2021-11-08)
 
 
