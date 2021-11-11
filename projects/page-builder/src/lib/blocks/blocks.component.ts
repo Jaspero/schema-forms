@@ -396,7 +396,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       value: block.value,
       form: block.form,
       nested: block.nested,
-      label: block.name || this.selection[block.type].label,
+      label: block.name || this.selection[block.type]?.label || this.transloco.translate('PB.SEGMENT'),
       icon: block.icon
     };
 
