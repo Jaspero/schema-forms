@@ -1,5 +1,5 @@
 import {safeEval} from '@jaspero/utils';
-import {CompiledField, Condition as FieldCondition} from '../interfaces/compiled-field.interface';
+import {CompiledField, FieldCondition} from '../interfaces/compiled-field.interface';
 import {Definitions} from '../interfaces/definitions.interface';
 import {Parser} from './parser';
 

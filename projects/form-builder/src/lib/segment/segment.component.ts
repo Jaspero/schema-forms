@@ -4,7 +4,7 @@ import {Component, HostBinding, Inject, Injector, OnInit} from '@angular/core';
 import {safeEval} from '@jaspero/utils';
 import {get, has} from 'json-pointer';
 import {CustomComponent} from '../custom/custom.component';
-import {CompiledField, Condition} from '../interfaces/compiled-field.interface';
+import {CompiledField, FieldCondition} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {Definitions} from '../interfaces/definitions.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
@@ -210,7 +210,7 @@ export class SegmentComponent<T = any> implements OnInit {
     let fields: CompiledField[];
 
     if (this.segment.fields && this.segment.fields.length) {
-      fields = (this.segment.fields as Array<string | Condition>).map((keyObject) => {
+      fields = (this.segment.fields as Array<string | FieldCondition>).map((keyObject) => {
         let condition: any;
         let key: string;
 

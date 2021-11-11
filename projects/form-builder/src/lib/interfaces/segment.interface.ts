@@ -1,4 +1,4 @@
-import {Condition as FieldCondition} from './compiled-field.interface';
+import {FieldCondition} from './compiled-field.interface';
 import {CompiledCondition, Condition} from './condition.interface';
 import {CustomComponentDefinition} from './custom-component-definition.interface';
 

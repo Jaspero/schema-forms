@@ -9,7 +9,7 @@ export interface Action {
   configuration?: any;
 }
 
-export interface Condition {
+export interface FieldCondition {
   field: string;
   deps: string[];
   action: Action | Action[];
@@ -20,7 +20,7 @@ export interface CompiledField {
   control: Control;
   portal: ComponentPortal<FieldComponent<any>>;
   validation: any;
-  condition?: Condition;
+  condition?: FieldCondition;
 
   /**
    * Properties pulled from definition

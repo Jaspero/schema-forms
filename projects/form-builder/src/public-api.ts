@@ -1,6 +1,8 @@
 /**
  * Modules
  */
+import {CompiledCondition} from './lib/interfaces/condition.interface';
+
 export * from './lib/form-builder.module';
 
 export * from './lib/modules/show-field/show-field.module';
@@ -38,6 +40,7 @@ export * from './lib/interfaces/where-filter.interface';
 export * from './lib/interfaces/upload-method.interface';
 export * from './lib/interfaces/compiled-field.interface';
 export * from './lib/interfaces/compiled-segment.interface';
+export * from './lib/interfaces/condition.interface';
 
 /**
  * Enums
