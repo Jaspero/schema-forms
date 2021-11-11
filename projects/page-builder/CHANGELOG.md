@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.12.1...@jaspero/fb-page-builder@3.12.2) (2021-11-11)
+
+
+### Bug Fixes
+
+* **FormBuilder:** default label ([a880a10](https://github.com/Jaspero/schema-forms/commit/a880a10bba85f9f314faaf9e95f32a5c162a079d))
+
 ## @jaspero/fb-page-builder [3.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.12.0...@jaspero/fb-page-builder@3.12.1) (2021-11-11)
 
 
