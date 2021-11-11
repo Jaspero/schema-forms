@@ -1,3 +1,14 @@
+## @jaspero/fb-form-ui [2.3.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.3.3...@jaspero/fb-form-ui@2.3.4) (2021-11-11)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.18.3
+* **@jaspero/fb-tinymce:** upgraded to 2.2.43
+
 ## @jaspero/fb-form-ui [2.3.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.3.2...@jaspero/fb-form-ui@2.3.3) (2021-11-08)
 
 
