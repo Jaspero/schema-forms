@@ -1,3 +1,10 @@
+## @jaspero/fb-ref-table [2.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.2.0...@jaspero/fb-ref-table@2.2.1) (2021-11-11)
+
+
+### Bug Fixes
+
+* bump untils version ([d66395e](https://github.com/Jaspero/schema-forms/commit/d66395e24823e9609e31689346b17ee5f2c35c05))
+
 # @jaspero/fb-ref-table [2.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.1.0...@jaspero/fb-ref-table@2.2.0) (2021-11-07)
 
 
