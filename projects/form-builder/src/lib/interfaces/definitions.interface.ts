@@ -3,7 +3,7 @@ import {State} from '../enums/state.enum';
 
 export interface Definition {
   component?: ComponentDefinition;
-  formatOnSave?: string;
+  formatOnSave?: string | ((...arg) => any);
   formatOnCreate?: string;
   formatOnEdit?: string;
   formatOnLoad?: string;
