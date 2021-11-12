@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.18.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.4...@jaspero/form-builder@4.18.5) (2021-11-12)
+
+
+### Bug Fixes
+
+* **FormBuilder:** definition interface - formatOnSave can be function ([9b05e2e](https://github.com/Jaspero/schema-forms/commit/9b05e2ef544e498be0eec094e13a57ca49909fa8))
+
 ## @jaspero/form-builder [4.18.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.3...@jaspero/form-builder@4.18.4) (2021-11-11)
 
 
