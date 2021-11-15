@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.12.4...@jaspero/fb-page-builder@3.13.0) (2021-11-15)
+
+
+### Features
+
+* **page-builder:** added layout option ([e10d905](https://github.com/Jaspero/schema-forms/commit/e10d905d1d94c4b5bc1f47c3b969e8f56549ce42))
+
 ## @jaspero/fb-page-builder [3.12.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.12.3...@jaspero/fb-page-builder@3.12.4) (2021-11-12)
 
 
