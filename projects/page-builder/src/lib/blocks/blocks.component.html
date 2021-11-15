@@ -67,7 +67,7 @@
     <main class="pb-preview" [class.fullscreen]="isFullscreen">
       <div class="pb-preview-inner" [ngClass]="view">
         <ng-container #ipe></ng-container>
-        <iframe id="fb-pb-iframe" #iframe></iframe>
+        <iframe id="fb-pb-iframe" #iframe (load)="iframeLoaded()"></iframe>
       </div>
     </main>
 

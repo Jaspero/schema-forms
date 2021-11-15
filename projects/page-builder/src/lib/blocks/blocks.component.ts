@@ -88,6 +88,10 @@ interface Block {
 
 interface BlocksData extends FieldData {
   blocks: Block[];
+  layout?: {
+    selector: string;
+    content: string;
+  };
   intro?: string | { [key: string]: string };
   rightSidebar?: {
     emptyState?: string;
@@ -130,6 +134,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   @ViewChild('iframe', {static: false}) iframeEl: ElementRef<HTMLIFrameElement>;
   @ViewChild(BlockComponent, {static: false}) blockComponent: BlockComponent;
 
+  iframeTarget: HTMLElement;
   state = 'blocks';
   selected: Selected | null;
   selectedIndex: number;
@@ -254,6 +259,17 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.service.removeComponent(this);
   }
 
+  iframeLoaded() {
+    if (this.cData.layout) {
+      setTimeout(() => {
+        this.iFrameDoc.body.innerHTML = this.cData.layout.content;
+        this.iframeTarget = this.iFrameDoc.querySelector(this.cData.layout.selector);
+      })
+    } else {
+      this.iframeTarget = this.iFrameDoc.body;
+    }
+  }
+
   openAdd() {
     this.state = 'add';
     this.cdr.markForCheck();
@@ -348,7 +364,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   swapElements(previous, current) {
-    const parent = this.iFrameDoc.body;
+    const parent = this.iframeTarget;
 
     const after = current.nextElementSibling;
     if (previous === after) {
@@ -619,7 +635,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     cmpRef.instance.data = value;
 
-    this.iFrameDoc.body.appendChild(nElement);
+    this.iframeTarget.appendChild(nElement);
 
     if (this.cData.styleUrls) {
       const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
