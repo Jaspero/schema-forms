@@ -260,14 +260,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   iframeLoaded() {
-    if (this.cData.layout) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.cData.layout) {
         this.iFrameDoc.body.innerHTML = this.cData.layout.content;
         this.iframeTarget = this.iFrameDoc.querySelector(this.cData.layout.selector);
-      })
-    } else {
-      this.iframeTarget = this.iFrameDoc.body;
-    }
+      } else {
+        this.iframeTarget = this.iFrameDoc.body;
+      }
+    })
   }
 
   openAdd() {
