@@ -99,6 +99,11 @@ interface BlocksData extends FieldData {
   styles?: string | string[];
   styleUrls?: string | string[];
   parentFormId?: string;
+  /**
+   * Should the compiled version of the html
+   * be persisted in to database
+   */
+  saveCompiled?: boolean;
 }
 
 @UntilDestroy()
@@ -257,17 +262,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   ngOnDestroy() {
     this.service.removeComponent(this);
-  }
-
-  iframeLoaded() {
-    setTimeout(() => {
-      if (this.cData.layout) {
-        this.iFrameDoc.body.innerHTML = this.cData.layout.content;
-        this.iframeTarget = this.iFrameDoc.querySelector(this.cData.layout.selector);
-      } else {
-        this.iframeTarget = this.iFrameDoc.body;
-      }
-    })
   }
 
   openAdd() {
@@ -543,6 +537,13 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       this.vce.clear();
     }
 
+    if (this.cData.layout) {
+      this.iFrameDoc.body.innerHTML = this.cData.layout.content;
+      this.iframeTarget = this.iFrameDoc.querySelector(this.cData.layout.selector);
+    } else {
+      this.iframeTarget = this.iFrameDoc.body;
+    }
+
     this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
       .then((factories) => {
         this.compRefs = factories.componentFactories.map((f, index) => {
@@ -596,7 +597,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         .pipe(
           tap((values) => {
             this.cData.control.setValue(
-              this.blocks.map(block => {
+              this.blocks.map((block, index) => {
 
                 let value: any = block.value;
 
@@ -614,14 +615,25 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
                 return {
                   value,
-                  type: block.type
+                  type: block.type,
+                  ...this.cData.saveCompiled && {
+                    compiled: this.compRefs[index].location.nativeElement.shadowRoot.innerHTML
+                  }
                 }
               })
             );
           })
         );
     } else {
-      this.cData.control.setValue(this.blocks.map(block => ({value: block.value, type: block.type})));
+      this.cData.control.setValue(
+        this.blocks.map((block, index) => ({
+          value: block.value,
+          type: block.type,
+          ...this.cData.saveCompiled && {
+            compiled: this.compRefs[index].location.nativeElement.shadowRoot.innerHTML
+          }
+        }))
+      );
       return of(true);
     }
   }
