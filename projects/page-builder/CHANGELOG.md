@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [3.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.13.0...@jaspero/fb-page-builder@3.14.0) (2021-11-16)
+
+
+### Bug Fixes
+
+* **page-builder:** create iframeTarget even when layout isn't provided ([84e1c0b](https://github.com/Jaspero/schema-forms/commit/84e1c0be82f3f4524f43dbaad2e2d1d84beedf6b))
+
+
+### Features
+
+* **page-builder:** implemented saveCompiled option ([80a5e85](https://github.com/Jaspero/schema-forms/commit/80a5e8502dab0c0d35a3d1843cab269bf53440c0))
+
 # @jaspero/fb-page-builder [3.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.12.4...@jaspero/fb-page-builder@3.13.0) (2021-11-15)
 
 
