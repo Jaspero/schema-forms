@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent} from '../../../../projects/form-builder/src/lib/form-builder.component';
-import {ARRAY_EXAMPLE} from './forms/array-example';
+import {CONDITIONS_EXAMPLE} from './forms/conditions-example';
 
 @Component({
   selector: 'sc-core',
@@ -13,7 +13,7 @@ export class CoreComponent implements AfterViewInit {
   @ViewChildren(FormBuilderComponent)
   formComponents: QueryList<FormBuilderComponent>;
 
-  form = ARRAY_EXAMPLE;
+  form = CONDITIONS_EXAMPLE;
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
