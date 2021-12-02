@@ -284,7 +284,8 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
         const selectedIds = this.selection.selected.map(item => item.id);
         return [...this.selection.selected, ...documents.filter(document => !selectedIds.includes(document.id))]
           .filter((document, index, arr) => arr.findIndex(item => (item.id === document.id)) === index);
-      })
+      }),
+      tap(() => setTimeout(() => this.autocomplete.updatePosition(), 10))
     );
 
     this.subscriptions.push(
