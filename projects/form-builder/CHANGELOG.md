@@ -1,3 +1,10 @@
+## @jaspero/form-builder [4.18.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.5...@jaspero/form-builder@4.18.6) (2021-12-02)
+
+
+### Bug Fixes
+
+* **page-builder:** conditions on show-field works on page change ([92439bc](https://github.com/Jaspero/schema-forms/commit/92439bc88ae8d2d4171df25fa29f225ffe0b0a38))
+
 ## @jaspero/form-builder [4.18.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.4...@jaspero/form-builder@4.18.5) (2021-11-12)
 
 
