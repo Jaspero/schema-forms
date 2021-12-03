@@ -6,7 +6,6 @@ import {safeEval} from '@jaspero/utils';
 import {merge, Subscription} from 'rxjs';
 
 interface DateData extends FieldData {
-  startYear?: number;
   startAt?: number;
   touchUi?: boolean;
   startView?: 'month' | 'year' | 'multi-year';
