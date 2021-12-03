@@ -1,3 +1,10 @@
+/**
+ * Prevents arrays from adding horizontal scroll
+ */
+:host {
+  overflow-x: hidden;
+}
+
 .nested-divider {
   margin-left: -16px;
   margin-right: -16px;

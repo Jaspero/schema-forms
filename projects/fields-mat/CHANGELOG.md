@@ -1,3 +1,30 @@
+## @jaspero/fb-fields-mat [1.0.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.8...@jaspero/fb-fields-mat@1.0.9) (2021-12-03)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.19.0
+
+## @jaspero/fb-fields-mat [1.0.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.7...@jaspero/fb-fields-mat@1.0.8) (2021-12-02)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.18.6
+
+## @jaspero/fb-fields-mat [1.0.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.6...@jaspero/fb-fields-mat@1.0.7) (2021-12-02)
+
+
+### Bug Fixes
+
+* **ref:** fixed ref component position at the bottom of the screen ([3b6e844](https://github.com/Jaspero/schema-forms/commit/3b6e844fae65660221b72a138d005cf634cde8ec))
+
 ## @jaspero/fb-fields-mat [1.0.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.5...@jaspero/fb-fields-mat@1.0.6) (2021-11-12)
 
 

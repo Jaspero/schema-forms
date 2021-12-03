@@ -1,12 +1,14 @@
 import {safeEval} from '@jaspero/utils';
 import {CompiledField, FieldCondition} from '../interfaces/compiled-field.interface';
 import {Definitions} from '../interfaces/definitions.interface';
-import {Parser} from './parser';
+import {Parser, Pointers} from './parser';
 
 export function compileFields(
   parser: Parser,
   definitions: Definitions,
-  fields: (string | any | FieldCondition)[]
+  fields: (string | any | FieldCondition)[],
+  pointers: Pointers = null,
+  mutateKey = (key: string) => key
 ) {
   return (fields || [])
     .reduce((acc: CompiledField[], keyObject: string | object) => {
@@ -37,7 +39,9 @@ export function compileFields(
         });
         condition.deps = deps || [];
 
-        key = field;
+        key = mutateKey(field);
+      } else {
+        key = mutateKey(key);
       }
 
       const definition = parser.getFromDefinitions(key, definitions);
@@ -54,7 +58,7 @@ export function compileFields(
         acc.push(
           parser.field(
             key,
-            parser.pointers[key],
+            (pointers || parser.pointers)[key],
             definitions,
             true,
             undefined,

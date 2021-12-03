@@ -1,3 +1,18 @@
+# @jaspero/form-builder [4.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.6...@jaspero/form-builder@4.19.0) (2021-12-03)
+
+
+### Features
+
+* **form-builder:** allow disabling of adding, removal and sorting of array items closes [#75](https://github.com/Jaspero/schema-forms/issues/75) ([a9d3393](https://github.com/Jaspero/schema-forms/commit/a9d3393c0fecbd8a952c241f0ca68c3091f03d35))
+* **form-builder:** arrays now work in both tabs and accordion closes [#52](https://github.com/Jaspero/schema-forms/issues/52) ([d36d940](https://github.com/Jaspero/schema-forms/commit/d36d94052c215e9dc7bca0cc45674b7e8f471104))
+
+## @jaspero/form-builder [4.18.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.5...@jaspero/form-builder@4.18.6) (2021-12-02)
+
+
+### Bug Fixes
+
+* **page-builder:** conditions on show-field works on page change ([92439bc](https://github.com/Jaspero/schema-forms/commit/92439bc88ae8d2d4171df25fa29f225ffe0b0a38))
+
 ## @jaspero/form-builder [4.18.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.4...@jaspero/form-builder@4.18.5) (2021-11-12)
 
 

@@ -1,10 +1,10 @@
-<ng-container *ngIf="segment.title || segment.subTitle">
+<ng-container *ngIf="segment.title || segment.subTitle || (segment.array && arrayConfiguration.add)">
   <div class="flex jc-between">
     <div>
       <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
       <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
     </div>
-    <button *ngIf="segment.array" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
+    <button *ngIf="segment.array && arrayConfiguration.add" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -30,16 +30,16 @@
         <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
       </div>
 
-      <div class="ta-right fb-field-12">
-        <button mat-icon-button (click)="moveArray(true, index)">
+      <div class="ta-right fb-field-12" *ngIf="arrayConfiguration.add || arrayConfiguration.sort || arrayConfiguration.remove">
+        <button mat-icon-button *ngIf="arrayConfiguration.sort" (click)="moveArray(true, index)">
           <mat-icon>arrow_upward</mat-icon>
         </button>
         &nbsp;
-        <button mat-icon-button (click)="moveArray(false, index)">
+        <button mat-icon-button *ngIf="arrayConfiguration.sort" (click)="moveArray(false, index)">
           <mat-icon>arrow_downward</mat-icon>
         </button>
         &nbsp;
-        <button mat-icon-button color="warn" (click)="removeArrayItem(index)">
+        <button mat-icon-button *ngIf="arrayConfiguration.remove" color="warn" (click)="removeArrayItem(index)">
           <mat-icon>delete_forever</mat-icon>
         </button>
       </div>

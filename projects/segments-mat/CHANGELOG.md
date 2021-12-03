@@ -1,3 +1,34 @@
+# @jaspero/fb-segments-mat [1.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.0.6...@jaspero/fb-segments-mat@1.1.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* **segments-mat:** removed unused addArrayItem ([1577883](https://github.com/Jaspero/schema-forms/commit/15778836d23b5ac2206a419d446b9573b721048a))
+
+
+### Features
+
+* **form-builder:** allow disabling of adding, removal and sorting of array items closes [#75](https://github.com/Jaspero/schema-forms/issues/75) ([a9d3393](https://github.com/Jaspero/schema-forms/commit/a9d3393c0fecbd8a952c241f0ca68c3091f03d35))
+* **form-builder:** arrays now work in both tabs and accordion closes [#52](https://github.com/Jaspero/schema-forms/issues/52) ([d36d940](https://github.com/Jaspero/schema-forms/commit/d36d94052c215e9dc7bca0cc45674b7e8f471104))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.19.0
+
+## @jaspero/fb-segments-mat [1.0.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.0.5...@jaspero/fb-segments-mat@1.0.6) (2021-12-02)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.18.6
+
 ## @jaspero/fb-segments-mat [1.0.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.0.4...@jaspero/fb-segments-mat@1.0.5) (2021-11-12)
 
 

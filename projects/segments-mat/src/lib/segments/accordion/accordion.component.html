@@ -9,7 +9,7 @@
 <p *ngIf="segment.description">{{segment.description | transloco}}</p>
 
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let accord of accordions" [expanded]="accord.expanded || false">
+  <mat-expansion-panel *ngFor="let accord of accordions; index as index;" [expanded]="accord.expanded || false" (opened)="loaded.add(index)">
     <mat-expansion-panel-header>
       <mat-panel-title *ngIf="accord.title">{{accord.title | transloco}}</mat-panel-title>
       <mat-panel-description *ngIf="accord.description">
@@ -17,14 +17,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <ng-template matExpansionPanelContent>
-      <ng-container *ngFor="let field of accord.fields | showField:sData.parser | async">
-        <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
-      </ng-container>
-
-      <ng-container *ngFor="let nested of accord.nestedSegments">
-        <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
-      </ng-container>
-    </ng-template>
+    <ng-container *ngIf="loaded.has(index)">
+      <ng-template [cdkPortalOutlet]="accord.segment.component"></ng-template>
+    </ng-container>
   </mat-expansion-panel>
 </mat-accordion>

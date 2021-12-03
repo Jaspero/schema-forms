@@ -1,9 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatTabChangeEvent} from '@angular/material/tabs';
 import {
-  CompiledField,
   CompiledSegment,
-  compileFields,
   filterAndCompileSegments,
   Segment,
   SegmentComponent,
@@ -22,19 +20,14 @@ interface TabsConfiguration {
   tabs: SegmentTab[];
 }
 
-interface SegmentTabShared {
-  title?: string;
+interface SegmentTab extends Segment {
   disabled?: boolean;
 }
 
-interface SegmentTab extends SegmentTabShared {
-  fields?: string[];
-  nestedSegments?: Segment[];
-}
-
-interface CompiledSegmentTab extends SegmentTabShared {
-  fields?: CompiledField[];
-  nestedSegments?: CompiledSegment[];
+interface CompiledTab {
+  title: string;
+  disabled?: boolean;
+  segment: CompiledSegment;
 }
 
 @Component({
@@ -45,8 +38,9 @@ interface CompiledSegmentTab extends SegmentTabShared {
 })
 export class TabsComponent extends SegmentComponent<TabsConfiguration> implements OnInit {
 
-  tabs: CompiledSegmentTab[];
+  tabs: CompiledTab[];
   selectedTabChange?: SelectedTabChange;
+  loaded = new Set();
 
   get configuration() {
     return this.segment.configuration as TabsConfiguration;
@@ -61,22 +55,37 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
       );
     }
 
-    this.tabs = this.configuration.tabs.map(
-      tab => ({
-        ...tab,
-        fields: compileFields(this.sData.parser, this.sData.definitions, tab.fields),
-        nestedSegments: filterAndCompileSegments(
-          tab.nestedSegments || [],
-          this.sData.parser,
-          this.sData.definitions,
-          this.injector,
-          this.segment.entryValue
-        )
-      })
-    );
+    this.loaded.add(this.configuration.selectedIndex || 0);
+
+    this.tabs = this.configuration.tabs.reduce((acc, tab) => {
+      const compiled = filterAndCompileSegments(
+        [{
+          ...tab,
+          title: '',
+          type: tab.type || 'empty'
+        }],
+        this.sData.parser,
+        this.sData.definitions,
+        this.injector,
+        this.segment.entryValue
+      );
+
+      if (compiled.length) {
+        acc.push({
+          title: tab.title,
+          disabled: tab.disabled,
+          segment: compiled[0]
+        })
+      }
+
+      return acc;
+    }, []);
   }
 
   tabChange(event: MatTabChangeEvent) {
+
+    this.loaded.add(event.index);
+
     if (this.selectedTabChange) {
       this.selectedTabChange(
         event,

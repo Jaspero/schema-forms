@@ -20,18 +20,9 @@
         *ngFor="let tab of tabs; index as index"
         [label]="tab.title | transloco"
         [disabled]="tab.disabled">
-        <ng-template matTabContent>
-
-          <div class="p-a-s fb-fields">
-            <ng-container *ngFor="let field of tab.fields | showField:sData.parser:index | async">
-              <ng-template [cdkPortalOutlet]="field.portal"></ng-template>
-            </ng-container>
-          </div>
-
-          <ng-container *ngFor="let nested of tab.nestedSegments">
-            <ng-template [cdkPortalOutlet]="nested.component"></ng-template>
-          </ng-container>
-        </ng-template>
+        <ng-container *ngIf="loaded.has(index)">
+          <ng-template [cdkPortalOutlet]="tab.segment.component"></ng-template>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>
