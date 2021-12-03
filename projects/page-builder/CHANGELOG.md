@@ -1,3 +1,23 @@
+# @jaspero/fb-page-builder [3.15.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.14.2...@jaspero/fb-page-builder@3.15.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* removed whitelistedNonPeerDependencies ([cba5588](https://github.com/Jaspero/schema-forms/commit/cba5588bf4eeff6386b1679f67f2db46c5fce385))
+
+
+### Features
+
+* update to angular v13 ([fde8c27](https://github.com/Jaspero/schema-forms/commit/fde8c273f646a7cd3dbf3224cbeabd32d495e651))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.20.0
+
 ## @jaspero/fb-page-builder [3.14.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.14.1...@jaspero/fb-page-builder@3.14.2) (2021-12-03)
 
 
