@@ -1,3 +1,18 @@
+# @jaspero/fb-tinymce [2.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.47...@jaspero/fb-tinymce@2.3.0) (2021-12-03)
+
+
+### Features
+
+* update to angular v13 ([fde8c27](https://github.com/Jaspero/schema-forms/commit/fde8c273f646a7cd3dbf3224cbeabd32d495e651))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.20.0
+
 ## @jaspero/fb-tinymce [2.2.47](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.2.46...@jaspero/fb-tinymce@2.2.47) (2021-12-03)
 
 
