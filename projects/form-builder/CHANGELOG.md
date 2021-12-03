@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.19.0...@jaspero/form-builder@4.20.0) (2021-12-03)
+
+
+### Features
+
+* update to angular v13 ([fde8c27](https://github.com/Jaspero/schema-forms/commit/fde8c273f646a7cd3dbf3224cbeabd32d495e651))
+
 # @jaspero/form-builder [4.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.18.6...@jaspero/form-builder@4.19.0) (2021-12-03)
 
 
