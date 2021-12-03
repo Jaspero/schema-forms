@@ -1,20 +1,17 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Segment, CompiledField, CompiledSegment, SegmentComponent, compileFields, filterAndCompileSegments} from '@jaspero/form-builder';
+import {CompiledSegment, filterAndCompileSegments, Segment, SegmentComponent} from '@jaspero/form-builder';
 
-interface SegmentAccord {
-  title?: string;
-  description?: string;
-  fields?: string[];
-  nestedSegments?: Segment[];
+interface AccordionSegment extends Segment {
   expanded?: boolean;
+  disabled?: boolean;
 }
 
 interface CompiledSegmentAccord {
-  title?: string;
+  title: string;
   description?: string;
-  fields?: CompiledField[];
-  nestedSegments?: CompiledSegment[];
+  disabled?: boolean;
   expanded?: boolean;
+  segment: CompiledSegment;
 }
 
 @Component({
@@ -23,25 +20,47 @@ interface CompiledSegmentAccord {
   styleUrls: ['./accordion.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccordionComponent extends SegmentComponent implements OnInit {
+export class AccordionComponent extends SegmentComponent<AccordionSegment[]> implements OnInit {
 
   accordions: CompiledSegmentAccord[];
+  loaded = new Set();
 
   ngOnInit() {
     super.ngOnInit();
 
-    this.accordions = (this.sData.segment.configuration || []).map(
-      (accord: SegmentAccord) => ({
-        title: accord.title,
-        fields: compileFields(this.sData.parser, this.sData.definitions, accord.fields),
-        nestedSegments: filterAndCompileSegments(
-          accord.nestedSegments || [],
+    this.accordions = (this.sData.segment.configuration || [])
+      .reduce((acc, accord: AccordionSegment) => {
+
+        const compiled = filterAndCompileSegments(
+          [{
+            ...accord,
+            title: '',
+            description: '',
+            type: accord.type || 'empty'
+          }],
           this.sData.parser,
           this.sData.definitions,
           this.injector,
           this.segment.entryValue
-        )
-      })
-    );
+        );
+
+        if (compiled.length) {
+          acc.push({
+            title: accord.title,
+            disabled: accord.disabled,
+            description: accord.description,
+            expanded: accord.expanded,
+            segment: compiled[0]
+          })
+        }
+
+        return acc;
+      }, []);
+
+    this.accordions.forEach((accord, index) => {
+      if (accord.expanded) {
+        this.loaded.add(index);
+      }
+    });
   }
 }

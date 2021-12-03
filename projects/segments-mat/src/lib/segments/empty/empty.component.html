@@ -1,4 +1,4 @@
-<ng-container *ngIf="segment.title || segment.subTitle">
+<ng-container *ngIf="segment.title || segment.subTitle || (segment.array && arrayConfiguration.add)">
   <div class="flex jc-between">
     <div>
       <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
