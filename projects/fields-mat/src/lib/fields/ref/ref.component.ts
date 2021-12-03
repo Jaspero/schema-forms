@@ -133,6 +133,11 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   selection: SelectionModel<any>;
   subscriptions: Subscription[] = [];
 
+  get showApplyValue() {
+    return !this.cData.hideApplyValue &&
+     this.cData.control.value !== this.searchControl.value;
+  }
+ 
   ngOnInit() {
     this.searchControl = new FormControl('');
 
