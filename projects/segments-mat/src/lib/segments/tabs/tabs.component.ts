@@ -93,17 +93,5 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
       );
     }
   }
-
-  addArrayItem(tab: any) {
-    super.addArrayItem(
-      true,
-      true,
-      null,
-      tab,
-      tab.nestedArraySegments,
-      tab.arrayFields,
-      tab.nestedSegments
-    )
-  }
 }
 
