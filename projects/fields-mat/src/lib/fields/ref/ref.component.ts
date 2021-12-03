@@ -7,7 +7,8 @@ import {
   COMPONENT_DATA,
   DbService,
   FieldComponent,
-  FieldData, FilterMethod,
+  FieldData,
+  FilterMethod,
   ROLE,
   WhereFilter
 } from '@jaspero/form-builder';

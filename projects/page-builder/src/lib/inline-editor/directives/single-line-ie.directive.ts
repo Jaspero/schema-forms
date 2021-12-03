@@ -90,6 +90,11 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     );
   }
 
+  get shadowRootSelection() {
+      // @ts-ignore
+      return this.shadowRoot.getSelection() as Selection;
+  }
+
   async ngAfterViewInit() {
     await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -161,8 +166,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
              * Prevent creating new elements and adding br instead
              */
             if (e.key === 'Enter') {
-
-              const selection = (this.shadowRoot.getSelection() as Selection);
+              const selection = this.shadowRootSelection;
               const range = selection.getRangeAt(0);
               const br = document.createElement('br');
 
@@ -366,7 +370,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
               this.scrollListener = null;
             }
           } else if (
-            this.htmlEl.contains((this.shadowRoot.getSelection() as Selection)?.anchorNode?.parentElement)
+            this.htmlEl.contains(this.shadowRootSelection?.anchorNode?.parentElement)
           ) {
             this.showToolbar();
           }
@@ -420,7 +424,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   triggerSelection() {
 
-    const selection = this.shadowRoot.getSelection() as Selection;
+    const selection = this.shadowRootSelection;
     const existing = this.options.textDecorations as string[];
     const decorations: string[] = [];
 
