@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.2.1...@jaspero/fb-ref-table@2.3.0) (2021-12-03)
+
+
+### Features
+
+* update to angular v13 ([fde8c27](https://github.com/Jaspero/schema-forms/commit/fde8c273f646a7cd3dbf3224cbeabd32d495e651))
+
 ## @jaspero/fb-ref-table [2.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.2.0...@jaspero/fb-ref-table@2.2.1) (2021-11-11)
 
 
