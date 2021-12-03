@@ -7,6 +7,7 @@ import {CustomComponent} from '../custom/custom.component';
 import {CompiledField, FieldCondition} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {Definitions} from '../interfaces/definitions.interface';
+import {ArrayConfiguration} from '../interfaces/segment.interface';
 import {SEGMENT_DATA} from '../utils/create-segment-injector';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
 import {Parser, Pointer, Pointers} from '../utils/parser';
@@ -30,6 +31,7 @@ export class SegmentComponent<T = any> implements OnInit {
   ) {}
 
   segment: CompiledSegment<T>;
+  arrayConfiguration: ArrayConfiguration;
   pointers: Pointers;
   pointer: Pointer;
   nestedSegments: CompiledSegment<T>[];
@@ -50,6 +52,12 @@ export class SegmentComponent<T = any> implements OnInit {
 
   ngOnInit() {
     this.segment = this.sData.segment;
+    this.arrayConfiguration = {
+      add: true,
+      remove: true,
+      sort: true,
+      ...this.segment.arrayConfiguration || {}
+    };
     this.classes = this.sData.segment.classes.join(' ');
     this.pointers = this.sData.parser.pointers;
     this.id = this.sData.segment.id || '';

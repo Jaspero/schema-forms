@@ -2,6 +2,12 @@ import {FieldCondition} from './compiled-field.interface';
 import {CompiledCondition, Condition} from './condition.interface';
 import {CustomComponentDefinition} from './custom-component-definition.interface';
 
+export interface ArrayConfiguration {
+  add?: boolean;
+  remove?: boolean;
+  sort?: boolean;
+}
+
 export interface Segment<C = any> {
   components?: CustomComponentDefinition[];
 
@@ -15,6 +21,7 @@ export interface Segment<C = any> {
    */
   fields?: (string | any | FieldCondition)[];
   array?: string;
+  arrayConfiguration?: ArrayConfiguration
   type?: string;
   title?: string;
   subTitle?: string;

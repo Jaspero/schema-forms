@@ -64,7 +64,10 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
     {
       title: 'Addresses',
       array: '/addresses',
-      fields: ['/city', '/address']
+      fields: ['/city', '/address'],
+      arrayConfiguration: {
+        sort: false
+      }
     },
     {
       title: 'Nested Arrays',
