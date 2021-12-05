@@ -15,6 +15,11 @@ import {
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription} from 'rxjs';
 import {distinctUntilChanged, map, scan, startWith, switchMap, take, tap} from 'rxjs/operators';
 
+interface RefColumn {
+  key: string;
+  label: string;
+}
+
 interface RefData extends FieldData {
   /**
    * Collection to query for search
@@ -63,16 +68,17 @@ interface RefData extends FieldData {
    * Table columns for displaying search table
    * @required
    * @default {
-   *   tableColumns: [
+   *   columns: [
    *     {key: '/id', label: 'ID'}
    *   ]
    * }
    */
   table?: {
-    tableColumns?: {
-      key: string;
-      label: string;
-    }[];
+    /**
+     * @depriciated Use "columns" insted. tableColumns will be removed in a future release.
+     */
+    tableColumns?: RefColumn[];
+    columns?: RefColumn[];
   };
 
   /**
@@ -138,6 +144,19 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
     return !this.cData.hideApplyValue &&
      this.cData.control.value !== this.searchControl.value;
   }
+
+  get columns() {
+
+    const defulatColumns = [{key: '/id', label: 'ID'}];
+
+    if (!this.cData.table) {
+      return defulatColumns;
+    }
+
+    return this.cData.table.columns ||
+      this.cData.table.tableColumns ||
+      defulatColumns;
+  }
  
   ngOnInit() {
     this.searchControl = new FormControl('');
@@ -156,16 +175,13 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
         key: this.cData.search?.key || '/name',
         label: this.cData.search?.label || 'Name'
       },
-      table: {
-        tableColumns: this.cData.table?.tableColumns || [{key: '/id', label: 'ID'}]
-      },
       clearValue: this.cData.clearValue !== undefined ? this.cData.clearValue ?? (this.cData.multiple ? [] : null) : this.cData.clearValue,
       closeOnSelect: this.cData.closeOnSelect ?? !this.cData.multiple
     };
 
     this.displayedColumns = [
       ...(this.cData.multiple ? ['select'] : []),
-      ...this.cData.table.tableColumns.map(column => column.key.slice(1)) as string[]
+      ...this.columns.map(column => column.key.slice(1)) as string[]
     ];
 
     this.selection = new SelectionModel(true, []);
