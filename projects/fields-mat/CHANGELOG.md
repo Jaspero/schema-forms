@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.1.0...@jaspero/fb-fields-mat@1.2.0) (2021-12-05)
+
+
+### Features
+
+* **ref:** using columns instead of tableColumns ([f107e57](https://github.com/Jaspero/schema-forms/commit/f107e57a4430940bc7fa7823e6e2d07b4b8e812b))
+
 # @jaspero/fb-fields-mat [1.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.0.9...@jaspero/fb-fields-mat@1.1.0) (2021-12-03)
 
 
