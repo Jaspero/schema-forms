@@ -1,3 +1,13 @@
+## @jaspero/fb-fields-mat [1.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.2.0...@jaspero/fb-fields-mat@1.2.1) (2021-12-06)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 4.21.0
+
 # @jaspero/fb-fields-mat [1.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.1.0...@jaspero/fb-fields-mat@1.2.0) (2021-12-05)
 
 
