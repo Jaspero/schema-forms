@@ -3,6 +3,7 @@ import {combineLatest, Observable, of} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Action, CompiledField} from '../../interfaces/compiled-field.interface';
 import {Parser} from '../../utils/parser';
+import {safeEval} from '@jaspero/utils';
 
 @Pipe({name: 'showField'})
 export class ShowFieldPipe implements PipeTransform {
@@ -104,7 +105,12 @@ export class ShowFieldPipe implements PipeTransform {
         }
         case 'set-to': {
           if (valid) {
-            parser.pointers[condition.field].control.setValue(action.configuration.value, {emitEvent: false});
+
+            const value = safeEval(action.configuration.value);
+
+            parser.pointers[condition.field].control.setValue(
+              typeof value === 'function' ? value(row, index || 0) : value, {emitEvent: false}
+            );
           }
           break;
         }
