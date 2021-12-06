@@ -1,3 +1,10 @@
+# @jaspero/form-builder [4.21.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.20.0...@jaspero/form-builder@4.21.0) (2021-12-06)
+
+
+### Features
+
+* conditional-segments, evaluate on set-to value ([fa6d867](https://github.com/Jaspero/schema-forms/commit/fa6d8670bf7f9c1c930f88ec1b0455310c106154))
+
 # @jaspero/form-builder [4.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.19.0...@jaspero/form-builder@4.20.0) (2021-12-03)
 
 
