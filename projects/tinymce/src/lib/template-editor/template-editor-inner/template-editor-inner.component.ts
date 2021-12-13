@@ -94,6 +94,7 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
       plugins: ['link', 'lists', 'image', 'code'],
       toolbar: ['styleselect', 'bold italic underline', 'link image emoticons', 'align bullist numlist', 'code removeformat'].join(' | '),
       menubar: false,
+      inline_styles : true,
       inline: true,
       target_list: false,
       object_resizing: false,
@@ -127,7 +128,8 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
         'glyph[*]',
         'symbol[*]',
         'switch[*]',
-        'use[*]'
+        'use[*]',
+        'style[*]'
       ].join(','),
       images_upload_handler: (blobInfo, success, failure) => {
 
