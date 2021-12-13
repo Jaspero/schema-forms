@@ -6,6 +6,7 @@ import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builde
 import {TranslocoModule} from '@ngneat/transloco';
 import {TemplateEditorInnerComponent} from './template-editor-inner/template-editor-inner.component';
 import {TemplateEditorComponent} from './template-editor.component';
+import {SanitizeModule} from '@jaspero/ng-helpers';
 
 @NgModule({
   declarations: [TemplateEditorComponent, TemplateEditorInnerComponent],
@@ -17,7 +18,8 @@ import {TemplateEditorComponent} from './template-editor.component';
     MatButtonModule,
     MatMenuModule,
 
-    TranslocoModule
+    TranslocoModule,
+    SanitizeModule
   ]
 })
 export class TemplateEditorModule {
