@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.4.0...@jaspero/fb-tinymce@2.4.1) (2021-12-13)
+
+
+### Bug Fixes
+
+* **tinymce:** added html sanitaze on template editor ([0d8030d](https://github.com/Jaspero/schema-forms/commit/0d8030d0fca3c462b270137829fca226cfc044cc))
+
 # @jaspero/fb-tinymce [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.3.1...@jaspero/fb-tinymce@2.4.0) (2021-12-13)
 
 
