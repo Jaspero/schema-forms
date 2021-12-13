@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.3.1...@jaspero/fb-tinymce@2.4.0) (2021-12-13)
+
+
+### Features
+
+* **tinymce:** enable inline style and style tag in template editor ([44b70f1](https://github.com/Jaspero/schema-forms/commit/44b70f1320638d3f0c1ead87e7cadcd529198085))
+
 ## @jaspero/fb-tinymce [2.3.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.3.0...@jaspero/fb-tinymce@2.3.1) (2021-12-06)
 
 
