@@ -1,3 +1,4 @@
+import {A11yModule} from '@angular/cdk/a11y';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
@@ -20,7 +21,8 @@ const BLOCKS = [
     CommonModule,
     InlineEditorModule,
     SanitizeModule,
-    MatCardModule
+    MatCardModule,
+    A11yModule
   ]
 })
 export class BlocksModule { }
