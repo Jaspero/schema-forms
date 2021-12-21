@@ -3,9 +3,7 @@ import {CommonModule, DOCUMENT} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Compiler,
   Component,
-  ComponentFactory,
   ComponentRef,
   ElementRef,
   Inject,
@@ -16,9 +14,11 @@ import {
   Renderer2,
   ViewChild,
   ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Type,
+  NgModuleRef,
+  createNgModuleRef
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
@@ -123,8 +123,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     @Optional()
     @Inject(FB_PAGE_BUILDER_OPTIONS)
     private options: FbPageBuilderOptions,
-    private dialog: MatDialog,
-    private compiler: Compiler,
     private cdr: ChangeDetectorRef,
     private domSanitizer: DomSanitizer,
     @Inject(DOCUMENT)
@@ -160,6 +158,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   counter: UniqueId;
   intro$: Observable<string>;
   rightEmpty$: Observable<string>;
+  moduleRef: NgModuleRef<any>;
 
   private compRefs: ComponentRef<any>[];
 
@@ -221,6 +220,13 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       } as TopBlock;
     });
 
+    this.moduleRef = createNgModuleRef(NgModule({
+      imports: [
+        CommonModule,
+        ...(this.options && this.options.previewModules) || []
+      ]
+    })(class A {}) as any);
+
     this.service.saveComponents.push(this);
 
     this.intro$ = this.transloco.langChanges$.pipe(
@@ -280,26 +286,14 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       JSON.parse(JSON.stringify(block.previewValue)) :
       {};
 
-    this.compiler.compileModuleAndAllComponentsAsync(
-      this.tempModule([{
-        id: this.counter.next(),
-        type: block.id,
-        icon: block.icon,
-        label: block.label,
-        visible: true,
-        form: block.form,
+    this.compRefs.push(
+      this.renderComponent(
+        this.createPreviewComponent({type: block.id, id: this.counter.next()}),
         value
-      }])
-    )
-      .then((factories) => {
-        this.compRefs.push(
-          ...factories.componentFactories.map(f =>
-            this.renderComponent(f, value)
-          )
-        );
+      )
+    );
 
-        this.focusBlock(this.compRefs.length - 1);
-      });
+    this.focusBlock(this.compRefs.length - 1);
 
     this.previewed = index;
     this.cdr.markForCheck();
@@ -544,21 +538,19 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       this.iframeTarget = this.iFrameDoc.body;
     }
 
-    this.compiler.compileModuleAndAllComponentsAsync(tmpModule)
-      .then((factories) => {
-        this.compRefs = factories.componentFactories.map((f, index) => {
-          const ref = this.renderComponent(f, this.blocks[index].value);
-          this.bindSelect(ref, this.blocks[index], index);
-          return ref;
-        });
-        this.cdr.markForCheck();
-      });
+    this.compRefs = this.blocks.map((block, index) => {
+      const ref = this.renderComponent(this.createPreviewComponent(block as any), block.value);
+      this.bindSelect(ref, block, index);
+      return ref;
+    })
+
+    this.cdr.markForCheck();
   }
 
   tempModule(blocks: TopBlock[]) {
     return NgModule({
       declarations: blocks.map(block =>
-        this.createPreviewComponent(block)
+        this.createPreviewComponent(block as any)
       ),
       imports: [
         CommonModule,
@@ -567,7 +559,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     })(class A {});
   }
 
-  createPreviewComponent(block: TopBlock) {
+  createPreviewComponent(block: {type: string, id: number}) {
     const type = this.selection[block.type];
 
     return Component({
@@ -639,10 +631,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   private renderComponent(
-    factory: ComponentFactory<any>,
+    component: Type<any>,
     value: any
   ) {
-    const cmpRef = this.vce.createComponent(factory);
+    const cmpRef = this.vce.createComponent(component, {ngModuleRef: this.moduleRef});
     const nElement = cmpRef.location.nativeElement;
 
     cmpRef.instance.data = value;

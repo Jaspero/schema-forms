@@ -375,7 +375,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       ).pipe(
         take(1)
       ).subscribe(documents => {
-        this.selection.select(...documents);
+        this.selection.select(...documents as any);
       });
     }
   }
