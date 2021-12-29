@@ -5,6 +5,7 @@ export * from './lib/page-builder.module';
 export * from './lib/inline-editor/inline-editor.module';
 export * from './lib/options.interface';
 export * from './lib/options.token';
+export * from './lib/register-blocks.class';
 
 /**
  * Inline editors

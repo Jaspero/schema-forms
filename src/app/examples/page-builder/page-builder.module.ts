@@ -26,7 +26,7 @@ const routes: Routes = [{
     {
       provide: FB_PAGE_BUILDER_OPTIONS,
       useValue: {
-        previewModules: [BlocksModule]
+        previewModule: BlocksModule
       }
     }
   ]
