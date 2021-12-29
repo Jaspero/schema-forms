@@ -1,5 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {CommonModule, DOCUMENT} from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -17,7 +17,8 @@ import {
   ViewEncapsulation,
   Type,
   NgModuleRef,
-  createNgModuleRef
+  createNgModuleRef,
+  Injector
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
@@ -106,6 +107,8 @@ interface BlocksData extends FieldData {
   saveCompiled?: boolean;
 }
 
+class Example {};
+
 @UntilDestroy()
 @Component({
   selector: 'fb-pb-blocks',
@@ -128,7 +131,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     @Inject(DOCUMENT)
     private document: any,
     private renderer: Renderer2,
-    private ctx: PageBuilderCtxService
+    private ctx: PageBuilderCtxService,
+    private injector: Injector
   ) {
     super(cData);
   }
@@ -219,13 +223,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         form: item.form
       } as TopBlock;
     });
-
-    this.moduleRef = createNgModuleRef(NgModule({
-      imports: [
-        CommonModule,
-        ...(this.options && this.options.previewModules) || []
-      ]
-    })(class A {}) as any);
 
     this.service.saveComponents.push(this);
 
@@ -525,7 +522,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   preview() {
-    const tmpModule = this.tempModule(this.blocks);
+    if (!this.moduleRef) {
+      this.moduleRef = createNgModuleRef(this.options.previewModule, this.injector);
+    }
 
     if (this.vce.length) {
       this.vce.clear();
@@ -542,21 +541,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       const ref = this.renderComponent(this.createPreviewComponent(block as any), block.value);
       this.bindSelect(ref, block, index);
       return ref;
-    })
+    });
 
     this.cdr.markForCheck();
-  }
-
-  tempModule(blocks: TopBlock[]) {
-    return NgModule({
-      declarations: blocks.map(block =>
-        this.createPreviewComponent(block as any)
-      ),
-      imports: [
-        CommonModule,
-        ...(this.options && this.options.previewModules) || []
-      ]
-    })(class A {});
   }
 
   createPreviewComponent(block: {type: string, id: number}) {
@@ -570,7 +557,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
       ],
       encapsulation: ViewEncapsulation.ShadowDom
-    })(class {});
+    })(Example);
   }
 
   isDisabled(block: Block) {
@@ -634,7 +621,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     component: Type<any>,
     value: any
   ) {
-    const cmpRef = this.vce.createComponent(component, {ngModuleRef: this.moduleRef});
+    const cmpRef = this.vce.createComponent(component);
     const nElement = cmpRef.location.nativeElement;
 
     cmpRef.instance.data = value;
