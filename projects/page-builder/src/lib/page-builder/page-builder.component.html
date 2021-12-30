@@ -9,7 +9,7 @@
       <ng-container *ngIf="blocks.length">
         <ul class="pb-sidebar-list" cdkDropList (cdkDropListSorted)="moveBlocks($event)">
           <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y" (cdkDragStarted)="dragStarted()" (cdkDragEnded)="dragStopped()">
-            <fb-pb-block-navigation class="w-full" [block]="block" [value]="block.value" [index]="index" [selectBlock]="selectBlock.bind(this)" [closeBlock]="closeBlock.bind(this)" [removeBlock]="removeBlock.bind(this)" [addBlock]="addBlock.bind(this)" [preview]="preview.bind(this)" (optionsChanged)="optionsChanged($event)"></fb-pb-block-navigation>
+            <fb-pb-navigation class="w-full" [block]="block" [value]="block.value" [index]="index" [selectBlock]="selectBlock.bind(this)" [closeBlock]="closeBlock.bind(this)" [removeBlock]="removeBlock.bind(this)" [addBlock]="addBlock.bind(this)" [preview]="preview.bind(this)" (optionsChanged)="optionsChanged($event)"></fb-pb-navigation>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>
@@ -81,12 +81,12 @@
           </header>
 
           <main>
-            <fb-pb-block
+            <fb-pb-block-form
               [selected]="selected"
               [parentFormId]="cData.parentFormId"
               (remove)="removeBlock()"
               (optionsChanged)="optionsChanged($event)">
-            </fb-pb-block>
+            </fb-pb-block-form>
           </main>
         </ng-container>
 

@@ -7,20 +7,15 @@ import {
   ComponentRef,
   ElementRef,
   Inject,
-  NgModule,
   OnDestroy,
   OnInit,
   Optional,
   Renderer2,
   ViewChild,
   ViewContainerRef,
-  ViewEncapsulation,
-  Type,
-  NgModuleRef,
-  createNgModuleRef,
-  Injector
+  Injector,
 } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, ɵDomSharedStylesHost} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
@@ -34,7 +29,7 @@ import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
-import {BlockComponent} from '../block/block.component';
+import {safeEval} from '@jaspero/utils';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {PageBuilderCtxService} from '../page-builder-ctx.service';
@@ -42,7 +37,9 @@ import {Selected} from '../selected.interface';
 import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
-import {safeEval} from '@jaspero/utils';
+import {registerBlocks} from '../register-blocks';
+import {BlockFormComponent} from '../block-form/block-form.component';
+import {BlockComponent} from '../block/block.component';
 
 interface BlockSegment extends Segment {
   icon: string | ((value: any) => string);
@@ -63,7 +60,6 @@ interface Block {
    * on blocks that don't have any configuration.
    */
   skipOpen?: boolean;
-  previewTemplate?: string;
   previewStyle?: string;
   previewValue?: any;
 
@@ -107,16 +103,14 @@ interface BlocksData extends FieldData {
   saveCompiled?: boolean;
 }
 
-class Example {};
-
 @UntilDestroy()
 @Component({
-  selector: 'fb-pb-blocks',
-  templateUrl: './blocks.component.html',
-  styleUrls: ['./blocks.component.scss'],
+  selector: 'fb-pb-page-builder',
+  templateUrl: './page-builder.component.html',
+  styleUrls: ['./page-builder.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlocksComponent extends FieldComponent<BlocksData> implements OnInit, OnDestroy {
+export class PageBuilderComponent extends FieldComponent<BlocksData> implements OnInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
@@ -132,14 +126,15 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     private document: any,
     private renderer: Renderer2,
     private ctx: PageBuilderCtxService,
-    private injector: Injector
+    private injector: Injector,
+    private domSharedStyleHost: ɵDomSharedStylesHost
   ) {
     super(cData);
   }
 
   @ViewChild('ipe', {static: false, read: ViewContainerRef}) vce: ViewContainerRef;
   @ViewChild('iframe', {static: false}) iframeEl: ElementRef<HTMLIFrameElement>;
-  @ViewChild(BlockComponent, {static: false}) blockComponent: BlockComponent;
+  @ViewChild(BlockFormComponent, {static: false}) blockFormComponent: BlockFormComponent;
 
   iframeTarget: HTMLElement;
   state = 'blocks';
@@ -162,9 +157,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   counter: UniqueId;
   intro$: Observable<string>;
   rightEmpty$: Observable<string>;
-  moduleRef: NgModuleRef<any>;
 
-  private compRefs: ComponentRef<any>[];
+  private compRefs: ComponentRef<BlockComponent>[];
 
   get isFullscreen() {
     return this.view === 'fullscreen';
@@ -172,6 +166,10 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   get iFrameDoc() {
     return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
+  }
+
+  get module() {
+    return this.formCtx.module || 'pages';
   }
 
   dragStarted() {
@@ -193,7 +191,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     let {blocks = [], control} = this.cData;
 
     // @ts-ignore
-    const addedBlocks = STATE.blocks[this.formCtx.module];
+    const addedBlocks = STATE.blocks[this.module];
 
     if (addedBlocks) {
       blocks = [
@@ -285,7 +283,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.compRefs.push(
       this.renderComponent(
-        this.createPreviewComponent({type: block.id, id: this.counter.next()}),
+        {type: block.id, id: this.counter.next()},
         value
       )
     );
@@ -419,7 +417,8 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
         return;
       }
 
-      activeBlock.shadowRoot.querySelector('div').style.boxShadow = 'inset  0px 0px 0px 2px rgba(0, 0, 0, .4)';
+      this.compRefs[index].instance.selected = true;
+      this.cdr.markForCheck();
 
       if (index === 0) {
         this.iFrameDoc.body.scrollTo({
@@ -435,12 +434,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     });
   }
 
-
   removeFocus(index = this.selectedIndex) {
-    const block = this.compRefs[index]?.location.nativeElement;
+    const block = this.compRefs[index];
     if (block) {
-      block.shadowRoot.querySelector('div').style.boxShadow = 'none';
+      block.instance.selected = false;
     }
+    this.cdr.markForCheck();
   }
 
   optionsChanged(data: any) {
@@ -462,7 +461,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
     this.blocks[this.selectedIndex].value = data;
     this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
-    this.compRefs[this.selectedIndex].instance.data = data;
+    // this.compRefs[this.selectedIndex].instance.data = data;
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
 
@@ -471,15 +470,15 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
       return;
     }
 
-    if (this.blockComponent) {
+    if (this.blockFormComponent) {
       this.toProcess[(this.selected as Selected).id] = {
-        save: this.blockComponent.formBuilderComponent
+        save: this.blockFormComponent.formBuilderComponent
           .save
           .bind(
-            this.blockComponent.formBuilderComponent
+            this.blockFormComponent.formBuilderComponent
           ),
-        metadata: this.blockComponent.formBuilderComponent.metadata,
-        components: [...(this.blockComponent.formBuilderComponent as any).service.saveComponents]
+        metadata: this.blockFormComponent.formBuilderComponent.metadata,
+        components: [...(this.blockFormComponent.formBuilderComponent as any).service.saveComponents]
       };
     }
 
@@ -494,6 +493,9 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
 
   open() {
     this.isOpen = true;
+
+    registerBlocks(this.module, this.injector);
+
     this.originalOverflowY = this.document.body.style.overflowY;
     this.document.body.style.overflowY = 'hidden';
 
@@ -502,9 +504,36 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     this.cdr.detectChanges();
 
     this.preview();
+
+    if (this.cData.styleUrls) {
+      const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
+      
+      if (urls.length) {
+        urls.forEach(url => {
+          const lEl = document.createElement('link');
+          lEl.href = url;
+          lEl.rel = 'stylesheet';
+          lEl.type = 'text/css';
+          this.iFrameDoc.head.appendChild(lEl);
+        });
+      }
+    }
+
+    const inlineStyles = (this.cData.styles ? (typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles) : []);
+
+    if (inlineStyles.length) {
+      inlineStyles.forEach(style => {
+        const el = document.createElement('style');
+        el.innerHTML = style;
+        this.iFrameDoc.head.appendChild(el);
+      })
+    }
+
+    this.domSharedStyleHost.addHost(this.iFrameDoc.head);
   }
 
   close() {
+    this.domSharedStyleHost.removeHost(this.iFrameDoc.head);
     this.closeBlock();
     this.cdr.markForCheck();
 
@@ -522,10 +551,6 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   preview() {
-    if (!this.moduleRef) {
-      this.moduleRef = createNgModuleRef(this.options.previewModule, this.injector);
-    }
-
     if (this.vce.length) {
       this.vce.clear();
     }
@@ -538,26 +563,12 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
     }
 
     this.compRefs = this.blocks.map((block, index) => {
-      const ref = this.renderComponent(this.createPreviewComponent(block as any), block.value);
+      const ref = this.renderComponent(block, block.value);
       this.bindSelect(ref, block, index);
       return ref;
     });
 
     this.cdr.markForCheck();
-  }
-
-  createPreviewComponent(block: {type: string, id: number}) {
-    const type = this.selection[block.type];
-
-    return Component({
-      template: `<div id="fb-pb-${block.id}">${type.previewTemplate}</div>`,
-      styles: [
-        ...type.previewStyle ? [type.previewStyle] : [],
-        ...(this.cData.styles ? (typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles) : [])
-
-      ],
-      encapsulation: ViewEncapsulation.ShadowDom
-    })(Example);
   }
 
   isDisabled(block: Block) {
@@ -596,7 +607,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
                   value,
                   type: block.type,
                   ...this.cData.saveCompiled && {
-                    compiled: this.compRefs[index].location.nativeElement.shadowRoot.innerHTML
+                    compiled: this.compRefs[index].location.nativeElement.innerHTML
                   }
                 }
               })
@@ -609,7 +620,7 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
           value: block.value,
           type: block.type,
           ...this.cData.saveCompiled && {
-            compiled: this.compRefs[index].location.nativeElement.shadowRoot.innerHTML
+            compiled: this.compRefs[index].location.nativeElement.innerHTML
           }
         }))
       );
@@ -618,37 +629,27 @@ export class BlocksComponent extends FieldComponent<BlocksData> implements OnIni
   }
 
   private renderComponent(
-    component: Type<any>,
+    block: {type: string; id: number;},
     value: any
   ) {
-    const cmpRef = this.vce.createComponent(component);
-    const nElement = cmpRef.location.nativeElement;
 
-    cmpRef.instance.data = value;
+    /**
+     * Creating block component
+     */
+    const type = this.selection[block.type];
+    const element = document.createElement(block.type);
+    const cmpRef = this.vce.createComponent(BlockComponent, {
+      projectableNodes: [[element]]
+    });
 
-    this.iframeTarget.appendChild(nElement);
+    /**
+     * Assigning inputs
+     */
+    // cmpRef.instance.data = value;
+    cmpRef.instance.id = block.id;
+    cmpRef.instance.styles = type.previewStyle ? [type.previewStyle] : [];
 
-    if (this.cData.styleUrls) {
-      const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
-
-      for (const url of urls) {
-        const lEl = this.iFrameDoc.createElement('link');
-        lEl.href = url;
-        lEl.rel = 'stylesheet';
-        lEl.type = 'text/css';
-        nElement.appendChild(lEl);
-      }
-    }
-
-    if (this.cData.styles) {
-      const styles = typeof this.cData.styles === 'string' ? [this.cData.styles] : this.cData.styles;
-
-      for (const style of styles) {
-        const sEl = this.iFrameDoc.createElement('style');
-        sEl.innerHTML = style;
-        this.iFrameDoc.head.appendChild(sEl);
-      }
-    }
+    this.iframeTarget.appendChild(cmpRef.location.nativeElement);
 
     return cmpRef;
   }

@@ -1,0 +1,8 @@
+<fb-form-builder
+  *ngIf="formData && id"
+  [data]="formData"
+  [id]="id"
+  [parser]="parser"
+  [metadata]="metadata"
+  (cdkObserveContent)="changedFormBuilder()">
+</fb-form-builder>
