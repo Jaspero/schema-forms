@@ -27,16 +27,13 @@ export interface BlockOptions {
  */
 export function Block(options: BlockOptions): ClassDecorator {
   return (type: any) => {
-
-    console.log('decorator', type.constructor.prototype);
-
     const componentDef = type[ɵNG_COMP_DEF];
 
     if (componentDef === undefined) {
       throw new Error('Ivy is not enabled.');
     }
 
-    const {name} = componentDef.type.name;
+    const {name} = componentDef.type;
     const selector = componentDef.selectors[0][0];
 
     const label = name.replace('Component', '').split(/(?=[A-Z])/);

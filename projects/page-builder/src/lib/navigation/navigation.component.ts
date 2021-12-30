@@ -26,13 +26,13 @@ interface FlatNode {
 }
 
 @Component({
-  selector: 'fb-pb-block-navigation',
-  templateUrl: './block-navigation.component.html',
-  styleUrls: ['./block-navigation.component.scss'],
+  selector: 'fb-pb-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class BlockNavigationComponent {
+export class NavigationComponent {
   constructor(
     private transloco: TranslocoService,
     private dialog: MatDialog,

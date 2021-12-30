@@ -1,2 +1,8 @@
+
 tasks:
-  - init: npm ci
+  - init: npm ci && npm i -g @angular/cli
+vscode:
+  extensions:
+    - johnpapa.angular2
+    - angular.ng-template
+    - cyrilletuzi.angular-schematics

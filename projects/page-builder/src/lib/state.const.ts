@@ -1,11 +1,11 @@
 export const STATE: {
-  registered: boolean;
+  registered: {[key: string]: boolean};
   blocks: {
     [key: string]: {
       [key: string]: any;
     }
   }
 } = {
-  registered: false,
+  registered: {},
   blocks: {}
 };

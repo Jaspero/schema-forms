@@ -11,17 +11,19 @@ import {MatTreeModule} from '@angular/material/tree';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
-import {BlockComponent} from './block/block.component';
-import {BlocksComponent} from './blocks/blocks.component';
-import {BlockNavigationComponent} from './blocks/components/block-navigation/block-navigation.component';
+import {BlockFormComponent} from './block-form/block-form.component';
+import {NavigationComponent} from './navigation/navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
+import {PageBuilderComponent} from './page-builder/page-builder.component';
 import {ToolbarService} from './toolbar.service';
+import { BlockComponent } from './block/block.component';
 
 @NgModule({
   declarations: [
-    BlocksComponent,
-    BlockComponent,
-    BlockNavigationComponent
+    PageBuilderComponent,
+    BlockFormComponent,
+    NavigationComponent,
+    BlockComponent
   ],
   imports: [
     CommonModule,
@@ -52,11 +54,11 @@ export class PageBuilderModule {
   ) {
     this.ctx.registerField(
       'pb-blocks',
-      BlocksComponent
+      PageBuilderComponent
     );
     this.ctx.registerField(
       'pb-block',
-      BlockComponent
+      BlockFormComponent
     );
   }
 }
