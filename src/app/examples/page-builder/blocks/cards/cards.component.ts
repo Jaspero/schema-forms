@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {BlockData} from '../../../../../../projects/page-builder/src/lib/decorators/block-data.class';
+import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 import {COMMON_OPTIONS} from '../../common-options.const';
 

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BlockData} from '../../../../../../projects/page-builder/src/lib/decorators/block-data.class';
+import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 
 interface Data {
@@ -32,8 +32,4 @@ interface Data {
   styleUrls: ['./simple.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SimpleComponent extends BlockData<Data> implements OnInit {
-  ngOnInit() {
-    console.log(this.data);
-  }
-}
+export class SimpleComponent extends BlockData<Data> {}
