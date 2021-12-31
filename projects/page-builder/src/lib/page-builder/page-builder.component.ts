@@ -89,7 +89,7 @@ interface BlocksData extends FieldData {
     selector: string;
     content: string;
   };
-  intro?: string | { [key: string]: string };
+  intro?: string | {[key: string]: string};
   rightSidebar?: {
     emptyState?: string;
   };
@@ -102,6 +102,10 @@ interface BlocksData extends FieldData {
    */
   saveCompiled?: boolean;
 }
+
+declare const window: Window & {
+  jpFbPb: {[key: string]: any}
+};
 
 @UntilDestroy()
 @Component({
@@ -140,7 +144,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   state = 'blocks';
   selected: Selected | null;
   selectedIndex: number;
-  selection: { [key: string]: Selected };
+  selection: {[key: string]: Selected};
   blocks: TopBlock[];
   availableBlocks: Block[];
   previewed: number | undefined;
@@ -170,6 +174,14 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
   get module() {
     return this.formCtx.module || 'pages';
+  }
+
+  get dataStore() {
+    if (!window.jpFbPb) {
+      window.jpFbPb = {};
+    }
+
+    return window.jpFbPb;
   }
 
   dragStarted() {
@@ -418,7 +430,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       }
 
       this.compRefs[index].instance.selected = true;
-      this.cdr.markForCheck();
 
       if (index === 0) {
         this.iFrameDoc.body.scrollTo({
@@ -439,7 +450,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     if (block) {
       block.instance.selected = false;
     }
-    this.cdr.markForCheck();
   }
 
   optionsChanged(data: any) {
@@ -459,9 +469,11 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       return;
     }
 
+    console.log('updated', selected.id);
+
     this.blocks[this.selectedIndex].value = data;
     this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
-    // this.compRefs[this.selectedIndex].instance.data = data;
+    this.dataStore[selected.id] = data || {};
     this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
   }
 
@@ -507,7 +519,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
     if (this.cData.styleUrls) {
       const urls = typeof this.cData.styleUrls === 'string' ? [this.cData.styleUrls] : this.cData.styleUrls;
-      
+
       if (urls.length) {
         urls.forEach(url => {
           const lEl = document.createElement('link');
@@ -634,10 +646,19 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   ) {
 
     /**
+     * Define state
+     */
+    this.dataStore[block.id] = value || {};
+
+
+    /**
      * Creating block component
      */
     const type = this.selection[block.type];
     const element = document.createElement(block.type);
+
+    element.id = block.id.toString();
+
     const cmpRef = this.vce.createComponent(BlockComponent, {
       projectableNodes: [[element]]
     });
@@ -645,7 +666,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     /**
      * Assigning inputs
      */
-    // cmpRef.instance.data = value;
     cmpRef.instance.id = block.id;
     cmpRef.instance.styles = type.previewStyle ? [type.previewStyle] : [];
 

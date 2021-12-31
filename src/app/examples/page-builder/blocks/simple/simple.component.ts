@@ -1,6 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {BlockData} from '../../../../../../projects/page-builder/src/lib/decorators/block-data.class';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 
+interface Data {
+  title: string;
+  singleLine: string;
+  image: string;
+}
 
 @Block({
   label: 'Banner',
@@ -26,12 +32,8 @@ import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/
   styleUrls: ['./simple.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SimpleComponent {
-
-  @Input()
-  data: {
-    title: string;
-    singleLine: string;
-    image: string;
-  };
+export class SimpleComponent extends BlockData<Data> implements OnInit {
+  ngOnInit() {
+    console.log(this.data);
+  }
 }

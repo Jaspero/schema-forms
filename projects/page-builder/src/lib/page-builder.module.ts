@@ -16,7 +16,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {PageBuilderComponent} from './page-builder/page-builder.component';
 import {ToolbarService} from './toolbar.service';
-import { BlockComponent } from './block/block.component';
+import {BlockComponent} from './block/block.component';
 
 @NgModule({
   declarations: [
