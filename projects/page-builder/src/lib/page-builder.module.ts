@@ -17,13 +17,15 @@ import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {PageBuilderComponent} from './page-builder/page-builder.component';
 import {ToolbarService} from './toolbar.service';
 import {BlockComponent} from './block/block.component';
+import {MbpComponent} from './fields/mbp/mbp.component';
 
 @NgModule({
   declarations: [
     PageBuilderComponent,
     BlockFormComponent,
     NavigationComponent,
-    BlockComponent
+    BlockComponent,
+    MbpComponent
   ],
   imports: [
     CommonModule,
@@ -52,13 +54,13 @@ export class PageBuilderModule {
   constructor(
     private ctx: FormBuilderContextService
   ) {
-    this.ctx.registerField(
-      'pb-blocks',
-      PageBuilderComponent
-    );
-    this.ctx.registerField(
-      'pb-block',
-      BlockFormComponent
-    );
+    [
+      ['blocks', PageBuilderComponent],
+      ['block', BlockFormComponent],
+      ['mbp', MbpComponent]
+    ]
+      .forEach(([key, component]) =>
+        this.ctx.registerField('pb-' + key, component)
+      )
   }
 }
