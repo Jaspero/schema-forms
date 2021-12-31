@@ -51,7 +51,7 @@ export class ImageIEDirective implements AfterViewInit {
   }
 
   get host() {
-    return this.htmlEl.getRootNode().host;
+    return this.htmlEl.closest('fb-pb-block');
   }
 
   get index() {

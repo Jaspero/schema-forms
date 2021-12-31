@@ -1,6 +1,15 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {BlockData} from '../../../../../../projects/page-builder/src/lib/decorators/block-data.class';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 import {COMMON_OPTIONS} from '../../common-options.const';
+
+interface Data {
+  slideTitle?: string;
+  slides: Array<{
+    title?: string;
+    image?: string;
+  }>;
+}
 
 @Block({
   label: 'Cards',
@@ -78,13 +87,4 @@ import {COMMON_OPTIONS} from '../../common-options.const';
   styleUrls: ['./cards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardsComponent {
-  @Input()
-  data: {
-    slideTitle?: string;
-    slides: Array<{
-      title?: string;
-      image?: string;
-    }>
-  }
-}
+export class CardsComponent extends BlockData<Data> {}

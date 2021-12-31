@@ -8,7 +8,7 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input, OnInit, Element
 })
 export class BlockComponent implements OnInit {
   constructor(
-    private el: ElementRef
+    public el: ElementRef
   ) {}
 
   @HostBinding('id')

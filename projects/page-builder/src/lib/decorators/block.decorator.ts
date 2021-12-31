@@ -3,6 +3,10 @@ import {Definitions, Segment} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {STATE} from '../state.const';
 
+declare const window: Window & {
+  jpFbPb: {[key: string]: any}
+};
+
 export interface BlockOptions {
   /**
    * Defaults to 'pages'
@@ -27,6 +31,12 @@ export interface BlockOptions {
  */
 export function Block(options: BlockOptions): ClassDecorator {
   return (type: any) => {
+    Object.defineProperty(type.prototype, 'data', {
+      get: function() {
+        return window.jpFbPb[this.id] || {};
+      }
+    });
+
     const componentDef = type[ɵNG_COMP_DEF];
 
     if (componentDef === undefined) {
@@ -41,6 +51,7 @@ export function Block(options: BlockOptions): ClassDecorator {
 
     if (!options.form) {
       options.form = {
+        segments: [],
         schema: {
           properties: {
             id: {type: 'string'}
