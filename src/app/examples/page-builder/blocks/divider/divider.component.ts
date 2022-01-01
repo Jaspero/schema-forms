@@ -12,13 +12,46 @@ const BLOCK: BlockOptions = {
     schema: {
       properties: {
         id: {type: 'string'},
-        box: {type: 'object'}
+        box: {type: 'string'}
       }
     },
     definitions: {
       box: {
         component: {
-          type: 'pb-mbp'
+          type: 'pb-mbp',
+          configuration: {
+            presets: {
+              margin: [
+                {
+                  name: 'Small',
+                  sides: {
+                    top: {size: 10, unit: 'px'},
+                    right: {size: 10, unit: 'px'},
+                    left: {size: 10, unit: 'px'},
+                    bottom: {size: 10, unit: 'px'},
+                  }
+                },
+                {
+                  name: 'Medium',
+                  sides: {
+                    top: {size: 20, unit: 'px'},
+                    right: {size: 20, unit: 'px'},
+                    left: {size: 20, unit: 'px'},
+                    bottom: {size: 20, unit: 'px'},
+                  }
+                },
+                {
+                  name: 'Large',
+                  sides: {
+                    top: {size: 30, unit: 'px'},
+                    right: {size: 30, unit: 'px'},
+                    left: {size: 30, unit: 'px'},
+                    bottom: {size: 30, unit: 'px'},
+                  }
+                }
+              ]
+            }
+          }
         }
       }
     }
