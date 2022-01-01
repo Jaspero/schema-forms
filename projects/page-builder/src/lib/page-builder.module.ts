@@ -2,12 +2,14 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ObserversModule} from '@angular/cdk/observers';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
@@ -18,6 +20,9 @@ import {PageBuilderComponent} from './page-builder/page-builder.component';
 import {ToolbarService} from './toolbar.service';
 import {BlockComponent} from './block/block.component';
 import {MbpComponent} from './fields/mbp/mbp.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,7 @@ import {MbpComponent} from './fields/mbp/mbp.component';
   imports: [
     CommonModule,
     FormBuilderModule,
+    ReactiveFormsModule,
 
     MatButtonModule,
     MatDialogModule,
@@ -38,6 +44,11 @@ import {MbpComponent} from './fields/mbp/mbp.component';
     MatIconModule,
     DragDropModule,
     MatTreeModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatInputModule,
 
     StopPropagationModule,
     SanitizeModule,
