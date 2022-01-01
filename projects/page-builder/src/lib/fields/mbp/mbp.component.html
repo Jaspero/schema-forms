@@ -20,6 +20,20 @@
 
 <div *ngIf="form" [formGroup]="form">
 
+  <div class="option-set" *ngIf="presets[selected.type]?.length">
+    <div class="option-set-label">Presets</div>
+
+    <mat-chip-list>
+      <mat-chip
+        class="preset"
+        *ngFor="let preset of presets[selected.type]"
+        [selected]="form.get('preset').value === preset.name"
+        (click)="selectPreset(preset)">
+        {{preset.name}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
   <div class="option-set">
     <div class="option-set-label">
       <span>{{selected.type}}</span>

@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {Subscription} from 'rxjs';
 
 enum Unit {
   px = 'px',
@@ -27,7 +29,7 @@ enum Side {
   left = 'left'
 }
 
-interface Sides<T = string> {
+interface Sides<T = {size: number, unit: Unit.px}> {
   top?: T;
   right?: T;
   bottom?: T;
@@ -35,7 +37,8 @@ interface Sides<T = string> {
 }
 
 interface BorderSide {
-  size: string;
+  size: number;
+  unit: Unit.px;
   style: BorderStyle;
   radius: string;
   color: string;
@@ -46,13 +49,15 @@ interface Preset<T = string> {
   sides: Sides<T>;
 }
 
+interface Presets {
+  border?: Preset<BorderSide>[];
+  margin?: Preset[];
+  padding?: Preset[];
+}
+
 interface MbpData extends FieldData {
   units?: Unit[];
-  presets?: {
-    border?: Preset<BorderSide>;
-    margin?: Preset;
-    padding?: Preset;
-  };
+  presets?: Presets;
   margin?: {
     enabled?: boolean;
     defaultUnit?: string;
@@ -82,6 +87,7 @@ interface Item {
   child?: Item;
 }
 
+@UntilDestroy()
 @Component({
   selector: 'fb-pb-mbp',
   templateUrl: './mbp.component.html',
@@ -125,6 +131,9 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
       size: number;
     };
   } = {};
+  presets: Presets;
+
+  private subscription: Subscription;
 
   get locked() {
     return this.form.get('locked').value as boolean;
@@ -160,12 +169,13 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
     }
 
     this.units = this.cData.units || [Unit.px, Unit.em, Unit.rem];
+    this.presets = this.cData.presets || {};
   }
 
   getSize(type: Type, side: Side) {
     const s = this.cData.control.value[type]?.[side] || {};
     const v = s.size;
-    
+
     if (v) {
       return v + s.unit;
     }
@@ -182,8 +192,9 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
       this.defaults[type];
 
     let group: any = {
+      preset: currentValue.preset || null,
       locked: currentValue.locked !== undefined ? currentValue.locked : true,
-      size: currentValue.value || 0,
+      size: currentValue.size || 0,
       unit: currentValue.unit
     };
 
@@ -195,12 +206,80 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
     }
 
     this.form = this.fb.group(group);
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    this.subscription = this.form.valueChanges
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(value => {
+        for (const key in value) {
+          if (value[key] === null) {
+            delete value[key];
+          }
+        }
+
+        const current = this.cData.control.value || {};
+
+        if (!current[type]) {
+          current[type] = {};
+        }
+
+        if (value.locked) {
+          Object.values(Side).forEach(s =>
+            current[type][s] = value
+          );
+        } else {
+          current[type][side] = value;
+        }
+
+        if (value.preset) {
+          const selectedPreset = (this.presets[type] as any[]).find(it => it.name === value.preset);
+
+          if (
+            selectedPreset.sides[side].size !== value.size ||
+            selectedPreset.sides[side].unit !== value.unit
+          ) {
+            current[type][side].preset = null;
+            this.form.get('preset').setValue(null, {onlySelf: true, emitEvent: false});
+          }
+        }
+
+        this.cData.control.setValue(current);
+      });
+
     this.cdr.markForCheck;
+  }
+
+  selectPreset(preset: Preset<any>) {
+    const current = this.cData.control.value || {};
+
+    if (!current[this.selected.type]) {
+      current[this.selected.type] = {};
+    }
+
+    if (this.locked) {
+      for (let key in preset.sides) {
+        current[this.selected.type][key] = {...preset.sides[key], preset: preset.name};
+      }
+    } else {
+      current[this.selected.type][this.selected.side] = preset.sides[this.selected.side];
+      current[this.selected.type][this.selected.side].preset = preset.name;
+    }
+
+    this.form.patchValue(
+      {...preset.sides[this.selected.side], preset: preset.name},
+      {emitEvent: false}
+    );
+    this.cData.control.setValue(current);
   }
 
   clear() {
     const current = this.form.getRawValue();
-  
+
 
     for (const key in current) {
       if (key !== 'locked') {

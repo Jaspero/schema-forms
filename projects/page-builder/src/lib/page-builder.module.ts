@@ -23,6 +23,7 @@ import {MbpComponent} from './fields/mbp/mbp.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {MatInputModule} from '@angular/material/input';
     MatIconModule,
     MatTooltipModule,
     MatInputModule,
+    MatChipsModule,
 
     StopPropagationModule,
     SanitizeModule,

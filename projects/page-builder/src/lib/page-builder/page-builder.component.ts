@@ -469,8 +469,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       return;
     }
 
-    console.log('updated', selected.id);
-
     this.blocks[this.selectedIndex].value = data;
     this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
     this.dataStore[selected.id] = data || {};
