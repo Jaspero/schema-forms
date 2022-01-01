@@ -291,28 +291,35 @@ export class Parser {
             break;
 
           case SchemaType.Object:
-            const objectProperties = this.buildProperties(
-              /**
-               * Supporting both {type: 'object', properties: {}} and
-               * {type: 'object', items: {properties: {}}}
-               */
-              value.properties || (value.items && value.items.properties ? value.items.properties : {}),
-              value.required || value.items && value.items.required ? value.items.required : [],
-              pointerKey + '/',
-              false
-            );
 
-            for (const added in objectProperties.pointers) {
-              if (objectProperties.pointers.hasOwnProperty(added)) {
-                // @ts-ignore
-                group.pointers[added] = objectProperties.pointers[added];
+            if (value.properties) {
+              const objectProperties = this.buildProperties(
+                value.properties,
+                value.required,
+                pointerKey + '/',
+                false
+              );
+  
+              for (const added in objectProperties.pointers) {
+                if (objectProperties.pointers.hasOwnProperty(added)) {
+                  // @ts-ignore
+                  group.pointers[added] = objectProperties.pointers[added];
+                }
               }
+  
+              parsed = {
+                control: objectProperties.form,
+                validation: {}
+              };
+            } 
+            
+            /**
+             * When properties aren't defined we create a
+             * FormControl instead of a FormGroup 
+             */
+            else {
+              parsed = Parser.stringControl(value, isRequired);
             }
-
-            parsed = {
-              control: objectProperties.form,
-              validation: {}
-            };
             break;
 
           case SchemaType.Array:
