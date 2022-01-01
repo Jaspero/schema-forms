@@ -1,53 +1,81 @@
-<div class="box" style="background: #f59e42;">
-  <div class="box-label">Margin</div>
+<ng-template #sidesTemp let-type="type" let-child="child">
+  <div class="box-label">{{type}}</div>
   <div class="box-sides">
-    <div class="box-sides-top">
-      <div class="box-sides-label">15px</div>
-    </div>
-    <div class="box-sides-right">
-      <div class="box-sides-label">15px</div>
-    </div>
-    <div class="box-sides-bottom">
-      <div class="box-sides-label">15px</div>
-    </div>
-    <div class="box-sides-left">
-      <div class="box-sides-label">15px</div>
+    <div *ngFor="let item of Side | keyvalue" [ngClass]="'box-sides-' + item.value"
+      [class.active]="selected?.type === type && selected?.side === item.value" (click)="selectSide(type, item.value)">
+      <div class="box-sides-label">{{getSize(type, item.value)}}</div>
     </div>
   </div>
 
-  <div class="box" style="background: #ffc382;">
-    <div class="box-label">Border</div>
-    <div class="box-sides">
-      <div class="box-sides-top">
-        <div class="box-sides-label">15px</div>
-      </div>
-      <div class="box-sides-right">
-        <div class="box-sides-label">15px</div>
-      </div>
-      <div class="box-sides-bottom">
-        <div class="box-sides-label">15px</div>
-      </div>
-      <div class="box-sides-left">
-        <div class="box-sides-label">15px</div>
+  <ng-container *ngIf="child">
+    <div class="box" [style.background]="child.color">
+      <ng-container *ngTemplateOutlet="child.template; context: {type: child.type, child: child.child}"></ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+<div class="box" [style.background]="item.color">
+  <ng-container *ngTemplateOutlet="item.template; context: {type: item.type, child: item.child}"></ng-container>
+</div>
+
+<div *ngIf="form" [formGroup]="form">
+
+  <div class="option-set">
+    <div class="option-set-label">
+      <span>{{selected.type}}</span>
+      <span class="option-set-label-clear" (click)="clear()">Clear</span>
+    </div>
+
+    <div class="option-set-fields">
+      <mat-form-field>
+        <mat-label>Size</mat-label>
+        <input matInput type="number" formControlName="size">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Unit</mat-label>
+        <mat-select formControlName="unit">
+          <mat-option *ngFor="let unit of units" [value]="unit">{{unit}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-icon-button [matTooltip]="locked ? 'Unlock (different for each side)' : 'Lock (same for each side)'"
+        (click)="form.get('locked').setValue(locked ? false : true)">
+        <mat-icon>{{locked ? 'lock' : 'lock_open'}}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="selected.type === Type.border">
+    <div class="option-set">
+      <div class="option-set-label">Radius</div>
+  
+      <div class="option-set-fields">
+        <mat-form-field>
+          <mat-label>Left</mat-label>
+          <input matInput type="number" formControlName="radiusLeft">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Right</mat-label>
+          <input matInput type="number" formControlName="radiusRight">
+        </mat-form-field>
       </div>
     </div>
 
-    <div class="box" style="background: #82ffb0;">
-      <div class="box-label">Padding</div>
-      <div class="box-sides">
-        <div class="box-sides-top">
-          <div class="box-sides-label">15px</div>
-        </div>
-        <div class="box-sides-right">
-          <div class="box-sides-label">15px</div>
-        </div>
-        <div class="box-sides-bottom">
-          <div class="box-sides-label">15px</div>
-        </div>
-        <div class="box-sides-left">
-          <div class="box-sides-label">15px</div>
-        </div>
+    <div class="option-set">
+      <div class="option-set-label">Style</div>
+
+      <div class="option-set-fields">
+        <mat-form-field>
+          <mat-label>Line Color</mat-label>
+          <input type="color" matInput formControlName="color">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Line Style</mat-label>
+          <mat-select formControlName="style">
+            <mat-option *ngFor="let bs of BorderStyle | keyvalue" [value]="bs.value">{{bs.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
-  </div>
+  </ng-container>
+
 </div>
