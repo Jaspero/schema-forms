@@ -1,3 +1,15 @@
+# @jaspero/form-builder [5.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.21.0...@jaspero/form-builder@5.0.0) (2022-01-01)
+
+
+### Bug Fixes
+
+* **form-builder:** create FormControl instead of FormGroup when the type of a property is an object but no properties are provided to it. ([ae12a8f](https://github.com/Jaspero/schema-forms/commit/ae12a8faf242ba7f541e6bbb929cd85188a5c670))
+
+
+### BREAKING CHANGES
+
+* **form-builder:** Until now we created FormGroup's when the type of a property was an object but no properties were provided to it. This lead to us defining properties as strings even when we wanted to use them as objects in custom fields. Additionally  we no longer support wrongly formatted object definitions: {type: 'object', items: {properties: {}}}. Only the valid format: {type: 'object', properties: {}} is now support.
+
 # @jaspero/form-builder [4.21.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.20.0...@jaspero/form-builder@4.21.0) (2021-12-06)
 
 
