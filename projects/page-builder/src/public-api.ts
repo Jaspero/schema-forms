@@ -16,4 +16,8 @@ export * from './lib/inline-editor/directives/single-line-ie.directive';
  * Decorators
  */
 export * from './lib/decorators/block.decorator';
-export * from './lib/decorators/style.decorator';
+
+/**
+ * Utils
+ */
+export * from './lib/utils/block-style';

@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding} from '@angular/core';
+import {blockStyle} from '../../../../../../projects/page-builder/src/public-api';
 import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
 import {Block, BlockOptions} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 
@@ -12,7 +13,7 @@ const BLOCK: BlockOptions = {
     schema: {
       properties: {
         id: {type: 'string'},
-        box: {type: 'string'}
+        box: {type: 'object'}
       }
     },
     definitions: {
@@ -69,4 +70,9 @@ const BLOCK: BlockOptions = {
   styleUrls: ['./divider.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DividerComponent extends BlockData {}
+export class DividerComponent extends BlockData {
+  @HostBinding('style')
+  get style() {
+    return blockStyle(this.data);
+  }
+}
