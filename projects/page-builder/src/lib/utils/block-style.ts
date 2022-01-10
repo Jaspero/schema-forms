@@ -2,6 +2,7 @@ export interface BackgroundData {
   background?: string;
   backgroundSize?: string;
   backgroundRepeat?: boolean;
+  backgroundPosition?: string;
 }
 
 export interface BoxSides<T = {
@@ -15,8 +16,8 @@ export interface BoxSides<T = {
 }
 
 export interface BoxData {
-  margin: BoxSides;
-  border: BoxSides<{
+  margin?: BoxSides;
+  border?: BoxSides<{
     unit: string;
     size: number;
     radiusLeft: number;
@@ -24,7 +25,7 @@ export interface BoxData {
     style: string;
     color: string;
   }>;
-  padding: BoxSides
+  padding?: BoxSides
 }
 
 export function backgroundStyle(data: BackgroundData) {
@@ -37,7 +38,11 @@ export function backgroundStyle(data: BackgroundData) {
         styles['background-size'] = data.backgroundSize;
       }
 
-      if (data.backgroundRepeat) {
+      if (data.backgroundPosition) {
+        styles['background-position'] = data.backgroundPosition;
+      }
+
+      if (!data.backgroundRepeat) {
         styles['background-repeat'] = 'no-repeat';
       }
 
@@ -50,7 +55,7 @@ export function backgroundStyle(data: BackgroundData) {
   return styles;
 }
 
-export function boxStyle(data: BoxData) {
+export function boxStyle(data: BoxData = {}) {
   const styles: {[key: string]: string} = {};
   const borderStyles: {[key: string]: string} = {};
   const sides = [
@@ -95,7 +100,7 @@ export function boxStyle(data: BoxData) {
   if (data.border) {
     const [top, right, bottom, left] = sides
       .map(side => {
-        if (!data.border[side] || data.border[side].size) {
+        if (!data.border[side] || !data.border[side].size) {
           return '';
         }
 
@@ -178,10 +183,14 @@ export function boxStyle(data: BoxData) {
   };
 }
 
-export function blockStyle(data: any) {
+export function blockStyle(
+  data: {
+    box?: BoxData;
+  } & BackgroundData
+) {
   const styles: {[key: string]: string} = {
     ...backgroundStyle(data),
-    ...boxStyle(data)
+    ...boxStyle(data.box)
   };
 
   let final = '';

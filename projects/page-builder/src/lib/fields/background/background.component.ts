@@ -7,10 +7,11 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ImageComponent} from '@jaspero/fb-fields-mat';
 import {COMPONENT_DATA, FormBuilderService, StorageService} from '@jaspero/form-builder';
 import {TranslocoService} from '@ngneat/transloco';
-import {untilDestroyed} from '@ngneat/until-destroy';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {debounceTime, filter, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 
+@UntilDestroy()
 @Component({
   selector: 'fb-pb-background',
   templateUrl: './background.component.html',
@@ -56,6 +57,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
       repeat: this.cData.form.get('backgroundRepeat').value || false,
       size: this.cData.form.get('backgroundSize').value || 'center'
     });
+    
 
     super.ngOnInit();
 
