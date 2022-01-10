@@ -1,0 +1,75 @@
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>{{(cData.label || '') | transloco}}</mat-label>
+
+  <ng-container *ngIf="color.value; else img;">
+    <input [formControl]="imageUrl" type="color" matInput />
+
+    <button matSuffix matTooltip="Solid Color" mat-icon-button [color]="color.value ? 'primary' : 'default'" (click)="color.setValue(!color.value)">
+      <mat-icon>palette</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-template #img>
+    <input
+      matInput
+      type="url"
+      readonly
+      [placeholder]="(cData.placeholder || '') | transloco"
+      [class.disabled]="disInput"
+      [formControl]="imageUrl">
+
+    <button matSuffix mat-icon-button (click)="openFileUpload()">
+      <mat-icon>perm_media</mat-icon>
+    </button>
+
+    <button matSuffix mat-icon-button *ngIf="imageUrl.value">
+      <mat-icon (click)="remove()">highlight_off</mat-icon>
+    </button>
+
+    <button matSuffix mat-icon-button (click)="advancedOptions()">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <button matSuffix matTooltip="Solid Color" mat-icon-button [color]="color.value ? 'primary' : 'default'" (click)="color.setValue(!color.value)">
+      <mat-icon>palette</mat-icon>
+    </button>
+  </ng-template>
+</mat-form-field>
+
+<input #file type="file" hidden (change)="filesImage($event)">
+
+<ng-template #modal>
+  <mat-dialog-content>
+    <mat-form-field class="w-full">
+      <mat-label>{{'FIELDS.GALLERY.IMAGE_URL' | transloco}}</mat-label>
+      <input matInput #url>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="jc-end">
+    <button mat-button mat-dialog-close>{{'GENERAL.CANCEL' | transloco}}</button>&nbsp;
+    <button mat-flat-button color="primary" [disabled]="!url.value" (click)="addImage(url.value)" mat-dialog-close>{{'FIELDS.GALLERY.ADD_IMAGE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #advanced>
+  <mat-dialog-content [formGroup]="form">
+    <mat-form-field class="w-full">
+      <mat-label>Background Position</mat-label>
+      <mat-select formControlName="position">
+        <mat-option value="left">Left</mat-option>
+        <mat-option value="center">Center</mat-option>
+        <mat-option value="right">Right</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Background Size</mat-label>
+      <mat-select formControlName="size">
+        <mat-option value="cover">Cover</mat-option>
+        <mat-option value="contain">Contain</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="repeat">Background Repeat</mat-checkbox>
+  </mat-dialog-content>
+</ng-template>
