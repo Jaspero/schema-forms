@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {BackgroundComponent} from './fields/background/background.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatChipsModule} from '@angular/material/chips';
     BlockFormComponent,
     NavigationComponent,
     BlockComponent,
-    MbpComponent
+    MbpComponent,
+    BackgroundComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +72,8 @@ export class PageBuilderModule {
     [
       ['blocks', PageBuilderComponent],
       ['block', BlockFormComponent],
-      ['mbp', MbpComponent]
+      ['mbp', MbpComponent],
+      ['background', BackgroundComponent]
     ]
       .forEach(([key, component]) =>
         this.ctx.registerField('pb-' + key, component)
