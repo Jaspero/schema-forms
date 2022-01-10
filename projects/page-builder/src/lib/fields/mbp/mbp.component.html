@@ -59,7 +59,7 @@
   </div>
 
   <ng-container *ngIf="selected.type === Type.border">
-    <div class="option-set">
+    <div class="option-set" *ngIf="selected.side === Side.top || selected.side === Side.bottom">
       <div class="option-set-label">Radius</div>
   
       <div class="option-set-fields">

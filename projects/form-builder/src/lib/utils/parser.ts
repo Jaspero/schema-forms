@@ -264,6 +264,7 @@ export class Parser {
         : [])
     ].reduce(
       (group, [key, value]: [string, any]) => {
+        console.log('entry', value);
         const isRequired = required.includes(key);
         const pointerKey = base + key;
         const definition = this.getFromDefinitions(pointerKey) || {};
@@ -291,8 +292,8 @@ export class Parser {
             break;
 
           case SchemaType.Object:
-
-            if (value.properties) {
+            console.log('value', value);
+            if (value.properties && Object.keys(value.properties).length) {
               const objectProperties = this.buildProperties(
                 value.properties,
                 value.required,
