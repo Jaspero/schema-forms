@@ -251,7 +251,7 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
         this.cData.control.setValue(current);
       });
 
-    this.cdr.markForCheck;
+    this.cdr.markForCheck();
   }
 
   selectPreset(preset: Preset<any>) {

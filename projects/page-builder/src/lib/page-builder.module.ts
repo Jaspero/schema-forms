@@ -25,6 +25,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {BackgroundComponent} from './fields/background/background.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {BackgroundComponent} from './fields/background/background.component';
     MatTooltipModule,
     MatInputModule,
     MatChipsModule,
+    MatCheckboxModule,
 
     StopPropagationModule,
     SanitizeModule,

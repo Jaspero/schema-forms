@@ -10,10 +10,22 @@ const BLOCK: BlockOptions = {
   label: 'Divider',
   icon: 'minimize',
   form: {
+    segments: [{
+      title: 'Settings',
+      icon: 'settings',
+      fields: [
+        '/box',
+        '/background'
+      ]
+    }],
     schema: {
       properties: {
         id: {type: 'string'},
-        box: {type: 'object'}
+        box: {type: 'object'},
+        background: {type: 'string'},
+        backgroundSize: {type: 'string'},
+        backgroundRepeat: {type: 'boolean'},
+        backgroundPosition: {type: 'string'}
       }
     },
     definitions: {
@@ -53,6 +65,11 @@ const BLOCK: BlockOptions = {
               ]
             }
           }
+        }
+      },
+      background: {
+        component: {
+          type: 'pb-background'
         }
       }
     }

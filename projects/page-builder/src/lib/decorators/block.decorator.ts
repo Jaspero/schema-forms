@@ -7,6 +7,10 @@ declare const window: Window & {
   jpFbPb: {[key: string]: any}
 };
 
+export interface BlockSegment extends Segment {
+  icon?: string;
+}
+
 export interface BlockOptions {
   /**
    * Defaults to 'pages'
@@ -19,7 +23,7 @@ export interface BlockOptions {
   icon?: string;
   previewValue?: any;
   form?: {
-    segments?: Segment[];
+    segments?: BlockSegment[];
     schema: JSONSchema7;
     definitions?: Definitions;
   }
