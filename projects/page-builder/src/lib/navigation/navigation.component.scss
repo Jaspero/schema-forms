@@ -26,6 +26,9 @@
   }
 
   .mat-tree-node.movable {
+
+    user-select: none;
+
     &:active {
       cursor: move;
     }

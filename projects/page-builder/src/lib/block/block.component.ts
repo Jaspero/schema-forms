@@ -30,4 +30,10 @@ export class BlockComponent implements OnInit {
       })
     }
   }
+
+  change() {
+    if (this.el.nativeElement.children[0]) {
+      this.el.nativeElement.children[0].change = {};
+    }
+  }
 }
