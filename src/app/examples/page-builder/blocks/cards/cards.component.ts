@@ -36,7 +36,7 @@ interface Data {
       {
         title: 'Appearance',
         icon: 'tune',
-        fields: ['/longImage']
+        fields: ['/slideTitle', '/longImage']
       },
       ...COMMON_OPTIONS.segment
     ],

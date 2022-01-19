@@ -472,7 +472,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     this.blocks[this.selectedIndex].value = data;
     this.blocks[this.selectedIndex].value = {...this.blocks[this.selectedIndex].value};
     this.dataStore[selected.id] = data || {};
-    this.compRefs[this.selectedIndex].changeDetectorRef.markForCheck();
+    this.compRefs[this.selectedIndex].instance.change();
   }
 
   closeBlock() {
