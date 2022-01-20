@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoadClickModule} from '@jaspero/ng-helpers';
 import {FormBuilderModule} from '@jaspero/form-builder';
-import {FB_PAGE_BUILDER_OPTIONS} from '../../../../projects/page-builder/src/lib/options.token';
 import {PageBuilderModule as PBModule} from '../../../../projects/page-builder/src/lib/page-builder.module';
 import {BlocksModule} from './blocks/blocks.module';
 import {PageBuilderComponent} from './page-builder.component';
@@ -20,15 +19,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     FormBuilderModule,
     PBModule,
-    LoadClickModule
-  ],
-  providers: [
-    {
-      provide: FB_PAGE_BUILDER_OPTIONS,
-      useValue: {
-        previewModule: BlocksModule
-      }
-    }
+    LoadClickModule,
+    BlocksModule
   ]
 })
 export class PageBuilderModule { }

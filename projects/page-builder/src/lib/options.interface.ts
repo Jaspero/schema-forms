@@ -1,3 +1,1 @@
-export interface FbPageBuilderOptions {
-  previewModule: any;
-}
+export interface FbPageBuilderOptions {}
