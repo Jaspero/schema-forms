@@ -76,7 +76,7 @@ export class RefTableComponent extends FieldComponent<RefTableData> implements O
         .pipe(
           take(1)
         )
-        .subscribe(docs => {
+        .subscribe((docs: any[]) => {
           this.items = docs.map(doc => ({
             type: 'existing',
             data: {
