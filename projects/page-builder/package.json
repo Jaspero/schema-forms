@@ -12,7 +12,7 @@
   "license": "MIT",
   "homepage": "https://jaspero.co",
   "peerDependencies": {
-    "@jaspero/form-builder": "5.0.0",
+    "@jaspero/form-builder": "5.1.0",
     "@ngneat/until-destroy": "^8.0.0"
   },
   "dependencies": {

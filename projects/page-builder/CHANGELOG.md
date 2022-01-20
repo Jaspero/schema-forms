@@ -1,3 +1,33 @@
+# @jaspero/fb-page-builder [3.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.15.2...@jaspero/fb-page-builder@3.16.0) (2022-01-20)
+
+
+### Bug Fixes
+
+* **page-builder:** image and single-line directives working with elements approach ([79cc69b](https://github.com/Jaspero/schema-forms/commit/79cc69b308ef2deebeb0f49d4d096f6ea4a43279))
+
+
+### Features
+
+* **page-builder:** added background field ([de0ffcf](https://github.com/Jaspero/schema-forms/commit/de0ffcf7752fbf094a080a39ccad4c52c02c5f47))
+* **page-builder:** adjustments for block-style ([da26fce](https://github.com/Jaspero/schema-forms/commit/da26fcec1f26c477545914599610f1c20ff8a36e))
+* **page-builder:** change detection triggering properly on children ([588c603](https://github.com/Jaspero/schema-forms/commit/588c603b32e99b6909f47ed100d1fdaf66bb6ef7))
+* **page-builder:** connected blockStyle util ([190898f](https://github.com/Jaspero/schema-forms/commit/190898f9861b549a5ce3aef35603c255f6c11793))
+* **page-builder:** connected style for mbp [#87](https://github.com/Jaspero/schema-forms/issues/87) ([4f13efc](https://github.com/Jaspero/schema-forms/commit/4f13efcca602d98b98fd57a3aecc855069ee3bfe))
+* **page-builder:** initial setup for mbp component [#87](https://github.com/Jaspero/schema-forms/issues/87) ([6f1c35b](https://github.com/Jaspero/schema-forms/commit/6f1c35be2437546a7871406d0eedcf18d006e39e))
+* **page-builder:** mbp presets connected [#87](https://github.com/Jaspero/schema-forms/issues/87) ([02d0652](https://github.com/Jaspero/schema-forms/commit/02d0652023e2fc655b993a25559fcaf34be7d661))
+* **page-builder:** migrating to elements :construction: ([eb3d33e](https://github.com/Jaspero/schema-forms/commit/eb3d33e7694475dba5ab77fed5ba655be2930793))
+* **page-builder:** removed modules import ([2b4e88b](https://github.com/Jaspero/schema-forms/commit/2b4e88b3e5789b0065834468f1fbf647780427a7))
+* **page-builder:** simpler module creationg with v13 ([3f94753](https://github.com/Jaspero/schema-forms/commit/3f947532768b3574f4da969a3ba7b94eac64919d))
+* **page-builder:** using elements without shadow dom :tada: ([23aff8a](https://github.com/Jaspero/schema-forms/commit/23aff8a3499628493313f894935f7a1cf15a3d4b))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.1.0
+
 ## @jaspero/fb-page-builder [3.15.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.15.1...@jaspero/fb-page-builder@3.15.2) (2022-01-01)
 
 
