@@ -25,6 +25,14 @@ jobs:
         run: npm run build:form-builder
       - name: Copy Form Builder
         run: rm -rf node_modules/@jaspero/form-builder && cp -r dist/@jaspero/form-builder node_modules/@jaspero/form-builder
+      - name: Build Fields
+        run: npm run build:fields-mat
+      - name: Copy Fields
+        run: rm -rf node_modules/@jaspero/fb-fields-mat && cp -r dist/@jaspero/fb-fields-mat node_modules/@jaspero/fb-fields-mat
+      - name: Build Segments
+        run: npm run build:segments-mat
+      - name: Copy Fields
+        run: rm -rf node_modules/@jaspero/fb-segments-mat && cp -r dist/@jaspero/fb-segments-mat node_modules/@jaspero/fb-segments-mat
       - name: Build Plugins
         run: npm run build:libraries
       - name: Release
