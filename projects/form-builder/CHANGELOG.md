@@ -1,3 +1,11 @@
+# @jaspero/form-builder [5.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.0.0...@jaspero/form-builder@5.1.0) (2022-01-20)
+
+
+### Features
+
+* **page-builder:** adjustments for block-style ([da26fce](https://github.com/Jaspero/schema-forms/commit/da26fcec1f26c477545914599610f1c20ff8a36e))
+* **page-builder:** connected blockStyle util ([190898f](https://github.com/Jaspero/schema-forms/commit/190898f9861b549a5ce3aef35603c255f6c11793))
+
 # @jaspero/form-builder [5.0.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@4.21.0...@jaspero/form-builder@5.0.0) (2022-01-01)
 
 
