@@ -1,3 +1,10 @@
+## @jaspero/fb-ref-table [2.3.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.3.0...@jaspero/fb-ref-table@2.3.1) (2022-01-20)
+
+
+### Bug Fixes
+
+* **ref-table:** map on unknown property ([a4b5b9b](https://github.com/Jaspero/schema-forms/commit/a4b5b9bae9df23355da0f7770b41f1a1eb9f8543))
+
 # @jaspero/fb-ref-table [2.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.2.1...@jaspero/fb-ref-table@2.3.0) (2021-12-03)
 
 
