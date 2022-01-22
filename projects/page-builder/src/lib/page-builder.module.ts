@@ -5,27 +5,27 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
 import {MatRippleModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTreeModule} from '@angular/material/tree';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {BlockFormComponent} from './block-form/block-form.component';
+import {BlockComponent} from './block/block.component';
+import {BackgroundComponent} from './fields/background/background.component';
+import {MbpComponent} from './fields/mbp/mbp.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
 import {PageBuilderComponent} from './page-builder/page-builder.component';
 import {ToolbarService} from './toolbar.service';
-import {BlockComponent} from './block/block.component';
-import {MbpComponent} from './fields/mbp/mbp.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatInputModule} from '@angular/material/input';
-import {MatChipsModule} from '@angular/material/chips';
-import {BackgroundComponent} from './fields/background/background.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [

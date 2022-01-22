@@ -55,23 +55,19 @@
 <ng-template #advanced>
   <mat-dialog-content [formGroup]="form">
     <div class="p-a-s">
-      <mat-form-field class="w-full">
-        <mat-label>Background Position</mat-label>
-        <mat-select formControlName="position">
-          <mat-option value="left">Left</mat-option>
-          <mat-option value="center">Center</mat-option>
-          <mat-option value="right">Right</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="w-full">
-        <mat-label>Background Size</mat-label>
-        <mat-select formControlName="size">
-          <mat-option value="cover">Cover</mat-option>
-          <mat-option value="contain">Contain</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-checkbox formControlName="repeat">Background Repeat</mat-checkbox>
+
+      <ng-container *ngFor="let prop of props">
+        <mat-form-field class="w-full" *ngIf="prop.options; else cbox;">
+          <mat-label>{{prop.label}}</mat-label>
+          <mat-select [formControlName]="prop.cKey">
+            <mat-option *ngFor="let option of prop.options" [value]="option.value">{{option.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <ng-template #cBox>
+          <mat-checkbox [formControlName]="prop.cKey">{{prop.label}}</mat-checkbox>
+        </ng-template>
+      </ng-container>
     </div>
   </mat-dialog-content>
 </ng-template>

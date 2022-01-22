@@ -55,7 +55,7 @@ interface Presets {
   padding?: Preset[];
 }
 
-interface MbpData extends FieldData {
+export interface MbpData extends FieldData {
   units?: Unit[];
   presets?: Presets;
   margin?: {

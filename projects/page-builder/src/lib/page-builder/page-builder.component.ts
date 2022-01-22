@@ -83,7 +83,7 @@ interface Block {
   duplicateValue?: any;
 }
 
-interface BlocksData extends FieldData {
+export interface BlocksData extends FieldData {
   blocks: Block[];
   layout?: {
     selector: string;

@@ -14,7 +14,7 @@ import {SelectData} from './fields/select/select.component';
 import {SliderData} from './fields/slider/slider.component';
 import {TextareaData} from './fields/textarea/textarea.component';
 
-export type FieldDefinitions<Prefix extends string = 'mat'> =
+export type FieldDefinitions<Prefix extends string = 'mat-'> =
   DefinitionWithConfiguration<AutocompleteData, Prefix, 'autocomplete'> |
   FieldDefinition<Prefix, 'checkbox'> |
   DefinitionWithConfiguration<ChipsData, Prefix, 'chips'> |
