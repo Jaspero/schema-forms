@@ -31,7 +31,7 @@ import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
 
-export interface ImageData extends FieldData {
+export interface ImageConfiguration {
   preventServerUpload?: boolean;
   preventUrlUpload?: boolean;
   preventStorageUpload?: boolean;
@@ -46,6 +46,8 @@ export interface ImageData extends FieldData {
   preserveFileName?: boolean;
   uploadMethods?: UploadMethod[];
 }
+
+export type ImageData = ImageConfiguration & FieldData;
 
 @Component({
   selector: 'fb-image',

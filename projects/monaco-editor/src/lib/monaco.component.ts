@@ -16,7 +16,7 @@ import {
 
 import loader, {Monaco} from '@monaco-editor/loader';
 
-export interface MonacoData extends FieldData {
+export interface MonacoConfiguration {
   value?: string;
   height?: string;
   /**
@@ -24,6 +24,8 @@ export interface MonacoData extends FieldData {
    */
   options?: object;
 }
+
+export type MonacoData = MonacoConfiguration & FieldData;
 
 @Component({
   selector: 'fb-monaco-editor',

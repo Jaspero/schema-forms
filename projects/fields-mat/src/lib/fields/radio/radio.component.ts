@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FieldComponent, FieldData, Option} from '@jaspero/form-builder';
 
-export interface RadioData extends FieldData {
+export interface RadioConfiguration {
   options: Option[];
 }
+
+export type RadioData = RadioConfiguration & FieldData;
 
 @Component({
   selector: 'fb-radio',

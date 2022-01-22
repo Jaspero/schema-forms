@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FieldComponent, FieldData} from '@jaspero/form-builder';
 
-export interface SliderData extends FieldData {
+export interface SliderConfiguration {
   validation: {
     minimum: number;
     maximum: number;
@@ -11,6 +11,8 @@ export interface SliderData extends FieldData {
   starAt: number;
   endAt: number;
 }
+
+export type SliderData = SliderConfiguration & FieldData;
 
 @Component({
   selector: 'fb-slider',

@@ -55,7 +55,7 @@ interface Presets {
   padding?: Preset[];
 }
 
-export interface MbpData extends FieldData {
+export interface MbpConfiguration {
   units?: Unit[];
   presets?: Presets;
   margin?: {
@@ -86,6 +86,8 @@ interface Item {
   color: string;
   child?: Item;
 }
+
+export type MbpData = MbpConfiguration & FieldData;
 
 @UntilDestroy()
 @Component({

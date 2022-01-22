@@ -5,7 +5,7 @@ import {cloneAbstractControl, COMPONENT_DATA, FieldComponent, FieldData} from '@
 import {safeEval} from '@jaspero/utils';
 import {merge, Subscription} from 'rxjs';
 
-export interface DateData extends FieldData {
+export interface DateConfiguration {
   startAt?: number;
   touchUi?: boolean;
   startView?: 'month' | 'year' | 'multi-year';
@@ -18,6 +18,8 @@ export interface DateData extends FieldData {
   placeholderHours?: string;
   placeholderMinutes?: string;
 }
+
+export type DateData = DateConfiguration & FieldData;
 
 @Component({
   selector: 'fb-date-field',

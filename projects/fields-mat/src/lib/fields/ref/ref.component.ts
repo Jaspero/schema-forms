@@ -20,7 +20,7 @@ interface RefColumn {
   label: string;
 }
 
-export interface RefData extends FieldData {
+export interface RefConfiguration {
   /**
    * Collection to query for search
    * @required
@@ -105,6 +105,8 @@ export interface RefData extends FieldData {
    */
   hideApplyValue?: boolean;
 }
+
+export interface RefData extends RefConfiguration, FieldData {}
 
 @Component({
   selector: 'fb-ref',

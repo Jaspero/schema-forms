@@ -1,4 +1,4 @@
 import {DefinitionWithConfiguration} from '@jaspero/form-builder/public-api';
-import {MonacoData} from './monaco.component';
+import {MonacoConfiguration} from './monaco.component';
 
-export type MonacoDefinition = DefinitionWithConfiguration<MonacoData, '', 'monaco'>
+export type MonacoDefinition = DefinitionWithConfiguration<MonacoConfiguration, '', 'monaco'>

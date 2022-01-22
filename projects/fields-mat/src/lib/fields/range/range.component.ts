@@ -10,10 +10,12 @@ import {
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-export interface RangeData extends FieldData {
+export interface RangeConfiguration {
   min?: number;
   max?: number;
 }
+
+export type RangeData = RangeConfiguration & FieldData;
 
 @Component({
   selector: 'fb-range',

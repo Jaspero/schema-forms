@@ -7,10 +7,12 @@ interface DragOptions extends Option {
   active?: boolean;
 }
 
-export interface DragData extends FieldData {
+export interface DragConfiguration {
   toggle?: boolean;
   options: DragOptions[];
 }
+
+export type DragData = DragConfiguration & FieldData;
 
 @Component({
   selector: 'fb-draggable-list',

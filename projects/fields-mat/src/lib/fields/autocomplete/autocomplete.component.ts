@@ -12,7 +12,7 @@ import {
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
 
-export interface AutocompleteData extends FieldData {
+export interface AutocompleteConfiguration {
   dataSet: Array<{name: string; value: any}>;
   populate?: {
     collection: string;
@@ -27,6 +27,8 @@ export interface AutocompleteData extends FieldData {
   suffix?: HSD | string;
   prefix?: HSD | string;
 }
+
+export type AutocompleteData = AutocompleteConfiguration & FieldData;
 
 @Component({
   selector: 'fb-autocomplete',

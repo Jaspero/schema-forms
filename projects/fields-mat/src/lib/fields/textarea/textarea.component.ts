@@ -2,13 +2,15 @@ import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {FieldComponent, FieldData, getHsd, HSD} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
-export interface TextareaData extends FieldData {
+export interface TextareaConfiguration {
   rows?: number;
   cols?: number;
   autocomplete?: string;
   suffix?: HSD | string;
   prefix?: HSD | string;
 }
+
+export type TextareaData = TextareaConfiguration & FieldData;
 
 @Component({
   selector: 'fb-textarea',

@@ -5,14 +5,14 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ImageComponent} from '@jaspero/fb-fields-mat';
-import {COMPONENT_DATA, FormBuilderService, StorageService} from '@jaspero/form-builder';
-import {ImageData} from '@jaspero/fb-fields-mat';
+import {COMPONENT_DATA, FieldData, FormBuilderService, StorageService} from '@jaspero/form-builder';
+import {ImageConfiguration} from '@jaspero/fb-fields-mat';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {of} from 'rxjs';
 import {debounceTime, filter, tap} from 'rxjs/operators';
 
-export interface BackgroundData extends ImageData {
+export interface BackgroundConfiguration extends ImageConfiguration {
   position?: {
     active?: boolean;
     default?: string;
@@ -26,6 +26,8 @@ export interface BackgroundData extends ImageData {
     default?: string;
   };
 }
+
+export type BackgroundData = BackgroundConfiguration & FieldData;
 
 @UntilDestroy()
 @Component({

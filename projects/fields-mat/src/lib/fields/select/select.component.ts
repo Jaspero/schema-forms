@@ -56,7 +56,7 @@ interface Populate {
   };
 }
 
-export interface SelectData extends FieldData {
+export interface SelectConfiguration {
   dataSet?: Option[];
   multiple?: boolean;
   populate?: Populate;
@@ -64,6 +64,8 @@ export interface SelectData extends FieldData {
   reset?: boolean;
   resetIcon?: string;
 }
+
+export type SelectData = SelectConfiguration & FieldData;
 
 @Component({
   selector: 'fb-select',

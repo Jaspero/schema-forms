@@ -83,7 +83,7 @@ interface Block {
   duplicateValue?: any;
 }
 
-export interface BlocksData extends FieldData {
+export interface BlocksConfiguration {
   blocks: Block[];
   layout?: {
     selector: string;
@@ -102,6 +102,8 @@ export interface BlocksData extends FieldData {
    */
   saveCompiled?: boolean;
 }
+
+export type BlocksData = BlocksConfiguration & FieldData;
 
 declare const window: Window & {
   jpFbPb: {[key: string]: any}

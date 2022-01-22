@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FieldComponent, FieldData, getHsd, HSD} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
-export interface InputData extends FieldData {
+export interface InputConfiguration {
   /**
    * @default 'text'
    */
@@ -17,6 +17,8 @@ export interface InputData extends FieldData {
   suffix?: HSD | string;
   prefix?: HSD | string;
 }
+
+export type InputData = InputConfiguration & FieldData;
 
 @Component({
   selector: 'fb-input',

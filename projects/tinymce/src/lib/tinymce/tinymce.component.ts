@@ -39,13 +39,15 @@ import 'tinymce/plugins/emoticons';
 
 declare const tinymce: any;
 
-export interface TinyData extends FieldData {
+export interface TinyConfiguration {
   menubar?: string;
   toolbar?: string;
   height?: number;
   options?: any;
   generatedImages?: any[];
 }
+
+export type TinyData = TinyConfiguration & FieldData;
 
 @Component({
   selector: 'fb-tm-tinymce',

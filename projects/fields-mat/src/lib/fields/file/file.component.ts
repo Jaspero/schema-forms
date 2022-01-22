@@ -25,7 +25,7 @@ import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
 
-export interface FileData extends FieldData {
+export interface FileConfiguration {
   emptyLabel?: string;
   preventClear?: boolean;
   allowedFileTypes?: string[];
@@ -38,6 +38,8 @@ export interface FileData extends FieldData {
   preserveFileName?: boolean;
   uploadMethods?: UploadMethod[];
 }
+
+export type FileData = FileConfiguration & FieldData;
 
 @Component({
   selector: 'fb-file',

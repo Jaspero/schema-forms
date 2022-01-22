@@ -47,7 +47,7 @@ interface Field {
   value?: any;
 }
 
-interface FieldsData extends FieldData {
+export interface FieldsConfiguration {
   types: string[];
   additionalTypeOptions?: {
     [key: string]: {
@@ -57,6 +57,8 @@ interface FieldsData extends FieldData {
     }
   };
 }
+
+export type FieldsData = FieldsConfiguration & FieldData;
 
 @Component({
   selector: 'fb-fu-fields',

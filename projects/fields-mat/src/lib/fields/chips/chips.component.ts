@@ -3,7 +3,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {FieldComponent, FieldData, HSD, getHsd} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
-export interface ChipsData extends FieldData {
+export interface ChipsConfiguration {
   selectable: boolean;
   removable: boolean;
   addOnBlur: boolean;
@@ -12,6 +12,8 @@ export interface ChipsData extends FieldData {
   suffix?: HSD | string;
   prefix?: HSD | string;
 }
+
+export type ChipsData = ChipsConfiguration & FieldData;
 
 @Component({
   selector: 'fb-chips',

@@ -31,7 +31,7 @@ import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {readFile} from './read-file';
 
-export interface GalleryData extends FieldData {
+export interface GalleryConfiguration {
   allowUrl?: boolean;
   allowServerUpload?: boolean;
   generatedImages?: GeneratedImage[];
@@ -44,6 +44,8 @@ export interface GalleryData extends FieldData {
    */
   preserveFileName?: boolean;
 }
+
+export type GalleryData = GalleryConfiguration & FieldData;
 
 @Component({
   selector: 'fb-gallery',
