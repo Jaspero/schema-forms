@@ -16,7 +16,7 @@ import {
 
 import loader, {Monaco} from '@monaco-editor/loader';
 
-interface MonacoData extends FieldData {
+export interface MonacoData extends FieldData {
   value?: string;
   height?: string;
   /**
