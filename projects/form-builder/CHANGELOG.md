@@ -1,3 +1,11 @@
+# @jaspero/form-builder [5.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.1.0...@jaspero/form-builder@5.2.0) (2022-01-22)
+
+
+### Features
+
+* **field-mat:** added types for all fields ([9446cbe](https://github.com/Jaspero/schema-forms/commit/9446cbe2375ab678d37b7c01b5d07d6807e6b2f8))
+* **form-builder:** added field-definitions export ([2490194](https://github.com/Jaspero/schema-forms/commit/24901945a18bd06c9d3dca3602d270e3c8bc555b))
+
 # @jaspero/form-builder [5.1.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.0.0...@jaspero/form-builder@5.1.0) (2022-01-20)
 
 
