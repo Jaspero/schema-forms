@@ -5,6 +5,7 @@ export * from './lib/options.token';
 export * from './lib/register-blocks';
 export * from './lib/state.const';
 export * from './lib/block-data.component';
+export * from './lib/field-definitions';
 
 /**
  * Inline editors
