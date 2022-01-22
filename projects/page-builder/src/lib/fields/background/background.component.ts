@@ -96,15 +96,15 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
-    this.minSizeBytes = this.cData.minSize || 0;
-    this.maxSizeBytes = this.cData.maxSize || 0;
+    this.minSizeBytes = (this.cData.minSize || 0) as number;
+    this.maxSizeBytes = (this.cData.maxSize || 0) as number;
 
     this.color = new FormControl(controlString.startsWith('#'));
     this.form = this.fb.group(this.props.reduce((acc, cur) => {
       const setting = this.cData[cur.cKey];
 
       if (!setting || setting.active) {
-        const {value} = this.cData.form.get(key);
+        const {value} = this.cData.form.get(cur.key);
         acc[cur.cKey] = value !== undefined ?
           value :
           (setting.default !== undefined ? setting.default : cur.default)
@@ -147,7 +147,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
 
   save(moduleId: string, documentId: string) {
     if (this.color.value) {
-      this.cData.control.value = this.imageUrl.value;
+      this.cData.control.setValue(this.imageUrl.value);
       return of(true);
     }
 

@@ -57,7 +57,7 @@
     <div class="p-a-s">
 
       <ng-container *ngFor="let prop of props">
-        <mat-form-field class="w-full" *ngIf="prop.options; else cbox;">
+        <mat-form-field class="w-full" *ngIf="prop.options; else cBox;">
           <mat-label>{{prop.label}}</mat-label>
           <mat-select [formControlName]="prop.cKey">
             <mat-option *ngFor="let option of prop.options" [value]="option.value">{{option.name}}</mat-option>
