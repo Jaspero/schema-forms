@@ -41,6 +41,7 @@ export * from './lib/interfaces/upload-method.interface';
 export * from './lib/interfaces/compiled-field.interface';
 export * from './lib/interfaces/compiled-segment.interface';
 export * from './lib/interfaces/condition.interface';
+export * from './lib/interfaces/field-definition.interface';
 
 /**
  * Enums
