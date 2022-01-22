@@ -1,3 +1,10 @@
+# @jaspero/fb-monaco-editor [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.4.1...@jaspero/fb-monaco-editor@2.5.0) (2022-01-22)
+
+
+### Features
+
+* split up field data and field configuration ([f283d4f](https://github.com/Jaspero/schema-forms/commit/f283d4f664a4c7e4075060be4ba0b1b5279a2e9a))
+
 ## @jaspero/fb-monaco-editor [2.4.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.4.0...@jaspero/fb-monaco-editor@2.4.1) (2022-01-22)
 
 
