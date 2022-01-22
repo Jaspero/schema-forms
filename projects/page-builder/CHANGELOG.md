@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.17.1...@jaspero/fb-page-builder@3.18.0) (2022-01-22)
+
+
+### Features
+
+* split up field data and field configuration ([f283d4f](https://github.com/Jaspero/schema-forms/commit/f283d4f664a4c7e4075060be4ba0b1b5279a2e9a))
+
 ## @jaspero/fb-page-builder [3.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.17.0...@jaspero/fb-page-builder@3.17.1) (2022-01-22)
 
 
