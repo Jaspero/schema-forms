@@ -1,3 +1,18 @@
+# @jaspero/fb-form-ui [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.4.7...@jaspero/fb-form-ui@2.5.0) (2022-01-22)
+
+
+### Features
+
+* split up field data and field configuration ([f283d4f](https://github.com/Jaspero/schema-forms/commit/f283d4f664a4c7e4075060be4ba0b1b5279a2e9a))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/fb-tinymce:** upgraded to 2.5.0
+
 ## @jaspero/fb-form-ui [2.4.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.4.6...@jaspero/fb-form-ui@2.4.7) (2022-01-22)
 
 
