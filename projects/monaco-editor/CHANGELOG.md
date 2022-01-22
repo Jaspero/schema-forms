@@ -1,3 +1,18 @@
+# @jaspero/fb-monaco-editor [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.3.3...@jaspero/fb-monaco-editor@2.4.0) (2022-01-22)
+
+
+### Features
+
+* **monaco:** added type definitions for field ([ec6f453](https://github.com/Jaspero/schema-forms/commit/ec6f453656cffc71e47e55f81220290185ca7db1))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.2.0
+
 ## @jaspero/fb-monaco-editor [2.3.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.3.2...@jaspero/fb-monaco-editor@2.3.3) (2022-01-20)
 
 
