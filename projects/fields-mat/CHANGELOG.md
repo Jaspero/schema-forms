@@ -1,3 +1,20 @@
+# @jaspero/fb-fields-mat [1.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.3.0...@jaspero/fb-fields-mat@1.4.0) (2022-01-22)
+
+
+### Features
+
+* **field-mat:** added types for all fields ([9446cbe](https://github.com/Jaspero/schema-forms/commit/9446cbe2375ab678d37b7c01b5d07d6807e6b2f8))
+* **form-builder:** added field-definitions export ([2490194](https://github.com/Jaspero/schema-forms/commit/24901945a18bd06c9d3dca3602d270e3c8bc555b))
+* **page-builder:** added field definitions ([1a2bdb2](https://github.com/Jaspero/schema-forms/commit/1a2bdb2250d36a57d7bb0134a9f6ba57378e85f9))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.2.0
+
 # @jaspero/fb-fields-mat [1.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.2.2...@jaspero/fb-fields-mat@1.3.0) (2022-01-20)
 
 
