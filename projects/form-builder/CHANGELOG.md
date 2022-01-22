@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.0...@jaspero/form-builder@5.2.1) (2022-01-22)
+
+
+### Bug Fixes
+
+* **form-builder:** don't require configurations on every component ([6381940](https://github.com/Jaspero/schema-forms/commit/63819405405858192ed692cb35cddd6a18c0b19a))
+
 # @jaspero/form-builder [5.2.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.1.0...@jaspero/form-builder@5.2.0) (2022-01-22)
 
 
