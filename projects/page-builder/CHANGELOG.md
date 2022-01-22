@@ -1,3 +1,24 @@
+# @jaspero/fb-page-builder [3.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.16.0...@jaspero/fb-page-builder@3.17.0) (2022-01-22)
+
+
+### Bug Fixes
+
+* **page-builder:** background field types ([0dbc227](https://github.com/Jaspero/schema-forms/commit/0dbc2270beccdb326d8716a9b82af62703b0c95f))
+* **page-builder:** missing field-definition export ([ce17d4b](https://github.com/Jaspero/schema-forms/commit/ce17d4bdc8204a8b2eaacfb5abf00d88d463a928))
+
+
+### Features
+
+* **page-builder:** added field definitions ([1a2bdb2](https://github.com/Jaspero/schema-forms/commit/1a2bdb2250d36a57d7bb0134a9f6ba57378e85f9))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.2.0
+
 # @jaspero/fb-page-builder [3.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.15.2...@jaspero/fb-page-builder@3.16.0) (2022-01-20)
 
 
