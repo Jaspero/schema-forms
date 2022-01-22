@@ -7,7 +7,7 @@ interface DragOptions extends Option {
   active?: boolean;
 }
 
-interface DragData extends FieldData {
+export interface DragData extends FieldData {
   toggle?: boolean;
   options: DragOptions[];
 }

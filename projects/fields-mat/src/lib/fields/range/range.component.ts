@@ -10,7 +10,7 @@ import {
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-interface RangeData extends FieldData {
+export interface RangeData extends FieldData {
   min?: number;
   max?: number;
 }

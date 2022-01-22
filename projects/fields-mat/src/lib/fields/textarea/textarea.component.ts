@@ -2,7 +2,7 @@ import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {FieldComponent, FieldData, getHsd, HSD} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
-interface TextareaData extends FieldData {
+export interface TextareaData extends FieldData {
   rows?: number;
   cols?: number;
   autocomplete?: string;

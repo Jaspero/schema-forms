@@ -25,7 +25,7 @@ import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
 
-interface FileData extends FieldData {
+export interface FileData extends FieldData {
   emptyLabel?: string;
   preventClear?: boolean;
   allowedFileTypes?: string[];

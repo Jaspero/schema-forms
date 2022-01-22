@@ -5,7 +5,7 @@ import {cloneAbstractControl, COMPONENT_DATA, FieldComponent, FieldData} from '@
 import {safeEval} from '@jaspero/utils';
 import {merge, Subscription} from 'rxjs';
 
-interface DateData extends FieldData {
+export interface DateData extends FieldData {
   startAt?: number;
   touchUi?: boolean;
   startView?: 'month' | 'year' | 'multi-year';

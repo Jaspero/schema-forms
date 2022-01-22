@@ -12,7 +12,7 @@ import {
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, startWith, switchMap, tap} from 'rxjs/operators';
 
-interface AutocompleteData extends FieldData {
+export interface AutocompleteData extends FieldData {
   dataSet: Array<{name: string; value: any}>;
   populate?: {
     collection: string;

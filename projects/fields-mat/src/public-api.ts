@@ -2,6 +2,7 @@
  * Public API Surface of fields-mat
  */
 export * from './lib/fields-mat.module';
+export * from './lib/field-definitions';
 
 /**
  * Fields

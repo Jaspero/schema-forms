@@ -20,7 +20,7 @@ interface RefColumn {
   label: string;
 }
 
-interface RefData extends FieldData {
+export interface RefData extends FieldData {
   /**
    * Collection to query for search
    * @required
@@ -157,7 +157,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       this.cData.table.tableColumns ||
       defulatColumns;
   }
- 
+
   ngOnInit() {
     this.searchControl = new FormControl('');
 

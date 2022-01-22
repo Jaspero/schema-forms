@@ -31,7 +31,7 @@ import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {readFile} from './read-file';
 
-interface GalleryData extends FieldData {
+export interface GalleryData extends FieldData {
   allowUrl?: boolean;
   allowServerUpload?: boolean;
   generatedImages?: GeneratedImage[];

@@ -56,7 +56,7 @@ interface Populate {
   };
 }
 
-interface SelectData extends FieldData {
+export interface SelectData extends FieldData {
   dataSet?: Option[];
   multiple?: boolean;
   populate?: Populate;

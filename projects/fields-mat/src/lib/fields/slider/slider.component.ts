@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FieldComponent, FieldData} from '@jaspero/form-builder';
 
-interface SliderData extends FieldData {
+export interface SliderData extends FieldData {
   validation: {
     minimum: number;
     maximum: number;

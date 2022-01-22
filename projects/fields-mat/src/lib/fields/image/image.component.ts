@@ -31,7 +31,7 @@ import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
 
-interface ImageData extends FieldData {
+export interface ImageData extends FieldData {
   preventServerUpload?: boolean;
   preventUrlUpload?: boolean;
   preventStorageUpload?: boolean;

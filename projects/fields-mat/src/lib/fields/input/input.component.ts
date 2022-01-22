@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FieldComponent, FieldData, getHsd, HSD} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 
-interface InputData extends FieldData {
+export interface InputData extends FieldData {
   /**
    * @default 'text'
    */
