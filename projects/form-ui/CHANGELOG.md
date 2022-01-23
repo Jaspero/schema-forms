@@ -1,3 +1,10 @@
+## @jaspero/fb-form-ui [2.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.5.0...@jaspero/fb-form-ui@2.5.1) (2022-01-23)
+
+
+### Bug Fixes
+
+* **form-ui:** missing fields definition export ([3f6c9bb](https://github.com/Jaspero/schema-forms/commit/3f6c9bbd2a994abe19468dfe378d5405b6215c9f))
+
 # @jaspero/fb-form-ui [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.4.7...@jaspero/fb-form-ui@2.5.0) (2022-01-22)
 
 
