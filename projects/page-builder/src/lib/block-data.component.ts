@@ -1,13 +1,13 @@
 import {ChangeDetectorRef, Component, ElementRef, HostBinding, Input} from '@angular/core';
 import {BackgroundData, blockStyle, BoxData} from './utils/block-style';
 
-export interface BlockOptions extends BackgroundData {
+export interface BlockDataOptions extends BackgroundData {
   additionalStyle?: string;
   box?: BoxData;
 }
 
 @Component({template: ''})
-export class BlockData<Options extends BlockOptions> {
+export class BlockData<Options extends BlockDataOptions> {
   constructor(
     public cdr: ChangeDetectorRef,
     public el: ElementRef
