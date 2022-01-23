@@ -1,8 +1,13 @@
 import {ChangeDetectorRef, Component, ElementRef, HostBinding, Input} from '@angular/core';
-import {blockStyle} from './utils/block-style';
+import {BackgroundData, blockStyle, BoxData} from './utils/block-style';
+
+export interface BlockOptions extends BackgroundData {
+  additionalStyle?: string;
+  box?: BoxData;
+}
 
 @Component({template: ''})
-export class BlockData<T = any> {
+export class BlockData<Options extends BlockOptions> {
   constructor(
     public cdr: ChangeDetectorRef,
     public el: ElementRef
@@ -18,7 +23,7 @@ export class BlockData<T = any> {
   additionalStyle: string;
 
   get data() {
-    return {} as T;
+    return {} as Options;
   }
 
   get addedClasses() {
@@ -40,7 +45,7 @@ export class BlockData<T = any> {
 
   triggerChange() {
 
-    const additionalStyle = (this.data as any).additionalStyle;
+    const additionalStyle = this.data.additionalStyle;
 
     if (
       this.styleEl &&
