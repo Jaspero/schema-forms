@@ -84,7 +84,7 @@ interface Block {
 }
 
 export interface BlocksConfiguration {
-  blocks: Block[];
+  blocks?: Block[];
   layout?: {
     selector: string;
     content: string;
