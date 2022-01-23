@@ -1,3 +1,11 @@
+## @jaspero/fb-page-builder [3.19.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.19.0...@jaspero/fb-page-builder@3.19.1) (2022-01-23)
+
+
+### Bug Fixes
+
+* **page-builder:** better definition for block options ([988070e](https://github.com/Jaspero/schema-forms/commit/988070e485534b9eaaaaaafb9090514338a23709))
+* **page-builder:** same name export ([bb57315](https://github.com/Jaspero/schema-forms/commit/bb5731506d3fbba372ce6c3463e38f65e1e8aa88))
+
 # @jaspero/fb-page-builder [3.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.18.0...@jaspero/fb-page-builder@3.19.0) (2022-01-23)
 
 
