@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [3.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.18.0...@jaspero/fb-page-builder@3.19.0) (2022-01-23)
+
+
+### Bug Fixes
+
+* **page-builder:** blocks defined as required when they should be optional ([4220631](https://github.com/Jaspero/schema-forms/commit/42206316bcfe5fc081b4a4400751de4e983f169e))
+
+
+### Features
+
+* **page-builder:** extended default block ([9702068](https://github.com/Jaspero/schema-forms/commit/970206854be175dd90419616cae29bcc72c13718))
+
 # @jaspero/fb-page-builder [3.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.17.1...@jaspero/fb-page-builder@3.18.0) (2022-01-22)
 
 
