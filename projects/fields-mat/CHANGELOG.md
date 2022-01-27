@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.0...@jaspero/fb-fields-mat@1.5.1) (2022-01-27)
+
+
+### Bug Fixes
+
+* **form-builder:** select reset button not having type button ([e8dcb9d](https://github.com/Jaspero/schema-forms/commit/e8dcb9d7ebe1929c84af60dd52c35001bd9ce68c))
+
 # @jaspero/fb-fields-mat [1.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.4.1...@jaspero/fb-fields-mat@1.5.0) (2022-01-22)
 
 
