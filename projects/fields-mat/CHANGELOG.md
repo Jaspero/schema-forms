@@ -1,3 +1,18 @@
+## @jaspero/fb-fields-mat [1.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.1...@jaspero/fb-fields-mat@1.5.2) (2022-02-01)
+
+
+### Bug Fixes
+
+* **form-builder:** generic type for options; better padding on date-field; ([7a28350](https://github.com/Jaspero/schema-forms/commit/7a283504250063415294b2e9a40d8e8ba1795233))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.2.2
+
 ## @jaspero/fb-fields-mat [1.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.0...@jaspero/fb-fields-mat@1.5.1) (2022-01-27)
 
 
