@@ -1,5 +1,5 @@
-export interface Option {
+export interface Option<V = any> {
   name: string;
-  value: string;
+  value: V;
   disabled?: boolean;
 }
