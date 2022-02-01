@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.2.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.1...@jaspero/form-builder@5.2.2) (2022-02-01)
+
+
+### Bug Fixes
+
+* **form-builder:** generic type for options; better padding on date-field; ([7a28350](https://github.com/Jaspero/schema-forms/commit/7a283504250063415294b2e9a40d8e8ba1795233))
+
 ## @jaspero/form-builder [5.2.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.0...@jaspero/form-builder@5.2.1) (2022-01-22)
 
 
