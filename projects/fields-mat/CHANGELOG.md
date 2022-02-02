@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.5.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.2...@jaspero/fb-fields-mat@1.5.3) (2022-02-02)
+
+
+### Bug Fixes
+
+* **FileSelect:** missing import dropZoneModule ([8b2b5a8](https://github.com/Jaspero/schema-forms/commit/8b2b5a87155dde66c4cba72b13b759bd7d2ed865))
+
 ## @jaspero/fb-fields-mat [1.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.1...@jaspero/fb-fields-mat@1.5.2) (2022-02-01)
 
 
