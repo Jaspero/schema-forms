@@ -25,7 +25,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService} from '@jaspero/form-builder';
-import {SanitizeModule} from '@jaspero/ng-helpers';
+import {DropZoneModule, SanitizeModule} from '@jaspero/ng-helpers';
 import {TranslocoModule} from '@ngneat/transloco';
 import {FileSelectComponent} from './components/file-select/file-select.component';
 import {AutocompleteComponent} from './fields/autocomplete/autocomplete.component';
@@ -113,6 +113,7 @@ const FIELDS_CONFIG = new InjectionToken<FieldsMatConfig>('FIELDS_CONFIG');
     /**
      * Jp Helpers
      */
+    DropZoneModule,
     SanitizeModule,
 
     /**
