@@ -1,15 +1,17 @@
 <section class="flex ai-base m-y-s">
   <mat-form-field class="w-full mat-form-field-no-hint">
-    <mat-label>{{cData.display.label | transloco}}</mat-label>
-    <input matInput autocomplete="off" [matAutocomplete]="auto" [value]="display$ | async">
+    <mat-label>{{ cData.display.label | transloco }}</mat-label>
+    <input matInput autocomplete="off" [matAutocomplete]="auto" [value]="display$ | async" />
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" class="autocomplete">
       <section class="ref-container" *ngIf="auto.isOpen">
         <div *ngIf="input.focus()"></div>
         <div class="p-x-m p-t-s search-field">
           <mat-form-field class="w-full">
-            <mat-label>{{'FIELDS.REF.SEARCH_BY' | transloco}} {{cData.search.label}}</mat-label>
-            <input matInput [formControl]="searchControl" #input autocomplete="off">
-            <button mat-icon-button matSuffix><mat-icon *ngIf="searchControl.value" (click)="searchControl.reset()">close</mat-icon></button>
+            <mat-label>{{ 'FIELDS.REF.SEARCH_BY' | transloco }} {{ cData.search.label }}</mat-label>
+            <input matInput [formControl]="searchControl" #input autocomplete="off" />
+            <button mat-icon-button matSuffix>
+              <mat-icon *ngIf="searchControl.value" (click)="searchControl.reset()">close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
 
@@ -20,35 +22,40 @@
                 <ng-container matColumnDef="select" *ngIf="cData.multiple">
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()"
-                                  (change)="$event ? selection.toggle(row) : null"
-                                  [checked]="selection.isSelected(row)">
-                    </mat-checkbox>
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"> </mat-checkbox>
                   </td>
                 </ng-container>
                 <ng-container *ngFor="let column of columns" [matColumnDef]="column.key.slice(1)">
-                  <th mat-header-cell *matHeaderCellDef>{{column.label | transloco}}</th>
-                  <td mat-cell *matCellDef="let element" [attr.data-label]="column.label | transloco">{{element[column.key.slice(1)]}}</td>
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ column.label | transloco }}
+                  </th>
+                  <td mat-cell *matCellDef="let element" [attr.data-label]="column.label | transloco">
+                    {{ element[column.key.slice(1)] }}
+                  </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="ref-row" (click)="!cData.multiple && selectRow(row)"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns" class="ref-row" (click)="!cData.multiple && selectRow(row)"></tr>
               </table>
             </ng-container>
 
             <ng-template #empty>
               <div class="flex jc-center p-b-m" *ngIf="showApplyValue">
-                <button mat-raised-button (click)="applySearchValue()" color="primary">{{'FIELDS.REF.APPLY_VALUE' | transloco}}</button>
+                <button mat-raised-button (click)="applySearchValue()" color="primary">
+                  {{ 'FIELDS.REF.APPLY_VALUE' | transloco }}
+                </button>
               </div>
             </ng-template>
 
             <div class="flex jc-center">
-              <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="!hasMore">{{'FIELDS.REF.LOAD_MORE' | transloco}}</button>
+              <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="!hasMore">
+                {{ 'FIELDS.REF.LOAD_MORE' | transloco }}
+              </button>
             </div>
           </ng-container>
         </div>
       </section>
-      <mat-option style="display: none;"></mat-option>
+      <mat-option style="display: none"></mat-option>
     </mat-autocomplete>
 
     <button matSuffix mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined && cData.multiple ? cData.control.value.length : cData.control.value">
