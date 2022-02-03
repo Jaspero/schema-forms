@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.5.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.3...@jaspero/fb-fields-mat@1.5.4) (2022-02-03)
+
+
+### Bug Fixes
+
+* **mat-fields:** padding on date-field ([37c1997](https://github.com/Jaspero/schema-forms/commit/37c1997ce33d52a0c17d96737b892e99e2e632dc))
+
 ## @jaspero/fb-fields-mat [1.5.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.2...@jaspero/fb-fields-mat@1.5.3) (2022-02-02)
 
 
