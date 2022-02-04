@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [3.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.19.2...@jaspero/fb-page-builder@3.20.0) (2022-02-04)
+
+
+### Bug Fixes
+
+* **page-builder:** scoping global data to module ([ff785b9](https://github.com/Jaspero/schema-forms/commit/ff785b96d2ec497b602765ec3ffad8666c313c7c))
+
+
+### Features
+
+* **page-builder:** automatically opening first segment on expandable blocks ([ed8dce6](https://github.com/Jaspero/schema-forms/commit/ed8dce66faa3a3fdbba3ba4869b38b03bc4fff11))
+
 ## @jaspero/fb-page-builder [3.19.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.19.1...@jaspero/fb-page-builder@3.19.2) (2022-02-01)
 
 
