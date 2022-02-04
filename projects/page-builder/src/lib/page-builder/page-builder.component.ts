@@ -286,7 +286,9 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   }
 
   ngOnDestroy() {
-    delete window.jpFbPb[this.module];
+    if (window.jpFbPb?.[this.module]) {
+      delete window.jpFbPb[this.module];
+    }
     this.service.removeComponent(this);
   }
 

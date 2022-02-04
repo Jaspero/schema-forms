@@ -171,6 +171,14 @@
     padding: 0 10px;
     transition: .2s;
 
+    @media (max-width: 1200px) {
+      justify-content: space-between;
+
+      .pb-header-space {
+        display: none;
+      }
+    }
+
     &.fullscreen {
       left: 0;
       width: 100vw;
@@ -232,10 +240,6 @@ iframe {
   height: 100%;
 }
 
-::ng-deep iframe body {
-  margin: 0;
-}
-
 .cdk-drag-preview {
   background: white;
   box-sizing: border-box;
@@ -258,6 +262,23 @@ iframe {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-::ng-deep .page-builder-open .cdk-overlay-container {
-  z-index: 1010;
+::ng-deep {
+  iframe body {
+    margin: 0;
+  }
+
+  .page-builder-open .cdk-overlay-container {
+    z-index: 1010;
+  }
+
+  .pb-right-sidebar {
+
+    fb-empty {
+      box-sizing: border-box !important;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 !important;
+    }
+  }
 }
