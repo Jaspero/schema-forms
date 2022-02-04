@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.20.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.2...@jaspero/fb-page-builder@3.20.3) (2022-02-04)
+
+
+### Bug Fixes
+
+* **page-builder:** breaking when page builder wasn't open but component was destroyed ([f43cb19](https://github.com/Jaspero/schema-forms/commit/f43cb197da42350ab8eb2c3310da9a80ab78766c))
+
 ## @jaspero/fb-page-builder [3.20.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.1...@jaspero/fb-page-builder@3.20.2) (2022-02-04)
 
 
