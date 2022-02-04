@@ -25,17 +25,16 @@ export interface BlockOptions {
   }
 }
 
-/**
- * TODO:
- * When in render mode only the "component property is needed
- */
 export function Block(options: BlockOptions): ClassDecorator {
   return (type: any) => {
-    Object.defineProperty(type.prototype, 'data', {
-      get: function() {
-        return ((window.jpFbPb || {})[this.module] || {})[this.id] || {};
-      }
-    });
+
+    if (!STATE.renderMode) {
+      Object.defineProperty(type.prototype, 'data', {
+        get: function() {
+          return ((window.jpFbPb || {})[this.module] || {})[this.id] || {};
+        }
+      });
+    }
 
     const componentDef = type[ɵNG_COMP_DEF];
 

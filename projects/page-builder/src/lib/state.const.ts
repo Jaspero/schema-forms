@@ -1,4 +1,5 @@
 export const STATE: {
+  renderMode: boolean;
   registered: {[key: string]: boolean};
   blocks: {
     [key: string]: {
@@ -6,6 +7,7 @@ export const STATE: {
     }
   }
 } = {
+  renderMode: false,
   registered: {},
   blocks: {}
 };
