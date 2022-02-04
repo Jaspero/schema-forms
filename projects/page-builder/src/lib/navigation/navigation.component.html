@@ -6,7 +6,7 @@
       cdkDrag
       [cdkDragData]="node"
       [cdkDragDisabled]="!node.nested"
-      (click)="selectCustomBlock(node)"
+      (jpStopPropagation)="selectCustomBlock(node)"
       [class]="'pointer flex w-full ' + (node.class || '') + (!!node.nested ? ' movable' : '')"
       (contextmenu)="openOptions($event, node)">
       <mat-icon class="mat-icon-rtl-mirror hidden mat-elevation-z12" *ngIf="hasChild(0, node)">chevron_right</mat-icon>
@@ -16,9 +16,11 @@
     </mat-tree-node>
     <mat-tree-node
       *matTreeNodeDef="let node;when:hasChild"
+      #nd
       matTreeNodePadding
       matTreeNodeToggle
       class="pointer flex"
+      (click)="selectParent(node, nd)"
       (contextmenu)="openOptions($event, node, true)">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}

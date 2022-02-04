@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
+import {BlockData, BlockDataOptions} from '../../../../../../projects/page-builder/src/lib/block-data.component';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 
-interface Data {
+interface Data extends BlockDataOptions {
   title: string;
   singleLine: string;
   image: string;

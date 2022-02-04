@@ -193,7 +193,6 @@ export class NavigationComponent {
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
   selectCustomBlock(node) {
-
     if (node.button) {
       if (node.action === 'add') {
         this.blockCache.value[node.arrayProperty] = [
@@ -251,6 +250,14 @@ export class NavigationComponent {
     }
 
     return this.selectBlock(this.blockCache, this.index);
+  }
+
+  selectParent(node, nd) {
+    if (nd.ariaExpanded === 'false' || !node.children?.length) {
+      return;
+    }
+
+    this.selectCustomBlock(node.children[0]);
   }
 
   openOptions(event, block, isBlock = false) {

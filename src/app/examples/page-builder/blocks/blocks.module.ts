@@ -8,7 +8,7 @@ import {CardsComponent} from './cards/cards.component';
 import {DividerComponent} from './divider/divider.component';
 import {SimpleComponent} from './simple/simple.component';
 
-const BLOCKS = [
+const BLOCKS: any[] = [
   SimpleComponent,
   CardsComponent,
   DividerComponent

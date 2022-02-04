@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {BlockData, BlockDataOptions} from '../../../../../../projects/page-builder/src/lib/block-data.component';
 import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
 import {COMMON_OPTIONS} from '../../common-options.const';
 
-interface Data {
+interface Data extends BlockDataOptions {
   slideTitle?: string;
   slides: Array<{
     title?: string;

@@ -7,7 +7,7 @@ export interface BlockDataOptions extends BackgroundData {
 }
 
 @Component({template: ''})
-export class BlockData<Options extends BlockDataOptions> {
+export class BlockData<Options extends BlockDataOptions = any> {
   constructor(
     public cdr: ChangeDetectorRef,
     public el: ElementRef
