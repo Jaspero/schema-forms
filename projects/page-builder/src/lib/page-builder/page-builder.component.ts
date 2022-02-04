@@ -668,7 +668,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     const type = this.selection[block.type];
     const element = document.createElement(block.type);
 
-    element.id = block.id.toString();
+    element.setAttribute('id', block.id.toString());
     element.setAttribute('module', this.module);
 
     const cmpRef = this.vce.createComponent(BlockComponent, {
@@ -678,7 +678,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     /**
      * Assigning inputs
      */
-    cmpRef.instance.id = block.id;
+    cmpRef.instance.id = `block-${block.id}`;
     cmpRef.instance.module = this.module;
     cmpRef.instance.styles = type.previewStyle ? [type.previewStyle] : [];
 

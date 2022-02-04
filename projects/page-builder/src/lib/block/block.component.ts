@@ -13,16 +13,14 @@ export class BlockComponent implements OnInit {
 
   @HostBinding('id')
   @Input()
-  id: number;
-
-  @Input()
-  module: string;
-
-  @Input() styles: string[];
+  id: string;
 
   @HostBinding('class.selected')
   @Input()
   selected: boolean;
+
+  @Input() module: string;
+  @Input() styles: string[];
 
   ngOnInit() {
     if (this.styles) {
