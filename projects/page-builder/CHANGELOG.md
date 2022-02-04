@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.20.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.0...@jaspero/fb-page-builder@3.20.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* **page-builder:** appending id to block-data ([c19c3d9](https://github.com/Jaspero/schema-forms/commit/c19c3d9ab423caf11220e648950b200ad50ed991))
+
 # @jaspero/fb-page-builder [3.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.19.2...@jaspero/fb-page-builder@3.20.0) (2022-02-04)
 
 
