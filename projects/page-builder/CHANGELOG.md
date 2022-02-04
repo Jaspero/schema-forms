@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.20.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.1...@jaspero/fb-page-builder@3.20.2) (2022-02-04)
+
+
+### Bug Fixes
+
+* **page-builder:** don't define data when in renderMode ([e32c4ff](https://github.com/Jaspero/schema-forms/commit/e32c4ff67b82efe2d54425af34ca711d6f956bfb))
+
 ## @jaspero/fb-page-builder [3.20.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.0...@jaspero/fb-page-builder@3.20.1) (2022-02-04)
 
 
