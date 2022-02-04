@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'fb-pb-block',
@@ -14,6 +14,9 @@ export class BlockComponent implements OnInit {
   @HostBinding('id')
   @Input()
   id: number;
+
+  @Input()
+  module: string;
 
   @Input() styles: string[];
 

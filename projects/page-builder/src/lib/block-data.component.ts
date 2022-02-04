@@ -14,6 +14,7 @@ export class BlockData<Options extends BlockDataOptions = any> {
   ) {}
 
   @Input() id: string;
+  @Input() module: string;
   @Input() set change(data: any) {
     this.triggerChange();
     this.cdr.markForCheck();

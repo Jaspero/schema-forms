@@ -41,6 +41,16 @@ import {registerBlocks} from '../register-blocks';
 import {BlockFormComponent} from '../block-form/block-form.component';
 import {BlockComponent} from '../block/block.component';
 
+declare global {
+  interface Window {
+    jpFbPb: {
+      [key: string]: {
+        [key: string]: any
+      }
+    }
+  }
+}
+
 interface BlockSegment extends Segment {
   icon: string | ((value: any) => string);
 }
@@ -104,10 +114,6 @@ export interface BlocksConfiguration {
 }
 
 export type BlocksData = BlocksConfiguration & FieldData;
-
-declare const window: Window & {
-  jpFbPb: {[key: string]: any}
-};
 
 @UntilDestroy()
 @Component({
@@ -183,7 +189,11 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       window.jpFbPb = {};
     }
 
-    return window.jpFbPb;
+    if (!window.jpFbPb[this.module]) {
+      window.jpFbPb[this.module] = {};
+    }
+
+    return window.jpFbPb[this.module];
   }
 
   dragStarted() {
@@ -276,6 +286,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   }
 
   ngOnDestroy() {
+    delete window.jpFbPb[this.module];
     this.service.removeComponent(this);
   }
 
@@ -658,6 +669,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     const element = document.createElement(block.type);
 
     element.id = block.id.toString();
+    element.setAttribute('module', this.module);
 
     const cmpRef = this.vce.createComponent(BlockComponent, {
       projectableNodes: [[element]]
@@ -667,6 +679,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
      * Assigning inputs
      */
     cmpRef.instance.id = block.id;
+    cmpRef.instance.module = this.module;
     cmpRef.instance.styles = type.previewStyle ? [type.previewStyle] : [];
 
     this.iframeTarget.appendChild(cmpRef.location.nativeElement);

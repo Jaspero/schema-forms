@@ -3,10 +3,6 @@ import {Definitions, Segment} from '@jaspero/form-builder';
 import {JSONSchema7} from 'json-schema';
 import {STATE} from '../state.const';
 
-declare const window: Window & {
-  jpFbPb: {[key: string]: any}
-};
-
 export interface BlockSegment extends Segment {
   icon?: string;
 }
@@ -37,7 +33,7 @@ export function Block(options: BlockOptions): ClassDecorator {
   return (type: any) => {
     Object.defineProperty(type.prototype, 'data', {
       get: function() {
-        return window.jpFbPb[this.id] || {};
+        return ((window.jpFbPb || {})[this.module] || {})[this.id] || {};
       }
     });
 
