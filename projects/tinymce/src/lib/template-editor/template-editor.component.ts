@@ -5,11 +5,13 @@ import {TemplateEditorSegment} from './interfaces/template-editor-segment.interf
 import {TemplateEditorTemplate} from './interfaces/template-editor-template.interface';
 import {TemplateEditorInnerComponent} from './template-editor-inner/template-editor-inner.component';
 
-interface TemplateEditorData extends FieldData {
+export interface TemplateEditorConfig {
   templates: TemplateEditorTemplate[];
   defaultTemplate: string;
   wysiwygConfig?: any;
 }
+
+export type TemplateEditorData = TemplateEditorConfig & FieldData;
 
 @Component({
   selector: 'fb-tm-template-editor',
