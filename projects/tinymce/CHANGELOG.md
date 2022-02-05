@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.5.1...@jaspero/fb-tinymce@2.5.2) (2022-02-05)
+
+
+### Bug Fixes
+
+* **tinymce:** added missing template-editor-definition ([4dd9d05](https://github.com/Jaspero/schema-forms/commit/4dd9d05f7db3c46d86d55e306495e9a21cd27fca))
+
 ## @jaspero/fb-tinymce [2.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.5.0...@jaspero/fb-tinymce@2.5.1) (2022-02-01)
 
 
