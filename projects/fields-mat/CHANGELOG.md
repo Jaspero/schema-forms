@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.5.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.4...@jaspero/fb-fields-mat@1.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* **image:** file not being deleted on remove ([23b7474](https://github.com/Jaspero/schema-forms/commit/23b74745e18c3e4fc8e75c595c3dc6e95065c930))
+
 ## @jaspero/fb-fields-mat [1.5.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.3...@jaspero/fb-fields-mat@1.5.4) (2022-02-03)
 
 
