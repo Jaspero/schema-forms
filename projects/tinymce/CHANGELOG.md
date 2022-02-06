@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.5.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.5.2...@jaspero/fb-tinymce@2.5.3) (2022-02-06)
+
+
+### Bug Fixes
+
+* **tinymce:** editors and groups required in TemplateEditorSegment ([bf5d5de](https://github.com/Jaspero/schema-forms/commit/bf5d5def32636baf3919d72c750328b79cab3953))
+
 ## @jaspero/fb-tinymce [2.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.5.1...@jaspero/fb-tinymce@2.5.2) (2022-02-05)
 
 
