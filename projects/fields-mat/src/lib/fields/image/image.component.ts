@@ -204,6 +204,7 @@ export class ImageComponent extends FieldComponent<ImageData>
     this.imageUrl.setValue('');
     this.value = null;
     this.disInput = false;
+    this.cData.control.setValue('');
     this.cdr.detectChanges();
   }
 
