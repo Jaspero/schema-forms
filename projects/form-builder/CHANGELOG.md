@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.3...@jaspero/form-builder@5.3.0) (2022-02-08)
+
+
+### Features
+
+* **form-builder:** better parser recreation ([002b58d](https://github.com/Jaspero/schema-forms/commit/002b58d1e958350023a2003e774995771b783395))
+
 ## @jaspero/form-builder [5.2.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.2...@jaspero/form-builder@5.2.3) (2022-02-08)
 
 
