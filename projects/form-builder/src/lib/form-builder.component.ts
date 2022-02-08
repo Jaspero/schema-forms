@@ -13,6 +13,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {OnChange} from '@jaspero/ng-helpers';
 import {forkJoin, of, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {State} from './enums/state.enum';
@@ -49,6 +50,9 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input() data: FormBuilderData;
   @Input() value: any;
   @Input() id = 'main';
+  @OnChange(function() {
+    this.parserProvidedExternaly = true;
+  })
   @Input() parser: Parser;
   @Input() state: State = State.Create;
   @Input() metadata: any;
@@ -58,11 +62,26 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   form: FormGroup;
   segments: CompiledSegment[];
+  parserProvidedExternaly = false;
 
   private changeSubscription: Subscription;
   private statusSubscription: Subscription;
 
   ngOnChanges(changes: SimpleChanges) {
+
+    /**
+     * In case the provider is provided internally
+     * and the id has changed we delete it here
+     * before going in to rendering to force the
+     * creation of a new parser
+     */
+    if (
+      (changes.id.currentValue !== changes.id.previousValue) &&
+      !this.parserProvidedExternaly
+    ) {
+      delete this.parser;
+    }
+
     if (changes.data) {
       this.render();
     }
