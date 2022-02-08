@@ -71,11 +71,11 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
      * before going in to rendering to force the
      * creation of a new parser
      */
-    if (changes.id.currentValue !== changes.id.previousValue) {
+    if (changes.id && (changes.id.currentValue !== changes.id.previousValue)) {
       delete this.innerParser;
     }
 
-    if (changes.parser.currentValue) {
+    if (changes.parser?.currentValue) {
       this.innerParser = changes.parser.currentValue;
     }
 
