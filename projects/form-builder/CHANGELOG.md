@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.2.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.2...@jaspero/form-builder@5.2.3) (2022-02-08)
+
+
+### Bug Fixes
+
+* **form-builder:** prevent re-using parser from other schemas when the form-builder isn't re-built ([74be4c5](https://github.com/Jaspero/schema-forms/commit/74be4c5be3749f3a72bd3dea2e20bbb32f635041))
+
 ## @jaspero/form-builder [5.2.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.2.1...@jaspero/form-builder@5.2.2) (2022-02-01)
 
 
