@@ -13,7 +13,6 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {OnChange} from '@jaspero/ng-helpers';
 import {forkJoin, of, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {State} from './enums/state.enum';
@@ -50,9 +49,6 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input() data: FormBuilderData;
   @Input() value: any;
   @Input() id = 'main';
-  @OnChange(function() {
-    this.parserProvidedExternaly = true;
-  })
   @Input() parser: Parser;
   @Input() state: State = State.Create;
   @Input() metadata: any;
@@ -62,8 +58,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   form: FormGroup;
   segments: CompiledSegment[];
-  parserProvidedExternaly = false;
 
+  private innerParser: Parser;
   private changeSubscription: Subscription;
   private statusSubscription: Subscription;
 
@@ -75,11 +71,12 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
      * before going in to rendering to force the
      * creation of a new parser
      */
-    if (
-      (changes.id.currentValue !== changes.id.previousValue) &&
-      !this.parserProvidedExternaly
-    ) {
-      delete this.parser;
+    if (changes.id.currentValue !== changes.id.previousValue) {
+      delete this.innerParser;
+    }
+
+    if (changes.parser.currentValue) {
+      this.innerParser = changes.parser.currentValue;
     }
 
     if (changes.data) {
@@ -107,7 +104,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   }
 
   process() {
-    this.parser.preSaveHooks(
+    this.innerParser.preSaveHooks(
       this.state
     );
 
@@ -167,8 +164,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     const value = this.data.value || {};
     const definitions = this.data.definitions || {};
 
-    if (!this.parser) {
-      this.parser = new Parser(
+    if (!this.innerParser) {
+      this.innerParser = new Parser(
         this.data.schema,
         this.injector,
         this.state,
@@ -176,14 +173,14 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
         definitions
       );
 
-      this.form = this.parser.buildForm(
+      this.form = this.innerParser.buildForm(
         value,
         null,
         '/',
         false
       );
     } else {
-      this.form = this.parser.form;
+      this.form = this.innerParser.form;
     }
 
     if (!window.jpFb) {
@@ -194,19 +191,19 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     }
 
     window.jpFb.forms[this.id] = this.form;
-    window.jpFb.parsers[this.id] = this.parser;
+    window.jpFb.parsers[this.id] = this.innerParser;
 
-    this.parser.loadHooks();
+    this.innerParser.loadHooks();
 
     this.segments = filterAndCompileSegments(
       this.data.segments ||
       [{
         title: '',
-        fields: Object.keys(this.parser.pointers),
+        fields: Object.keys(this.innerParser.pointers),
         columnsDesktop: 12,
         type: this.defaultSegment || 'empty'
       }],
-      this.parser,
+      this.innerParser,
       definitions,
       this.injector,
       value
