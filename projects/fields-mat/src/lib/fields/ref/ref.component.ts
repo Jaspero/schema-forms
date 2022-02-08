@@ -106,7 +106,7 @@ export interface RefConfiguration {
   hideApplyValue?: boolean;
 }
 
-export interface RefData extends RefConfiguration, FieldData {}
+export interface RefData extends RefConfiguration, FieldData { }
 
 @Component({
   selector: 'fb-ref',
@@ -144,7 +144,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
 
   get showApplyValue() {
     return !this.cData.hideApplyValue &&
-     this.cData.control.value !== this.searchControl.value;
+      this.cData.control.value !== this.searchControl.value;
   }
 
   get columns() {
@@ -242,75 +242,83 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
 
     this.data$ = combineLatest([this.searchControl.valueChanges
       .pipe(distinctUntilChanged(), tap(() => this.cursor = null)), this.display$, this.loadMore$]).pipe(
-      switchMap(([search]: [string, any, boolean]) => {
-        search = search || '';
-        return this.db.getDocuments(this.cData.collection, this.cData.limit, undefined, this.cursor, [
-          ...this.cData.filters.map(filter => {
-            return typeof filter === 'function'
-              ? filter({
-                fieldData: this.cData,
-                value: this.cData.form.getRawValue(),
-                role: this.role,
-                additionalContext: this.additionalContext
-              })
-              : filter;
-          }),
-          {
-            key: this.cData.search.key.slice(1),
-            label: this.cData.search.label,
-            operator: FilterMethod.GreaterThenOrEqual,
-            value: search
-          },
-          {
-            key: this.cData.search.key.slice(1),
-            label: this.cData.search.label,
-            operator: FilterMethod.LessThen,
-            value: search.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1))
+        switchMap(([search]: [string, any, boolean]) => {
+          search = search || '';
+          return this.db.getDocuments(
+            this.cData.collection,
+            this.cData.limit,
+            undefined,
+            this.cursor,
+            [
+              ...this.cData.filters
+                .map(filter =>
+                  typeof filter === 'function'
+                    ? filter({
+                      fieldData: this.cData,
+                      value: this.cData.form.getRawValue(),
+                      role: this.role,
+                      additionalContext: this.additionalContext
+                    })
+                    : filter
+                )
+                .filter(it => !!it),
+              {
+                key: this.cData.search.key.slice(1),
+                label: this.cData.search.label,
+                operator: FilterMethod.GreaterThenOrEqual,
+                value: search
+              },
+              {
+                key: this.cData.search.key.slice(1),
+                label: this.cData.search.label,
+                operator: FilterMethod.LessThen,
+                value: search.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1))
+              }
+            ]
+          );
+        }),
+        map((snaps: any) => {
+          if (snaps.length) {
+            this.cursor = snaps[snaps.length - 1];
+          } else {
+            this.cursor = null;
           }
-        ]);
-      }),
-      map((snaps: any) => {
-        if (snaps.length) {
-          this.cursor = snaps[snaps.length - 1];
-        } else {
-          this.cursor = null;
-        }
 
-        return snaps.map(doc => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          };
-        });
-      }),
-      scan((documents, cur) => {
-        if (cur.length) {
-          this.hasMore = true;
-        } else {
-          this.hasMore = false;
-          this.cursor = null;
-        }
+          return snaps.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            };
+          });
+        }),
+        scan((documents, cur) => {
+          if (cur.length) {
+            this.hasMore = true;
+          } else {
+            this.hasMore = false;
+            this.cursor = null;
+          }
 
-        if (this.lastSearch !== this.searchControl.value) {
+          if (this.lastSearch !== this.searchControl.value) {
+            this.lastSearch = this.searchControl.value;
+            return cur;
+          }
+
           this.lastSearch = this.searchControl.value;
-          return cur;
-        }
 
-        this.lastSearch = this.searchControl.value;
+          return [...documents, ...(this.hasMore ? cur : [])];
+        }, []),
+        map((documents) => {
+          if (!this.cData.multiple) {
+            return documents;
+          }
 
-        return [...documents, ...(this.hasMore ? cur : [])];
-      }, []),
-      map((documents) => {
-        if (!this.cData.multiple) {
-          return documents;
-        }
-
-        const selectedIds = this.selection.selected.map(item => item.id);
-        return [...this.selection.selected, ...documents.filter(document => !selectedIds.includes(document.id))]
-          .filter((document, index, arr) => arr.findIndex(item => (item.id === document.id)) === index);
-      }),
-      tap(() => setTimeout(() => this.autocomplete.updatePosition(), 10))
-    );
+          const selectedIds = this.selection.selected.map(item => item.id);
+          return [...this.selection.selected, ...documents.filter(document => !selectedIds.includes(document.id))]
+            .filter((document, index, arr) => arr.findIndex(item => (item.id === document.id)) === index);
+        }),
+        tap(() => setTimeout(() => this.autocomplete.updatePosition(), 10))
+      );
 
     this.subscriptions.push(
       this.selection.changed.pipe(
