@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.5.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.8...@jaspero/fb-fields-mat@1.5.9) (2022-02-09)
+
+
+### Bug Fixes
+
+* **ref:** don't process empty filters ([bf87589](https://github.com/Jaspero/schema-forms/commit/bf87589ca2fba5e2502159576285f4cda5d27ae0))
+
 ## @jaspero/fb-fields-mat [1.5.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.5.7...@jaspero/fb-fields-mat@1.5.8) (2022-02-08)
 
 
