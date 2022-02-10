@@ -15,15 +15,33 @@ import {createCustomComponentInjector} from './custom-components';
 import {DEFAULT_SEGMENT} from './default-segment';
 import {Parser} from './parser';
 
-export function compileSegment(
+export function compileSegment(config: {
   segment: Segment,
   parser: Parser,
   definitions: Definitions,
   injector: Injector,
-  entryValue: any,
-  parent = '',
+  value: any,
+  parent?: string,
+  formId?: string;
+  parentForm?: {
+    id: string;
+    pointer: string;
+  },
   index?: number
-) {
+}) {
+
+  const {
+    segment,
+    parser,
+    definitions,
+    injector,
+    value,
+    parent,
+    formId,
+    parentForm,
+    index,
+  } = config;
+
   const classes: string[] = [];
 
   let fields: CompiledField[] | string[] = [];
@@ -71,7 +89,13 @@ export function compileSegment(
         }
       });
     } else {
-      fields = compileFields(parser, definitions, segment.fields);
+      fields = compileFields({
+        parser,
+        definitions,
+        fields: segment.fields,
+        formId,
+        parentForm
+      });
     }
   }
 
@@ -90,6 +114,8 @@ export function compileSegment(
               null,
               createCustomComponentInjector(injector, {
                 form: parser.form,
+                parentForm,
+                formId,
                 ...id && {id: id.value},
                 ...(component.input || {})
               })
@@ -106,7 +132,7 @@ export function compileSegment(
     ...segment,
     classes,
     fields,
-    entryValue,
+    entryValue: value,
     customComponents
   } as CompiledSegment;
 
@@ -117,7 +143,7 @@ export function compileSegment(
   if (segment.conditions) {
 
     compiledSegment.conditions = [];
-    const valToPass = entryValue || {};
+    const valToPass = value || {};
 
     for (const cur of segment.conditions) {
       let condition;
@@ -179,6 +205,8 @@ export function compileSegment(
         segment: compiledSegment,
         parser,
         definitions,
+        parentForm,
+        formId,
         ...parent && {parent},
         ...index !== undefined && {index}
       })

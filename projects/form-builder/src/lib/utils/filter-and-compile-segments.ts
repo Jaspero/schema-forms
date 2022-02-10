@@ -4,27 +4,31 @@ import {Segment} from '../interfaces/segment.interface';
 import {compileSegment} from './compile-segment';
 import {Parser} from './parser';
 
-export function filterAndCompileSegments(
+export function filterAndCompileSegments(config: {
   segments: Segment[],
   parser: Parser,
   definitions: Definitions,
   injector: Injector,
   value: any,
+  formId?: string;
+  parentForm?: {
+    id: string;
+    pointer: string;
+  },
   parent?: string,
   index?: number
-) {
-  return segments.reduce((acc, cur) => {
-    if (!cur.authorization || cur.authorization.includes(parser.role)) {
+}) {
 
-      const compiled = compileSegment(
-        cur,
+  const {segments, parser, ...segmentConfig} = config;
+
+  return segments.reduce((acc, segment) => {
+    if (!segment.authorization || segment.authorization.includes(parser.role)) {
+
+      const compiled = compileSegment({
+        segment,
         parser,
-        definitions,
-        injector,
-        value,
-        parent,
-        index
-      );
+        ...segmentConfig,
+      });
 
       /**
        * TODO:

@@ -92,12 +92,12 @@ export class Parser {
 
     try {
       custom = this.injector.get(CUSTOM_FIELDS);
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const ctx = this.injector.get(FormBuilderContextService);
       ctxFields = ctx.fields || {};
-    } catch (e) {}
+    } catch (e) { }
 
     this.customFields = {
       ...custom || {},
@@ -254,13 +254,13 @@ export class Parser {
        */
       ...(addId
         ? [
-            [
-              'id',
-              {
-                type: 'string'
-              }
-            ]
+          [
+            'id',
+            {
+              type: 'string'
+            }
           ]
+        ]
         : [])
     ].reduce(
       (group, [key, value]: [string, any]) => {
@@ -298,23 +298,23 @@ export class Parser {
                 pointerKey + '/',
                 false
               );
-  
+
               for (const added in objectProperties.pointers) {
                 if (objectProperties.pointers.hasOwnProperty(added)) {
                   // @ts-ignore
                   group.pointers[added] = objectProperties.pointers[added];
                 }
               }
-  
+
               parsed = {
                 control: objectProperties.form,
                 validation: {}
               };
-            } 
-            
+            }
+
             /**
              * When properties aren't defined we create a
-             * FormControl instead of a FormGroup 
+             * FormControl instead of a FormGroup
              */
             else {
               parsed = Parser.stringControl(value, isRequired);
@@ -333,13 +333,13 @@ export class Parser {
           key,
           type: value.type,
           ...definition.formatOnLoad
-            && {formatOnLoad: safeEval(definition.formatOnLoad)},
+          && {formatOnLoad: safeEval(definition.formatOnLoad)},
           ...definition.formatOnSave
-            && {formatOnSave: safeEval(definition.formatOnSave)},
+          && {formatOnSave: safeEval(definition.formatOnSave)},
           ...definition.formatOnCreate
-            && {formatOnCreate: safeEval(definition.formatOnCreate)},
+          && {formatOnCreate: safeEval(definition.formatOnCreate)},
           ...definition.formatOnEdit
-            && {formatOnEdit: safeEval(definition.formatOnEdit)},
+          && {formatOnEdit: safeEval(definition.formatOnEdit)},
           // @ts-ignore
           ...parsed
         };
@@ -373,17 +373,30 @@ export class Parser {
    * @param pointer Entire pointer object that should be used
    * @param definitions Entire definitions object that should be used
    * @param single Defines if the field shown in the form or in the table
-   * @param arrayRoot If the field is in an array what root lookup to use
    * @param condition Evaluate function which validates provided action ('show' | 'hide')
    */
-  field(
+  field(config: {
     pointerKey: string,
     pointer: Pointer,
-    definitions: Definitions = {},
-    single = true,
-    arrayRoot?: string,
-    condition?: any
-  ): CompiledField {
+    definitions: Definitions,
+    single: boolean,
+    condition?: any,
+    formId?: string;
+    parentForm?: {
+      id: string;
+      pointer: string;
+    };
+  }): CompiledField {
+
+    const {
+      pointerKey,
+      pointer,
+      definitions = {},
+      single = true,
+      condition,
+      formId,
+      parentForm
+    } = config;
 
     if (!pointer) {
       throw new Error(`Couldn't find pointer for ${pointerKey}.`);
@@ -444,6 +457,8 @@ export class Parser {
         single,
         pointers: this.pointers,
         form: this.form,
+        formId,
+        parentForm,
         ...definition,
         // @ts-ignore
         ...(definition.component.configuration || {})

@@ -3,13 +3,29 @@ import {CompiledField, FieldCondition} from '../interfaces/compiled-field.interf
 import {Definitions} from '../interfaces/definitions.interface';
 import {Parser, Pointers} from './parser';
 
-export function compileFields(
-  parser: Parser,
-  definitions: Definitions,
-  fields: (string | any | FieldCondition)[],
-  pointers: Pointers = null,
-  mutateKey = (key: string) => key
-) {
+export function compileFields(config: {
+  parser: Parser;
+  definitions: Definitions;
+  fields: (string | any | FieldCondition)[];
+  pointers?: Pointers;
+  mutateKey?: (key: string) => string;
+  formId?: string;
+  parentForm?: {
+    id: string;
+    pointer: string;
+  };
+}) {
+
+  const {
+    parser,
+    definitions,
+    fields,
+    pointers = null,
+    mutateKey = (key: string) => key,
+    formId,
+    parentForm
+  } = config;
+
   return (fields || [])
     .reduce((acc: CompiledField[], keyObject: string | object) => {
       let condition: any;
@@ -56,14 +72,15 @@ export function compileFields(
         )
       ) {
         acc.push(
-          parser.field(
-            key,
-            (pointers || parser.pointers)[key],
+          parser.field({
+            pointerKey: key,
+            pointer: (pointers || parser.pointers)[key],
             definitions,
-            true,
-            undefined,
-            condition
-          )
+            single: true,
+            condition,
+            formId,
+            parentForm
+          })
         );
       }
 

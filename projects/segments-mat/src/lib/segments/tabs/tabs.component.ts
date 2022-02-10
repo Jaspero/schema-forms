@@ -58,17 +58,19 @@ export class TabsComponent extends SegmentComponent<TabsConfiguration> implement
     this.loaded.add(this.configuration.selectedIndex || 0);
 
     this.tabs = this.configuration.tabs.reduce((acc, tab) => {
-      const compiled = filterAndCompileSegments(
-        [{
+      const compiled = filterAndCompileSegments({
+        segments: [{
           ...tab,
           title: '',
           type: tab.type || 'empty'
         }],
-        this.sData.parser,
-        this.sData.definitions,
-        this.injector,
-        this.segment.entryValue
-      );
+        parser: this.sData.parser,
+        definitions: this.sData.definitions,
+        injector: this.injector,
+        value: this.segment.entryValue,
+        formId: this.sData.formId,
+        parentForm: this.sData.parentForm
+      });
 
       if (compiled.length) {
         acc.push({

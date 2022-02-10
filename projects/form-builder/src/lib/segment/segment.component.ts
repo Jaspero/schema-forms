@@ -18,6 +18,11 @@ export interface SegmentData {
   definitions: Definitions;
   parent?: string;
   index?: number;
+  formId?: string;
+  parentForm?: {
+    id: string;
+    pointer: string;
+  };
 }
 
 @Component({
@@ -103,15 +108,17 @@ export class SegmentComponent<T = any> implements OnInit {
     this.arrayFields[operation](fields);
 
     this.nestedArraySegments[operation](
-      filterAndCompileSegments(
-        this.sData.segment.nestedSegments || [],
-        this.sData.parser,
-        this.sData.definitions,
-        this.injector,
-        index !== undefined ? this.segment.entryValue : undefined,
-        this.segment.array,
-        index || (reverse ? 0 : this.nestedArraySegments.length)
-      )
+      filterAndCompileSegments({
+        segments: this.sData.segment.nestedSegments || [],
+        parser: this.sData.parser,
+        definitions: this.sData.definitions,
+        injector: this.injector,
+        ...index !== undefined && {value: this.segment.entryValue},
+        parent: this.segment.array,
+        index: index || (reverse ? 0 : this.nestedArraySegments.length),
+        formId: this.sData.formId,
+        parentForm: this.sData.parentForm
+      })
     );
   }
 
@@ -166,37 +173,43 @@ export class SegmentComponent<T = any> implements OnInit {
     segment: CompiledSegment<T> = this.segment
   ) {
     if (segment.fields && segment.fields.length) {
-      return compileFields(
-        this.sData.parser,
-        this.sData.definitions,
-        segment.fields,
+      return compileFields({
+        parser: this.sData.parser,
+        definitions: this.sData.definitions,
+        fields: segment.fields,
         pointers,
-        key => (this.sData.parent || '') + key
-      )
+        mutateKey: key => (this.sData.parent || '') + key,
+        formId: this.sData.formId,
+        parentForm: this.sData.parentForm,
+      })
     }
 
-    return compileFields(
-      this.sData.parser,
-      this.sData.definitions,
-      [array],
-      pointers
-    );
+    return compileFields({
+      parser: this.sData.parser,
+      definitions: this.sData.definitions,
+      fields: [array],
+      pointers,
+      formId: this.sData.formId,
+      parentForm: this.sData.parentForm,
+    });
   }
 
   compileNestedSegments(segments: CompiledSegment<T>[]) {
-    return filterAndCompileSegments(
-      (segments || []).map(item => {
+    return filterAndCompileSegments({
+      segments: (segments || []).map(item => {
         if (!item.classes?.length) {
           item.classes = ['fb-field-12'];
         }
 
         return item;
       }) || [],
-      this.sData.parser,
-      this.sData.definitions,
-      this.injector,
-      this.segment.entryValue
-    )
+      parser: this.sData.parser,
+      definitions: this.sData.definitions,
+      injector: this.injector,
+      value: this.segment.entryValue,
+      formId: this.sData.formId,
+      parentForm: this.sData.parentForm
+    })
   }
 
   populateArrayFields(segment: CompiledSegment<T>) {
@@ -229,15 +242,17 @@ export class SegmentComponent<T = any> implements OnInit {
         arrayFields.push(fields);
 
         nestedArraySegments.push(
-          filterAndCompileSegments(
-            this.sData.segment.nestedSegments || [],
-            this.sData.parser,
-            this.sData.definitions,
-            this.injector,
-            this.segment.entryValue,
-            segment.array,
-            i
-          )
+          filterAndCompileSegments({
+            segments: this.sData.segment.nestedSegments || [],
+            parser: this.sData.parser,
+            definitions: this.sData.definitions,
+            injector: this.injector,
+            value: this.segment.entryValue,
+            parent: segment.array,
+            index: i,
+            formId: this.sData.formId,
+            parentForm: this.sData.parentForm
+          })
         );
       });
 
