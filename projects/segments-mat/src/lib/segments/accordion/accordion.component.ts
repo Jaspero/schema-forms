@@ -31,18 +31,20 @@ export class AccordionComponent extends SegmentComponent<AccordionSegment[]> imp
     this.accordions = (this.sData.segment.configuration || [])
       .reduce((acc, accord: AccordionSegment) => {
 
-        const compiled = filterAndCompileSegments(
-          [{
+        const compiled = filterAndCompileSegments({
+          segments: [{
             ...accord,
             title: '',
             description: '',
             type: accord.type || 'empty'
           }],
-          this.sData.parser,
-          this.sData.definitions,
-          this.injector,
-          this.segment.entryValue
-        );
+          parser: this.sData.parser,
+          definitions: this.sData.definitions,
+          injector: this.injector,
+          value: this.segment.entryValue,
+          formId: this.sData.formId,
+          parentForm: this.sData.parentForm
+        });
 
         if (compiled.length) {
           acc.push({

@@ -502,7 +502,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
           .bind(
             this.blockFormComponent.formBuilderComponent
           ),
-        metadata: this.blockFormComponent.formBuilderComponent.metadata,
+        // metadata: this.blockFormComponent.formBuilderComponent.metadata,
         components: [...(this.blockFormComponent.formBuilderComponent as any).service.saveComponents]
       };
     }

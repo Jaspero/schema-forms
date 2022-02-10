@@ -51,7 +51,14 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input() id = 'main';
   @Input() parser: Parser;
   @Input() state: State = State.Create;
-  @Input() metadata: any;
+
+  /**
+   * Used when child forms are rendered in parent
+   */
+  @Input() parent: {
+    id: string;
+    pointer: string;
+  };
 
   @Output() valueChanges = new EventEmitter<any>();
   @Output() validityChanges = new EventEmitter<boolean>();
@@ -195,19 +202,20 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
     this.innerParser.loadHooks();
 
-    this.segments = filterAndCompileSegments(
-      this.data.segments ||
-      [{
-        title: '',
-        fields: Object.keys(this.innerParser.pointers),
-        columnsDesktop: 12,
-        type: this.defaultSegment || 'empty'
-      }],
-      this.innerParser,
+    this.segments = filterAndCompileSegments({
+      segments: this.data.segments || [{
+          title: '',
+          fields: Object.keys(this.innerParser.pointers),
+          columnsDesktop: 12,
+          type: this.defaultSegment || 'empty'
+        }],
+      parser: this.innerParser,
       definitions,
-      this.injector,
-      value
-    );
+      injector: this.injector,
+      value,
+      formId: this.id,
+      parentForm: this.parent
+    });
 
     if (this.changeSubscription) {
       this.changeSubscription.unsubscribe();
