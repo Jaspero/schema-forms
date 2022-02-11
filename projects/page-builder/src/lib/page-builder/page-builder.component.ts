@@ -156,13 +156,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   blocks: TopBlock[];
   availableBlocks: Block[];
   previewed: number | undefined;
-  toProcess: {
-    [key: string]: {
-      save: (c: string, d: string, comp: any[]) => Observable<any>;
-      components: any[];
-      metadata?: any;
-    }
-  } = {};
   isOpen = false;
   originalOverflowY: string;
   view: 'fullscreen' | 'desktop' | 'mobile' = 'desktop';
@@ -385,12 +378,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     }
   }
 
-  /**
-   * TODO:
-   * Run save operations
-   */
   removeBlock() {
-    delete this.toProcess[(this.selected as Selected).id];
     this.selected = null;
     this.state = '';
     this.blocks.splice(this.selectedIndex, 1);
@@ -495,18 +483,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       return;
     }
 
-    if (this.blockFormComponent) {
-      this.toProcess[(this.selected as Selected).id] = {
-        save: this.blockFormComponent.formBuilderComponent
-          .save
-          .bind(
-            this.blockFormComponent.formBuilderComponent
-          ),
-        // metadata: this.blockFormComponent.formBuilderComponent.metadata,
-        components: [...(this.blockFormComponent.formBuilderComponent as any).service.saveComponents]
-      };
-    }
-
     this.removeFocus(this.selectedIndex);
     this.selected = null;
     // @ts-ignore
@@ -604,53 +580,17 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     return this.blocks.filter(it => it.type === block.id).length >= block.maxInstances;
   }
 
-  save(moduleId: string, documentId: string) {
-    const items = Object.entries(this.toProcess);
-
-    if (items.length) {
-      return forkJoin(items.map(it => it[1].save(moduleId, documentId, it[1].components)))
-        .pipe(
-          tap((values) => {
-            this.cData.control.setValue(
-              this.blocks.map((block, index) => {
-
-                let value: any = block.value;
-
-                if (this.toProcess[block.id]) {
-                  const itemIndex = items.findIndex(it => it[0] === block.id.toString());
-                  const processedValue = values[itemIndex];
-                  const {metadata} = items[itemIndex][1];
-
-                  if (metadata?.array) {
-                    value[metadata.array][metadata.index] = processedValue;
-                  } else {
-                    value = processedValue;
-                  }
-                }
-
-                return {
-                  value,
-                  type: block.type,
-                  ...this.cData.saveCompiled && {
-                    compiled: this.compRefs[index].location.nativeElement.innerHTML
-                  }
-                }
-              })
-            );
-          })
-        );
-    } else {
-      this.cData.control.setValue(
-        this.blocks.map((block, index) => ({
-          value: block.value,
-          type: block.type,
-          ...this.cData.saveCompiled && {
-            compiled: this.compRefs[index].location.nativeElement.innerHTML
-          }
-        }))
-      );
-      return of(true);
-    }
+  save() {
+    this.cData.control.setValue(
+      this.blocks.map((block, index) => ({
+        value: block.value,
+        type: block.type,
+        ...this.cData.saveCompiled && {
+          compiled: this.compRefs[index].location.nativeElement.innerHTML
+        }
+      }))
+    );
+    return of(true);
   }
 
   private renderComponent(

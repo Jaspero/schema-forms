@@ -11,23 +11,6 @@ export class FormBuilderService {
     private snackBar: MatSnackBar
   ) {}
 
-  /**
-   * Array of components that need to
-   * run save() methods on single instance
-   */
-  saveComponents: any[] = [];
-
-  removeComponent(component) {
-    const index = this.saveComponents.indexOf(component);
-
-    if (index !== -1) {
-      this.saveComponents.splice(
-        index,
-        1
-      )
-    }
-  }
-
   notify(
     options: {
       success?: string | null;
