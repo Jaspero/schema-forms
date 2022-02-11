@@ -2,7 +2,7 @@
   <div *ngIf="data.slideTitle" [fbPbSingleLineIE]="{pointer: '/slideTitle'}" [innerHTML]="data.slideTitle | jpSanitize"></div>
   <div class="card" *ngFor="let card of data.slides; index as index;">
     <div *ngIf="card.image">
-      <img [src]="card.image">
+      <img [imgPreview]="card.image">
     </div>
     <div *ngIf="card.title" [innerHTML]="card.title | jpSanitize"></div>
   </div>

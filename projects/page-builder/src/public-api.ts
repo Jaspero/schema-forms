@@ -14,6 +14,12 @@ export * from './lib/inline-editor/directives/image-ie.directive';
 export * from './lib/inline-editor/directives/single-line-ie.directive';
 
 /**
+ * Img Preview
+ */
+export * from './lib/img-preview/img-preview.module';
+export * from './lib/img-preview/img-preview.directive';
+
+/**
  * Decorators
  */
 export * from './lib/decorators/block.decorator';
