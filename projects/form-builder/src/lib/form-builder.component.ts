@@ -139,6 +139,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       .sort((p1, p2) => p1[1].priority - p2[1].priority)
       .filter(process => process[1].save);
 
+    console.log(processes);
+
     if (!processes.length) {
       return of(data);
     }

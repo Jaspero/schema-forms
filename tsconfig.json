@@ -47,6 +47,9 @@
       ],
       "@jaspero/monaco-editor": [
         "dist/monaco-editor"
+      ],
+      "@jaspero/fb-tinymce": [
+        "dist/tinymce"
       ]
     }
   },

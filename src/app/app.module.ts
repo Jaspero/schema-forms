@@ -17,6 +17,7 @@ import {ExampleCustomComponent} from './example-custom/example-custom.component'
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
+import {TinymceModule} from '@jaspero/fb-tinymce';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     TranslocoModule,
+    TinymceModule,
     FormBuilderModule.forRoot(),
     FbFieldsMatModule.forRoot({prefix: ''}),
     FbSegmentsMatModule.forRoot({prefix: ''}),

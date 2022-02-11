@@ -9,7 +9,7 @@ export class MockStorageService implements StorageService {
   upload(path: string, data: any, metadata?: any): any {
     return Promise.resolve({
       ref: {
-        getDownloadURL: () => Promise.resolve('https://jaspero.co')
+        getDownloadURL: () => Promise.resolve('https://jaspero.co/' + path)
       }
     });
   }
