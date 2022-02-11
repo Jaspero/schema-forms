@@ -5,7 +5,6 @@ import {
   Component,
   ElementRef,
   Inject,
-  OnDestroy,
   OnInit,
   Optional,
   TemplateRef,
@@ -18,7 +17,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData, FormBuilderService,
+  FieldData,
+  FormBuilderService,
   GeneratedImage,
   StorageService,
   UploadMethod,
@@ -55,8 +55,7 @@ export type ImageData = ImageConfiguration & FieldData;
   styleUrls: ['./image.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImageComponent extends FieldComponent<ImageData>
-  implements OnInit, OnDestroy {
+export class ImageComponent extends FieldComponent<ImageData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
     @Optional() public storage: StorageService,
@@ -89,16 +88,11 @@ export class ImageComponent extends FieldComponent<ImageData>
 
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);
-    this.formBuilderService.saveComponents.push(this);
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
-  }
-
-  ngOnDestroy() {
-    this.formBuilderService.removeComponent(this);
   }
 
   errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {

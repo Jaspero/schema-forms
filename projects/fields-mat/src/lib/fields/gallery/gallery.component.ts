@@ -53,8 +53,7 @@ export type GalleryData = GalleryConfiguration & FieldData;
   styleUrls: ['./gallery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryComponent extends FieldComponent<GalleryData>
-  implements OnInit, OnDestroy {
+export class GalleryComponent extends FieldComponent<GalleryData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA)
     public cData: GalleryData,
@@ -101,8 +100,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
   activeContainer;
 
   ngOnInit() {
-    this.formBuilderService.saveComponents.push(this);
-
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
@@ -111,10 +108,6 @@ export class GalleryComponent extends FieldComponent<GalleryData>
     if (!this.cData.hasOwnProperty('allowServerUpload')) {
       this.cData.allowServerUpload = true;
     }
-  }
-
-  ngOnDestroy() {
-    this.formBuilderService.removeComponent(this);
   }
 
   openUploadDialog() {

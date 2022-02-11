@@ -1,8 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
-import {ACCORDION_EXAMPLE} from './forms/accordion-example';
-import {ARRAY_EXAMPLE} from './forms/array-example';
-import {TABS_EXAMPLE} from './forms/tabs-example';
+import {EXAMPLE_TWO} from './forms/example-two';
 
 @Component({
   selector: 'sc-core',
@@ -15,7 +13,7 @@ export class CoreComponent implements AfterViewInit {
   @ViewChildren(FormBuilderComponent)
   formComponents: QueryList<FormBuilderComponent>;
 
-  form = ACCORDION_EXAMPLE;
+  form = EXAMPLE_TWO;
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
@@ -28,9 +26,7 @@ export class CoreComponent implements AfterViewInit {
     this.form = {
       schema: {
         properties: {
-          title: {
-            type: 'string'
-          }
+          title: {type: 'string'}
         }
       },
       definitions: {

@@ -24,36 +24,28 @@
       "dom"
     ],
     "paths": {
-      "fields-mat": [
-        "dist/fields-mat/fields-mat",
+      "@jaspero/fb-fields-mat": [
         "dist/fields-mat"
       ],
-      "form-builder": [
-        "dist/form-builder/form-builder",
+      "@jaspero/form-builder": [
         "dist/form-builder"
       ],
-      "page-builder": [
-        "dist/page-builder/page-builder",
+      "@jaspero/page-builder": [
         "dist/page-builder"
       ],
-      "tinymce": [
-        "dist/tinymce/tinymce",
+      "@jaspero/tinymce": [
         "dist/tinymce"
       ],
-      "form-ui": [
-        "dist/form-ui/form-ui",
+      "@jaspero/form-ui": [
         "dist/form-ui"
       ],
-      "ref-table": [
-        "dist/ref-table/ref-table",
+      "@jaspero/ref-table": [
         "dist/ref-table"
       ],
-      "segments-mat": [
-        "dist/segments-mat/segments-mat",
+      "@jaspero/fb-segments-mat": [
         "dist/segments-mat"
       ],
-      "monaco-editor": [
-        "dist/monaco-editor/monaco-editor",
+      "@jaspero/monaco-editor": [
         "dist/monaco-editor"
       ]
     }

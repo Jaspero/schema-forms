@@ -14,13 +14,13 @@ import {
   COMPONENT_DATA,
   FieldComponent,
   FieldData,
-  FormBuilderService,
   StorageService,
   UploadMethod,
   formatFileName
 } from '@jaspero/form-builder';
 import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
+import {set} from 'json-pointer';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
@@ -52,7 +52,6 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     @Inject(COMPONENT_DATA) public cData: FileData,
     @Optional() private storage: StorageService,
     private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
@@ -78,12 +77,44 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
 
     this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'FIELDS.FILE.EMPTY') as string;
 
-    this.formBuilderService.saveComponents.push(this);
-
     this.allowedFileTypes = this.cData.allowedFileTypes || [];
     this.forbiddenFileTypes = this.cData.forbiddenFileTypes || [];
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
+
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: data => {
+
+        const current = window.jpFb.exists(data);
+
+        if (!current.exists || !window.jpFb.change(data)) {
+          return of(true);
+        }
+
+        if (typeof current.value !== 'string') {
+          const name = this.cData.preserveFileName ? current.value.name : [
+            data.collectionId,
+            data.documentId,
+            random.string()
+          ].join('-');
+
+          return from(
+            this.storage.upload(name, this.value, {
+              contentType: this.value.type,
+              customMetadata: {
+                moduleId: data.collectionId,
+                documentId: data.documentId
+              }
+            })
+          )
+            .pipe(
+              switchMap((res: any) => res.ref.getDownloadURL()),
+              tap(url => set(data.outputValue, data.pointer, url))
+            );
+        }
+      }
+    })
   }
 
   errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
@@ -124,7 +155,6 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
            * If has direct flag, save provided url directly to db
            */
           if (data.direct) {
-            this.value = null;
             this.name = data.name || data.url || '';
             this.cData.control.setValue(data.url);
             this.cdr.markForCheck();
@@ -172,37 +202,12 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
       this.name = this.value.name;
     }
     el.value = '';
+    this.cData.control.setValue(file);
     this.cdr.markForCheck();
   }
 
   clear() {
     this.name = '';
     this.cData.control.setValue('');
-  }
-
-  save(moduleId: string, documentId: string) {
-    if (this.value) {
-
-      const name = this.cData.preserveFileName ? this.value.name : [
-        moduleId,
-        documentId,
-        random.string()
-      ].join('-');
-
-      return from(
-        this.storage.upload(name, this.value, {
-          contentType: this.value.type,
-          customMetadata: {
-            moduleId,
-            documentId
-          }
-        })
-      ).pipe(
-        switchMap((res: any) => res.ref.getDownloadURL()),
-        tap(url => this.cData.control.setValue(url))
-      );
-    } else {
-      return of({});
-    }
   }
 }

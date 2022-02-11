@@ -2,7 +2,7 @@ import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {safeEval} from '@jaspero/utils';
+import {safeEval, toLabel} from '@jaspero/utils';
 import {get, has} from 'json-pointer';
 import {SchemaType} from '../enums/schema-type.enum';
 import {State} from '../enums/state.enum';
@@ -404,9 +404,12 @@ export class Parser {
 
     const {key, type, control, validation} = pointer;
     const definition = {
-      label: key,
       ...this.getFromDefinitions(pointerKey, definitions)
     };
+
+    if (!definition.label) {
+      definition.label = toLabel(key);
+    }
 
     if (
       (
@@ -459,6 +462,7 @@ export class Parser {
         form: this.form,
         formId,
         parentForm,
+        pointer: pointerKey,
         ...definition,
         // @ts-ignore
         ...(definition.component.configuration || {})
