@@ -18,15 +18,16 @@ import {
   FieldComponent,
   FieldData,
   formatGeneratedImages,
-  FormBuilderComponent,
-  FormBuilderService,
+  ProcessConfig,
   StorageService
 } from '@jaspero/form-builder';
+import {set} from 'json-pointer';
 import {forkJoin, from, of} from 'rxjs';
 import {filter, switchMap, take, tap} from 'rxjs/operators';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
+import 'tinymce/plugins/emoticons';
 import 'tinymce/plugins/fullscreen';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/imagetools';
@@ -35,7 +36,6 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/print';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/wordcount';
-import 'tinymce/plugins/emoticons';
 
 declare const tinymce: any;
 
@@ -61,9 +61,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
     private fb: FormBuilder,
     private dialog: MatDialog,
     @Optional() private storage: StorageService,
-    private formBuilderComponent: FormBuilderComponent,
-    private zone: NgZone,
-    private formBuilderService: FormBuilderService
+    private zone: NgZone
   ) {
     super(cData);
 
@@ -83,7 +81,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
     align: 'left'
   };
 
-  imageReplacements: Array<{ blobInfo: any, replace: string }> = [];
+  imageReplacements: Array<{blobInfo: any, replace: string}> = [];
 
   ngOnInit() {
     this.ytForm = this.fb.group({
@@ -99,7 +97,78 @@ export class TinymceComponent extends FieldComponent<TinyData>
       }
     });
 
-    this.formBuilderService.saveComponents.push(this);
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: (data: ProcessConfig<TinyData>) => {
+
+        const current = window.jpFb.exists(data);
+
+        if (!current.exists || !window.jpFb.change(data)) {
+          return of();
+        }
+
+        if (this.imageReplacements.length) {
+
+          const toUpload = this.imageReplacements.reduce((acc: any[], {blobInfo, replace}, index) => {
+
+            if (current.value.includes(replace)) {
+
+              const name = [
+                data.collectionId,
+                data.documentId,
+                index,
+                blobInfo.filename(),
+              ]
+                .join('-');
+
+              acc.push(
+                from(
+                  this.storage.upload(
+                    name,
+                    blobInfo.blob(),
+                    {
+                      customMetadata: {
+                        moduleId: data.collectionId,
+                        documentId: data.documentId,
+                        ...data.cData.generatedImages &&
+                        formatGeneratedImages(data.cData.generatedImages)
+                      }
+                    }
+                  )
+                )
+                  .pipe(
+                    switchMap((task: any) => task.ref.getDownloadURL()),
+                    tap(url =>
+                      set(
+                        data.outputValue,
+                        data.pointer,
+                        current.value.replace(replace, url)
+                      )
+                    )
+                  )
+              )
+            }
+
+            return acc;
+          }, []);
+
+          if (toUpload.length) {
+            return forkJoin(toUpload)
+              .pipe(
+                tap(() =>
+                  set(
+                    data.outputValue,
+                    data.pointer,
+                    current.value
+                  )
+                )
+              )
+          }
+        }
+
+        return of();
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -108,7 +177,6 @@ export class TinymceComponent extends FieldComponent<TinyData>
 
   ngOnDestroy() {
     tinymce.remove(`#${this.id}`);
-    this.formBuilderService.removeComponent(this);
   }
 
   private registerTiny() {
@@ -220,65 +288,6 @@ export class TinymceComponent extends FieldComponent<TinyData>
       },
       ...!!this.cData.options && this.cData.options
     }).then();
-  }
-
-  save(moduleId: string, documentId: string) {
-    if (this.imageReplacements.length) {
-
-      let {value} = this.cData.control;
-
-      const toUpload = this.imageReplacements.reduce((acc: any[], {blobInfo, replace}, index) => {
-
-        if (value.includes(replace)) {
-
-          const name = [
-            moduleId,
-            documentId,
-            index,
-            blobInfo.filename(),
-          ]
-            .join('-');
-
-          acc.push(
-            from(
-              this.storage.upload(
-                name,
-                blobInfo.blob(),
-                {
-                  customMetadata: {
-                    moduleId,
-                    documentId,
-                    ...this.cData.generatedImages &&
-                    formatGeneratedImages(this.cData.generatedImages)
-                  }
-                }
-              )
-            )
-              .pipe(
-                switchMap((task: any) => task.ref.getDownloadURL()),
-                tap(url => {
-                  value = value.replace(replace, url);
-                })
-              )
-          )
-        }
-
-        return acc;
-      }, []);
-
-      if (toUpload.length) {
-        return forkJoin(toUpload)
-          .pipe(
-            tap(() => {
-              this.cData.control.setValue(value);
-            })
-          )
-      } else {
-        return of({});
-      }
-    } else {
-      return of({});
-    }
   }
 }
 

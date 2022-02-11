@@ -23,10 +23,12 @@ import {
   StorageService,
   UploadMethod,
   formatFileName,
-  formatGeneratedImages
+  formatGeneratedImages,
+  ProcessConfig
 } from '@jaspero/form-builder';
 import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
+import {set} from 'json-pointer';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
@@ -93,6 +95,58 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
+
+    /**
+     * TODO:
+     * Handle cases when !data.direct
+     * currently any url selection is treaded as direct
+     */
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: (data: ProcessConfig<ImageData>) => {
+
+        const current = window.jpFb.exists(data);
+
+        if (!current.exists || !window.jpFb.change(data)) {
+          return of();
+        }
+
+        if (current.value && typeof current.value !== 'string') {
+          let name = data.cData.preserveFileName ? current.value.name : [
+            data.collectionId,
+            data.documentId,
+            random.string()
+          ].join('-');
+
+          if (!data.cData.preserveFileName) {
+            /**
+             * TODO:
+             * Maybe we should put a type extension based on type
+             * instead of taking from the name
+             */
+            name += (current.value.name.split('.')[1]);;
+          }
+
+          return from(
+            this.storage.upload(name, current.value, {
+              contentType: current.value.type,
+              customMetadata: {
+                moduleId: data.collectionId,
+                documentId: data.documentId,
+                ...(data.cData.generatedImages &&
+                  formatGeneratedImages(data.cData.generatedImages))
+              }
+            })
+          )
+            .pipe(
+              switchMap((res: any) => res.ref.getDownloadURL()),
+              tap(url => set(data.outputValue, data.pointer, url))
+            );
+        }
+
+        return of();
+      }
+    });
   }
 
   errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
@@ -127,16 +181,9 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
           if (data.type === 'file') {
             this.filesImage(data.event);
           } else if (data.type === 'url') {
-            /**
-             * If has direct flag, save provided url directly to db
-             */
-            if (data.direct) {
-              this.value = null;
-              this.imageUrl.setValue(data.url);
-              this.cData.control.setValue(data.url);
-            } else {
-              this.addImage(data.url);
-            }
+            this.value = null;
+            this.imageUrl.setValue(data.url);
+            this.cData.control.setValue(data.url);
           }
         })
       )
@@ -175,18 +222,13 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     this.value = image;
     this.disInput = true;
     this.imageUrl.setValue(this.value.name);
+    this.cData.control.setValue(image);
 
     const reader = new FileReader();
     reader.onload = () => {
       this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
         reader.result as string
       );
-
-      /**
-       * Set value in case it's needed for previews
-       */
-      this.cData.control.setValue(reader.result);
-
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(this.value);
@@ -200,49 +242,6 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     this.disInput = false;
     this.cData.control.setValue('');
     this.cdr.detectChanges();
-  }
-
-  save(moduleId: string, documentId: string) {
-    if (this.value) {
-      if (
-        this.imageUrl.value &&
-        this.imageUrl.value !== this.value.name
-      ) {
-        return of(this.imageUrl.value).pipe(
-          tap(() => this.cData.control.setValue(this.imageUrl.value))
-        );
-      } else {
-        const name = this.cData.preserveFileName ? this.value.name : [
-          moduleId,
-          documentId,
-          random.string()
-        ].join('-') +
-          /**
-           * TODO:
-           * Maybe we should put a type extension based on type
-           * instead of taking from the name
-           */
-          (this.value.name.split('.')[1]);
-
-        return from(
-          this.storage.upload(name, this.value, {
-            contentType: this.value.type,
-            customMetadata: {
-              moduleId,
-              documentId,
-              ...(this.cData.generatedImages &&
-                formatGeneratedImages(this.cData.generatedImages))
-            }
-          })
-        ).pipe(
-          switchMap((res: any) => res.ref.getDownloadURL()),
-          tap(url => this.cData.control.setValue(url))
-        );
-      }
-    } else {
-      this.cData.control.setValue(this.imageUrl.value);
-      return of({});
-    }
   }
 
   addImage(image: string) {
@@ -287,12 +286,6 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
           this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
             reader.result as string
           );
-
-          /**
-           * Set value in case it's needed for previews
-           */
-          this.cData.control.setValue(reader.result);
-
           this.cdr.detectChanges();
         };
       });

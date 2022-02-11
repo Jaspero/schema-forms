@@ -16,7 +16,8 @@ import {
   FieldData,
   StorageService,
   UploadMethod,
-  formatFileName
+  formatFileName,
+  ProcessConfig
 } from '@jaspero/form-builder';
 import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
@@ -82,22 +83,36 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
 
+    /**
+     * TODO:
+     * Handle cases when !data.direct
+     * currently any url selection is treaded as direct
+     */
     window.jpFb.assignOperation({
       cData: this.cData,
-      save: data => {
+      save: (data: ProcessConfig<FileData>) => {
 
         const current = window.jpFb.exists(data);
 
         if (!current.exists || !window.jpFb.change(data)) {
-          return of(true);
+          return of();
         }
 
-        if (typeof current.value !== 'string') {
-          const name = this.cData.preserveFileName ? current.value.name : [
+        if (current.value && typeof current.value !== 'string') {
+          let name = data.cData.preserveFileName ? current.value.name : [
             data.collectionId,
             data.documentId,
             random.string()
           ].join('-');
+
+          if (!data.cData.preserveFileName) {
+            /**
+             * TODO:
+             * Maybe we should put a type extension based on type
+             * instead of taking from the name
+             */
+            name += (current.value.name.split('.')[1]);;
+          }
 
           return from(
             this.storage.upload(name, this.value, {
@@ -113,6 +128,8 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
               tap(url => set(data.outputValue, data.pointer, url))
             );
         }
+
+        return of();
       }
     })
   }
@@ -151,18 +168,9 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
         if (data.type === 'file') {
           this.fileChange(data.event);
         } else if (data.type === 'url') {
-          /**
-           * If has direct flag, save provided url directly to db
-           */
-          if (data.direct) {
-            this.name = data.name || data.url || '';
-            this.cData.control.setValue(data.url);
-            this.cdr.markForCheck();
-          } else {
-            /**
-             * TODO: Handle file upload via URL
-             */
-          }
+          this.name = data.name || data.url || '';
+          this.cData.control.setValue(data.url);
+          this.cdr.markForCheck();
         }
       })
     ).subscribe();

@@ -4,13 +4,14 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {ImageComponent} from '@jaspero/fb-fields-mat';
-import {COMPONENT_DATA, FieldData, FormBuilderService, StorageService} from '@jaspero/form-builder';
-import {ImageConfiguration} from '@jaspero/fb-fields-mat';
+import {ImageComponent, ImageConfiguration} from '@jaspero/fb-fields-mat';
+import {COMPONENT_DATA, FieldData, formatGeneratedImages, FormBuilderService, ProcessConfig, StorageService} from '@jaspero/form-builder';
+import {random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {of} from 'rxjs';
-import {debounceTime, filter, tap} from 'rxjs/operators';
+import {set} from 'json-pointer';
+import {from, of} from 'rxjs';
+import {debounceTime, filter, switchMap, tap} from 'rxjs/operators';
 
 export interface BackgroundConfiguration extends ImageConfiguration {
   position?: {
@@ -114,9 +115,6 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
       return acc;
     }, {}));
 
-
-    super.ngOnInit();
-
     this.imageUrl.valueChanges
       .pipe(
         debounceTime(300),
@@ -140,37 +138,67 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
       .subscribe(changes =>
         this.propagateChanges(changes)
       );
+
+    /**
+     * TODO:
+     * Handle cases when !data.direct
+     * currently any url selection is treaded as direct
+     */
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: (data: ProcessConfig<BackgroundData>) => {
+
+        const current = window.jpFb.exists(data);
+
+        if (!current.exists) {
+          return of();
+        }
+
+        if (this.color.value) {
+          set(data.outputValue, data.pointer, this.imageUrl.value);
+          return of();
+        }
+
+        if (current.value && typeof current.value !== 'string') {
+          let name = data.cData.preserveFileName ? current.value.name : [
+            data.collectionId,
+            data.documentId,
+            random.string()
+          ].join('-');
+
+          if (!data.cData.preserveFileName) {
+            /**
+             * TODO:
+             * Maybe we should put a type extension based on type
+             * instead of taking from the name
+             */
+            name += (current.value.name.split('.')[1]);;
+          }
+
+          return from(
+            this.storage.upload(name, current.value, {
+              contentType: current.value.type,
+              customMetadata: {
+                moduleId: data.collectionId,
+                documentId: data.documentId,
+                ...(data.cData.generatedImages &&
+                  formatGeneratedImages(data.cData.generatedImages))
+              }
+            })
+          )
+            .pipe(
+              switchMap((res: any) => res.ref.getDownloadURL()),
+              tap(url => set(data.outputValue, data.pointer, url))
+            );
+        }
+
+        return of();
+      }
+    });
   }
 
   parseSafeUrl(url: string | SafeUrl) {
     return typeof (url || '') === 'string' ? (url || '') : (url as any).changingThisBreaksApplicationSecurity;
-  }
-
-  save(moduleId: string, documentId: string) {
-    if (this.color.value) {
-      this.cData.control.setValue(this.imageUrl.value);
-      return of(true);
-    }
-
-    this.propagateChanges();
-
-    return super.save(moduleId, documentId).pipe(tap((data) => {
-      const safeLink = this.parseSafeUrl(data);
-
-      this.imageSrc = safeLink;
-      this.imageUrl.setValue(safeLink);
-      this.value = safeLink;
-
-      this.cData.control.setValue(this.parseSafeUrl(data));
-      this.cData.form.controls.background.setValue(this.parseSafeUrl(data));
-      setTimeout(() => {
-        this.imageSrc = safeLink;
-        this.imageUrl.setValue(safeLink);
-        this.value = safeLink;
-        this.cData.control.setValue(this.parseSafeUrl(data));
-        this.cData.form.controls.background.setValue(this.parseSafeUrl(data));
-      }, 100);
-    }));
   }
 
   advancedOptions() {

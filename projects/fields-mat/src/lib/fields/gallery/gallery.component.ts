@@ -6,7 +6,6 @@ import {
   Component,
   ElementRef,
   Inject,
-  OnDestroy,
   OnInit,
   Optional,
   TemplateRef,
@@ -23,10 +22,12 @@ import {
   FormBuilderService,
   GeneratedImage,
   STORAGE_URL,
-  StorageService
+  StorageService,
+  ProcessConfig
 } from '@jaspero/form-builder';
 import {random, sizeToBytes} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
+import {set} from 'json-pointer';
 import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {readFile} from './read-file';
@@ -43,6 +44,7 @@ export interface GalleryConfiguration {
    * Overwrite existing file if already exists
    */
   preserveFileName?: boolean;
+  toRemove?: any[];
 }
 
 export type GalleryData = GalleryConfiguration & FieldData;
@@ -91,7 +93,6 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
   source: CdkDropList | null;
   sourceIndex: number;
   files: File[] = [];
-  toRemove: any[] = [];
 
   allowedImageTypes: string[];
   forbiddenImageTypes: string[];
@@ -105,9 +106,92 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
 
+    this.cData.toRemove = [];
+
     if (!this.cData.hasOwnProperty('allowServerUpload')) {
       this.cData.allowServerUpload = true;
     }
+
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: (data: ProcessConfig<GalleryData>) => {
+
+        const current = window.jpFb.exists(data);
+
+        if (!current.exists) {
+          return of();
+        }
+
+        if (
+          !data.cData.toRemove.length &&
+          !current.value ||
+          !current.value.find((val: any) => !val.live)
+        ) {
+          return of();
+        }
+
+        return forkJoin([
+          ...data.cData.toRemove.map(file =>
+            from(this.storage.storage.refFromURL(file).delete()).pipe(
+              /**
+               * Dont' fail if files didn't delete
+               */
+              catchError(() => of([]))
+            )
+          ),
+          ...current.value.reduce((acc: any[], cur: any) => {
+            if (cur.live !== undefined && !cur.live) {
+
+              let name = data.cData.preserveFileName ? cur.pushToLive.name : [
+                data.collectionId,
+                data.documentId,
+                random.string()
+              ].join('-');
+
+              if (!data.cData.preserveFileName) {
+                /**
+                 * TODO:
+                 * Maybe we should put a type extension based on type
+                 * instead of taking from the name
+                 */
+                name += (current.value.name.split('.')[1]);;
+              }
+
+              acc.push(
+                from(
+                  this.storage.upload(name, cur.pushToLive, {
+                    contentType: cur.pushToLive.type,
+                    customMetadata: {
+                      moduleId: data.collectionId,
+                      documentId: data.documentId,
+                      ...data.cData.generatedImages &&
+                      formatGeneratedImages(data.cData.generatedImages)
+                    }
+                  })
+                )
+                  .pipe(
+                    switchMap((task: any) => task.ref.getDownloadURL()),
+                    tap(url => cur.data = url)
+                  )
+              );
+            } else {
+              acc.push(cur);
+            }
+
+            return acc;
+          }, [])
+        ])
+          .pipe(
+            tap(() =>
+              set(
+                data.outputValue,
+                data.pointer,
+                current.value.map((item: any) => (item.data ? item.data : item))
+              )
+            )
+          );
+      }
+    });
   }
 
   openUploadDialog() {
@@ -264,7 +348,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
 
   removeImage(index: number, item: any) {
     if (item.live && item.data.includes(this.storageUrl)) {
-      this.toRemove.push(item.data);
+      this.cData.toRemove.push(item.data);
     }
 
     this.cData.control.value.splice(index, 1);
@@ -275,69 +359,5 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
     moveItemInArray(value, event.previousIndex, event.currentIndex);
     this.cData.control.setValue(value);
     this.cdr.detectChanges();
-  }
-
-  /**
-   * Executes all uploads/removes to persist
-   * the changes on server
-   */
-  save(moduleId: string, documentId: string) {
-    if (
-      !this.toRemove.length &&
-      !this.cData.control.value ||
-      !this.cData.control.value.find((val: any) => !val.live)
-    ) {
-      return of([]);
-    }
-
-    return forkJoin([
-      ...this.toRemove.map(file =>
-        from(this.storage.storage.refFromURL(file).delete()).pipe(
-          /**
-           * Dont' fail if files didn't delete
-           */
-          catchError(() => of([]))
-        )
-      ),
-      ...this.cData.control.value.reduce((acc: any[], cur: any) => {
-        if (cur.live !== undefined && !cur.live) {
-
-          const name = this.cData.preserveFileName ? cur.pushToLive.name : [
-            moduleId,
-            documentId,
-            random.string()
-          ].join('-');
-
-          acc.push(
-            from(
-              this.storage.upload(name, cur.pushToLive, {
-                contentType: cur.pushToLive.type,
-                customMetadata: {
-                  moduleId,
-                  documentId,
-                  ...this.cData.generatedImages &&
-                  formatGeneratedImages(this.cData.generatedImages)
-                }
-              })
-            ).pipe(
-              switchMap((task: any) => task.ref.getDownloadURL()),
-              tap(url => {
-                cur.data = url;
-              })
-            )
-          );
-        } else {
-          acc.push(cur);
-        }
-
-        return acc;
-      }, [])
-    ]).pipe(
-      tap(() =>
-        this.cData.control.setValue(
-          this.cData.control.value.map((item: any) => (item.data ? item.data : item))
-        )
-      )
-    );
   }
 }

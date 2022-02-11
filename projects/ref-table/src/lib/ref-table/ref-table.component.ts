@@ -2,9 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
-  OnDestroy,
-  OnInit, QueryList,
+  Inject, OnInit, QueryList,
   ViewChildren
 } from '@angular/core';
 import {
@@ -14,7 +12,7 @@ import {
   FieldComponent,
   FieldData, FormBuilderComponent,
   FormBuilderData,
-  FormBuilderService,
+  ProcessConfig
 } from '@jaspero/form-builder';
 import {parseTemplate} from '@jaspero/utils';
 import {JSONSchema7} from 'json-schema';
@@ -41,12 +39,11 @@ interface Item {
   styleUrls: ['./ref-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RefTableComponent extends FieldComponent<RefTableData> implements OnInit, OnDestroy {
+export class RefTableComponent extends FieldComponent<RefTableData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: RefTableData,
     private dbService: DbService,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
+    private cdr: ChangeDetectorRef
   ) {
     super(cData)
   }
@@ -94,11 +91,55 @@ export class RefTableComponent extends FieldComponent<RefTableData> implements O
         })
     }
 
-    this.formBuilderService.saveComponents.push(this);
-  }
+    /**
+     * TODO: Complete
+     */
+    window.jpFb.assignOperation({
+      cData: this.cData,
+      save: (data: ProcessConfig<RefTableData>) => {
+        const toExec: any[] = this.toRemove.map(it => this.dbService.removeDocument(this.collection, it));
+        const toSet: string[] = [];
 
-  ngOnDestroy() {
-    this.formBuilderService.removeComponent(this);
+
+        this.formBuilders.toArray().forEach((comp, index) => {
+          comp.process();
+          // @ts-ignore
+          const id = comp.form.getRawValue().id || this.dbService.createId();
+
+          if (this.items[index].edited || this.items[index].type === 'new') {
+            toExec.push(
+              comp.save(
+                this.collection,
+                id
+              )
+                .pipe(
+                  switchMap(() => {
+                    let data = comp.form.getRawValue();
+
+                    delete data.id;
+
+                    return this.dbService.setDocument(
+                      this.collection,
+                      id,
+                      data,
+                      {merge: true}
+                    )
+                  })
+                )
+            )
+          }
+        });
+
+        return (toExec.length ? forkJoin(toExec) : of(true))
+          .pipe(
+            // @ts-ignore
+            tap(() => {
+              this.cData.control.setValue(toSet);
+            })
+          )
+      }
+    });
+
   }
 
   add() {
@@ -123,48 +164,5 @@ export class RefTableComponent extends FieldComponent<RefTableData> implements O
 
     this.items.splice(index, 1);
     this.cdr.markForCheck();
-  }
-
-  save() {
-    const toExec: any[] = this.toRemove.map(it => this.dbService.removeDocument(this.collection, it));
-    const toSet: string[] = [];
-
-
-    this.formBuilders.toArray().forEach((comp, index) => {
-      comp.process();
-      // @ts-ignore
-      const id = comp.form.getRawValue().id || this.dbService.createId();
-
-      if (this.items[index].edited || this.items[index].type === 'new') {
-        toExec.push(
-          comp.save(
-            this.collection,
-            id
-          )
-            .pipe(
-              switchMap(() => {
-                let data = comp.form.getRawValue();
-
-                delete data.id;
-
-                return this.dbService.setDocument(
-                  this.collection,
-                  id,
-                  data,
-                  {merge: true}
-                )
-              })
-            )
-        )
-      }
-    });
-
-    return (toExec.length ? forkJoin(toExec) : of(true))
-      .pipe(
-        // @ts-ignore
-        tap(() => {
-          this.cData.control.setValue(toSet);
-        })
-      )
   }
 }
