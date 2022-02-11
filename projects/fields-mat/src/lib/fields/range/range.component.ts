@@ -1,11 +1,10 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {
   cloneAbstractControl,
   COMPONENT_DATA,
   FieldComponent,
-  FieldData,
-  FormBuilderService
+  FieldData
 } from '@jaspero/form-builder';
 import {of} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -20,13 +19,12 @@ export type RangeData = RangeConfiguration & FieldData;
 @Component({
   selector: 'fb-range',
   templateUrl: './range.component.html',
-  styleUrls: ['./range.component.scss']
+  styleUrls: ['./range.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RangeComponent extends FieldComponent<RangeData> implements OnInit {
   constructor(
-    @Inject(COMPONENT_DATA) public cData: RangeData,
-    private cdr: ChangeDetectorRef,
-    private formBuilderService: FormBuilderService
+    @Inject(COMPONENT_DATA) public cData: RangeData
   ) {
     super(cData);
   }
@@ -37,9 +35,7 @@ export class RangeComponent extends FieldComponent<RangeData> implements OnInit 
   min: Date;
   max: Date;
 
-  ngOnInit(): void {
-    this.formBuilderService.saveComponents.push(this);
-
+  ngOnInit() {
     this.min = new Date(this.cData.min || 0);
     this.max = new Date(this.cData.max || Date.now() * 2);
     this.entryControl = cloneAbstractControl(this.cData.control);

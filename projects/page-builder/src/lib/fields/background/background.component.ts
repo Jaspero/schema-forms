@@ -94,7 +94,6 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
     const controlString = this.parseSafeUrl(this.cData.control.value);
 
     this.imageUrl = new FormControl(controlString);
-    this.formBuilderService.saveComponents.push(this);
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];

@@ -2,7 +2,12 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Pointers} from '../utils/parser';
 
 export interface FieldData <T = FormControl> {
-
+  pointer: string;
+  formId?: string;
+  parentForm?: {
+    pointer: string;
+    id: string;
+  };
   /**
    * Is the field rendered as part of a form
    * or in standalone "single" mode

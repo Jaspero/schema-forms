@@ -1,4 +1,3 @@
-import {SegmentType} from '../../../../../projects/form-builder/src/lib/enums/segment-type.enum';
 import {FormBuilderData} from '../../../../../projects/form-builder/src/lib/interfaces/form-builder-data.interface';
 
 export const EXAMPLE_TWO: FormBuilderData = {
@@ -10,30 +9,24 @@ export const EXAMPLE_TWO: FormBuilderData = {
       description: {
         type: 'string'
       },
-      content: {
+      file: {
         type: 'string'
       },
       list: {type: 'array'}
     }
   },
   definitions: {
-    title: {
-      label: 'Title'
-    },
     description: {
-      label: 'Description',
       component: {
         type: 'textarea'
       }
     },
-    content: {
-      label: 'Content',
+    file: {
       component: {
-        type: 'tinymce'
+        type: 'file'
       }
     },
     list: {
-      label: 'List',
       component: {
         type: 'draggable',
         configuration: {
@@ -63,17 +56,17 @@ export const EXAMPLE_TWO: FormBuilderData = {
   },
   segments: [
     {
-      type: SegmentType.Empty,
+      type: 'empty',
       fields: [
         '/list'
       ]
     },
     {
-      type: SegmentType.Empty,
+      type: 'empty',
       fields: [
         '/title',
         '/description',
-        '/content'
+        '/file'
       ]
     }
   ]

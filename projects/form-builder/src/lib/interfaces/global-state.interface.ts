@@ -1,27 +1,32 @@
 import {FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Parser} from '../utils/parser';
+import {FieldData} from './field-data.interface';
 
-export type Process = <T = any>(data: {
-  pointer: string,
-  collectionId: string,
-  documentId: string,
+export interface ProcessConfig {
+  cData: FieldData;
+  pointer: string;
+  collectionId: string;
+  documentId: string;
   /**
    * Value at form initialization.
    * This will only be available when
    * updating or deleting
    */
-  entryValue?: any,
+  entryValue?: any;
 
   /**
    * This is the value passed on to further
    * operations and returned by the form
    */
-  outputValue: any
-}) => Observable<T>;
+  outputValue: any;
+}
+
+export type Process = (data: ProcessConfig) => Observable<any>;
 
 export interface Operation {
-  priority: number;
+  cData: FieldData;
+  priority?: number;
   save?: Process;
   delete?: Process;
 };
@@ -45,5 +50,28 @@ export interface GlobalState {
     [id: string]: {
       [pointer: string]: Operation
     }
-  }
+  };
+
+  /**
+   * Utilities
+   */
+
+  /**
+   * Creates an operation on the correct property
+   */
+  assignOperation: (config: Operation) => void;
+
+  /**
+   * Verifies that the requested pointer exists and returns its value
+   */
+  exists: (config: ProcessConfig) => {
+    exists: boolean;
+    value?: any
+  };
+
+  /**
+   * Verifies that value has changed.
+   * It only works with primitives.
+   */
+  change: (config: ProcessConfig) => boolean;
 }

@@ -6,14 +6,12 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  Inject,
-  OnDestroy,
+  Inject, Injector, OnDestroy,
   OnInit,
   Optional,
   Renderer2,
   ViewChild,
-  ViewContainerRef,
-  Injector,
+  ViewContainerRef
 } from '@angular/core';
 import {DomSanitizer, ɵDomSharedStylesHost} from '@angular/platform-browser';
 import {
@@ -21,25 +19,23 @@ import {
   FieldComponent,
   FieldData,
   FormBuilderContextService,
-  FormBuilderData,
-  FormBuilderService,
-  Segment
+  FormBuilderData, Segment
 } from '@jaspero/form-builder';
+import {safeEval} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
-import {forkJoin, Observable, of} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
-import {safeEval} from '@jaspero/utils';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BlockFormComponent} from '../block-form/block-form.component';
+import {BlockComponent} from '../block/block.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {PageBuilderCtxService} from '../page-builder-ctx.service';
+import {registerBlocks} from '../register-blocks';
 import {Selected} from '../selected.interface';
 import {STATE} from '../state.const';
 import {TopBlock} from '../top-block.interface';
 import {uniqueId, UniqueId} from '../utils/unique-id';
-import {registerBlocks} from '../register-blocks';
-import {BlockFormComponent} from '../block-form/block-form.component';
-import {BlockComponent} from '../block/block.component';
 
 declare global {
   interface Window {
@@ -127,7 +123,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     @Inject(COMPONENT_DATA)
     public cData: BlocksData,
     public transloco: TranslocoService,
-    private service: FormBuilderService,
     private formCtx: FormBuilderContextService,
     @Optional()
     @Inject(FB_PAGE_BUILDER_OPTIONS)
@@ -239,8 +234,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       } as TopBlock;
     });
 
-    this.service.saveComponents.push(this);
-
     this.intro$ = this.transloco.langChanges$.pipe(
       map(() => {
         if (!this.cData.intro) {
@@ -282,7 +275,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     if (window.jpFbPb?.[this.module]) {
       delete window.jpFbPb[this.module];
     }
-    this.service.removeComponent(this);
   }
 
   openAdd() {

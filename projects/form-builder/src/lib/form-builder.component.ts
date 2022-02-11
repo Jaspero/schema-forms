@@ -13,7 +13,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {concat, map, of, Subscription, switchMap} from 'rxjs';
+import {get} from 'json-pointer';
+import {map, of, Subscription, switchMap} from 'rxjs';
 import {State} from './enums/state.enum';
 import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
@@ -24,8 +25,12 @@ import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
 import {ROLE} from './utils/role';
 
-declare const window: Window & {jpFb: GlobalState};
-
+declare global {
+  interface Window {
+    // @ts-ignore
+    jpFb: GlobalState;
+  }
+}
 @Component({
   selector: 'fb-form-builder',
   templateUrl: './form-builder.component.html',
@@ -126,11 +131,11 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
      * Child forms processes are run on save
      * of the parent form
      */
-    if (!this.parent) {
+    if (this.parent) {
       return of(data);
     }
 
-    const processes = Object.entries<Operation>(window.jpFb[this.id].processes)
+    const processes = Object.entries<Operation>(window.jpFb.operations[this.id])
       .sort((p1, p2) => p1[1].priority - p2[1].priority)
       .filter(process => process[1].save);
 
@@ -141,6 +146,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     const operations = [
       ...processes.map(([pointer, process]) =>
         switchMap(() => process.save({
+          cData: process.cData,
           pointer,
           collectionId,
           documentId,
@@ -204,6 +210,55 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
     if (!window.jpFb) {
       window.jpFb = {
+        assignOperation: config => {
+          const {cData, ...operation} = config;
+          const parentForm = cData.parentForm || {} as any;
+          const formId = parentForm?.id || cData.formId || 'main';
+          const path = parentForm?.pointer ?
+            (parentForm.pointer + cData.pointer) :
+            cData.pointer;
+
+          window.jpFb.operations[formId][path] = {
+            priority: 1,
+            cData,
+            ...operation
+          };
+        },
+        exists: config => {
+          let value: any;
+
+          try {
+            value = get(config.outputValue, config.pointer);
+          } catch (e) {
+            console.error(e);
+            return {exists: false}
+          }
+
+          return {value, exists: true};
+        },
+        change: (config) => {
+          if (!config.entryValue) {
+            return true;
+          }
+
+          let originalValue: any;
+
+          try {
+            originalValue = get(config.entryValue, config.pointer);
+          } catch (e) {
+            return true;
+          }
+
+          let currentValue: any;
+
+          try {
+            currentValue = get(config.outputValue, config.pointer);
+          } catch (e) {
+            return false;
+          }
+
+          return currentValue !== originalValue;
+        },
         forms: {},
         parsers: {},
         operations: {}
@@ -211,6 +266,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     }
 
     window.jpFb.forms[this.id] = this.form;
+    // @ts-ignore
     window.jpFb.parsers[this.id] = this.innerParser;
 
     /**
