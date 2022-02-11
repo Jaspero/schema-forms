@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
-import {EXAMPLE_TWO} from './forms/example-two';
+import {SAVE_METHOD_EXAMPLE} from './forms/save-method-example';
 
 @Component({
   selector: 'sc-core',
@@ -13,7 +13,7 @@ export class CoreComponent implements AfterViewInit {
   @ViewChildren(FormBuilderComponent)
   formComponents: QueryList<FormBuilderComponent>;
 
-  form = EXAMPLE_TWO;
+  form = SAVE_METHOD_EXAMPLE;
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {

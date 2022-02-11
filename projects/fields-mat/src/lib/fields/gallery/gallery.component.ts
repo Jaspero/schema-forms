@@ -119,7 +119,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
         const current = window.jpFb.exists(data);
 
         if (!current.exists) {
-          return of();
+          return of(true);
         }
 
         if (
@@ -127,7 +127,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
           !current.value ||
           !current.value.find((val: any) => !val.live)
         ) {
-          return of();
+          return of(true);
         }
 
         return forkJoin([
@@ -154,7 +154,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
                  * Maybe we should put a type extension based on type
                  * instead of taking from the name
                  */
-                name += (current.value.name.split('.')[1]);;
+                name += '.' + (cur.pushToLive.name.split('.')[1]);;
               }
 
               acc.push(

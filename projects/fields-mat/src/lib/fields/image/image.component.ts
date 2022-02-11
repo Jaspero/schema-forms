@@ -108,7 +108,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
         const current = window.jpFb.exists(data);
 
         if (!current.exists || !window.jpFb.change(data)) {
-          return of();
+          return of(true);
         }
 
         if (current.value && typeof current.value !== 'string') {
@@ -124,7 +124,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
              * Maybe we should put a type extension based on type
              * instead of taking from the name
              */
-            name += (current.value.name.split('.')[1]);;
+            name += '.' + (current.value.name.split('.')[1]);;
           }
 
           return from(
@@ -144,7 +144,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
             );
         }
 
-        return of();
+        return of(true);
       }
     });
   }

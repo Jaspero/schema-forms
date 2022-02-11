@@ -286,7 +286,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
             }
           }))
         );
-        return of();
+        return of(true);
       }
     })
   }

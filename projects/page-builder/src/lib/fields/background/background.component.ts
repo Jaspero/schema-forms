@@ -151,12 +151,12 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
         const current = window.jpFb.exists(data);
 
         if (!current.exists) {
-          return of();
+          return of(true);
         }
 
         if (this.color.value) {
           set(data.outputValue, data.pointer, this.imageUrl.value);
-          return of();
+          return of(true);
         }
 
         if (current.value && typeof current.value !== 'string') {
@@ -172,7 +172,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
              * Maybe we should put a type extension based on type
              * instead of taking from the name
              */
-            name += (current.value.name.split('.')[1]);;
+            name += '.' + (current.value.name.split('.')[1]);;
           }
 
           return from(
@@ -192,7 +192,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
             );
         }
 
-        return of();
+        return of(true);
       }
     });
   }

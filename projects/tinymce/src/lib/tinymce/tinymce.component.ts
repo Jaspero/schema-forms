@@ -104,7 +104,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
         const current = window.jpFb.exists(data);
 
         if (!current.exists || !window.jpFb.change(data)) {
-          return of();
+          return of(true);
         }
 
         if (this.imageReplacements.length) {
@@ -166,7 +166,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
           }
         }
 
-        return of();
+        return of(true);
       }
     })
   }
