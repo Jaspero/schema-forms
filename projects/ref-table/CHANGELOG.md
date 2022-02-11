@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.3.1...@jaspero/fb-ref-table@2.4.0) (2022-02-11)
+
+
+### Features
+
+* refactored all fields to use new save method approach ([6e20934](https://github.com/Jaspero/schema-forms/commit/6e209348b00763118144be107f74243f531bfda8))
+
 ## @jaspero/fb-ref-table [2.3.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.3.0...@jaspero/fb-ref-table@2.3.1) (2022-01-20)
 
 
