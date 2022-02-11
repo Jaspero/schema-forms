@@ -1,3 +1,18 @@
+# @jaspero/fb-segments-mat [1.3.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.2.9...@jaspero/fb-segments-mat@1.3.0) (2022-02-11)
+
+
+### Features
+
+* **form-builder:** forwarding formId and parentForm to segments and fields ([918454d](https://github.com/Jaspero/schema-forms/commit/918454d89fdcc6e9531bf98f9f2f175633111394))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.4.0
+
 ## @jaspero/fb-segments-mat [1.2.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.2.8...@jaspero/fb-segments-mat@1.2.9) (2022-02-08)
 
 
