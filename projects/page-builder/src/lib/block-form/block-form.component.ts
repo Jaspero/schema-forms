@@ -33,7 +33,10 @@ export class BlockFormComponent implements OnDestroy {
   parser: Parser;
   id: string;
   formData: FormBuilderData | undefined;
-  metadata: any;
+  parent: {
+    id: string;
+    pointer: string;
+  };
 
   private formSub: Subscription;
   private _selected: Selected;
@@ -65,10 +68,10 @@ export class BlockFormComponent implements OnDestroy {
     setTimeout(() => {
       this.id = [this.parentFormId || 'main', 'blocks', selected.index].join('-');
 
+      let pointer = `/blocks/${selected.index}/value`;
+
       if (selected.nested && typeof selected.nested.index === 'number' && selected.nested.arrayProperty) {
-        this.metadata = {array: selected.nested.arrayProperty, index: selected.nested.index};
-      } else {
-        this.metadata = null;
+        pointer += '/' + selected.nested.arrayProperty + '/' + selected.nested.index;
       }
 
       if (selected.form.segments) {
@@ -85,6 +88,10 @@ export class BlockFormComponent implements OnDestroy {
         this.formData = selected.form;
       }
 
+      this.parent = {
+        id: this.parentFormId,
+        pointer
+      };
       this.formData.value = selected.value;
       this.cdr.markForCheck();
 

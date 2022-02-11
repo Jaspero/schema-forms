@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding} from '@angular/core';
-import {blockStyle} from '../../../../../../projects/page-builder/src/public-api';
-import {BlockData} from '../../../../../../projects/page-builder/src/lib/block-data.component';
-import {Block, BlockOptions} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
+import {Block, BlockData, BlockOptions, blockStyle} from '@jaspero/page-builder';
 
 /**
  * Set options for the block

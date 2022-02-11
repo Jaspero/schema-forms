@@ -1,9 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoadClickModule} from '@jaspero/ng-helpers';
 import {FormBuilderModule} from '@jaspero/form-builder';
-import {PageBuilderModule as PBModule} from '../../../../projects/page-builder/src/lib/page-builder.module';
+import {LoadClickModule} from '@jaspero/ng-helpers';
+import {PageBuilderModule as PBModule} from '@jaspero/page-builder';
 import {BlocksModule} from './blocks/blocks.module';
 import {PageBuilderComponent} from './page-builder.component';
 

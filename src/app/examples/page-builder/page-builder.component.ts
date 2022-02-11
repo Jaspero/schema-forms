@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
-import {SCHEMA} from './schema.const';
 import {tap} from 'rxjs/operators';
+import {SCHEMA} from './schema.const';
 
 @Component({
   selector: 'sc-page-builder',

@@ -8,16 +8,16 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {FbFieldsMatModule} from '@jaspero/fb-fields-mat';
-import {CUSTOM_COMPONENTS, DbService, FormBuilderModule, ROLE, STORAGE_URL, StorageService} from '@jaspero/form-builder';
-import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule} from '@ngneat/transloco';
 import {FbSegmentsMatModule} from '@jaspero/fb-segments-mat';
+import {TinymceModule} from '@jaspero/fb-tinymce';
+import {CUSTOM_COMPONENTS, DbService, FormBuilderModule, ROLE, StorageService, STORAGE_URL} from '@jaspero/form-builder';
+import {TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG} from '@ngneat/transloco';
 import {environment} from '../environments/environment';
 import {AppComponent} from './app.component';
 import {ExampleCustomComponent} from './example-custom/example-custom.component';
 import {MockDbService} from './mock/mock-db.service';
 import {MockStorageService} from './mock/mock-storage.service';
 import {translocoLoader} from './transloco.loader';
-import {TinymceModule} from '@jaspero/fb-tinymce';
 
 const routes: Routes = [
   {
