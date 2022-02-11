@@ -1,3 +1,28 @@
+# @jaspero/fb-page-builder [3.21.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.6...@jaspero/fb-page-builder@3.21.0) (2022-02-11)
+
+
+### Bug Fixes
+
+* better naming conventions for uploaded files [#77](https://github.com/Jaspero/schema-forms/issues/77) ([44c3a9d](https://github.com/Jaspero/schema-forms/commit/44c3a9d46d374ad0e298b3afdc46fd02345bfdb5))
+
+
+### Features
+
+* **page-builder:** added img-preview directive for rendering preview when controls value is a File [#77](https://github.com/Jaspero/schema-forms/issues/77) ([d79319a](https://github.com/Jaspero/schema-forms/commit/d79319afd5ec5e9711a70bb43c16a643a545c665))
+* **page-builder:** connected save methods [#77](https://github.com/Jaspero/schema-forms/issues/77) ([b8a1730](https://github.com/Jaspero/schema-forms/commit/b8a173050fc390fd2eef5e1af2b760bdb0dbd322))
+* refactored all fields to use new save method approach ([6e20934](https://github.com/Jaspero/schema-forms/commit/6e209348b00763118144be107f74243f531bfda8))
+* **form-builder:** forwarding formId and parentForm to segments and fields ([918454d](https://github.com/Jaspero/schema-forms/commit/918454d89fdcc6e9531bf98f9f2f175633111394))
+* **form-builder:** processing method on file component working :tada: [#77](https://github.com/Jaspero/schema-forms/issues/77) ([af89035](https://github.com/Jaspero/schema-forms/commit/af89035fea64143864d7098896a5130118017acc))
+* **form-builder:** refactored save method [#77](https://github.com/Jaspero/schema-forms/issues/77) ([fc8ca71](https://github.com/Jaspero/schema-forms/commit/fc8ca71326e0ddb6e4147218dcb2172bd1e39235))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.4.0
+
 ## @jaspero/fb-page-builder [3.20.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.20.5...@jaspero/fb-page-builder@3.20.6) (2022-02-08)
 
 
