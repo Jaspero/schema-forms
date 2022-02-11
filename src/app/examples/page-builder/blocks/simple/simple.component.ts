@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {BlockData, BlockDataOptions} from '../../../../../../projects/page-builder/src/lib/block-data.component';
-import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Block, BlockData, BlockDataOptions} from '@jaspero/page-builder';
 
 interface Data extends BlockDataOptions {
   title: string;

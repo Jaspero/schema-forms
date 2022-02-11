@@ -43,7 +43,7 @@
     "@angular/router": "13.1.1",
     "@jaspero/fb-fields-mat": "file:projects/fields-mat",
     "@jaspero/fb-form-ui": "2.4.7",
-    "@jaspero/fb-page-builder": "3.17.1",
+    "@jaspero/fb-page-builder": "file:projects/page-builder",
     "@jaspero/fb-segments-mat": "file:projects/segments-mat",
     "@jaspero/fb-tinymce": "file:projects/tinymce",
     "@jaspero/form-builder": "file:projects/form-builder",

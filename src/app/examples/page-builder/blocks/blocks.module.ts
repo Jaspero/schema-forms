@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {SanitizeModule} from '@jaspero/ng-helpers';
-import {InlineEditorModule} from '../../../../../projects/page-builder/src/lib/inline-editor/inline-editor.module';
+import {InlineEditorModule} from '@jaspero/page-builder';
 import {CardsComponent} from './cards/cards.component';
 import {DividerComponent} from './divider/divider.component';
 import {SimpleComponent} from './simple/simple.component';

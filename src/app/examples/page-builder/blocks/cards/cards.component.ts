@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {BlockData, BlockDataOptions} from '../../../../../../projects/page-builder/src/lib/block-data.component';
-import {Block} from '../../../../../../projects/page-builder/src/lib/decorators/block.decorator';
+import {Block, BlockData, BlockDataOptions} from '@jaspero/page-builder';
 import {COMMON_OPTIONS} from '../../common-options.const';
 
 interface Data extends BlockDataOptions {
