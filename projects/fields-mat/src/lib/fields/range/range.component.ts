@@ -6,8 +6,8 @@ import {
   FieldComponent,
   FieldData
 } from '@jaspero/form-builder';
-import {of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {combineLatest} from 'rxjs';
 
 export interface RangeConfiguration {
   min?: number;
@@ -16,6 +16,7 @@ export interface RangeConfiguration {
 
 export type RangeData = RangeConfiguration & FieldData;
 
+@UntilDestroy()
 @Component({
   selector: 'fb-range',
   templateUrl: './range.component.html',
@@ -49,15 +50,16 @@ export class RangeComponent extends FieldComponent<RangeData> implements OnInit 
       {value: this.entryControl.value.end || '', disabled: this.cData.control.disabled},
       [Validators.max(this.cData.max || Date.now() * 2)]
     );
-  }
 
-  save() {
-    return of({}).pipe(
-      tap(() => {
-        const start = this.start.value;
-        const end = this.end.value;
+    combineLatest([
+      this.start.valueChanges,
+      this.end.valueChanges
+    ])
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(([start, end]) => {
         this.cData.control.setValue({start, end});
       })
-    );
   }
 }

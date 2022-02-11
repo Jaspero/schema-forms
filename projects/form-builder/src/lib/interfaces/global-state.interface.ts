@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 import {Parser} from '../utils/parser';
 import {FieldData} from './field-data.interface';
 
-export interface ProcessConfig {
-  cData: FieldData;
+export interface ProcessConfig<T = FieldData> {
+  cData: T;
   pointer: string;
   collectionId: string;
   documentId: string;
@@ -22,13 +22,15 @@ export interface ProcessConfig {
   outputValue: any;
 }
 
-export type Process = (data: ProcessConfig) => Observable<any>;
+export interface Process<T = FieldData> {
+  (data: ProcessConfig<T>): Observable<any>
+}
 
-export interface Operation {
-  cData: FieldData;
+export interface Operation<T = FieldData> {
+  cData: T;
   priority?: number;
-  save?: Process;
-  delete?: Process;
+  save?: Process<T>;
+  delete?: Process<T>;
 };
 
 export interface GlobalState {

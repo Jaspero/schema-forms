@@ -24,6 +24,7 @@ import {
 import {safeEval} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
+import {set} from 'json-pointer';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BlockFormComponent} from '../block-form/block-form.component';
@@ -269,6 +270,25 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
         }
       })
     )
+
+    window.jpFb.assignOperation({
+      priority: 0,
+      cData: this.cData,
+      save: data => {
+        set(
+          data.outputValue,
+          data.pointer,
+          this.blocks.map((block, index) => ({
+            value: block.value,
+            type: block.type,
+            ...this.cData.saveCompiled && {
+              compiled: this.compRefs[index].location.nativeElement.innerHTML
+            }
+          }))
+        );
+        return of();
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -570,19 +590,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     }
 
     return this.blocks.filter(it => it.type === block.id).length >= block.maxInstances;
-  }
-
-  save() {
-    this.cData.control.setValue(
-      this.blocks.map((block, index) => ({
-        value: block.value,
-        type: block.type,
-        ...this.cData.saveCompiled && {
-          compiled: this.compRefs[index].location.nativeElement.innerHTML
-        }
-      }))
-    );
-    return of(true);
   }
 
   private renderComponent(
