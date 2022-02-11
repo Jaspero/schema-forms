@@ -13,13 +13,12 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {forkJoin, of, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {concat, map, of, Subscription, switchMap} from 'rxjs';
 import {State} from './enums/state.enum';
 import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
 import {FormBuilderData} from './interfaces/form-builder-data.interface';
-import {GlobalState} from './interfaces/global-state.interface';
+import {GlobalState, Operation} from './interfaces/global-state.interface';
 import {DEFAULT_SEGMENT} from './utils/default-segment';
 import {filterAndCompileSegments} from './utils/filter-and-compile-segments';
 import {Parser} from './utils/parser';
@@ -107,7 +106,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     try {
       delete window.jpFb.forms[this.id];
       delete window.jpFb.parsers[this.id];
-    } catch (e) {}
+      delete window.jpFb.operations[this.id];
+    } catch (e) { }
   }
 
   process() {
@@ -118,31 +118,43 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     return this.form.getRawValue();
   }
 
-  save(
-    collectionId: string,
-    documentId: string,
-    overrideComponents?: any[]
-  ) {
-    const toExec = (overrideComponents || this.service.saveComponents).map(comp =>
-      comp.save(collectionId, documentId)
-    );
+  save(collectionId: string, documentId: string) {
 
-    return (
-      toExec.length ?
-        forkJoin(toExec) :
-        of({})
-    )
-      .pipe(
-        map(() =>
-          this.form.getRawValue()
-        )
-      );
+    const data = this.form.getRawValue();
+
+    /**
+     * Child forms processes are run on save
+     * of the parent form
+     */
+    if (!this.parent) {
+      return of(data);
+    }
+
+    const processes = Object.entries<Operation>(window.jpFb[this.id].processes)
+      .sort((p1, p2) => p1[1].priority - p2[1].priority)
+      .filter(process => process[1].save);
+
+    if (!processes.length) {
+      return of(data);
+    }
+
+    const operations = [
+      ...processes.map(([pointer, process]) =>
+        switchMap(() => process.save({
+          pointer,
+          collectionId,
+          documentId,
+          entryValue: this.value,
+          outputValue: data
+        }))
+      ),
+      map(() => data)
+    ]
+
+    return (of(data).pipe as any)(...operations)
   }
 
-  saveAndProcess(
-    collectionId: string,
-    documentId: string
-  ) {
+  saveAndProcess(collectionId: string, documentId: string) {
     this.process();
 
     return this.save(
@@ -159,7 +171,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
         error: false,
         message: ''
       };
-    } catch(error) {
+    } catch (error) {
       return {
         error: true,
         message: error.message || 'Invalid Schema provided!'
@@ -193,22 +205,30 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
     if (!window.jpFb) {
       window.jpFb = {
         forms: {},
-        parsers: {}
+        parsers: {},
+        operations: {}
       }
     }
 
     window.jpFb.forms[this.id] = this.form;
     window.jpFb.parsers[this.id] = this.innerParser;
 
+    /**
+     * Child forms push operations to their parent form
+     */
+    if (!this.parent) {
+      window.jpFb.operations[this.id] = {};
+    }
+
     this.innerParser.loadHooks();
 
     this.segments = filterAndCompileSegments({
       segments: this.data.segments || [{
-          title: '',
-          fields: Object.keys(this.innerParser.pointers),
-          columnsDesktop: 12,
-          type: this.defaultSegment || 'empty'
-        }],
+        title: '',
+        fields: Object.keys(this.innerParser.pointers),
+        columnsDesktop: 12,
+        type: this.defaultSegment || 'empty'
+      }],
       parser: this.innerParser,
       definitions,
       injector: this.injector,
