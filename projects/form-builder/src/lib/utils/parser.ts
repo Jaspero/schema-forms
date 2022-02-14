@@ -102,7 +102,7 @@ export class Parser {
     this.customFields = {
       ...custom || {},
       ...ctxFields || {}
-    }
+    };
   }
 
   form: FormGroup;
@@ -451,6 +451,9 @@ export class Parser {
       throw new Error(`Couldn't find a component defined for type: ${definition.component.type}`);
     }
 
+    const configuration = safeEval(definition.component.configuration || {});
+    const safeConfiguration = typeof configuration === 'function' ? configuration() : configuration;
+
     const portal = new ComponentPortal<FieldComponent<any>>(
       component,
       null,
@@ -464,8 +467,7 @@ export class Parser {
         parentForm,
         pointer: pointerKey,
         ...definition,
-        // @ts-ignore
-        ...(definition.component.configuration || {})
+        ...safeConfiguration
       })
     );
 
@@ -553,7 +555,7 @@ export class Parser {
 
     const currentGroup = control.at(fromIndex);
     control.removeAt(fromIndex);
-    control.insert(toIndex, currentGroup)
+    control.insert(toIndex, currentGroup);
   }
 
   removeArrayItem(
@@ -701,9 +703,9 @@ export class Parser {
               {[Parser.standardizeKey(pointer)]: v},
               pointers,
               {pointer, index}
-            )
+            );
           }
-        })
+        });
       }
     }
   }
