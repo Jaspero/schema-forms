@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.6.1...@jaspero/fb-fields-mat@1.6.2) (2022-02-16)
+
+
+### Bug Fixes
+
+* **ref:** fallback default value to null or empty array. trigger checkbox selection on whole row click ([32c319f](https://github.com/Jaspero/schema-forms/commit/32c319f9ccfa245a047e53c7bcd58b56cc3c64e7))
+
 ## @jaspero/fb-fields-mat [1.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.6.0...@jaspero/fb-fields-mat@1.6.1) (2022-02-14)
 
 
