@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.4.0...@jaspero/form-builder@5.5.0) (2022-02-14)
+
+
+### Features
+
+* **form-builder:** extend configuration to accept evaluated functions and strings ([e1e1b2c](https://github.com/Jaspero/schema-forms/commit/e1e1b2c33a57b5ab7806a7efabe7b81d180ee707))
+
 # @jaspero/form-builder [5.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.3.1...@jaspero/form-builder@5.4.0) (2022-02-11)
 
 
