@@ -35,7 +35,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns" class="ref-row" (click)="!cData.multiple && selectRow(row)"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns" class="ref-row" (click)="!cData.multiple ? selectRow(row) : ($event ? selection.toggle(row) : null)"></tr>
               </table>
             </ng-container>
 

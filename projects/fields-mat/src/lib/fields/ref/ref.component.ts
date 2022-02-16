@@ -177,7 +177,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
         key: this.cData.search?.key || '/name',
         label: this.cData.search?.label || 'Name'
       },
-      clearValue: this.cData.clearValue !== undefined ? this.cData.clearValue ?? (this.cData.multiple ? [] : null) : this.cData.clearValue,
+      clearValue: this.cData.clearValue === undefined ? (this.cData.multiple ? [] : null) : this.cData.clearValue,
       closeOnSelect: this.cData.closeOnSelect ?? !this.cData.multiple
     };
 
