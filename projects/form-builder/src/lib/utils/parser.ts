@@ -512,14 +512,23 @@ export class Parser {
       }
       // @ts-ignore
       target.arrayPointers[operation](properties.pointers);
-      control.insert(0, properties.form);
+      if (reverse) {
+        control.insert(0, properties.form);
+      } else {
+        control.push(properties.form);
+      }
+
 
       return properties.pointers;
     } else {
       const cont = new FormControl('');
 
       if (control instanceof FormArray) {
-        control.insert(0, cont);
+        if (reverse) {
+          control.insert(0, cont);
+        } else {
+          control.push(cont);
+        }
       }
 
       return cont;
@@ -681,7 +690,8 @@ export class Parser {
             pointer,
             false,
             parentArray,
-            pointers
+            pointers,
+            false
           );
 
           for (const key in items) {
@@ -703,7 +713,7 @@ export class Parser {
               },
               {[Parser.standardizeKey(pointer)]: v},
               pointers,
-              {pointer, index: 0}
+              {pointer, index}
             );
           }
         });

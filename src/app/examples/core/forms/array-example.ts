@@ -7,7 +7,8 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
       {
         city: 'Example One',
         nnAddresses: [
-          {address: 'Example One Nested One'}
+          {address: 'Example One Nested One'},
+          {address: 'Example One Nested Two'},
         ]
       },
       {
@@ -16,27 +17,27 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
           {address: 'Example Two Nested One'}
         ]
       },
-      // {
-      //   city: 'Example Three',
-      //   nnAddresses: [
-      //     {address: 'Example Three Nested One', some: 'Example Three Nested One'},
-      //     {address: 'Example Three Nested Two', some: 'Example Three Nested Two'}
-      //   ]
-      // },
+      {
+        city: 'Example Three',
+        nnAddresses: [
+          // {address: 'Example Three Nested One', some: 'Example Three Nested One'},
+          // {address: 'Example Three Nested Two', some: 'Example Three Nested Two'}
+        ]
+      },
     ]
   },
   schema: {
     properties: {
-      // addresses: {
-      //   type: 'array',
-      //   items: {
-      //     type: 'object',
-      //     properties: {
-      //       city: {type: 'string'},
-      //       address: {type: 'string'}
-      //     }
-      //   }
-      // },
+      addresses: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            city: {type: 'string'},
+            address: {type: 'string'}
+          }
+        }
+      },
       nAddresses: {
         type: 'array',
         items: {
@@ -49,7 +50,7 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
                 type: 'object',
                 properties: {
                   address: {type: 'string'},
-                  // some: {type: 'string'}
+                  some: {type: 'string'}
                 }
               }
             }
@@ -59,14 +60,14 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
     }
   },
   segments: [
-    // {
-    //   title: 'Addresses',
-    //   array: '/addresses',
-    //   fields: ['/city', '/address'],
-    //   arrayConfiguration: {
-    //     sort: false
-    //   }
-    // },
+    {
+      title: 'Addresses',
+      array: '/addresses',
+      fields: ['/city', '/address'],
+      arrayConfiguration: {
+        sort: false
+      }
+    },
     {
       title: 'Nested Arrays',
       array: '/nAddresses',
@@ -78,7 +79,7 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
         array: '/nnAddresses',
         fields: [
           '/address',
-          // '/some'
+          '/some'
         ]
       }]
     }
