@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.1...@jaspero/form-builder@5.5.2) (2022-02-18)
+
+
+### Bug Fixes
+
+* **form-builder:** properly setting controls in nested forms ([7e7eca0](https://github.com/Jaspero/schema-forms/commit/7e7eca0b3fca8176c090f51591f9b2e0aca71fed))
+
 ## @jaspero/form-builder [5.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.0...@jaspero/form-builder@5.5.1) (2022-02-18)
 
 
