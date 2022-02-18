@@ -378,11 +378,11 @@ This plugin doesn't have any additional dependencies.
             [
               {
                 "type": "show", // "show" | "hide" | "set-to"
-                "function": "(row) => row.showTitle"
+                "eval": "(row) => row.showTitle"
               },
               {
                 "type": "set-to",
-                "function": "(row) => !row.title",
+                "eval": "(row) => !row.title",
                 "configuration": {
                   "value": "Placeholder Title"
                 }
