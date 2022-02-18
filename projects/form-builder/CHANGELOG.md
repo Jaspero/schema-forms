@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.0...@jaspero/form-builder@5.5.1) (2022-02-18)
+
+
+### Bug Fixes
+
+* **form-builder:** arrays with initial value populating properly ([0adb460](https://github.com/Jaspero/schema-forms/commit/0adb460544be0a7084009b36ec67cc243f914c73))
+
 # @jaspero/form-builder [5.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.4.0...@jaspero/form-builder@5.5.0) (2022-02-14)
 
 
