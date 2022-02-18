@@ -387,7 +387,6 @@ export class Parser {
       pointer: string;
     };
   }): CompiledField {
-
     const {
       pointerKey,
       pointer,
@@ -687,7 +686,9 @@ export class Parser {
 
           for (const key in items) {
 
-            if (!items[key] || !items[key].arrayPointers) {
+            const itemVal = items[key];
+
+            if (!itemVal || !itemVal.arrayPointers) {
               continue;
             }
 
@@ -697,12 +698,12 @@ export class Parser {
                 type: 'array',
                 items: {
                   type: 'object',
-                  properties: items[key].properties
+                  properties: itemVal.properties
                 }
               },
               {[Parser.standardizeKey(pointer)]: v},
               pointers,
-              {pointer, index}
+              {pointer, index: 0}
             );
           }
         });
