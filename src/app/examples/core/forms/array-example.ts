@@ -2,55 +2,110 @@ import {FormBuilderData} from '../../../../../projects/form-builder/src/lib/inte
 
 export const ARRAY_EXAMPLE: FormBuilderData = {
   value: {
-    // addresses: [{city: 'osijek'}],
-    nAddresses: [
+    level1: [
       {
-        city: 'Example One',
-        nnAddresses: [
-          {address: 'Example One Nested One'},
-          {address: 'Example One Nested Two'},
+        name: 'Item 1',
+        level2: [
+          {
+            name: 'Item 1 Level 2',
+            level3: [
+              {name: 'Item 1 Level 3'}
+            ]
+          }
         ]
       },
       {
-        city: 'Example Two',
-        nnAddresses: [
-          {address: 'Example Two Nested One'}
+        name: 'Item 2'
+      },
+      {
+        name: 'Item 3',
+        level2: [
+          {
+            name: 'Item 3 Level 2|1',
+            level3: [
+              {name: 'Item 3 Level 3|1'},
+              {name: 'Item 3 Level 3|2'},
+              {name: 'Item 3 Level 3|3'},
+            ]
+          },
+          {
+            name: 'Item 3 Level 2|2'
+          }
         ]
       },
       {
-        city: 'Example Three',
-        nnAddresses: [
-          // {address: 'Example Three Nested One', some: 'Example Three Nested One'},
-          // {address: 'Example Three Nested Two', some: 'Example Three Nested Two'}
+        name: 'Item 4',
+        level2: [
+          {
+            name: 'Item 4 Level 2|1',
+            level3: [
+              {name: 'Item 4 Level 3|1'},
+              {name: 'Item 4 Level 3|2'},
+              {name: 'Item 4 Level 3|3'},
+              {
+                name: 'Item 4 Level 3|4',
+                level3: [
+                  {name: 'Item 4 Level 4|1'},
+                  {name: 'Item 4 Level 4|2'},
+                  {name: 'Item 4 Level 4|3'},
+                  {name: 'Item 4 Level 4|4'},
+                ]
+              },
+            ]
+          },
+          {
+            name: 'Item 4 Level 2|2',
+            level3: [
+              {name: 'Item 4 Level 3|1'},
+              {name: 'Item 4 Level 3|2'},
+              {name: 'Item 4 Level 3|3'},
+              {
+                name: 'Item 4 Level 3|4',
+                level4: [
+                  {name: 'Item 4 Level 4|1'},
+                  {name: 'Item 4 Level 4|2'},
+                  {name: 'Item 4 Level 4|3'},
+                  {name: 'Item 4 Level 4|4'},
+                ]
+              },
+            ]
+          }
         ]
-      },
+      }
     ]
   },
   schema: {
     properties: {
-      addresses: {
+      level1: {
         type: 'array',
         items: {
           type: 'object',
           properties: {
-            city: {type: 'string'},
-            address: {type: 'string'}
-          }
-        }
-      },
-      nAddresses: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            city: {type: 'string'},
-            nnAddresses: {
+            name: {type: 'string'},
+            level2: {
               type: 'array',
               items: {
                 type: 'object',
                 properties: {
-                  address: {type: 'string'},
-                  some: {type: 'string'}
+                  name: {type: 'string'},
+                  level3: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        name: {type: 'string'},
+                        level4: {
+                          type: 'array',
+                          items: {
+                            type: 'object',
+                            properties: {
+                              name: {type: 'string'}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -61,27 +116,30 @@ export const ARRAY_EXAMPLE: FormBuilderData = {
   },
   segments: [
     {
-      title: 'Addresses',
-      array: '/addresses',
-      fields: ['/city', '/address'],
-      arrayConfiguration: {
-        sort: false
-      }
-    },
-    {
-      title: 'Nested Arrays',
-      array: '/nAddresses',
-      fields: [
-        '/city'
-      ],
-      nestedSegments: [{
-        title: 'Addresses',
-        array: '/nnAddresses',
-        fields: [
-          '/address',
-          '/some'
-        ]
-      }]
+      title: 'Level 1',
+      array: '/level1',
+      fields: ['/name'],
+      nestedSegments: [
+        {
+          title: 'Level 2',
+          array: '/level2',
+          fields: ['/name'],
+          nestedSegments: [
+            {
+              title: 'Level 3',
+              array: '/level3',
+              fields: ['/name'],
+              nestedSegments: [
+                {
+                  title: 'Level 4',
+                  array: '/level4',
+                  fields: ['/name']
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 };

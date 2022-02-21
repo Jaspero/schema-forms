@@ -8,11 +8,11 @@ import {SchemaType} from '../enums/schema-type.enum';
 import {State} from '../enums/state.enum';
 import {FieldComponent} from '../field/field.component';
 import {FormBuilderContextService} from '../form-builder-context.service';
+import {COMPONENT_DATA} from '../injection-tokens/component-data.token';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {Control} from '../interfaces/control.type';
 import {Definitions} from '../interfaces/definitions.interface';
 import {SchemaValidators} from '../validators/schema-validators.class';
-import {createComponentInjector} from './create-component-injector';
 import {CUSTOM_FIELDS, CustomFields} from './custom-fields';
 import {schemaToComponent} from './schema-to-component';
 
@@ -84,8 +84,14 @@ export class Parser {
     public injector: Injector,
     public state: State,
     public role: string,
-    public definitions: Definitions = {}
+    public definitions: Definitions = {},
+    customFields?: CustomFields
   ) {
+
+    if (customFields) {
+      this.customFields = customFields;
+      return;
+    }
 
     let custom: CustomFields;
     let ctxFields: CustomFields;
@@ -108,6 +114,7 @@ export class Parser {
   form: FormGroup;
   pointers: Pointers = {};
   customFields: CustomFields = {};
+  parent: Parser;
 
   static standardizeKey(key: string) {
     if (key[0] === '/') {
@@ -347,12 +354,13 @@ export class Parser {
         /**
          * Creat all FormArray controls
          */
-        this.populateArray(
-          pointerKey,
-          value,
-          entryValue,
-          group.pointers
-        );
+        if (value.type === SchemaType.Array) {
+          this.populateArray(
+            pointerKey,
+            entryValue,
+            group.pointers
+          );
+        }
 
         return group;
       },
@@ -406,7 +414,7 @@ export class Parser {
       ...this.getFromDefinitions(pointerKey, definitions)
     };
 
-    if (!definition.label) {
+    if (definition.label === undefined) {
       definition.label = toLabel(key);
     }
 
@@ -456,17 +464,22 @@ export class Parser {
     const portal = new ComponentPortal<FieldComponent<any>>(
       component,
       null,
-      createComponentInjector(this.injector, {
-        control,
-        validation,
-        single,
-        pointers: this.pointers,
-        form: this.form,
-        formId,
-        parentForm,
-        pointer: pointerKey,
-        ...definition,
-        ...safeConfiguration
+      Injector.create({
+        providers: [{
+          provide: COMPONENT_DATA, useValue: {
+            control,
+            validation,
+            single,
+            pointers: this.pointers,
+            form: this.form,
+            formId,
+            parentForm,
+            pointer: pointerKey,
+            ...definition,
+            ...safeConfiguration
+          }
+        }],
+        parent: this.injector
       })
     );
 
@@ -484,16 +497,11 @@ export class Parser {
 
   addArrayItem(
     pointer: string,
+    target: Pointer,
     loadHooks = false,
-    parentArray?: {index: number, pointer: string},
-    entryPointers = this.pointers,
     reverse = true
   ) {
     const operation = reverse ? 'unshift' : 'push';
-    const pointers = parentArray ?
-      (entryPointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
-      entryPointers;
-    const target = pointers[pointer];
     const control = target.control as FormArray;
 
     if (
@@ -673,24 +681,19 @@ export class Parser {
 
   private populateArray(
     pointer: string,
-    properties: any,
     entryValue: any,
-    pointers: any,
-    parentArray?: {index: number, pointer: string}
+    pointers: any
   ) {
-    if (
-      properties.type === SchemaType.Array &&
-      has(entryValue, pointer)
-    ) {
+    if (has(entryValue, pointer)) {
       const values = get(entryValue, pointer);
 
       if (Array.isArray(values) && values.length) {
-        values.forEach((v, index) => {
+        values.forEach(v => {
+
           const items = this.addArrayItem(
             pointer,
+            pointers[pointer],
             false,
-            parentArray,
-            pointers,
             false
           );
 
@@ -704,20 +707,54 @@ export class Parser {
 
             this.populateArray(
               key,
-              {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: itemVal.properties
-                }
-              },
-              {[Parser.standardizeKey(pointer)]: v},
-              pointers,
-              {pointer, index}
+              pointer
+                .split('/')
+                .reverse()
+                .reduce((acc, cur) => {
+
+                  if (!cur) {
+                    return acc;
+                  }
+
+                  return {[Parser.standardizeKey(cur)]: acc};
+                }, v),
+              {[key]: itemVal}
             );
           }
         });
       }
     }
+  }
+
+  copy(
+    overrides: Partial<{
+      schema: any;
+      injector: Injector;
+      state: State;
+      role: string;
+      definitions: Definitions;
+      customFields: CustomFields;
+      form: FormGroup;
+      pointers: Pointers;
+    }> = {}
+  ) {
+    const cp = new Parser(
+      overrides.schema || this.schema,
+      overrides.injector || this.injector,
+      overrides.state || this.state,
+      overrides.role || this.role,
+      overrides.definitions || this.definitions,
+      overrides.customFields || this.customFields
+    );
+
+    ['form', 'pointers'].forEach(key => {
+      if (overrides[key]) {
+        cp[key] = overrides[key];
+      }
+    });
+
+    cp.parent = this;
+
+    return cp;
   }
 }

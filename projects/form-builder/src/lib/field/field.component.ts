@@ -1,7 +1,7 @@
 import {Component, HostBinding, Inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {COMPONENT_DATA} from '../injection-tokens/component-data.token';
 import {FieldData} from '../interfaces/field-data.interface';
-import {COMPONENT_DATA} from '../utils/create-component-injector';
 
 // @dynamic
 @Component({

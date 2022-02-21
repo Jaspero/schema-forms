@@ -2,7 +2,7 @@ import {Injector} from '@angular/core';
 import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {compileSegment} from './compile-segment';
-import {Parser} from './parser';
+import {Parser, Pointer} from './parser';
 
 export function filterAndCompileSegments(config: {
   segments: Segment[],
@@ -16,7 +16,8 @@ export function filterAndCompileSegments(config: {
     pointer: string;
   },
   parent?: string,
-  index?: number
+  index?: number,
+  pointer?: Pointer
 }) {
 
   const {segments, parser, ...segmentConfig} = config;

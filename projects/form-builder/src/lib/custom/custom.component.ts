@@ -1,5 +1,5 @@
 import {Component, HostBinding, Inject} from '@angular/core';
-import {CUSTOM_COMPONENT_DATA, CustomComponentData} from '../utils/custom-components';
+import {CustomComponentData, CUSTOM_COMPONENT_DATA} from '../injection-tokens/custom-component-data.token';
 
 @Component({
   selector: 'fb-custom-component',

@@ -1,5 +1,5 @@
 import {Inject, Injectable, Optional} from '@angular/core';
-import {CUSTOM_COMPONENTS, CustomComponents} from './utils/custom-components';
+import {CustomComponents, CUSTOM_COMPONENTS} from './injection-tokens/custom-components.token';
 import {CustomFields} from './utils/custom-fields';
 
 @Injectable({providedIn: 'root'})

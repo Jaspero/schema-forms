@@ -57,8 +57,9 @@ export * from './lib/utils/role';
 export * from './lib/utils/additional-context';
 export * from './lib/utils/storage-url';
 export * from './lib/utils/custom-fields';
-export {COMPONENT_DATA} from './lib/utils/create-component-injector';
-export * from './lib/utils/custom-components';
+export * from './lib/injection-tokens/component-data.token';
+export * from './lib/injection-tokens/custom-component-data.token';
+export * from './lib/injection-tokens/custom-components.token';
 
 /**
  * Utils

@@ -3,6 +3,8 @@ import {Injector} from '@angular/core';
 import {safeEval} from '@jaspero/utils';
 import {CustomComponent} from '../custom/custom.component';
 import {FormBuilderContextService} from '../form-builder-context.service';
+import {CUSTOM_COMPONENT_DATA} from '../injection-tokens/custom-component-data.token';
+import {SEGMENT_DATA} from '../injection-tokens/segment-data.token';
 import {CompiledField} from '../interfaces/compiled-field.interface';
 import {CompiledSegment} from '../interfaces/compiled-segment.interface';
 import {CompiledCondition, ConditionAction, ConditionEvaluate, ConditionType} from '../interfaces/condition.interface';
@@ -10,10 +12,8 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {Segment} from '../interfaces/segment.interface';
 import {SegmentComponent} from '../segment/segment.component';
 import {compileFields} from './compile-fields';
-import {createSegmentInjector} from './create-segment-injector';
-import {createCustomComponentInjector} from './custom-components';
 import {DEFAULT_SEGMENT} from './default-segment';
-import {Parser} from './parser';
+import {Parser, Pointer} from './parser';
 
 export function compileSegment(config: {
   segment: Segment,
@@ -39,7 +39,7 @@ export function compileSegment(config: {
     parent,
     formId,
     parentForm,
-    index,
+    index
   } = config;
 
   const classes: string[] = [];
@@ -112,12 +112,15 @@ export function compileSegment(config: {
             new ComponentPortal<CustomComponent>(
               comp,
               null,
-              createCustomComponentInjector(injector, {
-                form: parser.form,
-                parentForm,
-                formId,
-                ...id && {id: id.value},
-                ...(component.input || {})
+              Injector.create({
+                providers: [{provide: CUSTOM_COMPONENT_DATA, useValue: {
+                  form: parser.form,
+                  parentForm,
+                  formId,
+                  ...id && {id: id.value},
+                  ...(component.input || {})
+                }}],
+                parent: injector
               })
             )
           );
@@ -201,14 +204,17 @@ export function compileSegment(config: {
     component: new ComponentPortal<SegmentComponent>(
       ctx.segments[segment.type || defaultSegment],
       null,
-      createSegmentInjector(injector, {
-        segment: compiledSegment,
-        parser,
-        definitions,
-        parentForm,
-        formId,
-        ...parent && {parent},
-        ...index !== undefined && {index}
+      Injector.create({
+        providers: [{provide: SEGMENT_DATA, useValue: {
+          segment: compiledSegment,
+          parser,
+          definitions,
+          parentForm,
+          formId,
+          ...parent && {parent},
+          ...index !== undefined && {index}
+        }}],
+        parent: injector
       })
     ),
     ...compiledSegment
