@@ -1,3 +1,18 @@
+# @jaspero/fb-fields-mat [1.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.6.4...@jaspero/fb-fields-mat@1.7.0) (2022-02-22)
+
+
+### Features
+
+* **fields-mat:** showing name when control is File ([942c338](https://github.com/Jaspero/schema-forms/commit/942c3381aa015df3a748ffa07900c64e9c27dedf))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.6.0
+
 ## @jaspero/fb-fields-mat [1.6.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.6.3...@jaspero/fb-fields-mat@1.6.4) (2022-02-18)
 
 
