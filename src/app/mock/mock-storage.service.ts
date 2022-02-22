@@ -13,4 +13,8 @@ export class MockStorageService implements StorageService {
       }
     });
   }
+
+  getDownloadURL(ref) {
+    return  Promise.resolve('https://jaspero.co/')
+  }
 }

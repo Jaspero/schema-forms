@@ -170,7 +170,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
                   })
                 )
                   .pipe(
-                    switchMap((task: any) => task.ref.getDownloadURL()),
+                    switchMap((task: any) => this.storage.getDownloadURL(task.ref)),
                     tap(url => cur.data = url)
                   )
               );

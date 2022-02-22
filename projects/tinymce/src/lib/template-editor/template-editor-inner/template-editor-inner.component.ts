@@ -141,7 +141,7 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
          */
         this.storage
           .upload(blobInfo.filename(), blobInfo.blob())
-          .then(data => data.ref.getDownloadURL())
+          .then(data => this.storage.getDownloadURL(data.ref))
           .then(url => success(url))
           .catch(error => failure(error.toString()));
       },

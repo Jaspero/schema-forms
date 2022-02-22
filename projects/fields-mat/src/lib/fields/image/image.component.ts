@@ -149,7 +149,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
             })
           )
             .pipe(
-              switchMap((res: any) => res.ref.getDownloadURL()),
+              switchMap((res: any) => this.storage.getDownloadURL(res.ref)),
               tap(url => set(data.outputValue, data.pointer, url))
             );
         }

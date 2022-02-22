@@ -137,7 +137,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
                   )
                 )
                   .pipe(
-                    switchMap((task: any) => task.ref.getDownloadURL()),
+                    switchMap((task: any) => this.storage.getDownloadURL(task.ref)),
                     tap(url =>
                       set(
                         data.outputValue,
