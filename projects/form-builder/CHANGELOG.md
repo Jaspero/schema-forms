@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.6.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.2...@jaspero/form-builder@5.6.3) (2022-02-22)
+
+
+### Bug Fixes
+
+* adjusted storage service for firestore v9 ([6fa1447](https://github.com/Jaspero/schema-forms/commit/6fa14477e9b35f904abbd96356eea9dc2f85c83b))
+
 ## @jaspero/form-builder [5.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.1...@jaspero/form-builder@5.6.2) (2022-02-22)
 
 
