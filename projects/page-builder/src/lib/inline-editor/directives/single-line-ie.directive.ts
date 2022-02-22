@@ -102,7 +102,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       ...this.entryOptions
     };
 
-    this.id = this.options.formId || 'main';
+    this.id = this.options.formId || 'jb-fb-main';
     this.pointer = Parser.standardizeKeyWithSlash(this.options.pointer);
 
     if (this.options.array) {

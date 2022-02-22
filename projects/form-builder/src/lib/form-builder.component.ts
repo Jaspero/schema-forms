@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostBinding,
   Inject,
   Injector,
   Input,
@@ -52,9 +53,11 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   @Input() data: FormBuilderData;
   @Input() value: any;
-  @Input() id = 'main';
   @Input() parser: Parser;
   @Input() state: State = State.Create;
+
+  @HostBinding('id')
+  @Input() id = 'jp-fb-main';
 
   /**
    * Used when child forms are rendered in parent
@@ -214,7 +217,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
         assignOperation: config => {
           const {cData, ...operation} = config;
           const parentForm = cData.parentForm || {} as any;
-          const formId = parentForm?.id || cData.formId || 'main';
+          const formId = parentForm?.id || cData.formId || 'jb-fb-main';
           const path = parentForm?.pointer ?
             (parentForm.pointer + cData.pointer) :
             cData.pointer;
