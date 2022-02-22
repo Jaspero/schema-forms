@@ -543,21 +543,7 @@ export class Parser {
     }
   }
 
-  moveArrayItem(
-    pointer: string,
-    fromIndex: number,
-    toIndex: number,
-    parentArray?: {
-      index: number,
-      pointer: string
-    }
-  ) {
-    const pointers = parentArray ?
-      (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] :
-      this.pointers;
-    const target = pointers[pointer];
-    const control = pointers[pointer].control as FormArray;
-
+  moveArrayItem(target: Pointer, fromIndex: number, toIndex: number) {
     if (
       target.arrayType === SchemaType.Array ||
       target.arrayType === SchemaType.Object
@@ -569,22 +555,16 @@ export class Parser {
       );
     }
 
+    const control = target.control as FormArray;
     const currentGroup = control.at(fromIndex);
+
     control.removeAt(fromIndex);
     control.insert(toIndex, currentGroup);
   }
 
-  removeArrayItem(
-    pointer: string,
-    index: number,
-    parentArray?: {
-      index: number,
-      pointer: string
-    }
-  ) {
-    const pointers = parentArray ? (this.pointers[parentArray.pointer] as any).arrayPointers[parentArray.index] : this.pointers;
-    pointers[pointer].arrayPointers.splice(index, 1);
-    (pointers[pointer].control as FormArray).removeAt(index);
+  removeArrayItem(target: Pointer, index: number) {
+    target.arrayPointers.splice(index, 1);
+    (target.control as FormArray).removeAt(index);
   }
 
   loadHooks(pointers = this.pointers) {

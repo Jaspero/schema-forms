@@ -10,7 +10,7 @@ import {Definitions} from '../interfaces/definitions.interface';
 import {ArrayConfiguration} from '../interfaces/segment.interface';
 import {compileFields} from '../utils/compile-fields';
 import {filterAndCompileSegments} from '../utils/filter-and-compile-segments';
-import {Parser, Pointers} from '../utils/parser';
+import {Parser, Pointer, Pointers} from '../utils/parser';
 
 export interface SegmentData {
   segment: CompiledSegment;
@@ -38,6 +38,7 @@ export class SegmentComponent<T = any> implements OnInit {
   segment: CompiledSegment<T>;
   arrayConfiguration: ArrayConfiguration;
   pointers: Pointers;
+  arrayPointer: Pointer;
   nestedSegments: CompiledSegment<T>[];
   nestedArraySegments: Array<CompiledSegment[]> = [];
   arrayFields: Array<CompiledField[]> = [];
@@ -51,8 +52,6 @@ export class SegmentComponent<T = any> implements OnInit {
       return 0;
     }
 
-    // return (this.pointers[this.sData.parent] as any).arrayPointers.indexOf(this.pointer);
-
     return this.sData.parser.parent.pointers[this.sData.parent].arrayPointers.indexOf(this.pointers);
   }
 
@@ -62,10 +61,12 @@ export class SegmentComponent<T = any> implements OnInit {
       add: true,
       remove: true,
       sort: true,
+      reverse: true,
       ...this.segment.arrayConfiguration || {}
     };
     this.classes = this.sData.segment.classes.join(' ');
     this.pointers = this.sData.parser.pointers;
+    this.arrayPointer = this.pointers[(this.sData.parent || '') + this.segment.array];
     this.id = this.sData.segment.id || '';
     this.components = this.segment.customComponents || [];
 
@@ -82,42 +83,23 @@ export class SegmentComponent<T = any> implements OnInit {
 
   addArrayItem(
     loadHook = true,
-    reverse = true,
     index?: number
   ) {
-    const operation = reverse ? 'unshift' : 'push';
-    const array = this.segment.array as string;
-    // const pointers: any = this.sData.parser.addArrayItem(
-    //   (this.sData.parent || '') + array,
-    //   loadHook,
-    //   this.sData.parent ? {
-    //     pointer: this.sData.parent,
-    //     index: this.sData.index || 0
-    //   } : undefined,
-    //   undefined,
-    //   reverse
-    // );
+    const operation = this.arrayConfiguration.reverse ? 'unshift' : 'push';
+    // debugger;
+    const {arrayFields, nestedArraySegments} = this.generateArrayFieldsAndSegments(
+      index || (this.arrayConfiguration.reverse ? 0 : this.nestedArraySegments.length),
+      this.segment,
+      this.sData.parser.addArrayItem(
+        (this.sData.parent || '') + this.segment.array,
+        this.arrayPointer,
+        loadHook,
+        this.arrayConfiguration.reverse
+      )
+    )
 
-    // const fields = this.generateArrayFields(
-    //   array,
-    //   pointers
-    // );
-
-    // this.arrayFields[operation](fields);
-
-    // this.nestedArraySegments[operation](
-    //   filterAndCompileSegments({
-    //     segments: this.sData.segment.nestedSegments || [],
-    //     parser: this.sData.parser,
-    //     definitions: this.sData.definitions,
-    //     injector: this.injector,
-    //     ...index !== undefined && {value: this.segment.entryValue},
-    //     parent: this.segment.array,
-    //     index: index || (reverse ? 0 : this.nestedArraySegments.length),
-    //     formId: this.sData.formId,
-    //     parentForm: this.sData.parentForm
-    //   })
-    // );
+    this.arrayFields[operation](arrayFields);
+    this.nestedArraySegments[operation](nestedArraySegments);
   }
 
   moveArray(up: boolean, fromIndex: number) {
@@ -142,24 +124,16 @@ export class SegmentComponent<T = any> implements OnInit {
     );
 
     this.sData.parser.moveArrayItem(
-      (this.sData.parent || '') + this.segment.array as string,
+      this.arrayPointer,
       fromIndex,
-      toIndex,
-      this.sData.parent ? {
-        pointer: this.sData.parent,
-        index: this.parentIndex
-      } : undefined
+      toIndex
     );
   }
 
   removeArrayItem(index: number) {
     this.sData.parser.removeArrayItem(
-      (this.sData.parent || '') + this.segment.array as string,
+      this.arrayPointer,
       index,
-      this.sData.parent ? {
-        pointer: this.sData.parent,
-        index: this.parentIndex
-      } : undefined
     );
     this.nestedArraySegments.splice(index, 1);
     this.arrayFields.splice(index, 1);
@@ -213,15 +187,6 @@ export class SegmentComponent<T = any> implements OnInit {
     const arrayFields: Array<CompiledField[]> = [];
     const nestedArraySegments: Array<CompiledSegment[]> = [];
 
-    // console.log({
-    //   pointers: this.pointers,
-    //   array,
-    //   arrayPointer,
-    //   parent: this.sData.parent,
-    //   index: this.sData.index,
-    //   entry: this.segment.entryValue
-    // });
-
     /**
      * Populate array fields
      */
@@ -234,26 +199,10 @@ export class SegmentComponent<T = any> implements OnInit {
       const values = get(this.segment.entryValue, segment.array);
 
       values.forEach((value, index) => {
+        const generated = this.generateArrayFieldsAndSegments(index, segment, undefined, value);
 
-        const pointers = this.pointers[(this.sData.parent || '') + segment.array].arrayPointers[index];
-        const parser = this.sData.parser.copy({pointers});
-        const fields = this.generateArrayFields(pointers, segment);
-
-        arrayFields.push(fields);
-
-        nestedArraySegments.push(
-          filterAndCompileSegments({
-            segments: this.sData.segment.nestedSegments || [],
-            parser,
-            definitions: this.sData.definitions,
-            injector: this.injector,
-            value,
-            parent: (this.sData.parent || '') + segment.array,
-            index,
-            formId: this.sData.formId,
-            parentForm: this.sData.parentForm
-          })
-        );
+        arrayFields.push(generated.arrayFields);
+        nestedArraySegments.push(generated.nestedArraySegments);
       });
 
       for (let i = 0; i < values.length; i++) {
@@ -266,5 +215,33 @@ export class SegmentComponent<T = any> implements OnInit {
       arrayFields,
       nestedArraySegments
     }
+  }
+
+  generateArrayFieldsAndSegments(
+    index: number,
+    segment: CompiledSegment<T>,
+    pointers?: Pointers,
+    value?: any
+  ) {
+
+    if (!pointers) {
+      pointers = this.pointers[(this.sData.parent || '') + segment.array].arrayPointers[index];
+    }
+
+    const parser = this.sData.parser.copy({pointers});
+    const arrayFields = this.generateArrayFields(pointers, segment);
+    const nestedArraySegments =  filterAndCompileSegments({
+      segments: this.sData.segment.nestedSegments || [],
+      parser,
+      definitions: this.sData.definitions,
+      injector: this.injector,
+      ...value && {value},
+      parent: (this.sData.parent || '') + segment.array,
+      index,
+      formId: this.sData.formId,
+      parentForm: this.sData.parentForm
+    })
+
+    return {arrayFields, nestedArraySegments};
   }
 }

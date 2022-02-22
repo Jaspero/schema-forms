@@ -9,7 +9,7 @@ export function filterAndCompileSegments(config: {
   parser: Parser,
   definitions: Definitions,
   injector: Injector,
-  value: any,
+  value?: any,
   formId?: string;
   parentForm?: {
     id: string;

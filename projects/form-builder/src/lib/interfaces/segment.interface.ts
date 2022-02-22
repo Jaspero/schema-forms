@@ -6,6 +6,7 @@ export interface ArrayConfiguration {
   add?: boolean;
   remove?: boolean;
   sort?: boolean;
+  reverse?: boolean;
 }
 
 export interface Segment<C = any> {

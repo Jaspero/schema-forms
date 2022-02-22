@@ -20,7 +20,7 @@ export function compileSegment(config: {
   parser: Parser,
   definitions: Definitions,
   injector: Injector,
-  value: any,
+  value?: any,
   parent?: string,
   formId?: string;
   parentForm?: {
@@ -35,7 +35,7 @@ export function compileSegment(config: {
     parser,
     definitions,
     injector,
-    value,
+    value = {},
     parent,
     formId,
     parentForm,
@@ -146,7 +146,6 @@ export function compileSegment(config: {
   if (segment.conditions) {
 
     compiledSegment.conditions = [];
-    const valToPass = value || {};
 
     for (const cur of segment.conditions) {
       let condition;
@@ -171,8 +170,8 @@ export function compileSegment(config: {
            * Check if items should be excluded right away
            */
           if (
-            (action === ConditionAction.Show && !condition(valToPass)) ||
-            (action === ConditionAction.Hide && condition(valToPass))
+            (action === ConditionAction.Show && !condition(value)) ||
+            (action === ConditionAction.Hide && condition(value))
           ) {
             return null;
           }
