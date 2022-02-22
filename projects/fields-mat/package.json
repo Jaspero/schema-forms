@@ -10,7 +10,7 @@
     "@jaspero/ng-helpers": "^5.2.0",
     "@ngneat/transloco": "^2.19.1",
     "@jaspero/utils": "^1.7.0",
-    "@jaspero/form-builder": "5.6.0"
+    "@jaspero/form-builder": "5.6.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"
