@@ -42,6 +42,7 @@ export interface ImageConfiguration {
   forbiddenImageTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  filePrefix?: string;
   /**
    * Overwrite existing file if already exists
    */
@@ -138,7 +139,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
           }
 
           return from(
-            this.storage.upload(name, current.value, {
+            this.storage.upload((this.cData.filePrefix || '') + name, current.value, {
               contentType: current.value.type,
               customMetadata: {
                 moduleId: data.collectionId,

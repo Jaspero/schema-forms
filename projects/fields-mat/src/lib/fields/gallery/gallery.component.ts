@@ -40,6 +40,7 @@ export interface GalleryConfiguration {
   forbiddenImageTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  filePrefix?: string;
   /**
    * Overwrite existing file if already exists
    */
@@ -159,7 +160,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
 
               acc.push(
                 from(
-                  this.storage.upload(name, cur.pushToLive, {
+                  this.storage.upload((this.cData.filePrefix || '') + name, cur.pushToLive, {
                     contentType: cur.pushToLive.type,
                     customMetadata: {
                       moduleId: data.collectionId,

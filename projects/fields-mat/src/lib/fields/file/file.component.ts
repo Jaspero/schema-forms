@@ -33,6 +33,7 @@ export interface FileConfiguration {
   forbiddenFileTypes?: string[];
   minSize?: string | number;
   maxSize?: string | number;
+  filePrefix?: string;
   /**
    * Overwrite existing file if already exists
    */
@@ -115,7 +116,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
           }
 
           return from(
-            this.storage.upload(name, this.value, {
+            this.storage.upload((this.cData.filePrefix || '') + name, this.value, {
               contentType: this.value.type,
               customMetadata: {
                 moduleId: data.collectionId,

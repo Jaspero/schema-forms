@@ -10,5 +10,5 @@ export interface DefinitionWithConfiguration<
   Prefix extends string = 'mat',
   Name extends string = ''
 > extends FieldDefinition<Prefix, Name> {
-  configuration?: Configuration;
+  configuration?: Configuration | (() => Configuration);
 }
