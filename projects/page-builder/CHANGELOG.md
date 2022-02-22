@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.21.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.5...@jaspero/fb-page-builder@3.21.6) (2022-02-22)
+
+
+### Bug Fixes
+
+* use more specific id for form-builder defa ([18be436](https://github.com/Jaspero/schema-forms/commit/18be436b67495a97230ed413d9fa2c6a73df4072))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.6.2
+
 ## @jaspero/fb-page-builder [3.21.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.4...@jaspero/fb-page-builder@3.21.5) (2022-02-22)
 
 
