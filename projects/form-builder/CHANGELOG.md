@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.0...@jaspero/form-builder@5.6.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **FormBuilder:** make innerParser public ([ee4b9bb](https://github.com/Jaspero/schema-forms/commit/ee4b9bb7ab69f06ff54e3a1528a895da3c902be0))
+
 # @jaspero/form-builder [5.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.2...@jaspero/form-builder@5.6.0) (2022-02-22)
 
 
