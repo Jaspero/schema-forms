@@ -1,3 +1,18 @@
+# @jaspero/fb-fields-mat [1.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.7.3...@jaspero/fb-fields-mat@1.8.0) (2022-02-22)
+
+
+### Features
+
+* added filePrefix to image, file and gallery components ([b0b7efb](https://github.com/Jaspero/schema-forms/commit/b0b7efb04f4df4f401c558c989bb4294969a4bf7))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.7.0
+
 ## @jaspero/fb-fields-mat [1.7.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.7.2...@jaspero/fb-fields-mat@1.7.3) (2022-02-22)
 
 
