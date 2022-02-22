@@ -1,3 +1,11 @@
+# @jaspero/form-builder [5.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.2...@jaspero/form-builder@5.6.0) (2022-02-22)
+
+
+### Features
+
+* **form-builder:** array operations working on deeply nested items :tada: ([0a24825](https://github.com/Jaspero/schema-forms/commit/0a24825bdf1273b464c474da1eee93dd04fced71))
+* **form-builder:** only populating label if it's undefined (providing an empty label is now possible); endlessly nested arrays now populate properly; simplified component, segment and field injectors; ([f6dbedb](https://github.com/Jaspero/schema-forms/commit/f6dbedb3d0ab6fd75193d674411731b378f4e2f4))
+
 ## @jaspero/form-builder [5.5.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.5.1...@jaspero/form-builder@5.5.2) (2022-02-18)
 
 
