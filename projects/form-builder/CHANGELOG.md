@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.3...@jaspero/form-builder@5.7.0) (2022-02-22)
+
+
+### Features
+
+* added filePrefix to image, file and gallery components ([b0b7efb](https://github.com/Jaspero/schema-forms/commit/b0b7efb04f4df4f401c558c989bb4294969a4bf7))
+
 ## @jaspero/form-builder [5.6.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.2...@jaspero/form-builder@5.6.3) (2022-02-22)
 
 
