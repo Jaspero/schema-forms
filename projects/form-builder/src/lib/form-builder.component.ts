@@ -69,8 +69,8 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   form: FormGroup;
   segments: CompiledSegment[];
+  innerParser: Parser;
 
-  private innerParser: Parser;
   private changeSubscription: Subscription;
   private statusSubscription: Subscription;
 
