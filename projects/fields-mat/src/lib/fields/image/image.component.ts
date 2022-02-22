@@ -29,8 +29,8 @@ import {
 import {sizeToBytes, random} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {set} from 'json-pointer';
-import {from, of, throwError} from 'rxjs';
-import {switchMap, take, tap} from 'rxjs/operators';
+import {from, Observable, of, throwError} from 'rxjs';
+import {map, startWith, switchMap, take, tap} from 'rxjs/operators';
 import {FileSelectComponent} from '../../components/file-select/file-select.component';
 
 export interface ImageConfiguration {
@@ -88,6 +88,8 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
   minSizeBytes: number;
   maxSizeBytes: number;
 
+  displayName$: Observable<string>;
+
   ngOnInit() {
     this.imageUrl = new FormControl(this.cData.control.value);
 
@@ -95,6 +97,14 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = this.cData.minSize ? sizeToBytes(this.cData.minSize) : 0;
     this.maxSizeBytes = this.cData.maxSize ? sizeToBytes(this.cData.maxSize) : 0;
+
+    this.displayName$ = this.imageUrl.valueChanges
+      .pipe(
+        startWith(this.imageUrl.value),
+        map(value =>
+          typeof value === 'object' ? (value?.name || '') : value
+        )
+      )
 
     /**
      * TODO:

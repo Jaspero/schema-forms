@@ -6,7 +6,7 @@
     readonly
     [placeholder]="(cData.placeholder || '') | transloco"
     [class.disabled]="disInput"
-    [formControl]="imageUrl">
+    [value]="displayName$ | async">
   <div matSuffix class="fb-image-suffix">
     <ng-container *ngIf="imageUrl.value">
       <div class="fb-image-suffix-preview">
