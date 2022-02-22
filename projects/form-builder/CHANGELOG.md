@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.1...@jaspero/form-builder@5.6.2) (2022-02-22)
+
+
+### Bug Fixes
+
+* use more specific id for form-builder defa ([18be436](https://github.com/Jaspero/schema-forms/commit/18be436b67495a97230ed413d9fa2c6a73df4072))
+
 ## @jaspero/form-builder [5.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.0...@jaspero/form-builder@5.6.1) (2022-02-22)
 
 
