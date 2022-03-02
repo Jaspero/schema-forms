@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.21.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.8...@jaspero/fb-page-builder@3.21.9) (2022-03-02)
+
+
+### Bug Fixes
+
+* **page-builder:** background updates for image changes ([d444500](https://github.com/Jaspero/schema-forms/commit/d44450068c672bf9572a3d4368f85c443cb2e97c))
+
 ## @jaspero/fb-page-builder [3.21.8](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.7...@jaspero/fb-page-builder@3.21.8) (2022-02-22)
 
 
