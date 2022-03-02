@@ -36,22 +36,6 @@
   </ng-template>
 </mat-form-field>
 
-<input #file type="file" hidden (change)="filesImage($event)">
-
-<ng-template #modal>
-  <mat-dialog-content>
-    <mat-form-field class="w-full">
-      <mat-label>{{'FIELDS.GALLERY.IMAGE_URL' | transloco}}</mat-label>
-      <input matInput #url>
-    </mat-form-field>
-  </mat-dialog-content>
-
-  <mat-dialog-actions class="jc-end">
-    <button mat-button mat-dialog-close>{{'GENERAL.CANCEL' | transloco}}</button>&nbsp;
-    <button mat-flat-button color="primary" [disabled]="!url.value" (click)="addImage(url.value)" mat-dialog-close>{{'FIELDS.GALLERY.ADD_IMAGE' | transloco}}</button>
-  </mat-dialog-actions>
-</ng-template>
-
 <ng-template #advanced>
   <mat-dialog-content [formGroup]="form">
     <div class="p-a-s">

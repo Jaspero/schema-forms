@@ -125,7 +125,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
           this.cData.control.setValue(v);
         } else {
           this.cData.control.setValue(
-            this.parseSafeUrl(this.imageSrc || this.imageUrl.value || this.value)
+            this.parseSafeUrl(this.imageUrl.value)
           );
         }
       });
