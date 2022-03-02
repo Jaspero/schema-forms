@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.9.0...@jaspero/fb-fields-mat@1.9.1) (2022-03-02)
+
+
+### Bug Fixes
+
+* **fields-mat:** return original value in name if casting to url fails ([aad4170](https://github.com/Jaspero/schema-forms/commit/aad41707a8dcbcb3561eb4cfff3d1ab5b818f710))
+
 # @jaspero/fb-fields-mat [1.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.8.0...@jaspero/fb-fields-mat@1.9.0) (2022-03-02)
 
 
