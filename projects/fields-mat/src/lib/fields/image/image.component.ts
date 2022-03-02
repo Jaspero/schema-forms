@@ -98,11 +98,17 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
             return '';
           }
 
-          const url = new URL(
-            value
-              .replace(/^blob:/, '')
-              .replace('#', '')
-          );
+          let url: URL;
+
+          try {
+            url = new URL(
+              value
+                .replace(/^blob:/, '')
+                .replace('#', '')
+            );
+          } catch (e) {
+            return value;
+          }
 
           if (url.searchParams.has('name')) {
             return url.searchParams.get('name');
