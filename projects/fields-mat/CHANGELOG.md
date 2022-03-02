@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.8.0...@jaspero/fb-fields-mat@1.9.0) (2022-03-02)
+
+
+### Features
+
+* **fields-mat:** using blobs in image upload ([7fb58bf](https://github.com/Jaspero/schema-forms/commit/7fb58bf7eabcea2d58e0cac09952e9f4f0eabdcb))
+
 # @jaspero/fb-fields-mat [1.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.7.3...@jaspero/fb-fields-mat@1.8.0) (2022-02-22)
 
 
