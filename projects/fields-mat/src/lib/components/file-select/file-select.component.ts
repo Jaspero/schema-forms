@@ -5,7 +5,6 @@ import {UploadMethod} from '@jaspero/form-builder';
 export interface FileSelectData {
   multiple?: boolean;
   preventServerUpload?: boolean;
-  preventUrlUpload?: boolean;
   uploadMethods?: UploadMethod[];
 }
 
@@ -50,13 +49,6 @@ export class FileSelectComponent {
       event: {
         target: this.fileEl.nativeElement
       }
-    });
-  }
-
-  urlChanged(url: string) {
-    this.dialogRef.close({
-      type: 'url',
-      url
     });
   }
 }

@@ -2,31 +2,23 @@ import {HttpClient} from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Inject,
+  Component, Inject,
   OnInit,
-  Optional,
-  TemplateRef,
-  ViewChild
+  Optional
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
-  FieldData,
-  FormBuilderService,
-  GeneratedImage,
-  StorageService,
-  UploadMethod,
-  formatFileName,
-  formatGeneratedImages,
-  ProcessConfig
+  FieldData, formatFileName,
+  formatGeneratedImages, FormBuilderService,
+  GeneratedImage, ProcessConfig, StorageService,
+  UploadMethod
 } from '@jaspero/form-builder';
-import {sizeToBytes, random} from '@jaspero/utils';
+import {random, sizeToBytes} from '@jaspero/utils';
 import {TranslocoService} from '@ngneat/transloco';
 import {set} from 'json-pointer';
 import {from, Observable, of, throwError} from 'rxjs';
@@ -35,7 +27,6 @@ import {FileSelectComponent} from '../../components/file-select/file-select.comp
 
 export interface ImageConfiguration {
   preventServerUpload?: boolean;
-  preventUrlUpload?: boolean;
   preventStorageUpload?: boolean;
   generatedImages?: GeneratedImage[];
   allowedImageTypes?: string[];
@@ -73,16 +64,8 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     super(cData);
   }
 
-  @ViewChild('modal', {static: true})
-  modalTemplate: TemplateRef<any>;
-
-  @ViewChild('file', {static: true})
-  fileEl: ElementRef<HTMLInputElement>;
-
-  value: File | null;
   imageUrl: FormControl;
   disInput = false;
-  imageSrc: SafeResourceUrl;
 
   allowedImageTypes: string[];
   forbiddenImageTypes: string[];
@@ -91,8 +74,16 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
 
   displayName$: Observable<string>;
 
+  get control() {
+    return this.cData.control;
+  }
+
+  get cValue() {
+    return this.control.value;
+  }
+
   ngOnInit() {
-    this.imageUrl = new FormControl(this.cData.control.value);
+    this.imageUrl = new FormControl(this.cValue);
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
@@ -102,10 +93,24 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     this.displayName$ = this.imageUrl.valueChanges
       .pipe(
         startWith(this.imageUrl.value),
-        map(value =>
-          typeof value === 'object' ? (value?.name || '') : value
-        )
-      )
+        map(value => {
+          if (!value) {
+            return '';
+          }
+
+          const url = new URL(
+            value
+              .replace(/^blob:/, '')
+              .replace('#', '')
+          );
+
+          if (url.searchParams.has('name')) {
+            return url.searchParams.get('name');
+          }
+
+          return url.pathname;
+        })
+      );
 
     /**
      * TODO:
@@ -122,34 +127,49 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
           return of(true);
         }
 
-        if (current.value && typeof current.value !== 'string') {
-          let name = data.cData.preserveFileName ? current.value.name : [
-            data.collectionId,
-            data.documentId,
-            random.string()
-          ].join('-');
+        if (
+          current.value &&
+          /**
+           * We create blobs only when a file was selected
+           */
+          current.value.startsWith('blob:')
+        ) {
 
-          if (!data.cData.preserveFileName) {
-            /**
-             * TODO:
-             * Maybe we should put a type extension based on type
-             * instead of taking from the name
-             */
-            name += '.' + (current.value.name.split('.')[1]);;
+          let name: string;
+
+          if (data.cData.preserveFileName) {
+            const url = new URL(
+              current.value
+                .replace(/^blob:/, '')
+                .replace('#', '')
+            );
+
+            if (url.searchParams.has('name')) {
+              name = url.searchParams.get('name');
+            }
+          } else {
+            name = [
+              data.collectionId,
+              data.documentId,
+              random.string()
+            ].join('-') + '.' + (current.value.split('.').pop());
           }
 
-          return from(
-            this.storage.upload((this.cData.filePrefix || '') + name, current.value, {
-              contentType: current.value.type,
-              customMetadata: {
-                moduleId: data.collectionId,
-                documentId: data.documentId,
-                ...(data.cData.generatedImages &&
-                  formatGeneratedImages(data.cData.generatedImages))
-              }
-            })
-          )
+          return this.http.get(current.value, {responseType: 'blob'})
             .pipe(
+              switchMap(res =>
+                from(
+                  this.storage.upload((this.cData.filePrefix || '') + name, res, {
+                    contentType: res.type,
+                    customMetadata: {
+                      moduleId: data.collectionId,
+                      documentId: data.documentId,
+                      ...(data.cData.generatedImages &&
+                        formatGeneratedImages(data.cData.generatedImages))
+                    }
+                  })
+                )
+              ),
               switchMap((res: any) => this.storage.getDownloadURL(res.ref)),
               tap(url => set(data.outputValue, data.pointer, url))
             );
@@ -192,7 +212,6 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
           if (data.type === 'file') {
             this.filesImage(data.event);
           } else if (data.type === 'url') {
-            this.value = null;
             this.imageUrl.setValue(data.url);
             this.cData.control.setValue(data.url);
           }
@@ -230,75 +249,20 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
       return throwError('Image exceeding allowed size');
     }
 
-    this.value = image;
-    this.disInput = true;
-    this.imageUrl.setValue(this.value.name);
-    this.cData.control.setValue(image);
+    // @ts-ignore
+    const url = URL.createObjectURL(image) + `#?name=${image.name}`;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
-        reader.result as string
-      );
-      this.cdr.detectChanges();
-    };
-    reader.readAsDataURL(this.value);
+    this.disInput = true;
+    this.imageUrl.setValue(url);
+    this.cData.control.setValue(url);
 
     el.value = '';
   }
 
   remove() {
     this.imageUrl.setValue('');
-    this.value = null;
     this.disInput = false;
     this.cData.control.setValue('');
     this.cdr.detectChanges();
-  }
-
-  addImage(image: string) {
-    this.http
-      .get(image, {
-        withCredentials: false,
-        responseType: 'blob'
-      })
-      .pipe(
-        switchMap((blob: Blob) => {
-          const type = blob.type.split('/')[1].toLowerCase();
-          if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
-            return throwError('Invalid Image Format');
-          }
-
-          if (this.forbiddenImageTypes.includes(type)) {
-            return throwError('Forbidden Image Format');
-          }
-
-          if (blob.size < this.minSizeBytes) {
-            return throwError('Image below minimal allowed size');
-          }
-
-          if (blob.size > this.maxSizeBytes && !!this.maxSizeBytes) {
-            return throwError('Image exceeding allowed size');
-          }
-
-          return of(blob);
-        }),
-        this.formBuilderService.notify({
-          error: 'FIELDS.GALLERY.UPLOAD_ERROR',
-          success: null
-        }))
-      .subscribe(res => {
-        this.value = new File([res], image);
-        this.disInput = true;
-        this.imageUrl.setValue(image);
-
-        const reader = new FileReader();
-        reader.readAsDataURL(res);
-        reader.onload = () => {
-          this.imageSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(
-            reader.result as string
-          );
-          this.cdr.detectChanges();
-        };
-      });
   }
 }
