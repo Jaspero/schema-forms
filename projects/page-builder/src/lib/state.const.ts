@@ -1,6 +1,7 @@
 export const STATE: {
   renderMode: boolean;
   registered: {[key: string]: boolean};
+  registeredElements: {[key: string]: boolean};
   blocks: {
     [key: string]: {
       [key: string]: any;
@@ -9,5 +10,6 @@ export const STATE: {
 } = {
   renderMode: false,
   registered: {},
+  registeredElements: {},
   blocks: {}
 };
