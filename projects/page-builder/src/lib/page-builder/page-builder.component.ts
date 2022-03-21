@@ -194,6 +194,12 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     this.blocks.forEach((_, i) => {
       this.removeFocus(i);
     });
+
+    this.blocks = this.compRefs.map(ref => {
+      const id = parseInt(ref.location.nativeElement.id.replace('block-', ''), 10);
+      return this.blocks.find(block => block.id === id);
+    });
+
     this.preview();
   }
 
@@ -373,8 +379,8 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       this.compRefs[event.currentIndex].location.nativeElement
     );
 
-    moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
     moveItemInArray(this.compRefs, event.previousIndex, event.currentIndex);
+
     setTimeout(() => this.focusBlock(event.currentIndex), 200);
   }
 

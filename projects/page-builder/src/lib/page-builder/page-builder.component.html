@@ -7,8 +7,15 @@
   <ng-container *ngIf="isOpen">
     <aside class="pb-sidebar" [class.fullscreen]="isFullscreen">
       <ng-container *ngIf="blocks.length">
-        <ul class="pb-sidebar-list" cdkDropList (cdkDropListSorted)="moveBlocks($event)">
-          <li class="pb-sidebar-list-item" *ngFor="let block of blocks; index as index" cdkDrag cdkDragLockAxis="y" (cdkDragStarted)="dragStarted()" (cdkDragEnded)="dragStopped()">
+        <ul class="pb-sidebar-list" cdkDropList (cdkDropListSorted)="moveBlocks($event)" (cdkDropListDropped)="dragStopped()">
+          <li
+            class="pb-sidebar-list-item"
+            *ngFor="let block of blocks; index as index"
+            cdkDrag
+            cdkDragBoundary=".pb-sidebar-list"
+            cdkDragLockAxis="y"
+            [id]="block.id"
+            (cdkDragStarted)="dragStarted()">
             <fb-pb-navigation class="w-full" [block]="block" [value]="block.value" [index]="index" [selectBlock]="selectBlock.bind(this)" [closeBlock]="closeBlock.bind(this)" [removeBlock]="removeBlock.bind(this)" [addBlock]="addBlock.bind(this)" [preview]="preview.bind(this)" (optionsChanged)="optionsChanged($event)"></fb-pb-navigation>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
