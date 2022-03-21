@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.21.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.9...@jaspero/fb-page-builder@3.21.10) (2022-03-21)
+
+
+### Bug Fixes
+
+* **page-builder:** element registration no longer breaks when element is in multiple modules ([41a5161](https://github.com/Jaspero/schema-forms/commit/41a5161fd6f9b0aa56116a37f0afaed52a109727))
+
 ## @jaspero/fb-page-builder [3.21.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.8...@jaspero/fb-page-builder@3.21.9) (2022-03-02)
 
 
