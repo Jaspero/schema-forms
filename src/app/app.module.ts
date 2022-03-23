@@ -29,7 +29,8 @@ const routes: Routes = [
     path: 'page-builder',
     loadChildren: () => import('./examples/page-builder/page-builder.module')
       .then(m => m.PageBuilderModule)
-  }
+  },
+  {path: 'conditions', loadChildren: () => import('./examples/conditions/conditions.module').then(m => m.ConditionsModule)}
 ];
 
 @NgModule({

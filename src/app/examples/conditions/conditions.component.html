@@ -1,0 +1,11 @@
+<fb-form-builder *ngIf="active" [data]="form"></fb-form-builder>
+
+<ng-template #dialogTemp>
+  <h4 mat-dialog-title>Example</h4>
+  <mat-dialog-content>
+    <fb-form-builder [data]="form"></fb-form-builder>
+  </mat-dialog-content>
+</ng-template>
+
+<button (click)="toggle()">Toggle</button>
+<button (click)="open()">Open</button>
