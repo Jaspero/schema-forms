@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.21.11](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.10...@jaspero/fb-page-builder@3.21.11) (2022-03-21)
+
+
+### Bug Fixes
+
+* **page-builder:** better sorting with drag and drop ([e8480b7](https://github.com/Jaspero/schema-forms/commit/e8480b78440cf76dd3b4895b6bbc745c69f7e35a))
+
 ## @jaspero/fb-page-builder [3.21.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.9...@jaspero/fb-page-builder@3.21.10) (2022-03-21)
 
 
