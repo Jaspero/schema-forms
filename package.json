@@ -52,7 +52,7 @@
     "@monaco-editor/loader": "*",
     "@ngneat/transloco": "3.1.1",
     "@ngneat/until-destroy": "9.0.0",
-    "json-pointer": "^0.6.1",
+    "json-pointer": "^0.6.2",
     "monaco-editor": "*",
     "rxjs": "7.4.0",
     "tinymce": "5.10.0",
