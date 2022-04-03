@@ -19,7 +19,7 @@ interface Populate {
   subcollection?: string;
   nameKey?: string;
   valueKey?: string;
-  orderBy?: string;
+  orderBy?: {active: string, direction: string};
 
   /**
    * A method for mapping all of the results
