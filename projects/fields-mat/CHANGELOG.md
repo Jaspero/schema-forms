@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.9.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.9.1...@jaspero/fb-fields-mat@1.9.2) (2022-04-03)
+
+
+### Bug Fixes
+
+* **fields-mat:** orderBy interface corrected ([6bd8581](https://github.com/Jaspero/schema-forms/commit/6bd8581d2792a9ac8e7723847602497018705890))
+
 ## @jaspero/fb-fields-mat [1.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.9.0...@jaspero/fb-fields-mat@1.9.1) (2022-03-02)
 
 
