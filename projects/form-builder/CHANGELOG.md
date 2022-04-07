@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.0...@jaspero/form-builder@5.7.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* **form-builder:** switchMap and map imported wrongly ([c27af2a](https://github.com/Jaspero/schema-forms/commit/c27af2a02ac1772d681512534719a936dc707e76))
+
 # @jaspero/form-builder [5.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.6.3...@jaspero/form-builder@5.7.0) (2022-02-22)
 
 
