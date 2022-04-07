@@ -15,7 +15,8 @@ import {
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {get} from 'json-pointer';
-import {map, of, Subscription, switchMap} from 'rxjs';
+import {of, Subscription} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators'
 import {State} from './enums/state.enum';
 import {FormBuilderService} from './form-builder.service';
 import {CompiledSegment} from './interfaces/compiled-segment.interface';
