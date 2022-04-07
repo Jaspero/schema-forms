@@ -5,7 +5,7 @@
   "peerDependencies": {
     "@angular/common": "^13.0.0",
     "@angular/core": "^13.0.0",
-    "@jaspero/form-builder": "5.7.0",
+    "@jaspero/form-builder": "5.7.1",
     "@monaco-editor/loader": "*",
     "monaco-editor": "*"
   },
