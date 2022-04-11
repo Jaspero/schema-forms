@@ -61,5 +61,7 @@
     <button matSuffix mat-icon-button (click)="resetValue()" matTooltip="Clear" *ngIf="cData.clearValue !== undefined && cData.multiple ? cData.control.value.length : cData.control.value">
       <mat-icon>clear</mat-icon>
     </button>
+
+    <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | transloco | jpSanitize"></mat-hint>
   </mat-form-field>
 </section>
