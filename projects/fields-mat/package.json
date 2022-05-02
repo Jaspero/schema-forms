@@ -1,10 +1,12 @@
 {
   "name": "@jaspero/fb-fields-mat",
   "version": "0.0.1",
-  "i18n": [{
-    "scope": "fb-fields-mat",
-    "path": "assets/i18n"
-  }],
+  "i18n": [
+    {
+      "scope": "fb-fields-mat",
+      "path": "assets/i18n"
+    }
+  ],
   "peerDependencies": {
     "@angular/common": "^13.0.0",
     "@angular/core": "^13.0.0",
@@ -14,7 +16,7 @@
     "@jaspero/ng-helpers": "^5.2.0",
     "@ngneat/transloco": "^2.19.1",
     "@jaspero/utils": "^1.7.0",
-    "@jaspero/form-builder": "5.7.1"
+    "@jaspero/form-builder": "5.7.2"
   },
   "dependencies": {
     "tslib": "^2.3.0"
