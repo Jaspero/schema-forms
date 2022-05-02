@@ -18,8 +18,8 @@ export class FormBuilderService {
     } = {}
   ): <T>(source$: Observable<T>) => Observable<T> {
     const finalOptions = {
-      success: 'GENERAL.OPERATION_COMPLETED',
-      error: 'GENERAL.OPERATION_FAILED',
+      success: 'OPERATION_COMPLETED',
+      error: 'OPERATION_FAILED',
       ...options
     };
 
@@ -29,7 +29,7 @@ export class FormBuilderService {
           if (finalOptions.success) {
             this.snackBar.open(
               this.transloco.translate(finalOptions.success),
-              this.transloco.translate('GENERAL.DISMISS'),
+              this.transloco.translate('DISMISS'),
               {
                 duration: 5000
               }
@@ -40,7 +40,7 @@ export class FormBuilderService {
           if (finalOptions.error) {
             this.snackBar.open(
               this.transloco.translate(finalOptions.error),
-              this.transloco.translate('GENERAL.DISMISS'),
+              this.transloco.translate('DISMISS'),
               {
                 panelClass: 'snack-bar-error',
                 duration: 5000

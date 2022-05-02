@@ -85,7 +85,7 @@
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveEdit(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveEdit(optForm)">{{'SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 <ng-template #optionsDialog>
@@ -94,7 +94,7 @@
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveOptions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveOptions(optForm)">{{'SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 <ng-template #organizeDialog>
@@ -128,7 +128,7 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" (click)="saveOrganization()">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" (click)="saveOrganization()">{{'SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 <ng-template #sizesDialog>
@@ -163,7 +163,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" (click)="saveSize()">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" (click)="saveSize()">{{'SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 <ng-template #conditionDialog>
@@ -171,7 +171,7 @@
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
   <mat-dialog-actions class="jc-end">
-    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveConditions(optForm)">{{'GENERAL.SAVE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="optForm.form.invalid" (click)="saveConditions(optForm)">{{'SAVE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 

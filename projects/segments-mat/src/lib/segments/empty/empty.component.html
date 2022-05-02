@@ -4,7 +4,7 @@
       <h4 *ngIf="segment.title">{{segment.title | transloco}}</h4>
       <h5 *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h5>
     </div>
-    <button *ngIf="segment.array && arrayConfiguration.add" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
+    <button *ngIf="segment.array && arrayConfiguration.add" mat-icon-button (click)="addArrayItem()" [matTooltip]="'ADD' | transloco">
       <mat-icon>add</mat-icon>
     </button>
   </div>

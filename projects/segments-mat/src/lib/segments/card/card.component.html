@@ -5,7 +5,7 @@
       <h2 class="fs-small" *ngIf="segment.subTitle">{{segment.subTitle | transloco}}</h2>
     </div>
     <div class="flex-1"></div>
-    <button class="add-item" *ngIf="segment.array && arrayConfiguration.add" mat-icon-button (click)="addArrayItem()" [matTooltip]="'GENERAL.ADD' | transloco">
+    <button class="add-item" *ngIf="segment.array && arrayConfiguration.add" mat-icon-button (click)="addArrayItem()" [matTooltip]="'ADD' | transloco">
       <mat-icon>add</mat-icon>
     </button>
   </mat-card-header>

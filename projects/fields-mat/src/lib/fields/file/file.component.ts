@@ -135,7 +135,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     })
   }
 
-  errorSnack(message: string = 'GENERAL.ERROR', dismiss: string = 'GENERAL.DISMISS') {
+  errorSnack(message: string = 'ERROR', dismiss: string = 'DISMISS') {
     this.snackBar.open(
       this.transloco.translate(message),
       this.transloco.translate(dismiss),
