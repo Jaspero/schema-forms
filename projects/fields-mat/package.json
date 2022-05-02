@@ -1,6 +1,10 @@
 {
   "name": "@jaspero/fb-fields-mat",
   "version": "0.0.1",
+  "i18n": [{
+    "scope": "fb-fields-mat",
+    "path": "assets/i18n"
+  }],
   "peerDependencies": {
     "@angular/common": "^13.0.0",
     "@angular/core": "^13.0.0",

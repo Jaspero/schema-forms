@@ -236,22 +236,22 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     });
 
     if (!this.allowedImageTypes.includes(image.type) && !!this.allowedImageTypes.length) {
-      this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
+      this.errorSnack('fb-fields-mat.GALLERY.INVALID_IMAGE_FORMAT');
       return throwError('Invalid Image Format');
     }
 
     if (this.forbiddenImageTypes.includes(image.type)) {
-      this.errorSnack('FIELDS.GALLERY.FORBIDDEN_IMAGE_FORMAT');
+      this.errorSnack('fb-fields-mat.GALLERY.FORBIDDEN_IMAGE_FORMAT');
       return throwError('Forbidden Image Format');
     }
 
     if (image.size < this.minSizeBytes) {
-      this.errorSnack('FIELDS.GALLERY.BELOW_SIZE');
+      this.errorSnack('fb-fields-mat.GALLERY.BELOW_SIZE');
       return throwError('Image below minimal allowed size');
     }
 
     if (image.size > this.maxSizeBytes && !!this.maxSizeBytes) {
-      this.errorSnack('FIELDS.GALLERY.EXCEED_SIZE');
+      this.errorSnack('fb-fields-mat.GALLERY.EXCEED_SIZE');
       return throwError('Image exceeding allowed size');
     }
 

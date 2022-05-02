@@ -80,7 +80,7 @@
   <div [innerHTML]="control.get('value').value"></div>
 </ng-template>
 <ng-template #editDialog>
-  <h4 mat-dialog-title>{{'FU.EDIT' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'fb-fu.EDIT' | transloco}}</h4>
   <mat-dialog-content>
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
@@ -89,7 +89,7 @@
   </mat-dialog-actions>
 </ng-template>
 <ng-template #optionsDialog>
-  <h4 mat-dialog-title>{{'FU.SETTINGS' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'fb-fu.SETTINGS' | transloco}}</h4>
   <mat-dialog-content>
     <fb-form-builder [data]="selectedFormData" #optForm></fb-form-builder>
   </mat-dialog-content>
@@ -98,7 +98,7 @@
   </mat-dialog-actions>
 </ng-template>
 <ng-template #organizeDialog>
-  <h4 mat-dialog-title>{{'FU.ORGANIZE' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'fb-fu.ORGANIZE' | transloco}}</h4>
   <mat-dialog-content>
     <div
       class="sort-wrapper"
@@ -132,30 +132,30 @@
   </mat-dialog-actions>
 </ng-template>
 <ng-template #sizesDialog>
-  <h4 mat-dialog-title>{{'FU.ADJUST_SIZE' | transloco}}</h4>
+  <h4 mat-dialog-title>{{'fb-fu.ADJUST_SIZE' | transloco}}</h4>
   <mat-dialog-content>
     <p>
-      <span class="size-label">{{'FU.SIZE.DESKTOP' | transloco}}</span>
+      <span class="size-label">{{'fb-fu.SIZE.DESKTOP' | transloco}}</span>
       <mat-button-toggle-group
-        [attr.aria-label]="'FU.SIZE.DESKTOP' | transloco"
+        [attr.aria-label]="'fb-fu.SIZE.DESKTOP' | transloco"
         [formControl]="sizeForm.get('columnsDesktop')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
-      <span class="size-label">{{'FU.SIZE.TABLET' | transloco}}</span>
+      <span class="size-label">{{'fb-fu.SIZE.TABLET' | transloco}}</span>
       <mat-button-toggle-group
-        [attr.aria-label]="'FU.SIZE.TABLET' | transloco"
+        [attr.aria-label]="'fb-fu.SIZE.TABLET' | transloco"
         [formControl]="sizeForm.get('columnsTablet')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
     </p>
 
     <p>
-      <span class="size-label">{{'FU.SIZE.MOBILE' | transloco}}</span>
+      <span class="size-label">{{'fb-fu.SIZE.MOBILE' | transloco}}</span>
       <mat-button-toggle-group
-        [attr.aria-label]="'FU.SIZE.MOBILE' | transloco"
+        [attr.aria-label]="'fb-fu.SIZE.MOBILE' | transloco"
         [formControl]="sizeForm.get('columnsMobile')">
         <mat-button-toggle *ngFor="let size of sizes" [value]="size">{{size}}</mat-button-toggle>
       </mat-button-toggle-group>
@@ -179,12 +179,12 @@
   <div class="field" [ngClass]="fieldSize(control)" *ngFor="let control of fields.controls; index as index">
     <div class="field-top-bar">
       <div>
-        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
+        <button tabindex="-1" mat-icon-button [matTooltip]="'fb-fu.CHANGE_TYPE' | transloco" [matMenuTriggerFor]="typeMenu">
           <mat-icon>widgets</mat-icon>
         </button>
         <mat-menu #typeMenu="matMenu">
           <button mat-menu-item *ngFor="let type of typeList" (click)="updateType(control, type.value)">
-            {{('FU.TYPE.' + type.value) | transloco}}
+            {{('fb-fu.TYPE.' + type.value) | transloco}}
           </button>
         </mat-menu>
         &nbsp;
@@ -192,7 +192,7 @@
           <button
             tabindex="-1"
             mat-icon-button
-            [matTooltip]="'FU.REQUIRED' | transloco"
+            [matTooltip]="'fb-fu.REQUIRED' | transloco"
             [color]="control.get('required').value ? 'primary' : 'default'"
             (click)="control.get('required').setValue(!control.get('required').value)">
             <mat-icon>warning</mat-icon>
@@ -202,14 +202,14 @@
         <button
           tabindex="-1"
           mat-icon-button
-          [matTooltip]="'FU.CONDITIONS.TITLE' | transloco"
+          [matTooltip]="'fb-fu.CONDITIONS.TITLE' | transloco"
           (click)="conditions(control)">
           <mat-icon>settings_ethernet</mat-icon>
         </button>
       </div>
 
       <div>
-        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.EDIT' | transloco" (click)="edit(control)">
+        <button tabindex="-1" mat-icon-button [matTooltip]="'fb-fu.EDIT' | transloco" (click)="edit(control)">
           <mat-icon>edit</mat-icon>
         </button>
         &nbsp;
@@ -217,14 +217,14 @@
           <button
             tabindex="-1"
             mat-icon-button
-            [matTooltip]="'FU.OPTIONS' | transloco"
+            [matTooltip]="'fb-fu.OPTIONS' | transloco"
             (click)="options(control)">
             <mat-icon>settings</mat-icon>
           </button>
           &nbsp;
         </ng-container>
 
-        <button tabindex="-1" mat-icon-button [matTooltip]="'FU.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
+        <button tabindex="-1" mat-icon-button [matTooltip]="'fb-fu.ADJUST_SIZE' | transloco" (click)="openSizes(control)">
           <mat-icon>aspect_ratio</mat-icon>
         </button>
         &nbsp;
@@ -232,7 +232,7 @@
           tabindex="-1"
           mat-icon-button
           color="warn"
-          [matTooltip]="'FU.REMOVE' | transloco"
+          [matTooltip]="'fb-fu.REMOVE' | transloco"
           (click)="fields.removeAt(index)">
           <mat-icon>delete</mat-icon>
         </button>
@@ -247,20 +247,20 @@
 </div>
 
 <div class="fields-footer">
-  <div class="fields-footer-empty" *ngIf="!fields.length">{{(cData.placeholder || 'FU.DEFAULT_PLACEHOLDER') | transloco}}</div>
+  <div class="fields-footer-empty" *ngIf="!fields.length">{{(cData.placeholder || 'fb-fu.DEFAULT_PLACEHOLDER') | transloco}}</div>
   <div class="fields-footer-actions">
     <button mat-raised-button (click)="openOrganize()" *ngIf="fields.length">
       <mat-icon>list_alt</mat-icon>
-      <span>{{'FU.ORGANIZE' | transloco}}</span>
+      <span>{{'fb-fu.ORGANIZE' | transloco}}</span>
     </button>
     <div class="fields-footer-actions-divider" *ngIf="fields.length"></div>
     <button mat-raised-button color="primary" [matMenuTriggerFor]="addTypeMenu">
       <mat-icon>add</mat-icon>
-      <span>{{'FU.ADD_FIELD' | transloco}}</span>
+      <span>{{'fb-fu.ADD_FIELD' | transloco}}</span>
     </button>
     <mat-menu #addTypeMenu="matMenu">
       <button mat-menu-item *ngFor="let type of typeList" (click)="addField(type.value)">
-        {{('FU.TYPE.' + type.value) | transloco}}
+        {{('fb-fu.TYPE.' + type.value) | transloco}}
       </button>
     </mat-menu>
   </div>

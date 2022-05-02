@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {LoadClickModule, StopPropagationModule} from '@jaspero/ng-helpers';
-import {TranslocoModule} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
 import {FieldsComponent} from './fields/fields.component';
 
 @NgModule({
@@ -42,6 +42,12 @@ import {FieldsComponent} from './fields/fields.component';
     TranslocoModule,
     LoadClickModule,
     StopPropagationModule
+  ],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'fb-fu'
+    }
   ]
 })
 export class FormUiModule {
