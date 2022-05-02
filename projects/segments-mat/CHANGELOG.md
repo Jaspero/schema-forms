@@ -1,3 +1,18 @@
+## @jaspero/fb-segments-mat [1.3.10](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.3.9...@jaspero/fb-segments-mat@1.3.10) (2022-05-02)
+
+
+### Bug Fixes
+
+* removed 'GENERAL' prefix in translations ([f39b9fd](https://github.com/Jaspero/schema-forms/commit/f39b9fd251d7145ad3604f85d0d519e3b3282df8))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.7.2
+
 ## @jaspero/fb-segments-mat [1.3.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.3.8...@jaspero/fb-segments-mat@1.3.9) (2022-04-07)
 
 
