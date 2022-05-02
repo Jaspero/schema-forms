@@ -1,3 +1,23 @@
+# @jaspero/fb-tinymce [2.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.6.9...@jaspero/fb-tinymce@2.7.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* removed 'GENERAL' prefix in translations ([f39b9fd](https://github.com/Jaspero/schema-forms/commit/f39b9fd251d7145ad3604f85d0d519e3b3282df8))
+
+
+### Features
+
+* replaced translation fiels throughout and added scopes ([30446e4](https://github.com/Jaspero/schema-forms/commit/30446e4c5ca8588b8c8279cded33ec7608eec70b))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.7.2
+
 ## @jaspero/fb-tinymce [2.6.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.6.8...@jaspero/fb-tinymce@2.6.9) (2022-04-07)
 
 
