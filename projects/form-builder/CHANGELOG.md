@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.7.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.1...@jaspero/form-builder@5.7.2) (2022-05-02)
+
+
+### Bug Fixes
+
+* removed 'GENERAL' prefix in translations ([f39b9fd](https://github.com/Jaspero/schema-forms/commit/f39b9fd251d7145ad3604f85d0d519e3b3282df8))
+
 ## @jaspero/form-builder [5.7.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.0...@jaspero/form-builder@5.7.1) (2022-04-07)
 
 
