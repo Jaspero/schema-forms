@@ -11,13 +11,15 @@
   ],
   "license": "MIT",
   "homepage": "https://jaspero.co",
-  "i18n": [{
-    "scope": "fb-fu",
-    "path": "assets/i18n"
-  }],
+  "i18n": [
+    {
+      "scope": "fb-fu",
+      "path": "assets/i18n"
+    }
+  ],
   "peerDependencies": {
-    "@jaspero/form-builder": "5.7.1",
-    "@jaspero/fb-tinymce": "2.6.9"
+    "@jaspero/form-builder": "5.7.2",
+    "@jaspero/fb-tinymce": "2.7.0"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-form-ui",
