@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.11.0...@jaspero/fb-fields-mat@1.11.1) (2022-05-03)
+
+
+### Bug Fixes
+
+* **fields-mat:** wrong translation on file field ([0f6c971](https://github.com/Jaspero/schema-forms/commit/0f6c971deea3f3eb3a0dbcdce512863e18172c43))
+
 # @jaspero/fb-fields-mat [1.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.10.1...@jaspero/fb-fields-mat@1.11.0) (2022-05-02)
 
 
