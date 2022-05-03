@@ -1,3 +1,18 @@
+# @jaspero/fb-form-ui [2.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.6.0...@jaspero/fb-form-ui@2.7.0) (2022-05-03)
+
+
+### Features
+
+* changed prefixes throughout ([b5eca12](https://github.com/Jaspero/schema-forms/commit/b5eca12c184f05f6762fc705499ae4ac4a1ddc3b))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/fb-tinymce:** upgraded to 2.8.0
+
 # @jaspero/fb-form-ui [2.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.5.17...@jaspero/fb-form-ui@2.6.0) (2022-05-02)
 
 
