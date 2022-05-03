@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.11.1...@jaspero/fb-fields-mat@1.12.0) (2022-05-03)
+
+
+### Features
+
+* changed prefixes throughout ([b5eca12](https://github.com/Jaspero/schema-forms/commit/b5eca12c184f05f6762fc705499ae4ac4a1ddc3b))
+
 ## @jaspero/fb-fields-mat [1.11.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.11.0...@jaspero/fb-fields-mat@1.11.1) (2022-05-03)
 
 
