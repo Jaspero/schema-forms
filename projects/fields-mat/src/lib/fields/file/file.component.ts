@@ -77,7 +77,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
       this.name = this.cData.control.value;
     }
 
-    this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'fb-fb-fields-mat-mat.FILE.EMPTY') as string;
+    this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'fb-fields-mat.FILE.EMPTY') as string;
 
     this.allowedFileTypes = this.cData.allowedFileTypes || [];
     this.forbiddenFileTypes = this.cData.forbiddenFileTypes || [];
