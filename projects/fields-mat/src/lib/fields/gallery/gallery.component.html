@@ -2,9 +2,9 @@
 
 <div class="fb-gallery" jpDropZone (dropped)="filesUploaded($event)">
   <div class="ta-center p-y-l">
-    <button mat-button *ngIf="cData.allowUrl" (click)="openUploadDialog()">{{'fb-fields-mat.GALLERY.ENTER_URL' | transloco}}</button>
-    <button mat-button *ngIf="cData.allowServerUpload" (click)="openFileUpload()">{{'fb-fields-mat.GALLERY.CHOOSE_FILES' | transloco}}</button>
-    <button mat-button *ngIf="cData.allowServerUpload" (click)="openSortImages()">{{'fb-fields-mat.GALLERY.SORT_IMAGES' | transloco}}</button>
+    <button mat-button *ngIf="cData.allowUrl" (click)="openUploadDialog()">{{'fbFieldsMat.GALLERY.ENTER_URL' | transloco}}</button>
+    <button mat-button *ngIf="cData.allowServerUpload" (click)="openFileUpload()">{{'fbFieldsMat.GALLERY.CHOOSE_FILES' | transloco}}</button>
+    <button mat-button *ngIf="cData.allowServerUpload" (click)="openSortImages()">{{'fbFieldsMat.GALLERY.SORT_IMAGES' | transloco}}</button>
   </div>
 
   <!--Upload from disk-->
@@ -37,20 +37,20 @@
 <ng-template #modal>
   <mat-dialog-content>
     <mat-form-field class="w-full" appearance="outline">
-      <mat-label>{{'fb-fields-mat.GALLERY.IMAGE_URL' | transloco}}</mat-label>
+      <mat-label>{{'fbFieldsMat.GALLERY.IMAGE_URL' | transloco}}</mat-label>
       <input matInput #url>
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions class="jc-end">
     <button mat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>&nbsp;
-    <button mat-flat-button color="primary" [disabled]="!url.value" (click)="addImage(url.value)" mat-dialog-close>{{'fb-fields-mat.GALLERY.ADD_IMAGE' | transloco}}</button>
+    <button mat-flat-button color="primary" [disabled]="!url.value" (click)="addImage(url.value)" mat-dialog-close>{{'fbFieldsMat.GALLERY.ADD_IMAGE' | transloco}}</button>
   </mat-dialog-actions>
 </ng-template>
 
 <!--Image sort-->
 <ng-template #imagesSort>
-  <h1 mat-dialog-title>{{'fb-fields-mat.GALLERY.SORT_IMAGES' | transloco}}</h1>
+  <h1 mat-dialog-title>{{'fbFieldsMat.GALLERY.SORT_IMAGES' | transloco}}</h1>
 
   <mat-dialog-content>
     <div

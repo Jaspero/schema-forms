@@ -77,7 +77,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
       this.name = this.cData.control.value;
     }
 
-    this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'fb-fields-mat.FILE.EMPTY') as string;
+    this.emptyLabel = (this.cData.hasOwnProperty('emptyLabel') ? this.cData.emptyLabel : 'fbFieldsMat.FILE.EMPTY') as string;
 
     this.allowedFileTypes = this.cData.allowedFileTypes || [];
     this.forbiddenFileTypes = this.cData.forbiddenFileTypes || [];
@@ -187,22 +187,22 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
     });
 
     if (!this.allowedFileTypes.includes(file.type) && !!this.allowedFileTypes.length) {
-      this.errorSnack('fb-fields-mat.FILE.INVALID_FILE_FORMAT');
+      this.errorSnack('fbFieldsMat.FILE.INVALID_FILE_FORMAT');
       return throwError('Invalid File Format');
     }
 
     if (this.forbiddenFileTypes.includes(file.type)) {
-      this.errorSnack('fb-fields-mat.FILE.FORBIDDEN_FILE_FORMAT');
+      this.errorSnack('fbFieldsMat.FILE.FORBIDDEN_FILE_FORMAT');
       return throwError('Forbidden File Format');
     }
 
     if (file.size < this.minSizeBytes) {
-      this.errorSnack('fb-fields-mat.FILE.BELOW_SIZE');
+      this.errorSnack('fbFieldsMat.FILE.BELOW_SIZE');
       return throwError('File below minimal allowed size');
     }
 
     if (file.size > this.maxSizeBytes && !!this.maxSizeBytes) {
-      this.errorSnack('fb-fields-mat.FILE.EXCEED_SIZE');
+      this.errorSnack('fbFieldsMat.FILE.EXCEED_SIZE');
       return throwError('File exceeding allowed size');
     }
 

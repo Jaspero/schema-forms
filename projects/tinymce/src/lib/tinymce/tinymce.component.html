@@ -4,36 +4,36 @@
 </div>
 
 <ng-template #youTubeDialog>
-  <h1 mat-dialog-title>{{'fb-fields-mat.WYSIWYG.EMBED_YOUTUBE' | transloco}}</h1>
+  <h1 mat-dialog-title>{{'fbFieldsMat.WYSIWYG.EMBED_YOUTUBE' | transloco}}</h1>
 
   <form [formGroup]="ytForm">
     <mat-dialog-content>
       <mat-form-field class="w-full">
-        <mat-label>{{'fb-fields-mat.WYSIWYG.VIDEO_ID' | transloco}}</mat-label>
+        <mat-label>{{'fbFieldsMat.WYSIWYG.VIDEO_ID' | transloco}}</mat-label>
         <input matInput formControlName="value">
       </mat-form-field>
 
       <label class="mat-form-field-wrapper flex jc-between">
-        <span>{{'fb-fields-mat.WYSIWYG.FULL_WIDTH' | transloco}}</span>
+        <span>{{'fbFieldsMat.WYSIWYG.FULL_WIDTH' | transloco}}</span>
         <mat-slide-toggle formControlName="fullWidth"></mat-slide-toggle>
       </label>
 
       <label class="mat-form-field-wrapper flex jc-between">
-        <span>{{'fb-fields-mat.WYSIWYG.SHOW_PLAYER_CONTROLS' | transloco}}</span>
+        <span>{{'fbFieldsMat.WYSIWYG.SHOW_PLAYER_CONTROLS' | transloco}}</span>
         <mat-slide-toggle formControlName="showPlayerControls"></mat-slide-toggle>
       </label>
 
       <label class="mat-form-field-wrapper flex jc-between">
-        <span>{{'fb-fields-mat.WYSIWYG.PRIVACY_ENHANCED_MODE' | transloco}}</span>
+        <span>{{'fbFieldsMat.WYSIWYG.PRIVACY_ENHANCED_MODE' | transloco}}</span>
         <mat-slide-toggle formControlName="privacyEnhancedMode"></mat-slide-toggle>
       </label>
 
       <mat-form-field class="w-full">
-        <mat-label>{{'fb-fields-mat.WYSIWYG.ALIGNMENT' | transloco}}</mat-label>
+        <mat-label>{{'fbFieldsMat.WYSIWYG.ALIGNMENT' | transloco}}</mat-label>
         <mat-select formControlName="align">
-          <mat-option value="left">{{'fb-fields-mat.WYSIWYG.LEFT' | transloco}}</mat-option>
-          <mat-option value="center">{{'fb-fields-mat.WYSIWYG.CENTER' | transloco}}</mat-option>
-          <mat-option value="right">{{'fb-fields-mat.WYSIWYG.RIGHT' | transloco}}</mat-option>
+          <mat-option value="left">{{'fbFieldsMat.WYSIWYG.LEFT' | transloco}}</mat-option>
+          <mat-option value="center">{{'fbFieldsMat.WYSIWYG.CENTER' | transloco}}</mat-option>
+          <mat-option value="right">{{'fbFieldsMat.WYSIWYG.RIGHT' | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-dialog-content>

@@ -17,7 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
-import {TranslocoModule} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
 import {BlockFormComponent} from './block-form/block-form.component';
 import {BlockComponent} from './block/block.component';
 import {BackgroundComponent} from './fields/background/background.component';
@@ -64,7 +64,11 @@ import {ToolbarService} from './toolbar.service';
   ],
   providers: [
     ToolbarService,
-    PageBuilderCtxService
+    PageBuilderCtxService,
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: 'fb-pb'
+    }
   ]
 })
 export class PageBuilderModule {

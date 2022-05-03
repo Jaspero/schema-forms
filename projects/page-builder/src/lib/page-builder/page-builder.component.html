@@ -1,7 +1,7 @@
 <section class="pb">
   <article class="pb-intro">
     <div [innerHTML]="intro$ | async | jpSanitize"></div>
-    <button mat-stroked-button (click)="open()">{{'PB.START' | transloco}}</button>
+    <button mat-stroked-button (click)="open()">{{'fbPb.START' | transloco}}</button>
   </article>
 
   <ng-container *ngIf="isOpen">
@@ -27,12 +27,12 @@
 
       <button class="pb-sidebar-new" (click)="openAdd()" matRipple>
         <mat-icon class="pb-sidebar-new-icon">add</mat-icon>
-        <span class="pb-sidebar-new-label">{{'PB.OPEN_ADD' | transloco}}</span>
+        <span class="pb-sidebar-new-label">{{'fbPb.OPEN_ADD' | transloco}}</span>
       </button>
 
       <article class="pb-sidebar-add" *ngIf="state === 'add'">
         <div class="pb-sidebar-add-title">
-          <span>{{'PB.OPEN_ADD' | transloco}}</span>
+          <span>{{'fbPb.OPEN_ADD' | transloco}}</span>
           <button mat-icon-button (click)="closeAdd()">
             <mat-icon>close</mat-icon>
           </button>
@@ -46,7 +46,7 @@
           (click)="previewBlock(block, index)">
           {{block.label | transloco}}
           <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
-            {{'PB.ADD' | transloco}}
+            {{'fbPb.ADD' | transloco}}
           </button>
         </div>
       </article>
@@ -68,7 +68,7 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
 
-      <button mat-stroked-button (click)="close()">{{'PB.CLOSE' | transloco}}</button>
+      <button mat-stroked-button (click)="close()">{{'fbPb.CLOSE' | transloco}}</button>
     </header>
 
     <main class="pb-preview" [class.fullscreen]="isFullscreen">
