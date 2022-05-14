@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.23.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.22.0...@jaspero/fb-page-builder@3.23.0) (2022-05-14)
+
+
+### Features
+
+* **page-builder:** added saveCompiled option ([786b4c5](https://github.com/Jaspero/schema-forms/commit/786b4c53356d1cf3c37677e76e6c3a4852a4468a))
+
 # @jaspero/fb-page-builder [3.22.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.21.13...@jaspero/fb-page-builder@3.22.0) (2022-05-03)
 
 
