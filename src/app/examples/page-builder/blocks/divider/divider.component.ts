@@ -7,7 +7,6 @@ import {Block, BlockData, BlockOptions, blockStyle} from '@jaspero/page-builder'
 const BLOCK: BlockOptions = {
   label: 'Divider',
   icon: 'minimize',
-  compile: true,
   form: {
     segments: [{
       title: 'Settings',
