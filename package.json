@@ -24,7 +24,8 @@
     "lint": "ng lint form-builder && ng lint page-builder && ng lint monaco-editor && ng lint tinymce && ng lint form-ui",
     "lint:fix": "ng lint form-builder --fix && ng lint page-builder --fix && ng lint monaco-editor --fix && ng lint tinymce --fix && ng lint form-ui --fix",
     "e2e": "ng e2e",
-    "semantic-release": "multi-semantic-release --debug"
+    "semantic-release": "multi-semantic-release --debug",
+    "transloco:extract-scoped-libs": "transloco-scoped-libs --skip-gitignore"
   },
   "keywords": [
     "Angular"
@@ -70,6 +71,7 @@
     "@semantic-release/git": "10.0.1",
     "@semantic-release/npm": "8.0.3",
     "@semantic-release/release-notes-generator": "10.0.3",
+    "@ngneat/transloco-scoped-libs": "3.0.4",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "2.0.3",
     "@types/json-pointer": "1.0.30",

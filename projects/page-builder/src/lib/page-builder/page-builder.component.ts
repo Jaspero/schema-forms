@@ -237,7 +237,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
         icon: item.icon,
         label: item.label,
         visible: true,
-        form: item.form
+        form: item.form,
       } as TopBlock;
     });
 
@@ -281,17 +281,46 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       priority: 0,
       cData: this.cData,
       save: data => {
+
+        const sharedStyles: {[key: string]: string} = {};
+
         set(
           data.outputValue,
           data.pointer,
-          this.blocks.map((block, index) => ({
-            value: block.value,
-            type: block.type,
-            ...this.cData.saveCompiled && {
-              compiled: this.compRefs[index].location.nativeElement.innerHTML
+          this.blocks.map((block, index) => {
+
+            let compiled: string;
+
+            if (this.cData.saveCompiled) {
+
+              const el = this.compRefs[index].location.nativeElement;
+              const {firstChild} = el;
+
+              if (!sharedStyles[firstChild.localName]) {
+                sharedStyles[firstChild.localName] = this.compileBlockStyle(firstChild);
+              }
+
+              compiled = this.compileBlockHtml(firstChild)
             }
-          }))
+
+            return {
+              value: block.value,
+              type: block.type,
+              ...compiled && {compiled}
+            }
+          })
         );
+
+        const styles = Object.values(sharedStyles);
+
+        if (styles.length) {
+          set(
+            data.outputValue,
+            '/globalStyles',
+            styles.reduce((acc, value) => acc + value, '')
+          )
+        }
+
         return of(true);
       }
     })
@@ -670,5 +699,19 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
         }, 50);
       }
     );
+  }
+
+  private compileBlockStyle(component) {
+    const selector = component.localName;
+    const style = component._ngElementStrategy.componentFactory.componentDef.styles[0];
+
+    return style
+      .replace(/\[_nghost-%COMP%\]/g, selector)
+      .replace(/(\[_ngcontent-%COMP%\])|[\n ]|(\/\*.*\*\/)/g, '');
+  }
+
+  private compileBlockHtml(component) {
+    return component.outerHTML
+      .replace(/(\x3C!--(\n|.)*-->)|(_nghost.*"")|(ng-version=".*")|(_ngcontent.*"")|(ng-reflect-entry-options="[object Object]")|(ng-star-inserted)|(contenteditable="")/g, '');
   }
 }
