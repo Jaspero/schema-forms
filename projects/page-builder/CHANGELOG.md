@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.24.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.23.0...@jaspero/fb-page-builder@3.24.0) (2022-05-16)
+
+
+### Features
+
+* **page-builder:** allow for specifying an id ([898f2db](https://github.com/Jaspero/schema-forms/commit/898f2dbbea6e88785bb208cf3279673d3e4f65bd))
+
 # @jaspero/fb-page-builder [3.23.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.22.0...@jaspero/fb-page-builder@3.23.0) (2022-05-14)
 
 
