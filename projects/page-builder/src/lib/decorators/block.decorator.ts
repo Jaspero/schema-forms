@@ -9,6 +9,10 @@ export interface BlockSegment extends Segment {
 
 export interface BlockOptions {
   /**
+   * Defulats to selector
+   */
+  id?: string;
+  /**
    * Defaults to 'pages'
    */
   module?: string | string[];
@@ -43,7 +47,7 @@ export function Block(options: BlockOptions): ClassDecorator {
     }
 
     const {name} = componentDef.type;
-    const selector = componentDef.selectors[0][0];
+    const selector = options.id || componentDef.selectors[0][0];
 
     const label = name.replace('Component', '').split(/(?=[A-Z])/);
     const module = options.module || 'pages';
