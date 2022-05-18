@@ -56,6 +56,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Input() value: any;
   @Input() parser: Parser;
   @Input() state: State = State.Create;
+  @Input() clearOnClose = true;
 
   @HostBinding('id')
   @Input() id = 'jp-fb-main';
@@ -112,11 +113,13 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       this.statusSubscription.unsubscribe();
     }
 
-    try {
-      delete window.jpFb.forms[this.id];
-      delete window.jpFb.parsers[this.id];
-      delete window.jpFb.operations[this.id];
-    } catch (e) { }
+    if (this.clearOnClose) {
+      try {
+        delete window.jpFb.forms[this.id];
+        delete window.jpFb.parsers[this.id];
+        delete window.jpFb.operations[this.id];
+      } catch (e) { }
+    }
   }
 
   process() {
