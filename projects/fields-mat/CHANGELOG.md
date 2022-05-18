@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.12.1...@jaspero/fb-fields-mat@1.13.0) (2022-05-18)
+
+
+### Features
+
+* **fields-mat:** better preview element for image ([fedb251](https://github.com/Jaspero/schema-forms/commit/fedb2518608505c5ce7aa1d70dd6bed98d0bd053))
+
 ## @jaspero/fb-fields-mat [1.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.12.0...@jaspero/fb-fields-mat@1.12.1) (2022-05-18)
 
 
