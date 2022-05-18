@@ -9,11 +9,16 @@
     [value]="displayName$ | async">
   <div matSuffix class="fb-image-suffix">
     <ng-container *ngIf="imageUrl.value">
-      <div class="fb-image-suffix-preview">
+      <div class="fb-image-suffix-preview" #pEl>
         <button class="fb-image-suffix-preview-button" mat-icon-button>
           <mat-icon>visibility</mat-icon>
         </button>
-        <img class="fb-image-suffix-preview-image" [attr.src]="imageUrl.value | jpSanitize:'url'" [alt]="'FIELDS.IMAGE.PREVIEW' | transloco">
+        <img
+          class="fb-image-suffix-preview-image"
+          [style.top.px]="pEl.getBoundingClientRect().top + 30"
+          [style.left.px]="pEl.getBoundingClientRect().left - 170"
+          [attr.src]="imageUrl.value | jpSanitize:'url'"
+          [alt]="'FIELDS.IMAGE.PREVIEW' | transloco">
       </div>
     </ng-container>
     <button mat-icon-button (click)="openFileUpload()">

@@ -6,8 +6,8 @@
     position: relative;
 
     &-image {
-      position: absolute;
-      z-index: 2;
+      position: fixed;
+      z-index: 3;
       top: 100%;
       right: 0;
       width: 200px;
