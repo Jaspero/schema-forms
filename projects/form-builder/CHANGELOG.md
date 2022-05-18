@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.2...@jaspero/form-builder@5.8.0) (2022-05-18)
+
+
+### Features
+
+* **fb:** conditionally clear forms, parsers and operations on component destroy event ([42ed858](https://github.com/Jaspero/schema-forms/commit/42ed858e87c00e33ecedc1f165070c2b4554b0f8))
+
 ## @jaspero/form-builder [5.7.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.1...@jaspero/form-builder@5.7.2) (2022-05-02)
 
 
