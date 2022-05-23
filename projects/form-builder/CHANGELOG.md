@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.8.0...@jaspero/form-builder@5.8.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* **PageBuilder:** correct prefix ([3540d13](https://github.com/Jaspero/schema-forms/commit/3540d13c5fc4b9b4616f2fe09c0dac44ff1e2f7c))
+
 # @jaspero/form-builder [5.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.7.2...@jaspero/form-builder@5.8.0) (2022-05-18)
 
 
