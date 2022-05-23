@@ -25,7 +25,7 @@ export class BlockFormComponent implements OnDestroy {
     private cdr: ChangeDetectorRef
   ) {}
 
-  @Input() parentFormId = 'jb-fb-main';
+  @Input() parentFormId = 'jp-fb-main';
   @Output() optionsChanged = new EventEmitter<any>();
   @Output() remove = new EventEmitter();
   @ViewChild(FormBuilderComponent) formBuilderComponent: FormBuilderComponent;
@@ -66,7 +66,7 @@ export class BlockFormComponent implements OnDestroy {
     );
 
     setTimeout(() => {
-      this.id = [this.parentFormId || 'jb-fb-main', 'blocks', selected.index].join('-');
+      this.id = [this.parentFormId || 'jp-fb-main', 'blocks', selected.index].join('-');
 
       let pointer = `/blocks/${selected.index}/value`;
 

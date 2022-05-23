@@ -22,7 +22,7 @@ export function getControl(
   if (parser) {
     pointers = parser.pointers;
   } else {
-    pointers = window.jpFb.parsers.main.pointers;
+    pointers = window.jpFb.parsers['jp-fb-main'].pointers;
   }
 
   if (array) {
