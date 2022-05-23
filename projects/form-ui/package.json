@@ -18,8 +18,8 @@
     }
   ],
   "peerDependencies": {
-    "@jaspero/form-builder": "5.8.0",
-    "@jaspero/fb-tinymce": "2.8.0"
+    "@jaspero/form-builder": "5.8.1",
+    "@jaspero/fb-tinymce": "2.8.2"
   },
   "release": {
     "pkgRoot": "../../dist/@jaspero/fb-form-ui",
