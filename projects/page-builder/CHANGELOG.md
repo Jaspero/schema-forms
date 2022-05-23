@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.24.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.2...@jaspero/fb-page-builder@3.24.3) (2022-05-23)
+
+
+### Bug Fixes
+
+* **page-builder:** properly escaping angular html ([8d62fb2](https://github.com/Jaspero/schema-forms/commit/8d62fb2414e05d2fc4f7c706404f4443921558bc))
+
 ## @jaspero/fb-page-builder [3.24.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.1...@jaspero/fb-page-builder@3.24.2) (2022-05-23)
 
 
