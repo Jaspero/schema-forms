@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.24.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.1...@jaspero/fb-page-builder@3.24.2) (2022-05-23)
+
+
+### Bug Fixes
+
+* **PageBuilder:** correct prefix ([3540d13](https://github.com/Jaspero/schema-forms/commit/3540d13c5fc4b9b4616f2fe09c0dac44ff1e2f7c))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.8.1
+
 ## @jaspero/fb-page-builder [3.24.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.0...@jaspero/fb-page-builder@3.24.1) (2022-05-18)
 
 
