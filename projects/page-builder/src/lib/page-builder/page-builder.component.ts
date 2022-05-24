@@ -703,11 +703,13 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
   private compileBlockStyle(component) {
     const selector = component.localName;
-    const style = component._ngElementStrategy.componentFactory.componentDef.styles[0];
+    const {styles} = component._ngElementStrategy.componentFactory.componentDef;
 
-    return style
-      .replace(/\[_nghost-%COMP%\]/g, selector)
-      .replace(/(\[_ngcontent-%COMP%\])|[\n ]|(\/\*.*\*\/)/g, '');
+    return styles.reduce((acc, style) =>
+      acc + style
+        .replace(/\[_nghost-%COMP%\]/g, selector)
+        .replace(/(\[_ngcontent-%COMP%\])|[\n ]|(\/\*.*?\*\/)/g, ''),
+    '');
   }
 
   private compileBlockHtml(component) {
