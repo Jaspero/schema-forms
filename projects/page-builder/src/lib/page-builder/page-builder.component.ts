@@ -712,6 +712,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
   private compileBlockHtml(component) {
     return component.outerHTML
-      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*"")|(ng-version=".*")|(_ngcontent.*"")|(ng-reflect-entry-options="[object Object]")|(ng-star-inserted)|(contenteditable="")/g, '');
+      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*?"")|(ng-version=".*?")|(_ngcontent.*?"")|(ng-reflect-entry-options="[object Object]")|(ng-star-inserted)|(contenteditable="")/g, '');
   }
 }
