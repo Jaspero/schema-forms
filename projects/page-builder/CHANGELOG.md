@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.24.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.4...@jaspero/fb-page-builder@3.24.5) (2022-05-24)
+
+
+### Bug Fixes
+
+* **page-builder:** compiling multiple styles when a component has them ([5ea78c8](https://github.com/Jaspero/schema-forms/commit/5ea78c8887d7ae6eac9046562883786efee07593))
+
 ## @jaspero/fb-page-builder [3.24.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.3...@jaspero/fb-page-builder@3.24.4) (2022-05-24)
 
 
