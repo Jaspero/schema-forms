@@ -1,5 +1,5 @@
 <div class="block-navigation">
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListSorted)="sorted($event)" (cdkDropListDropped)="drop($event)">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" cdkDropList (cdkDropListSorted)="sorted()" (cdkDropListDropped)="drop($event)">
     <mat-tree-node
       *matTreeNodeDef="let node"
       matTreeNodePadding
@@ -20,7 +20,7 @@
       matTreeNodePadding
       matTreeNodeToggle
       class="pointer flex"
-      (click)="selectParent(node, nd)"
+      (jpStopPropagation)="selectParent(node, nd)"
       (contextmenu)="openOptions($event, node, true)">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}

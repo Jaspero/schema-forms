@@ -257,7 +257,11 @@ export class NavigationComponent {
       return;
     }
 
-    this.selectCustomBlock(node.children[0]);
+    const selectable = node.children.find(child => !child.action);
+
+    if (selectable) {
+      this.selectCustomBlock(selectable);
+    }
   }
 
   openOptions(event, block, isBlock = false) {
@@ -340,12 +344,8 @@ export class NavigationComponent {
     });
   }
 
-  sorted(event) {
+  sorted() {
     this.closeBlock();
-    // setTimeout(() => {
-    //   this.preview();
-    //   this.cdr.markForCheck();
-    // });
   }
 
   parseTitle(title: string | ((_) => string), index?) {
