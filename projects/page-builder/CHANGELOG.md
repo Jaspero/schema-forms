@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.24.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.5...@jaspero/fb-page-builder@3.24.6) (2022-05-30)
+
+
+### Bug Fixes
+
+* **page-builder:** not adding empty array item on click closes [#108](https://github.com/Jaspero/schema-forms/issues/108) ([fe0c7cb](https://github.com/Jaspero/schema-forms/commit/fe0c7cbd9187c3cd377fcb05ba8269d31b0ff6e4))
+
 ## @jaspero/fb-page-builder [3.24.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.4...@jaspero/fb-page-builder@3.24.5) (2022-05-24)
 
 
