@@ -1,3 +1,16 @@
+# @jaspero/fb-page-builder [3.25.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.7...@jaspero/fb-page-builder@3.25.0) (2022-05-31)
+
+
+### Bug Fixes
+
+* **page-builder:** allowing scroll on full sidebar add closes [#112](https://github.com/Jaspero/schema-forms/issues/112) ([65f195f](https://github.com/Jaspero/schema-forms/commit/65f195f2dba909985e0246bc2e8b5d34fa155ac7))
+
+
+### Features
+
+* **page-builder:** automatically selecting newly added blocks ([521206d](https://github.com/Jaspero/schema-forms/commit/521206dc16584ffae29301b851d1a027d6b0a830))
+* **page-builder:** close other navigations when one is selected closes [#111](https://github.com/Jaspero/schema-forms/issues/111) ([d2a7374](https://github.com/Jaspero/schema-forms/commit/d2a73744dd5442ba0bd28cc08bcd1574905fab09))
+
 ## @jaspero/fb-page-builder [3.24.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.6...@jaspero/fb-page-builder@3.24.7) (2022-05-31)
 
 
