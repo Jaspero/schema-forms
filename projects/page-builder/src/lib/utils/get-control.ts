@@ -16,13 +16,14 @@ export function getControl(
 ) {
 
   const key = [id, 'blocks', index].join('-');
-
   const parser = window.jpFb.parsers[key];
+
   let pointers;
+
   if (parser) {
     pointers = parser.pointers;
   } else {
-    pointers = window.jpFb.parsers['jp-fb-main'].pointers;
+    pointers = window.jpFb.parsers[id].pointers;
   }
 
   if (array) {

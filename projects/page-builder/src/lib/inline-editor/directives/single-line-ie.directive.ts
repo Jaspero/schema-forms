@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Renderer2, ViewEncapsulation} from '@angular/core';
-import {Parser} from '@jaspero/form-builder';
+import {FormBuilderContextService, Parser} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {merge, Subscription} from 'rxjs';
 import {filter, switchMap, tap} from 'rxjs/operators';
@@ -31,6 +31,17 @@ interface Options {
 })
 // tslint:disable-next-line:component-class-suffix
 export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    @Optional()
+    private toolbarService: ToolbarService,
+    @Optional()
+    private ctx: PageBuilderCtxService,
+    private formCtx: FormBuilderContextService
+  ) {
+  }
+
   @Input('fbPbSingleLineIE')
   entryOptions: Options;
   defaultOptions = {
@@ -49,16 +60,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   private scrollListener: Subscription;
   private selectListener: Subscription;
-
-  constructor(
-    private el: ElementRef,
-    private renderer: Renderer2,
-    @Optional()
-    private toolbarService: ToolbarService,
-    @Optional()
-    private ctx: PageBuilderCtxService
-  ) {
-  }
 
   get htmlEl() {
     return this.el.nativeElement;
@@ -102,7 +103,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       ...this.entryOptions
     };
 
-    this.id = this.options.formId || 'jp-fb-main';
+    this.id = this.options.formId || this.formCtx.module || 'jp-fb-main';
     this.pointer = Parser.standardizeKeyWithSlash(this.options.pointer);
 
     if (this.options.array) {
