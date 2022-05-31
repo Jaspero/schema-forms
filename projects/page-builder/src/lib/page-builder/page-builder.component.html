@@ -16,7 +16,19 @@
             cdkDragLockAxis="y"
             [id]="block.id"
             (cdkDragStarted)="dragStarted()">
-            <fb-pb-navigation class="w-full" [block]="block" [value]="block.value" [index]="index" [selectBlock]="selectBlock.bind(this)" [closeBlock]="closeBlock.bind(this)" [removeBlock]="removeBlock.bind(this)" [addBlock]="addBlock.bind(this)" [preview]="preview.bind(this)" (optionsChanged)="optionsChanged($event)"></fb-pb-navigation>
+            <fb-pb-navigation
+              class="w-full"
+              [block]="block"
+              [value]="block.value"
+              [index]="index"
+              [selectBlock]="selectBlock.bind(this)"
+              [closeBlock]="closeBlock.bind(this)"
+              [removeBlock]="removeBlock.bind(this)"
+              [addBlock]="addBlock.bind(this)"
+              [preview]="preview.bind(this)"
+              (blockSelected)="blockSelected($event)"
+              (optionsChanged)="optionsChanged($event)">
+            </fb-pb-navigation>
             <button class="pb-sidebar-list-item-visibility" mat-icon-button (click)="toggleVisible(index)">
               <mat-icon>{{block.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
             </button>

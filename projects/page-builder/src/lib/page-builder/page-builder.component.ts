@@ -9,8 +9,10 @@ import {
   Inject, Injector, OnDestroy,
   OnInit,
   Optional,
+  QueryList,
   Renderer2,
   ViewChild,
+  ViewChildren,
   ViewContainerRef
 } from '@angular/core';
 import {DomSanitizer, ɵDomSharedStylesHost} from '@angular/platform-browser';
@@ -29,6 +31,7 @@ import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BlockFormComponent} from '../block-form/block-form.component';
 import {BlockComponent} from '../block/block.component';
+import {NavigationComponent} from '../navigation/navigation.component';
 import {FbPageBuilderOptions} from '../options.interface';
 import {FB_PAGE_BUILDER_OPTIONS} from '../options.token';
 import {PageBuilderCtxService} from '../page-builder-ctx.service';
@@ -143,6 +146,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   @ViewChild('ipe', {static: false, read: ViewContainerRef}) vce: ViewContainerRef;
   @ViewChild('iframe', {static: false}) iframeEl: ElementRef<HTMLIFrameElement>;
   @ViewChild(BlockFormComponent, {static: false}) blockFormComponent: BlockFormComponent;
+  @ViewChildren(NavigationComponent) navigations: QueryList<NavigationComponent>;
 
   iframeTarget: HTMLElement;
   state = 'blocks';
@@ -183,24 +187,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     }
 
     return window.jpFbPb[this.module];
-  }
-
-  dragStarted() {
-    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
-  }
-
-  dragStopped() {
-    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(1)';
-    this.blocks.forEach((_, i) => {
-      this.removeFocus(i);
-    });
-
-    this.blocks = this.compRefs.map(ref => {
-      const id = parseInt(ref.location.nativeElement.id.replace('block-', ''), 10);
-      return this.blocks.find(block => block.id === id);
-    });
-
-    this.preview();
   }
 
   ngOnInit() {
@@ -332,6 +318,24 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     }
   }
 
+  dragStarted() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(0.7)';
+  }
+
+  dragStopped() {
+    (document.querySelector('.pb-preview-inner') as HTMLDivElement).style.transform = 'scale(1)';
+    this.blocks.forEach((_, i) => {
+      this.removeFocus(i);
+    });
+
+    this.blocks = this.compRefs.map(ref => {
+      const id = parseInt(ref.location.nativeElement.id.replace('block-', ''), 10);
+      return this.blocks.find(block => block.id === id);
+    });
+
+    this.preview();
+  }
+
   openAdd() {
     this.state = 'add';
     this.cdr.markForCheck();
@@ -359,6 +363,14 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
     this.previewed = index;
     this.cdr.markForCheck();
+  }
+
+  blockSelected(index: number) {
+    this.navigations.forEach((el, ind) => {
+      if (index !== ind) {
+        el.treeControl.collapseAll();
+      }
+    });
   }
 
   addBlock(block: Block) {

@@ -85,6 +85,9 @@ export class NavigationComponent {
   @Output()
   optionsChanged = new EventEmitter<any>();
 
+  @Output()
+  blockSelected = new EventEmitter<number>();
+
   populateNavigation(block) {
     if (!this.treeControl) {
       this.treeControl = new FlatTreeControl<FlatNode>(
@@ -244,6 +247,8 @@ export class NavigationComponent {
         ...node
       }, this.index);
     }
+
+    this.blockSelected.emit(this.index);
 
     if ((this.blockCache.form.segments || []).length > 1) {
       return this.selectBlock({...node, value: this.blockCache.value}, this.index);
