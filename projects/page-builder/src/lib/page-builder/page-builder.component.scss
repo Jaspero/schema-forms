@@ -111,8 +111,12 @@
         align-items: center;
         justify-content: space-between;
         padding: 11.5px;
-        margin-bottom: 20px;
         border-bottom: 1px solid var(--tertiary);
+      }
+
+      &-blocks {
+        max-height: calc(100% - 64px);
+        overflow-y: auto;
       }
 
       &-block {
@@ -131,6 +135,10 @@
 
         &:last-of-type {
           border-bottom: 1px solid var(--tertiary);
+        }
+
+        &:first-child {
+          border-top: none;
         }
       }
     }

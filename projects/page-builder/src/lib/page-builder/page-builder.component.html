@@ -38,16 +38,18 @@
           </button>
         </div>
 
-        <div
-          class="pb-sidebar-add-block"
-          matRipple
-          *ngFor="let block of availableBlocks; index as index"
-          [class.b-dis]="isDisabled(block)"
-          (click)="previewBlock(block, index)">
-          {{block.label | transloco}}
-          <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
-            {{'fbPb.ADD' | transloco}}
-          </button>
+        <div class="pb-sidebar-add-blocks">
+          <div
+            class="pb-sidebar-add-block"
+            matRipple
+            *ngFor="let block of availableBlocks; index as index"
+            [class.b-dis]="isDisabled(block)"
+            (click)="previewBlock(block, index)">
+            {{block.label | transloco}}
+            <button *ngIf="previewed === index" mat-button (jpStopPropagation)="addBlock(block)">
+              {{'fbPb.ADD' | transloco}}
+            </button>
+            </div>
         </div>
       </article>
 
