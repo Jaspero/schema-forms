@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.25.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.1...@jaspero/fb-page-builder@3.25.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* **page-builder:** open page builder if it hasn't been open closes [#110](https://github.com/Jaspero/schema-forms/issues/110) ([9cdc4e4](https://github.com/Jaspero/schema-forms/commit/9cdc4e4461a951a99fa06e106903b18010657f30))
+
 ## @jaspero/fb-page-builder [3.25.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.0...@jaspero/fb-page-builder@3.25.1) (2022-05-31)
 
 
