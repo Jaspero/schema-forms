@@ -29,6 +29,8 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      overflow-y: auto;
+      max-height: calc(100% - 46px);
 
       &-item {
         position: relative;

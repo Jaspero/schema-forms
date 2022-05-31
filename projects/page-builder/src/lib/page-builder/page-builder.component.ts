@@ -387,7 +387,22 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
     this.bindSelect(this.compRefs[index], topBlock, index);
 
-    setTimeout(() => this.preview());
+    setTimeout(() => {
+      this.preview();
+
+      /**
+       * Scroll to the bottom of the sidebar
+       */
+      const listEl = document.querySelector('.pb-sidebar-list');
+      listEl.scrollTop = listEl.getBoundingClientRect().height;
+
+      /**
+       * Automatically activate the newly added block
+       */
+      setTimeout(() => {
+        (listEl.children[listEl.children.length - 1].querySelector('mat-tree-node') as any).click();
+      }, 100);
+    });
   }
 
   closeAdd() {
