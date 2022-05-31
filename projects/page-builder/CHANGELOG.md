@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.24.7](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.6...@jaspero/fb-page-builder@3.24.7) (2022-05-31)
+
+
+### Bug Fixes
+
+* **page-builder:** don't minify css overdrasticaly ([fc71201](https://github.com/Jaspero/schema-forms/commit/fc712015addbf0817ee3f9ca0d0adaa6e08f1624))
+
 ## @jaspero/fb-page-builder [3.24.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.24.5...@jaspero/fb-page-builder@3.24.6) (2022-05-30)
 
 
