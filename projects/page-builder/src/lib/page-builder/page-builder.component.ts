@@ -708,7 +708,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     return styles.reduce((acc, style) =>
       acc + style
         .replace(/\[_nghost-%COMP%\]/g, selector)
-        .replace(/(\[_ngcontent-%COMP%\])|[\n ]|(\/\*.*?\*\/)/g, ''),
+        .replace(/(\[_ngcontent-%COMP%\])|[\n]|(\/\*.*?\*\/)/g, ''),
     '');
   }
 
