@@ -279,6 +279,18 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
             if (this.cData.saveCompiled) {
 
+              /**
+               * If the page builder hasn't been open this will be undefined.
+               */
+              if (!this.compRefs) {
+
+                registerBlocks(this.module, this.injector);
+
+                this.cdr.detectChanges();
+
+                this.preview();
+              }
+
               const el = this.compRefs[index].location.nativeElement;
               const {firstChild} = el;
 
