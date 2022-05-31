@@ -283,12 +283,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
                * If the page builder hasn't been open this will be undefined.
                */
               if (!this.compRefs) {
-
-                registerBlocks(this.module, this.injector);
-
-                this.cdr.detectChanges();
-
-                this.preview();
+                this.open();
               }
 
               const el = this.compRefs[index].location.nativeElement;
