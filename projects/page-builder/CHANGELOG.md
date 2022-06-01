@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.25.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.3...@jaspero/fb-page-builder@3.25.4) (2022-06-01)
+
+
+### Bug Fixes
+
+* **page-builder:** capturing inline edit changes in production mode ([be99f14](https://github.com/Jaspero/schema-forms/commit/be99f14afdc2dc74ffb63b1dcefc5bf1e9870c7d))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.8.2
+
 ## @jaspero/fb-page-builder [3.25.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.2...@jaspero/fb-page-builder@3.25.3) (2022-05-31)
 
 
