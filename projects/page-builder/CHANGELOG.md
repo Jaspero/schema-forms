@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.25.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.2...@jaspero/fb-page-builder@3.25.3) (2022-05-31)
+
+
+### Bug Fixes
+
+* **page-builder:** better form module detection ([2a1ced3](https://github.com/Jaspero/schema-forms/commit/2a1ced3d8f09953417f48ac1e880c19853567cfc))
+
 ## @jaspero/fb-page-builder [3.25.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.1...@jaspero/fb-page-builder@3.25.2) (2022-05-31)
 
 
