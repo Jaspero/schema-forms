@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.13.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.2...@jaspero/fb-fields-mat@1.13.3) (2022-06-01)
+
+
+### Bug Fixes
+
+* **fields-mat:** clearing search ([408126f](https://github.com/Jaspero/schema-forms/commit/408126f503f9b97e785974fb9b09d876e557ad63))
+
 ## @jaspero/fb-fields-mat [1.13.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.1...@jaspero/fb-fields-mat@1.13.2) (2022-06-01)
 
 
