@@ -10,7 +10,7 @@
             <mat-label>{{ 'FIELDS.REF.SEARCH_BY' | transloco }} {{ cData.search.label }}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off" />
             <button mat-icon-button matSuffix>
-              <mat-icon *ngIf="searchControl.value" (click)="searchControl.reset()">close</mat-icon>
+              <mat-icon *ngIf="searchControl.value" (jpStopPropagation)="searchControl.reset()">close</mat-icon>
             </button>
           </mat-form-field>
         </div>
