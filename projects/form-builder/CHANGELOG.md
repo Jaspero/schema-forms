@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.8.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.8.1...@jaspero/form-builder@5.8.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* **page-builder:** capturing inline edit changes in production mode ([be99f14](https://github.com/Jaspero/schema-forms/commit/be99f14afdc2dc74ffb63b1dcefc5bf1e9870c7d))
+
 ## @jaspero/form-builder [5.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.8.0...@jaspero/form-builder@5.8.1) (2022-05-23)
 
 
