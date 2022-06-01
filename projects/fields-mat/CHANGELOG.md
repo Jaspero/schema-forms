@@ -1,3 +1,18 @@
+## @jaspero/fb-fields-mat [1.13.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.1...@jaspero/fb-fields-mat@1.13.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* **fields-mat:** clearing search works in ref ([3e0b526](https://github.com/Jaspero/schema-forms/commit/3e0b526f15921a2dd2b4490629a5436aea41def7))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.8.2
+
 ## @jaspero/fb-fields-mat [1.13.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.0...@jaspero/fb-fields-mat@1.13.1) (2022-05-23)
 
 
