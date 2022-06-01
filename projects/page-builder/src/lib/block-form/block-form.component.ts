@@ -101,7 +101,7 @@ export class BlockFormComponent implements OnDestroy {
   }
 
   changedFormBuilder() {
-    this.formSub = this.formBuilderComponent.form.valueChanges.subscribe(formValue => {
+    this.formSub = window.jpFb.forms[this.id].valueChanges.subscribe(formValue => {
       if (this._selected.nested?.arrayProperty && typeof this._selected.nested?.index === 'number') {
         this._selected.value = {
           ...this._selected.nested.completeValue

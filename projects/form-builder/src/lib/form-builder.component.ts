@@ -71,6 +71,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
 
   @Output() valueChanges = new EventEmitter<any>();
   @Output() validityChanges = new EventEmitter<boolean>();
+  @Output() rendered = new EventEmitter();
 
   form: FormGroup;
   segments: CompiledSegment[];
@@ -319,5 +320,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
       });
 
     this.cdr.markForCheck();
+
+    this.rendered.emit();
   }
 }
