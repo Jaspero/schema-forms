@@ -1,3 +1,13 @@
+## @jaspero/fb-segments-mat [1.3.13](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.3.12...@jaspero/fb-segments-mat@1.3.13) (2022-06-01)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.8.2
+
 ## @jaspero/fb-segments-mat [1.3.12](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.3.11...@jaspero/fb-segments-mat@1.3.12) (2022-05-23)
 
 
