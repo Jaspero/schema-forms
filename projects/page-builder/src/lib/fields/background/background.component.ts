@@ -150,7 +150,7 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
 
         const current = window.jpFb.exists(data);
 
-        if (!current.exists) {
+        if (!current.exists || !window.jpFb.change(data)) {
           return of(true);
         }
 
@@ -159,34 +159,49 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
           return of(true);
         }
 
-        if (current.value && typeof current.value !== 'string') {
-          let name = data.cData.preserveFileName ? current.value.name : [
-            data.collectionId,
-            data.documentId,
-            random.string()
-          ].join('-');
+        if (
+          current.value &&
+          /**
+           * We create blobs only when a file was selected
+           */
+          current.value.startsWith('blob:')
+        ) {
 
-          if (!data.cData.preserveFileName) {
-            /**
-             * TODO:
-             * Maybe we should put a type extension based on type
-             * instead of taking from the name
-             */
-            name += '.' + (current.value.name.split('.')[1]);;
+          let name: string;
+
+          if (data.cData.preserveFileName) {
+            const url = new URL(
+              current.value
+                .replace(/^blob:/, '')
+                .replace('#', '')
+            );
+
+            if (url.searchParams.has('name')) {
+              name = url.searchParams.get('name');
+            }
+          } else {
+            name = [
+              data.collectionId,
+              data.documentId,
+              random.string()
+            ].join('-') + '.' + (current.value.split('.').pop());
           }
 
-          return from(
-            this.storage.upload(name, current.value, {
-              contentType: current.value.type,
-              customMetadata: {
-                moduleId: data.collectionId,
-                documentId: data.documentId,
-                ...(data.cData.generatedImages &&
-                  formatGeneratedImages(data.cData.generatedImages))
-              }
-            })
-          )
+          return this.http.get(current.value, {responseType: 'blob'})
             .pipe(
+              switchMap(res =>
+                from(
+                  this.storage.upload((this.cData.filePrefix || '') + name, res, {
+                    contentType: res.type,
+                    customMetadata: {
+                      moduleId: data.collectionId,
+                      documentId: data.documentId,
+                      ...(data.cData.generatedImages &&
+                        formatGeneratedImages(data.cData.generatedImages))
+                    }
+                  })
+                )
+              ),
               switchMap((res: any) => this.storage.getDownloadURL(res.ref)),
               tap(url => set(data.outputValue, data.pointer, url))
             );
