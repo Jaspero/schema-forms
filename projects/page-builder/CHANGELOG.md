@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.25.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.4...@jaspero/fb-page-builder@3.25.5) (2022-06-02)
+
+
+### Bug Fixes
+
+* **page-builder:** background file upload not working ([0905fa3](https://github.com/Jaspero/schema-forms/commit/0905fa3e46a419738e7f80d1bbca2fd53a4499c1))
+
 ## @jaspero/fb-page-builder [3.25.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.3...@jaspero/fb-page-builder@3.25.4) (2022-06-01)
 
 
