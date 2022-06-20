@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [2.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.8.3...@jaspero/fb-tinymce@2.9.0) (2022-06-20)
+
+
+### Features
+
+* **fb-tinymce:** added template-editor translations ([f274261](https://github.com/Jaspero/schema-forms/commit/f274261d454b6a8ab714e7e7d9ea1b33ca14e61a))
+
 ## @jaspero/fb-tinymce [2.8.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.8.2...@jaspero/fb-tinymce@2.8.3) (2022-06-01)
 
 
