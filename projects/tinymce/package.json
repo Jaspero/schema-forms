@@ -11,6 +11,12 @@
   ],
   "license": "MIT",
   "homepage": "https://jaspero.co",
+  "i18n": [
+    {
+      "scope": "fb-t",
+      "path": "assets/i18n"
+    }
+  ],
   "peerDependencies": {
     "@jaspero/form-builder": "5.8.2",
     "tinymce": "^5.4.2"
