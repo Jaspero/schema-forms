@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.0...@jaspero/fb-tinymce@2.9.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **fb-tinymce:** json format ([b155e03](https://github.com/Jaspero/schema-forms/commit/b155e03f104f8650d386afa3eed0d3eb03edd8d7))
+
 # @jaspero/fb-tinymce [2.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.8.3...@jaspero/fb-tinymce@2.9.0) (2022-06-20)
 
 
