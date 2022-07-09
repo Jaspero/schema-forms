@@ -93,6 +93,10 @@ interface Block {
   duplicateValue?: any;
 }
 
+interface CompileOptions {
+  removeWrapper: boolean;
+}
+
 export interface BlocksConfiguration {
   blocks?: Block[];
   layout?: {
@@ -110,7 +114,7 @@ export interface BlocksConfiguration {
    * Should the compiled version of the html
    * be persisted in to database
    */
-  saveCompiled?: boolean;
+  saveCompiled?: boolean | CompileOptions;
 }
 
 export type BlocksData = BlocksConfiguration & FieldData;
@@ -293,7 +297,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
                 sharedStyles[firstChild.localName] = this.compileBlockStyle(firstChild);
               }
 
-              compiled = this.compileBlockHtml(firstChild)
+              compiled = this.compileBlockHtml(firstChild, (this.cData.saveCompiled as CompileOptions)?.removeWrapper)
             }
 
             return {
@@ -574,6 +578,13 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
   }
 
   open() {
+
+    /**
+     * We need to reset the screen scroll to the top
+     * in order for the inline editors to work properly
+     */
+    window.scrollTo(0, 0);
+
     this.isOpen = true;
 
     registerBlocks(this.module, this.injector);
@@ -746,8 +757,8 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     '');
   }
 
-  private compileBlockHtml(component) {
-    return component.outerHTML
-      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*?"")|(ng-version=".*?")|(_ngcontent.*?"")|(ng-reflect-entry-options="[object Object]")|(ng-star-inserted)|(contenteditable="")/g, '');
+  private compileBlockHtml(component, removeWrapper: boolean) {
+    return (removeWrapper ? component.innerHTML : component.outerHTML)
+      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*?"")|(ng-version=".*?")|(_ngcontent.*?"")|(ng-reflect-entry-options="\[object Object\]")|(ng-star-inserted)|(contenteditable="")/g, '');
   }
 }
