@@ -402,9 +402,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
     /**
      * Add the offset from top for the begining of the iframe
-     * and remove the default height of the toolbar and border
      */
-    scrollY += this.iFrame.getBoundingClientRect().y - 40;
+    scrollY += this.iFrame.getBoundingClientRect().y;
 
     this.scrollListener = this.toolbarService.scroll$()
       .pipe(untilDestroyed(this))
