@@ -1,3 +1,15 @@
+# @jaspero/fb-page-builder [3.26.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.5...@jaspero/fb-page-builder@3.26.0) (2022-07-09)
+
+
+### Bug Fixes
+
+* **page-builder:** scroll window to top on page builder open to fix inline editor offset ([43b147a](https://github.com/Jaspero/schema-forms/commit/43b147a2187d0482ae7c549338db82b14b6022dd))
+
+
+### Features
+
+* **page-builder:** option for compiled blocks to not contain default wrapper ([6526527](https://github.com/Jaspero/schema-forms/commit/6526527e19be9d2baf0d013c8a2d52dfd04c52dc))
+
 ## @jaspero/fb-page-builder [3.25.5](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.4...@jaspero/fb-page-builder@3.25.5) (2022-06-02)
 
 
