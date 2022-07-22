@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.9.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.1...@jaspero/fb-tinymce@2.9.2) (2022-07-22)
+
+
+### Bug Fixes
+
+* **tinymce:** backspace and enter working better in template-editor ([25b870a](https://github.com/Jaspero/schema-forms/commit/25b870af283e2fc1a0a1e36fcf2cb5ab768a4213))
+
 ## @jaspero/fb-tinymce [2.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.0...@jaspero/fb-tinymce@2.9.1) (2022-06-20)
 
 
