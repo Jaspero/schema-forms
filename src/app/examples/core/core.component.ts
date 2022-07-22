@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
-import {ARRAY_EXAMPLE} from './forms/array-example';
+import {TEMPLATE_EXAMPLE} from './forms/template-example';
 
 @Component({
   selector: 'sc-core',
@@ -13,7 +13,7 @@ export class CoreComponent implements AfterViewInit {
   @ViewChildren(FormBuilderComponent)
   formComponents: QueryList<FormBuilderComponent>;
 
-  form = ARRAY_EXAMPLE;
+  form = TEMPLATE_EXAMPLE;
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {

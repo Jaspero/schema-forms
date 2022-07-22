@@ -26,7 +26,8 @@ declare const tinymce: any;
 export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
   constructor(
     private storage: StorageService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private el: ElementRef
   ) { }
 
   @ViewChild('wrapper', {read: ElementRef})
@@ -146,7 +147,46 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
           .catch(error => failure(error.toString()));
       },
       setup: editor => {
-        editor.on('keyup change', () => {
+        editor.on('keyup change', (e) => {
+
+          /**
+           * TinyMCE backspace and enter dont' work
+           * because of the shadowDom wrapper.
+           */
+          const keys = {
+            'Backspace': () => {
+              const editorRange = this.el.nativeElement.shadowRoot.getSelection();
+              const node = editorRange.anchorNode;
+              const range = document.createRange();
+
+              range.selectNodeContents(node);
+              range.setStart(node, editorRange.anchorOffset - 1);
+              range.setEnd(node, editorRange.anchorOffset);
+              range.deleteContents();
+
+              editor.focus();
+            },
+            'Enter': () => {
+              editor.setContent(editor.getContent() + '<br />');
+
+              setTimeout(() => {
+                const editorRange = this.el.nativeElement.shadowRoot.getSelection();
+                const range = document.createRange();
+                const sel = window.getSelection()
+                const node = editorRange.anchorNode.parentElement.parentElement.lastChild;
+                console.log(node);
+                range.setStart(node, 1);
+                range.setEnd(node, 1);
+                range.collapse(true)
+
+                sel.removeAllRanges();
+                sel.addRange(range);
+              });
+            }
+          }
+
+          keys[e.key]?.();
+
           segment.content = editor.getContent();
           this.update.emit();
         });
