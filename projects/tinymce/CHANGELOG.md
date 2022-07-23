@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [2.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.3...@jaspero/fb-tinymce@2.10.0) (2022-07-23)
+
+
+### Features
+
+* **tinymce:** allow for editing tinymce content from outside of control ([3096831](https://github.com/Jaspero/schema-forms/commit/3096831a3050e0d21a7a0a089f515d27c4e2d2a3))
+
 ## @jaspero/fb-tinymce [2.9.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.2...@jaspero/fb-tinymce@2.9.3) (2022-07-23)
 
 
