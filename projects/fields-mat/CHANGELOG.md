@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.13.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.3...@jaspero/fb-fields-mat@1.13.4) (2022-07-23)
+
+
+### Bug Fixes
+
+* **fielsd-mat:** translations wrongly configured for ref field ([52e3e6e](https://github.com/Jaspero/schema-forms/commit/52e3e6ef7dde7adc0324f9659de0aabf9e33a9d3))
+
 ## @jaspero/fb-fields-mat [1.13.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.2...@jaspero/fb-fields-mat@1.13.3) (2022-06-01)
 
 
