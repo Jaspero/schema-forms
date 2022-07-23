@@ -147,7 +147,9 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
           .catch(error => failure(error.toString()));
       },
       setup: editor => {
-        editor.on('keyup change', (e) => {
+        editor.on('keydown', (e) => {
+
+          let preventDefault = false;
 
           /**
            * TinyMCE backspace and enter dont' work
@@ -167,29 +169,38 @@ export class TemplateEditorInnerComponent implements OnInit, AfterViewInit {
               editor.focus();
             },
             'Enter': () => {
-              editor.setContent(editor.getContent() + '<br />');
+              editor.setContent(editor.getContent() + '<br>');
 
-              setTimeout(() => {
-                const editorRange = this.el.nativeElement.shadowRoot.getSelection();
-                const range = document.createRange();
-                const sel = window.getSelection()
-                const node = editorRange.anchorNode.parentElement.parentElement.lastChild;
-                console.log(node);
-                range.setStart(node, 1);
-                range.setEnd(node, 1);
-                range.collapse(true)
+              const editorRange = this.el.nativeElement.shadowRoot.getSelection();
+              const range = document.createRange();
+              const sel = window.getSelection()
+              const node = editorRange.anchorNode.parentElement.parentElement.lastChild;
 
-                sel.removeAllRanges();
-                sel.addRange(range);
-              });
+              range.setStart(node, 1);
+              range.setEnd(node, 1);
+              range.collapse(true)
+
+              sel.removeAllRanges();
+              sel.addRange(range);
+
+              preventDefault = true;
             }
           }
 
           keys[e.key]?.();
 
+          if (preventDefault) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+          }
+        });
+
+        editor.on('change', () => {
           segment.content = editor.getContent();
           this.update.emit();
-        });
+        })
       },
       style_formats: [
         {title: 'Image', selector: 'img', styles: {width : '100%', height: 'auto'}}
