@@ -229,7 +229,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
           return of(blob);
         }),
         this.formBuilderService.notify({
-          error: 'FIELDS.GALLERY.UPLOAD_ERROR',
+          error: 'fbFieldsMat.GALLERY.UPLOAD_ERROR',
           success: null
         }))
       .subscribe(res => {
@@ -297,22 +297,22 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
       const type = file.type.split('/')[1].toLowerCase();
 
       if (!this.allowedImageTypes.includes(type) && !!this.allowedImageTypes.length) {
-        this.errorSnack('FIELDS.GALLERY.INVALID_IMAGE_FORMAT');
+        this.errorSnack('fbFieldsMat.GALLERY.INVALID_IMAGE_FORMAT');
         return throwError('Invalid Image Format');
       }
 
       if (this.forbiddenImageTypes.includes(type)) {
-        this.errorSnack('FIELDS.GALLERY.FORBIDDEN_IMAGE_FORMAT');
+        this.errorSnack('fbFieldsMat.GALLERY.FORBIDDEN_IMAGE_FORMAT');
         return throwError('Forbidden Image Format');
       }
 
       if (file.size < this.minSizeBytes) {
-        this.errorSnack('FIELDS.GALLERY.BELOW_SIZE');
+        this.errorSnack('fbFieldsMat.GALLERY.BELOW_SIZE');
         return throwError('Image below minimal allowed size');
       }
 
       if (file.size > this.maxSizeBytes && !!this.maxSizeBytes) {
-        this.errorSnack('FIELDS.GALLERY.EXCEED_SIZE');
+        this.errorSnack('fbFieldsMat.GALLERY.EXCEED_SIZE');
         return throwError('Image exceeding allowed size');
       }
     }

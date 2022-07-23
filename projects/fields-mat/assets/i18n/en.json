@@ -13,7 +13,11 @@
     "SORT_IMAGES": "Sort images",
     "IMAGE_URL": "Image URL",
     "ADD_IMAGE": "Add image",
-    "UPLOAD_ERROR": "Error on uploading image."
+    "UPLOAD_ERROR": "Error on uploading image.",
+    "INVALID_IMAGE_FORMAT": "Invalid image format",
+    "FORBIDDEN_IMAGE_FORMAT": "Forbidden image format",
+    "BELOW_SIZE": "Image size is too small",
+    "EXCEED_SIZE": "Image size is too large"
   },
   "WYSIWYG": {
     "EMBED_YOUTUBE": "Embed YouTube",

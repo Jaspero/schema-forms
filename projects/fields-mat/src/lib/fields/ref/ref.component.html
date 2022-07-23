@@ -7,7 +7,7 @@
         <div *ngIf="input.focus()"></div>
         <div class="p-x-m p-t-s search-field">
           <mat-form-field class="w-full">
-            <mat-label>{{ 'FIELDS.REF.SEARCH_BY' | transloco }} {{ cData.search.label }}</mat-label>
+            <mat-label>{{ 'fbFieldsMat.REF.SEARCH_BY' | transloco }} {{ cData.search.label }}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off" />
             <button mat-icon-button matSuffix>
               <mat-icon *ngIf="searchControl.value" (jpStopPropagation)="searchControl.reset()">close</mat-icon>
@@ -42,14 +42,14 @@
             <ng-template #empty>
               <div class="flex jc-center p-b-m" *ngIf="showApplyValue">
                 <button mat-raised-button (click)="applySearchValue()" color="primary">
-                  {{ 'FIELDS.REF.APPLY_VALUE' | transloco }}
+                  {{ 'fbFieldsMat.REF.APPLY_VALUE' | transloco }}
                 </button>
               </div>
             </ng-template>
 
             <div class="flex jc-center">
               <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="!hasMore">
-                {{ 'FIELDS.REF.LOAD_MORE' | transloco }}
+                {{ 'fbFieldsMat.REF.LOAD_MORE' | transloco }}
               </button>
             </div>
           </ng-container>

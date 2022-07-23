@@ -18,7 +18,7 @@
           [style.top.px]="pEl.getBoundingClientRect().top + 30"
           [style.left.px]="pEl.getBoundingClientRect().left - 170"
           [attr.src]="imageUrl.value | jpSanitize:'url'"
-          [alt]="'FIELDS.IMAGE.PREVIEW' | transloco">
+          [alt]="'fbFieldsMat.IMAGE.PREVIEW' | transloco">
       </div>
     </ng-container>
     <button mat-icon-button (click)="openFileUpload()">
