@@ -21,6 +21,7 @@ import {
   ProcessConfig,
   StorageService
 } from '@jaspero/form-builder';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {set} from 'json-pointer';
 import {forkJoin, from, of} from 'rxjs';
 import {filter, switchMap, take, tap} from 'rxjs/operators';
@@ -49,6 +50,7 @@ export interface TinyConfiguration {
 
 export type TinyData = TinyConfiguration & FieldData;
 
+@UntilDestroy()
 @Component({
   selector: 'fb-tm-tinymce',
   templateUrl: './tinymce.component.html',
@@ -82,6 +84,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
   };
 
   imageReplacements: Array<{blobInfo: any, replace: string}> = [];
+  editor: any;
 
   ngOnInit() {
     this.ytForm = this.fb.group({
@@ -89,13 +92,30 @@ export class TinymceComponent extends FieldComponent<TinyData>
       ...this.ytDefault
     });
 
-    this.cData.control.statusChanges.subscribe(value => {
-      if (value === 'DISABLED') {
-        tinymce.activeEditor.getBody().setAttribute('readonly', true);
-      } else if (this.cData.control.disabled) {
-        tinymce.activeEditor.getBody().setAttribute('readonly', false);
-      }
-    });
+    this.cData.control.statusChanges
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(value => {
+        if (value === 'DISABLED') {
+          tinymce.activeEditor.getBody().setAttribute('readonly', true);
+        } else if (this.cData.control.disabled) {
+          tinymce.activeEditor.getBody().setAttribute('readonly', false);
+        }
+      });
+
+    /**
+     * Allow for changing tinymce from outside of this control
+     */
+    this.cData.control.valueChanges
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(value => {
+        if (this.editor && this.editor.getContent() !== value) {
+          this.editor.setContent(value);
+        }
+      });
 
     window.jpFb.assignOperation({
       cData: this.cData,
@@ -243,6 +263,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
       },
 
       setup: (editor: any) => {
+        this.editor = editor;
         editor.on('keyup change', () => {
           this.zone.run(() =>
             this.cData.control.setValue(editor.getContent())
