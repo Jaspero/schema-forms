@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.14.0...@jaspero/fb-fields-mat@1.14.1) (2022-08-27)
+
+
+### Bug Fixes
+
+* **ref:** properly appending search.method when provided ([bf25b5a](https://github.com/Jaspero/schema-forms/commit/bf25b5ae9f5c8749f7a1b47b761d7350138264b8))
+
 # @jaspero/fb-fields-mat [1.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.4...@jaspero/fb-fields-mat@1.14.0) (2022-08-27)
 
 
