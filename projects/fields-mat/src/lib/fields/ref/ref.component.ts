@@ -52,6 +52,14 @@ export interface RefConfiguration {
   search?: {
     key?: string;
     label?: string;
+    method?: (props: {
+      configuration: RefData;
+      search: string;
+      cursor?: any;
+    }) => Observable<Array<{
+      id: string;
+      data: () => any;
+    }>>;
   };
   /**
    * Display provided key to user and its label
@@ -248,6 +256,15 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       .pipe(distinctUntilChanged(), tap(() => this.cursor = null)), this.display$, this.loadMore$]).pipe(
         switchMap(([search]: [string, any, boolean]) => {
           search = search || '';
+
+          if (this.cData.search?.method) {
+            return this.cData.search.method({
+              configuration: this.cData,
+              search,
+              cursor: this.cursor
+            });
+          }
+
           return this.db.getDocuments(
             this.cData.collection,
             this.cData.limit,
