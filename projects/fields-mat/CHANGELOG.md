@@ -1,3 +1,11 @@
+# @jaspero/fb-fields-mat [1.14.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.4...@jaspero/fb-fields-mat@1.14.0) (2022-08-27)
+
+
+### Features
+
+* **ref:** allow for providing custom method closes [#115](https://github.com/Jaspero/schema-forms/issues/115) ([9355d20](https://github.com/Jaspero/schema-forms/commit/9355d20645560d71b1cde5844bbc909aaef7df0a))
+* **ref:** connected toggle all checkbox ([9f3dfd5](https://github.com/Jaspero/schema-forms/commit/9f3dfd5c3ead7a84e193851c44ca35442a6766f4))
+
 ## @jaspero/fb-fields-mat [1.13.4](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.13.3...@jaspero/fb-fields-mat@1.13.4) (2022-07-23)
 
 
