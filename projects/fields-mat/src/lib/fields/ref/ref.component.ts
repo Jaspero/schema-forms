@@ -160,6 +160,10 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       defulatColumns;
   }
 
+  get someComplete() {
+    return !!this.selection.selected.length;
+  }
+
   ngOnInit() {
     this.searchControl = new FormControl('');
 
@@ -388,5 +392,18 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
         this.selection.select(...documents as any);
       });
     }
+  }
+
+  setAll(completed: boolean, data) {
+
+    this.selection.clear()
+
+    if (completed) {
+      this.selection.select(...data);
+    }
+  }
+
+  allComplete(data: any[]) {
+    return this.selection.selected.length === data.length;
   }
 }

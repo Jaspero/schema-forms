@@ -6,7 +6,22 @@ import {DbService} from '../../../projects/form-builder/src/lib/services/db.serv
 @Injectable()
 export class MockDbService implements DbService {
   getDocuments(moduleId: string, pageSize?: number, sort?: { active: string; direction: string }, cursor?: any, filters?: any[]): Observable<any[]> {
-    return of([]);
+    return of([
+      {
+        id: '123',
+        data: () => ({
+          id: '123',
+          name: 'example'
+        })
+      },
+      {
+        id: '345',
+        data: () => ({
+          id: '345',
+          name: 'example 2'
+        })
+      }
+    ]);
   }
 
   getDocumentsSimple(
