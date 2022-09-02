@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.27.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.26.0...@jaspero/fb-page-builder@3.27.0) (2022-09-02)
+
+
+### Features
+
+* **page-builder:** inline editor color being remembered closes [#118](https://github.com/Jaspero/schema-forms/issues/118) ([4b2315b](https://github.com/Jaspero/schema-forms/commit/4b2315b6f55d5b6b93d42b4fbf0fa6627707a194))
+
 # @jaspero/fb-page-builder [3.26.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.25.5...@jaspero/fb-page-builder@3.26.0) (2022-07-09)
 
 
