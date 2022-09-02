@@ -306,7 +306,28 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       filteredEvents.push(
         this.mouseDown(el),
         domListener(this.renderer, el, 'click')
-          .pipe(tap(() => colorEl.click())),
+          .pipe(tap((a) => {
+            const selection = this.iFrameSelection;
+            const selectedElement = (selection.anchorNode as HTMLElement)?.parentElement as any;
+            
+            let color = selectedElement.color || selectedElement.style?.color;
+
+            if (!color) {
+              try {
+                const computed = window.getComputedStyle(selectedElement);
+
+                if (computed.color) {
+                  color = computed.color;
+                }
+              } catch (e) {}
+            }
+
+            if (color) {
+              colorEl.value = color;
+            }
+
+            colorEl.click();
+          })),
         domListener(this.renderer, colorEl, 'input')
           .pipe(
             tap((event: any) => {
