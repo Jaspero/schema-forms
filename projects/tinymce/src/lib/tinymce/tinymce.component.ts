@@ -200,6 +200,9 @@ export class TinymceComponent extends FieldComponent<TinyData>
   }
 
   private registerTiny() {
+
+    const fileTypes = ['jpeg', 'jpg', 'jpe', 'jfi', 'jif', 'jfif', 'png', 'gif', 'bmp', 'webp'];
+
     tinymce.init({
       target: this.textarea.nativeElement,
       branding: false,
@@ -239,7 +242,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
         'image youTube',
         'fullscreen',
       ].join(' | '),
-
+      images_file_types: [...fileTypes, ...fileTypes.map(it => it.toUpperCase())].join(','),
       images_upload_handler: (blobInfo: any, success: any, failure: any) => {
         let first = false;
 
