@@ -1,3 +1,10 @@
+# @jaspero/fb-tinymce [2.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.10.0...@jaspero/fb-tinymce@2.11.0) (2022-09-12)
+
+
+### Features
+
+* **tinymce:** allow both lowercase and uppercase file types when uploading images ([a4f95fc](https://github.com/Jaspero/schema-forms/commit/a4f95fccc4b039d225280c9d902318f67838aeec))
+
 # @jaspero/fb-tinymce [2.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.9.3...@jaspero/fb-tinymce@2.10.0) (2022-07-23)
 
 
