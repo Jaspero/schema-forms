@@ -20,6 +20,7 @@ interface Options {
   colorPicker?: boolean;
   remove?: boolean;
   enforceCleanPaste?: boolean;
+  link?: boolean;
 }
 
 @UntilDestroy()
@@ -51,7 +52,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     textAligns: ['left', 'center', 'right', 'justify'],
     colorPicker: true,
     remove: true,
-    enforceCleanPaste: true
+    enforceCleanPaste: true,
+    link: true
   };
   lastTarget: HTMLElement;
   options: Options;
@@ -117,7 +119,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       this.options.textDecorations,
       this.options.textAligns,
       this.options.remove,
-      this.options.colorPicker
+      this.options.colorPicker,
+      this.options.link
     );
 
     this.assignLastTarget();
@@ -179,37 +182,20 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
         )
     ];
 
-    if (this.options.enforceCleanPaste) {
+    if (this.iFrame?.contentDocument) {
       filteredEvents.push(
         domListener(
           this.renderer,
-          this.htmlEl,
-          'paste'
+          this.iFrame.contentDocument as any,
+          'selectionchange'
         )
           .pipe(
-            tap((e: ClipboardEvent) => {
-
-              e.preventDefault();
-
-              const specialCharacters = ['–', `’`];
-              const normalCharacters = ['-', `'`];
-
-              let plainText = e.clipboardData.getData('text/plain');
-              let regEx;
-
-              // Loop the array of special and normal characters
-              for (var x = 0; x < specialCharacters.length; x++) {
-                // Create a regular expression to do global replace
-                regEx = new RegExp(specialCharacters[x], 'g');
-
-                // Do the replace
-                plainText = plainText.replace(regEx, normalCharacters[x]);
-              }
-
-              (this.iFrame.contentDocument as Document).execCommand('inserttext', false, plainText);
-            })
+            filter(() => this.toolbar.visible),
+            tap(() =>
+              this.triggerSelection()
+            )
           )
-      )
+      );
     }
 
     if (this.toolbar.elements.typeSelect) {
@@ -247,23 +233,6 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     }
 
     if (this.options.textDecorations) {
-
-      if (this.iFrame?.contentDocument) {
-        filteredEvents.push(
-          domListener(
-            this.renderer,
-            this.iFrame.contentDocument as any,
-            'selectionchange'
-          )
-            .pipe(
-              filter(() => this.toolbar.visible),
-              tap(() =>
-                this.triggerSelection()
-              )
-            )
-        );
-      }
-
       this.options.textDecorations.forEach((el) => {
         const toolbarEl = this.toolbar.elements[el];
 
@@ -333,6 +302,107 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       });
     }
 
+    if (this.options.enforceCleanPaste) {
+      filteredEvents.push(
+        domListener(
+          this.renderer,
+          this.htmlEl,
+          'paste'
+        )
+          .pipe(
+            tap((e: ClipboardEvent) => {
+
+              e.preventDefault();
+
+              const specialCharacters = ['–', `’`];
+              const normalCharacters = ['-', `'`];
+
+              let plainText = e.clipboardData.getData('text/plain');
+              let regEx;
+
+              // Loop the array of special and normal characters
+              for (var x = 0; x < specialCharacters.length; x++) {
+                // Create a regular expression to do global replace
+                regEx = new RegExp(specialCharacters[x], 'g');
+
+                // Do the replace
+                plainText = plainText.replace(regEx, normalCharacters[x]);
+              }
+
+              (this.iFrame.contentDocument as Document).execCommand('inserttext', false, plainText);
+            })
+          )
+      )
+    }
+
+    if (this.options.link) {
+      const el = this.toolbar.elements.link;
+      const dialogEl = this.toolbar.elements.linkDialog;
+      const submitEl = this.toolbar.elements.linkSubmit;
+      const inputEl = this.toolbar.elements.linkInput;
+
+      let range: Range;
+      let selectedElement: HTMLElement;
+
+
+      filteredEvents.push(
+        this.mouseDown(el),
+        domListener(
+          this.renderer,
+          el,
+          'click'
+        )
+          .pipe(
+            tap(() => {
+              const selection = this.iFrameSelection;
+
+              try {
+                range = selection.getRangeAt(0).cloneRange();
+              } catch {}
+              
+              selectedElement = (selection.anchorNode as HTMLElement);
+
+              inputEl.value = (selectedElement?.parentElement as HTMLLinkElement)?.href || '';
+
+              dialogEl.classList.add('active');
+
+              setTimeout(() => {
+                inputEl.focus();
+              })
+            })
+          ),
+        domListener(
+          this.renderer,
+          submitEl,
+          'click'
+        )
+          .pipe(
+            tap(() => {
+
+              let r: Range;
+
+              if ((selectedElement?.parentElement as HTMLLinkElement)?.href) {
+                r = this.iFrame.contentDocument.createRange();
+                r.selectNode(selectedElement.parentElement);
+              } else {
+                r = range;
+              }
+
+              this.iFrameSelection.removeAllRanges();
+              this.iFrameSelection.addRange(r);
+
+              if (inputEl.value) {
+                (this.iFrame.contentDocument as Document).execCommand('createLink', false, inputEl.value);
+              } else {
+                (this.iFrame.contentDocument as Document).execCommand('unlink', false);
+              }
+
+              dialogEl.classList.remove('active');
+            })
+          )
+      );
+    }
+
     if (this.options.colorPicker) {
 
       const el = this.toolbar.elements.color;
@@ -341,7 +411,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       filteredEvents.push(
         this.mouseDown(el),
         domListener(this.renderer, el, 'click')
-          .pipe(tap((a) => {
+          .pipe(tap(() => {
             const selection = this.iFrameSelection;
             const selectedElement = (selection.anchorNode as HTMLElement)?.parentElement as any;
 
@@ -475,11 +545,17 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
   triggerSelection() {
 
+    if (!this.options.colorPicker && !this.options.link && !this.options.textDecorations?.length) {
+      return;
+    }
+
     const selection = this.iFrameSelection;
     const existing = this.options.textDecorations as string[];
     const decorations: string[] = [];
 
-    let el = (selection.anchorNode as HTMLElement)?.parentElement as HTMLElement;
+    const anchorEl = (selection.anchorNode as HTMLElement)?.parentElement as HTMLElement;
+
+    let el = anchorEl;
 
     while (el && el !== this.lastTarget) {
 
@@ -492,19 +568,34 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
       el = el.parentElement as HTMLElement;
     }
 
-    this.options.textDecorations?.forEach(dec => {
+    if (this.options.textDecorations?.length) {
+      this.options.textDecorations?.forEach(dec => {
 
-      const {classList} = this.toolbar.elements[dec];
+        const {classList} = this.toolbar.elements[dec];
+        const contains = classList.contains(this.activeCls);
+  
+        if (decorations.includes(dec)) {
+          if (!contains) {
+            classList.add(this.activeCls);
+          }
+        } else if (contains) {
+          classList.remove(this.activeCls);
+        }
+      });
+    }
+
+    if (this.options.link) {
+      const {classList} = this.toolbar.elements.link;
       const contains = classList.contains(this.activeCls);
 
-      if (decorations.includes(dec)) {
+      if ((anchorEl as HTMLLinkElement)?.href) {
         if (!contains) {
           classList.add(this.activeCls);
         }
       } else if (contains) {
         classList.remove(this.activeCls);
       }
-    });
+    }
   }
 
   update(data = this.htmlEl.innerHTML, onlySelf = false) {

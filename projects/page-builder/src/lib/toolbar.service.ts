@@ -17,6 +17,10 @@ export interface Toolbar {
     justify?: HTMLButtonElement;
     right?: HTMLButtonElement;
     remove?: HTMLButtonElement;
+    link?: HTMLButtonElement;
+    linkDialog: HTMLDivElement;
+    linkSubmit?: HTMLButtonElement;
+    linkInput?: HTMLInputElement;
     color?: HTMLButtonElement;
     colorPicker?: HTMLInputElement;
   };
@@ -47,7 +51,8 @@ export class ToolbarService {
     textDecorations?: string[],
     textAligns?: string[],
     remove?: boolean,
-    colorPicker?: boolean
+    colorPicker?: boolean,
+    link?: boolean
   ): Toolbar {
     const toolbar = document.createElement('div');
     const id = this.uniqueId.next();
@@ -126,6 +131,7 @@ export class ToolbarService {
         for (const key in textDecorationMap[decoration].style) {
           if (el.style.hasOwnProperty(key)) {
             el.style[key] = textDecorationMap[decoration].style[key];
+            el.setAttribute('title', `Toggle ${el.style[key]}`);
           }
         }
 
@@ -151,6 +157,7 @@ export class ToolbarService {
 
       textAligns.forEach(align => {
         const el = iconButton(textAlignsMap[align]);
+        el.setAttribute('title', `Align ${align}`);
         wrapperEl.appendChild(el);
         elements[align] = el;
       });
@@ -158,8 +165,61 @@ export class ToolbarService {
       toolbar.appendChild(wrapperEl);
     }
 
+    if (link) {
+      const wrapperEl = document.createElement('div');
+
+      wrapperEl.classList.add('pb-t-w');
+      wrapperEl.setAttribute('title', 'Toggle link');
+
+      const el = iconButton(
+        `<path d="M11 17H7q-2.075 0-3.537-1.463Q2 14.075 2 12t1.463-3.538Q4.925 7 7 7h4v2H7q-1.25 0-2.125.875T4 12q0 1.25.875 2.125T7 15h4Zm-3-4v-2h8v2Zm5 4v-2h4q1.25 0 2.125-.875T20 12q0-1.25-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.462Q22 9.925 22 12q0 2.075-1.462 3.537Q19.075 17 17 17Z"/>`
+      );
+
+      const dialogEl = document.createElement('div');
+      dialogEl.classList.add('pb-t-dialog');
+
+      const dialgoOverlayEl = document.createElement('div');
+      dialgoOverlayEl.classList.add('pb-t-dialog-overlay');
+
+      dialgoOverlayEl.addEventListener('click', () =>
+        dialogEl.classList.remove('active'),
+        {passive: true}
+      );
+
+      dialogEl.appendChild(dialgoOverlayEl);
+
+      const dialogInnerEl = document.createElement('div');
+      dialogInnerEl.classList.add('pb-t-dialog-inner');
+
+      const linkInputEl = document.createElement('input');
+      linkInputEl.placeholder = 'URL';
+      linkInputEl.type = 'url';
+
+      dialogInnerEl.appendChild(linkInputEl);
+
+      const dialogSubmitButtonEl = document.createElement('button');
+      dialogSubmitButtonEl.innerText = 'Submit';
+
+      dialogInnerEl.appendChild(dialogSubmitButtonEl);
+
+      dialogEl.appendChild(dialogInnerEl);
+
+      wrapperEl.appendChild(el);
+      toolbar.appendChild(wrapperEl);
+      toolbar.appendChild(dialogEl);
+
+      elements.link = el;
+      elements.linkDialog = dialogEl;
+      elements.linkSubmit = dialogSubmitButtonEl;
+      elements.linkInput = linkInputEl;
+    }
+
     if (colorPicker) {
       const wrapperEl = document.createElement('div');
+
+      wrapperEl.classList.add('pb-t-w');
+      wrapperEl.setAttribute('title', 'Change text color');
+
       const el = iconButton(
         `<g><rect fill="none" height="24" width="24"/></g><g><path d="M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"/></g>`
       );
@@ -183,6 +243,10 @@ export class ToolbarService {
     if (remove) {
 
       const wrapperEl = document.createElement('div');
+
+      wrapperEl.classList.add('pb-t-w');
+      wrapperEl.setAttribute('title', 'Remove element');
+
       const el = iconButton(
         '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/>',
         '#f44336'
