@@ -19,6 +19,7 @@ interface Options {
   multiline?: boolean;
   colorPicker?: boolean;
   remove?: boolean;
+  enforceCleanPaste?: boolean;
 }
 
 @UntilDestroy()
@@ -49,7 +50,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
     textDecorations: ['b', 'i', 'u'],
     textAligns: ['left', 'center', 'right', 'justify'],
     colorPicker: true,
-    remove: true
+    remove: true,
+    enforceCleanPaste: true
   };
   lastTarget: HTMLElement;
   options: Options;
@@ -88,7 +90,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
   }
 
   get iFrameSelection() {
-      return this.iFrame.contentWindow.getSelection() as Selection;
+    return this.iFrame.contentWindow.getSelection() as Selection;
   }
 
   async ngAfterViewInit() {
@@ -176,6 +178,39 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
           })
         )
     ];
+
+    if (this.options.enforceCleanPaste) {
+      filteredEvents.push(
+        domListener(
+          this.renderer,
+          this.htmlEl,
+          'paste'
+        )
+          .pipe(
+            tap((e: ClipboardEvent) => {
+
+              e.preventDefault();
+
+              const specialCharacters = ['–', `’`];
+              const normalCharacters = ['-', `'`];
+
+              let plainText = e.clipboardData.getData('text/plain');
+              let regEx;
+
+              // Loop the array of special and normal characters
+              for (var x = 0; x < specialCharacters.length; x++) {
+                // Create a regular expression to do global replace
+                regEx = new RegExp(specialCharacters[x], 'g');
+
+                // Do the replace
+                plainText = plainText.replace(regEx, normalCharacters[x]);
+              }
+
+              (this.iFrame.contentDocument as Document).execCommand('inserttext', false, plainText);
+            })
+          )
+      )
+    }
 
     if (this.toolbar.elements.typeSelect) {
       filteredEvents.push(
@@ -309,7 +344,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
           .pipe(tap((a) => {
             const selection = this.iFrameSelection;
             const selectedElement = (selection.anchorNode as HTMLElement)?.parentElement as any;
-            
+
             let color = selectedElement.color || selectedElement.style?.color;
 
             if (!color) {
@@ -319,7 +354,7 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
                 if (computed.color) {
                   color = computed.color;
                 }
-              } catch (e) {}
+              } catch (e) { }
             }
 
             if (color) {
