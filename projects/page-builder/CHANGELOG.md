@@ -1,3 +1,11 @@
+# @jaspero/fb-page-builder [3.28.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.27.0...@jaspero/fb-page-builder@3.28.0) (2022-09-14)
+
+
+### Features
+
+* **page-builder:** added enforceCleanPaste option to SingleLineIE closes [#121](https://github.com/Jaspero/schema-forms/issues/121) ([9a3eafa](https://github.com/Jaspero/schema-forms/commit/9a3eafaf30e05a4bf2e583ee3aff60a462f8df62))
+* **page-builder:** added link option closes [#122](https://github.com/Jaspero/schema-forms/issues/122) ([1c89b88](https://github.com/Jaspero/schema-forms/commit/1c89b88fef45e51dd77629c8001985069803a45c))
+
 # @jaspero/fb-page-builder [3.27.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.26.0...@jaspero/fb-page-builder@3.27.0) (2022-09-02)
 
 
