@@ -7,7 +7,7 @@
         <div *ngIf="input.focus()"></div>
         <div class="p-x-m p-t-s search-field">
           <mat-form-field class="w-full">
-            <mat-label>{{ 'fbFieldsMat.REF.SEARCH_BY' | transloco }} {{ cData.search.label }}</mat-label>
+            <mat-label>{{ 'fbFieldsMat.REF.SEARCH_BY' | transloco }} {{ cData.search.label | transloco }}</mat-label>
             <input matInput [formControl]="searchControl" #input autocomplete="off" />
             <button mat-icon-button matSuffix>
               <mat-icon *ngIf="searchControl.value" (jpStopPropagation)="searchControl.reset()">close</mat-icon>
