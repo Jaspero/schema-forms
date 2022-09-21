@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.14.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.14.1...@jaspero/fb-fields-mat@1.14.2) (2022-09-21)
+
+
+### Bug Fixes
+
+* **fields-mat:** missing translation on search label ([669ac7b](https://github.com/Jaspero/schema-forms/commit/669ac7b2f6ed44130ccfc76a245ebacd725e32d8))
+
 ## @jaspero/fb-fields-mat [1.14.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.14.0...@jaspero/fb-fields-mat@1.14.1) (2022-08-27)
 
 
