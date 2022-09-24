@@ -314,8 +314,8 @@ export class SingleLineIEDirective implements AfterViewInit, OnDestroy {
 
               e.preventDefault();
 
-              const specialCharacters = ['–', `’`];
-              const normalCharacters = ['-', `'`];
+              const specialCharacters = ['–', `’`, `&#8232;`];
+              const normalCharacters = ['-', `'`, ' '];
 
               let plainText = e.clipboardData.getData('text/plain');
               let regEx;
