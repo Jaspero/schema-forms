@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.29.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.28.0...@jaspero/fb-page-builder@3.29.0) (2022-09-24)
+
+
+### Features
+
+* **page-builder:** added lsep replacement for inline editor ([9c88ef2](https://github.com/Jaspero/schema-forms/commit/9c88ef2ab228079c52aaafc725292b9b9fc5cb52))
+
 # @jaspero/fb-page-builder [3.28.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.27.0...@jaspero/fb-page-builder@3.28.0) (2022-09-14)
 
 
