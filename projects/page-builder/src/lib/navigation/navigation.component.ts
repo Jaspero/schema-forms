@@ -151,7 +151,7 @@ export class NavigationComponent {
 
         const addButton = {
           ...child,
-          name: this.transloco.translate('PB.ADD') + ' ' + this.parseTitle(child.title) || child.label,
+          name: this.transloco.translate('fbPb.ADD') + ' ' + this.parseTitle(child.title) || child.label,
           button: true,
           icon: 'add_circle_outline',
           class: 'navigation-button',

@@ -495,7 +495,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
       value: block.value,
       form: block.form,
       nested: block.nested,
-      label: block.name || this.selection[block.type]?.label || this.transloco.translate('PB.SEGMENT'),
+      label: block.name || this.selection[block.type]?.label || this.transloco.translate('fbPb.SEGMENT'),
       icon: block.icon
     };
 
