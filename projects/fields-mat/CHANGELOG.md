@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.14.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.14.2...@jaspero/fb-fields-mat@1.14.3) (2022-10-06)
+
+
+### Bug Fixes
+
+* **fields-mat:** breaking if search property is undefined ([bf806b4](https://github.com/Jaspero/schema-forms/commit/bf806b4ab2f630453c1c9b2e2aaa65562cb6e45f))
+
 ## @jaspero/fb-fields-mat [1.14.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.14.1...@jaspero/fb-fields-mat@1.14.2) (2022-09-21)
 
 
