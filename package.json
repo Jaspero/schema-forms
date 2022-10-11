@@ -97,6 +97,7 @@
     "projects/*"
   ],
   "deps": {
-		"bump": "satisfy"
+		"bump": "satisfy",
+    "prefix": "^"
 	}
 }
