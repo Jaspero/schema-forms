@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.9.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.9.0...@jaspero/form-builder@5.9.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* **form-builder:** dependencies ([5f487cb](https://github.com/Jaspero/schema-forms/commit/5f487cbf70da9d35cf22cf37738e2563c03776bb))
+
 # @jaspero/form-builder [5.9.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.8.2...@jaspero/form-builder@5.9.0) (2022-10-11)
 
 
