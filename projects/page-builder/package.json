@@ -18,7 +18,7 @@
     }
   ],
   "peerDependencies": {
-    "@jaspero/form-builder": "5.9.0",
+    "@jaspero/form-builder": "^5.0.0",
     "@ngneat/until-destroy": "^8.0.0"
   },
   "dependencies": {
