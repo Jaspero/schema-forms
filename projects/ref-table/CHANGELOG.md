@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.5.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.4.0...@jaspero/fb-ref-table@2.5.0) (2022-10-11)
+
+
+### Features
+
+* update to v14 ([c20ad93](https://github.com/Jaspero/schema-forms/commit/c20ad931489c2120a229deca5949795cd12ef840))
+
 # @jaspero/fb-ref-table [2.4.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.3.1...@jaspero/fb-ref-table@2.4.0) (2022-02-11)
 
 
