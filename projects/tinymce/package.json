@@ -18,7 +18,7 @@
     }
   ],
   "peerDependencies": {
-    "@jaspero/form-builder": "5.8.2",
+    "@jaspero/form-builder": "^5.8.2",
     "tinymce": "^5.4.2"
   },
   "release": {

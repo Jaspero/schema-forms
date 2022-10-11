@@ -3,8 +3,8 @@
   "version": "2.1.0",
   "description": "Code editor plugin for @jaspero/form-builder",
   "peerDependencies": {
-    "@angular/common": "^13.0.0",
-    "@angular/core": "^13.0.0",
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
     "@jaspero/form-builder": "5.8.2",
     "@monaco-editor/loader": "*",
     "monaco-editor": "*"
