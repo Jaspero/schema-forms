@@ -96,8 +96,10 @@
   "workspaces": [
     "projects/*"
   ],
-  "deps": {
-		"bump": "satisfy",
-    "prefix": "^"
-	}
+  "multi-release": {
+    "deps": {
+      "bump": "satisfy",
+      "prefix": "^"
+    }
+  }
 }
