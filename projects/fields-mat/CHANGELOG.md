@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.15.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.15.2...@jaspero/fb-fields-mat@1.15.3) (2022-10-11)
+
+
+### Bug Fixes
+
+* dependency adjustments ([a33a411](https://github.com/Jaspero/schema-forms/commit/a33a411da283bc50dc0ee6696e89efc898a7946e))
+
 ## @jaspero/fb-fields-mat [1.15.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.15.1...@jaspero/fb-fields-mat@1.15.2) (2022-10-11)
 
 
