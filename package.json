@@ -97,6 +97,6 @@
     "projects/*"
   ],
   "deps": {
-		"bump": "inherit"
+		"bump": "satisfy"
 	}
 }
