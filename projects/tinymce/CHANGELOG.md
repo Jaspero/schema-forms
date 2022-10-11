@@ -1,3 +1,10 @@
+## @jaspero/fb-tinymce [2.12.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.12.1...@jaspero/fb-tinymce@2.12.2) (2022-10-11)
+
+
+### Bug Fixes
+
+* dependency adjustments ([a33a411](https://github.com/Jaspero/schema-forms/commit/a33a411da283bc50dc0ee6696e89efc898a7946e))
+
 ## @jaspero/fb-tinymce [2.12.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.12.0...@jaspero/fb-tinymce@2.12.1) (2022-10-11)
 
 
