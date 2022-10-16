@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.16.0...@jaspero/fb-fields-mat@1.16.1) (2022-10-16)
+
+
+### Bug Fixes
+
+* **fields-mat:** properly forwarding fallback in ref component ([77fa8b3](https://github.com/Jaspero/schema-forms/commit/77fa8b39ecefcda1de3a7ea53cd4961158b6f95c))
+
 # @jaspero/fb-fields-mat [1.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.15.6...@jaspero/fb-fields-mat@1.16.0) (2022-10-16)
 
 
