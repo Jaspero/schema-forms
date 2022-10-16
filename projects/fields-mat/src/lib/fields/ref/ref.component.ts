@@ -70,6 +70,11 @@ export interface RefConfiguration {
    */
   display: {
     key?: string;
+    /**
+     * If defined fallbacks are tried
+     * if the key doesn't produce a value
+     */
+    fallbacks?: string[];
     label?: string;
   };
   /**
@@ -214,28 +219,50 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
           return of('');
         }
 
-        return this.cData.multiple ?
-          value.length ? combineLatest(value.map(document => {
-            return this.db.getDocument(this.cData.collection, document).pipe(
-              map((data) => {
-                if (!data || String(Object.keys(data || {})) === 'id') {
-                  return value;
-                }
+        if (this.cData.multiple) {
+          return value.length ?
+            combineLatest(value.map(document => 
+              this.db.getDocument(this.cData.collection, document).pipe(
+                map((data) => {
+                  if (!data || String(Object.keys(data || {})) === 'id') {
+                    return value;
+                  }
 
-                return data[this.cData.display.key.slice(1)] || '';
-              })
-            );
-          })) : of('')
-          : this.db.getDocument(this.cData.collection, value as any).pipe(
-            map((data) => {
+                  return data[this.cData.display.key.slice(1)] || '';
+                })
+              )  
+            )) :
+            of('')
+        }
+
+        return this.db.getDocument(this.cData.collection, value as any)
+          .pipe(
+            map(data => {
 
               if (!data || String(Object.keys(data || {})) === 'id') {
                 return value;
               }
 
-              return data[this.cData.display.key.slice(1)] || '';
+              const {key, fallbacks} = this.cData.display;
+              const kSlice = key.slice(1);
+
+              if (data[kSlice]) {
+                return data[kSlice];
+              }
+
+              if (fallbacks?.length) {
+                for (const fallback of fallbacks) {
+                  const slice = fallback.slice(1);
+
+                  if (data[slice]) {
+                    return data[slice];
+                  }
+                }
+              }
+
+              return '';
             })
-          );
+          )
       }),
       tap(display => {
         if (this.cleared) {
