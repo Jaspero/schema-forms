@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.16.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.15.6...@jaspero/fb-fields-mat@1.16.0) (2022-10-16)
+
+
+### Features
+
+* **fields-mat:** added fallbacks option for ref component ([9bf12d7](https://github.com/Jaspero/schema-forms/commit/9bf12d768284793763039e713567e02b67e945be))
+
 ## @jaspero/fb-fields-mat [1.15.6](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.15.5...@jaspero/fb-fields-mat@1.15.6) (2022-10-11)
 
 
