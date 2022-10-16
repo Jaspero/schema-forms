@@ -188,7 +188,10 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
       limit: Math.abs(this.cData.limit || 4),
       display: {
         key: this.cData.display?.key || '/name',
-        label: this.cData.display?.label || 'Name'
+        label: this.cData.display?.label || 'Name',
+        ...this.cData.display?.fallbacks && {
+          fallbacks: this.cData.display.fallbacks
+        }
       },
       search: {
         key: this.cData.search?.key || '/name',
