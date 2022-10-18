@@ -1,3 +1,10 @@
+# @jaspero/fb-page-builder [3.30.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.29.9...@jaspero/fb-page-builder@3.30.0) (2022-10-18)
+
+
+### Features
+
+* **page-builder:** using tinymce for inline editor ([a3fac4d](https://github.com/Jaspero/schema-forms/commit/a3fac4d1530c5b8c50401c8fe1699d5110543760))
+
 ## @jaspero/fb-page-builder [3.29.9](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.29.8...@jaspero/fb-page-builder@3.29.9) (2022-10-11)
 
 
