@@ -173,8 +173,12 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     return this.view === 'fullscreen';
   }
 
+  get iFrame() {
+    return this.iframeEl.nativeElement as HTMLIFrameElement;
+  }
+
   get iFrameDoc() {
-    return (this.iframeEl.nativeElement.contentDocument || this.iframeEl.nativeElement.contentWindow) as Document;
+    return (this.iFrame.contentDocument || this.iFrame.contentWindow) as Document;
   }
 
   get module() {
@@ -596,6 +600,15 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
     this.cdr.detectChanges();
 
+    /**
+     * Set the iframe to standrs mode
+     */
+    const content = `<!DOCTYPE html><html><head></head><body></body></html>`;
+
+    this.iFrame.contentWindow.document.open('text/htmlreplace');
+    this.iFrame.contentWindow.document.write(content);
+    this.iFrame.contentWindow.document.close();
+
     this.preview();
 
     if (this.cData.styleUrls) {
@@ -759,6 +772,6 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
 
   private compileBlockHtml(component, removeWrapper: boolean) {
     return (removeWrapper ? component.innerHTML : component.outerHTML)
-      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*?"")|(ng-version=".*?")|(_ngcontent.*?"")|(ng-reflect-entry-options="\[object Object\]")|(ng-star-inserted)|(contenteditable="")/g, '');
+      .replace(/(\x3C!--bindings={(\n|.)*?}-->)|(_nghost.*?"")|(ng-version=".*?")|(_ngcontent.*?"")|(ng-reflect-entry-options="\[object Object\]")|(ng-star-inserted)|(contenteditable=".*?")|(spellcheck="false")|(data-mce-style=".*?")|(data-mce-bogus=".*?")|(id="mce_*.?")|(mce-content-body)/g, '');
   }
 }
