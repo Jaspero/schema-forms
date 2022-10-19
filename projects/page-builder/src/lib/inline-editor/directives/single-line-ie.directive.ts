@@ -107,11 +107,11 @@ export class SingleLineIEDirective implements OnInit {
           ],
           toolbar: this.options.toolbar,
           setup: (editor: any) => {
-            editor.on('keyup change', () =>
+            editor.on('blur', () => {
               this.zone.run(() =>
-                this.control.setValue(editor.getContent(), {onlySelf: true})
+                this.control.setValue(editor.getContent())
               )
-            );
+            });
           }
         })
           .catch()
