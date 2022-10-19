@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.30.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.0...@jaspero/fb-page-builder@3.30.1) (2022-10-19)
+
+
+### Bug Fixes
+
+* **page-builder:** only sending inline editor events on bluer ([ae37fe6](https://github.com/Jaspero/schema-forms/commit/ae37fe6c9273c05e1997b377efc55259c7da3310))
+
 # @jaspero/fb-page-builder [3.30.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.29.9...@jaspero/fb-page-builder@3.30.0) (2022-10-18)
 
 
