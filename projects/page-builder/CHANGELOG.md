@@ -1,3 +1,10 @@
+## @jaspero/fb-page-builder [3.30.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.1...@jaspero/fb-page-builder@3.30.2) (2022-10-20)
+
+
+### Bug Fixes
+
+* **page-builder:** single line edit working with array ([2f91f0f](https://github.com/Jaspero/schema-forms/commit/2f91f0f301b640c63f594bee18fb013a727310c0))
+
 ## @jaspero/fb-page-builder [3.30.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.0...@jaspero/fb-page-builder@3.30.1) (2022-10-19)
 
 
