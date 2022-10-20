@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, NgZone, OnInit, Optional, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, Input, NgZone, OnDestroy, OnInit, Optional, ViewEncapsulation} from '@angular/core';
 import {FormBuilderContextService, Parser} from '@jaspero/form-builder';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {Toolbar, ToolbarService} from '../../toolbar.service';
@@ -22,7 +22,7 @@ interface Options {
   encapsulation: ViewEncapsulation.None
 })
 // tslint:disable-next-line:component-class-suffix
-export class SingleLineIEDirective implements OnInit {
+export class SingleLineIEDirective implements OnInit, OnDestroy {
   constructor(
     private el: ElementRef,
     @Optional()
@@ -61,6 +61,10 @@ export class SingleLineIEDirective implements OnInit {
   }
 
   get index() {
+    if (!this.host) {
+      return 0;
+    }
+    
     return [...this.host.parentElement?.children || []].indexOf(this.host);
   }
 
@@ -74,8 +78,10 @@ export class SingleLineIEDirective implements OnInit {
     );
   }
 
-  ngOnInit() {
+  _editor: any;
+  _tiny: any;
 
+  ngOnInit() {
     if (!this.toolbarService) {
       return;
     }
@@ -93,8 +99,11 @@ export class SingleLineIEDirective implements OnInit {
     }
 
     tinyInstance(this.iFrame)
-      .subscribe(value =>
-        value.init({
+      .subscribe(value => {
+
+        this._tiny = value;
+
+        return  value.init({
           target: this.htmlEl,
           menubar: false,
           inline: true,
@@ -107,6 +116,9 @@ export class SingleLineIEDirective implements OnInit {
           ],
           toolbar: this.options.toolbar,
           setup: (editor: any) => {
+
+            this._editor = editor;
+
             editor.on('blur', () => {
               this.zone.run(() =>
                 this.control.setValue(editor.getContent())
@@ -115,6 +127,14 @@ export class SingleLineIEDirective implements OnInit {
           }
         })
           .catch()
-      );
+      });
+  }
+
+  ngOnDestroy() {
+    if (this._tiny && this._editor) {
+      try {
+        this._tiny.remove(this._editor);
+      } catch {}
+    }
   }
 }

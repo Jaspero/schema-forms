@@ -2,81 +2,110 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Block, BlockData, BlockDataOptions} from '@jaspero/page-builder';
 import {COMMON_OPTIONS} from '../../common-options.const';
 
-interface Data extends BlockDataOptions {
-  slideTitle?: string;
-  slides: Array<{
-    title?: string;
-    image?: string;
-  }>;
+interface Cards {
+  title?: string;
+  description?: string;
+  image?: string;
+  link?: string;
+  imageAlt?: string;
 }
+
+interface Data extends BlockDataOptions {
+  cards: Cards[];
+}
+
 
 @Block({
   label: 'Cards',
   icon: 'linear_scale',
   previewValue: {
-    title: `<h2>THAT'S NOT ALL</h2>`,
-    slideTitle: `<h3>WHAT'S HOT</h3>`,
+    background: 'bg-p',
+    cards: [
+      {
+        title: `<h2>THE BIOVIVA PLATFORM</h2>`,
+        description: `<p style="text-align:center;">Our gene therapy development platform at <b>Rutgers University</b> assists in the development of new therapeutic designed to regenerate your cells and ward off the degeneration of aging itself.<br><br></p>`,
+        image: '/assets/images/card-img.svg',
+        link: 'LEARN MORE',
+        linkHref: '/why-bioviva',
+        imageAlt: '',
+      },
+      {
+        title: `<h2>THE SCIENCE OF AGING</h2>`,
+        description: `<p style="text-align:center;">Aging is the largest unmet medical need in the world. Right now 15% of Americans are 65 or older. That number is expected to balloon to over 20% by 2050. This is not economically sustainable.<br>Aging is the greatest humanitarian crisis of our time because the aging cell is the leading risk factor for serious pathology. BioViva is why we target that process to combat disease.&nbsp;<br>From Alzheimer's to cancer, Chronic Kidney Disease, Parkinson's, diabetes, sarcopenia (age-related muscle loss), arthritis, and more, aging is the root cause of the most serious health problems we're facing today. BioViva's mission is to attack aging with gene therapy.<br><br></p>`,
+        image: '/assets/images/card-img-2.svg',
+        link: 'LEARN MORE',
+        linkHref: '/aging',
+        imageAlt: ''
+      }
+    ],
     ...COMMON_OPTIONS.defaults
   },
   form: {
     segments: [
       {
-        title: (index: number) => index === undefined ? 'Slide' : `Slide ${index + 1}`,
-        array: '/slides',
-        fields: ['/image', '/title'],
-        nestedSegments: [{
-          title: 'Nested Slides',
-          array: '/nSlides',
-          fields: [
-            '/title'
-          ]
-        }]
+        type: 'empty',
+        title: 'Segment Options',
+        icon: 'tune',
+        fields: [
+          '/background'
+        ]
       },
       {
-        title: 'Appearance',
-        icon: 'tune',
-        fields: ['/slideTitle', '/longImage']
+        title: (index: number) => index === undefined ? 'Card' : `Card ${index + 1}`,
+        array: '/cards',
+        fields: [
+          '/image',
+          '/link',
+          '/linkHref',
+          '/imageAlt',
+        ]
       },
       ...COMMON_OPTIONS.segment
     ],
     schema: {
       properties: {
-        longImage: {type: 'boolean'},
-        title: {type: 'string'},
-        slideTitle: {type: 'string'},
-        slides: {
+        cards: {
           type: 'array',
           items: {
             type: 'object',
             properties: {
-              title: {type: 'string'},
-              image: {type: 'string'},
-              nSlides: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    title: {type: 'string'}
-                  }
-                }
-              }
+              image: {type: 'string', default: '/assets/images/card-img.svg'},
+              title: {type: 'string', default: '<h2>THE BIOVIVA PLATFORM</h2>'},
+              description: {type: 'string', default: `<p style="text-align:center;">Our gene therapy development platform at <b>Rutgers University</b> assists in the development of new therapeutic designed to regenerate your cells and ward off the degeneration of aging itself.<br><br></p>`},
+              link: {type: 'string', default: 'LEARN MORE'},
+              linkHref: {type: 'string', default: '/aging'},
+              imageAlt: {type: 'string', default: ''}
             }
           }
         },
+        background: {type: 'string'},
         ...COMMON_OPTIONS.properties
       }
     },
     definitions: {
-      longImage: {label: 'Long Image'},
-      'slides/title': {label: 'Title'},
-      'slides/image': {
+      ...COMMON_OPTIONS.definitions,
+      'cards/image': {
         label: 'Image',
         component: {
           type: 'image',
         }
       },
-      'slides/nSlides/title': {label: 'Title'},
-      ...COMMON_OPTIONS.definitions
+      'cards/link': {label: 'Link name'},
+      'cards/linkHref': {label: 'Link path to page with (/url)'},
+      'cards/imageAlt': {label: 'Audio description about image'},
+      background: {
+        label: 'Background',
+        component: {
+          type: 'select',
+          configuration: {
+            dataSet: [
+              {name: 'Primary', value: 'bg-p'},
+              {name: 'Seconday', value: 'bg-s'},
+              {name: 'Tertiary', value: 'bg-t'}
+            ]
+          }
+        }
+      },
     }
   }
 })

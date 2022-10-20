@@ -1,11 +1,18 @@
-<div class="cards">
-  <div *ngIf="data.slideTitle" [fbPbSingleLineIE]="{pointer: '/slideTitle'}" [innerHTML]="data.slideTitle | jpSanitize"></div>
-  <div class="card" *ngFor="let card of data.slides; index as index;">
-    <div *ngIf="card.image">
-      <img [imgPreview]="card.image">
+<section class="cards" [ngClass]="data.background">
+  <div class="grid">
+    <div class="col-5 card-container" *ngFor="let item of (data.cards || []); index as index;">
+     <div class="card">
+        <div *ngIf="item.image" class="image-wrapper">
+          <img [src]="item.image" [alt]="item.imageAlt" class="card-image">
+        </div>
+        <div *ngIf="item.title" [fbPbSingleLineIE]="{pointer: '/title', array: '/cards', index: index}" [innerHTML]="item.title | jpSanitize" class="title"></div>
+        <div *ngIf="item.description" [fbPbSingleLineIE]="{pointer: '/description', array: '/cards', index: index}" [innerHTML]="item.description | jpSanitize" class="description"></div>
+        <div class="button-container" *ngIf="item.linkHref">
+          <a [href]="item.linkHref" class="btn">
+            {{item.link}}
+          </a>
+        </div>
+     </div>
     </div>
-    <div *ngIf="card.title" [innerHTML]="card.title | jpSanitize"></div>
   </div>
-</div>
-
-<sc-test-pero>Cool</sc-test-pero>
+</section>
