@@ -1,3 +1,10 @@
+## @jaspero/fb-ref-table [2.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.6.0...@jaspero/fb-ref-table@2.6.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* building in partial ivy mode ([33edd0c](https://github.com/Jaspero/schema-forms/commit/33edd0c2d130feae4a1731068c8fa3eb6cc0c2cf))
+
 # @jaspero/fb-ref-table [2.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.5.0...@jaspero/fb-ref-table@2.6.0) (2023-01-09)
 
 

@@ -1,3 +1,25 @@
+# @jaspero/fb-page-builder [3.31.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.2...@jaspero/fb-page-builder@3.31.0) (2023-01-09)
+
+
+### Bug Fixes
+
+* building in partial ivy mode ([33edd0c](https://github.com/Jaspero/schema-forms/commit/33edd0c2d130feae4a1731068c8fa3eb6cc0c2cf))
+
+
+### Features
+
+* fixes for angular v15 ([8d6552d](https://github.com/Jaspero/schema-forms/commit/8d6552d7bfb46a1a24a358308e6927a53651554e))
+* update to angular v15 ([ec167db](https://github.com/Jaspero/schema-forms/commit/ec167dbd8de65d90444fc818f19e7b13b3f1b8fe))
+* updated to v14 ([eb6b5e4](https://github.com/Jaspero/schema-forms/commit/eb6b5e4cef767663894e4b885bbaefc3b517ffa5))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.10.0
+
 ## @jaspero/fb-page-builder [3.30.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.1...@jaspero/fb-page-builder@3.30.2) (2022-10-20)
 
 
