@@ -1,6 +1,6 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MatLegacyCheckboxChange as MatCheckboxChange} from '@angular/material/legacy-checkbox';
 import {FieldComponent, FieldData, Option} from '@jaspero/form-builder';
 
 interface DragOptions extends Option {

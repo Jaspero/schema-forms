@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import {FieldComponent, FieldData, HSD, getHsd} from '@jaspero/form-builder';
 import {Observable} from 'rxjs';
 

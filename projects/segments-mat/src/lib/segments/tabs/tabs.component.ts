@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatTabChangeEvent} from '@angular/material/tabs';
+import {MatLegacyTabChangeEvent as MatTabChangeEvent} from '@angular/material/legacy-tabs';
 import {
   CompiledSegment,
   filterAndCompileSegments,

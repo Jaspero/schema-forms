@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {TranslocoService} from '@ngneat/transloco';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef} from '@angular/material/legacy-dialog';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 interface ParentNode {

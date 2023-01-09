@@ -1,7 +1,7 @@
 import {A11yModule} from '@angular/cdk/a11y';
 import {CommonModule} from '@angular/common';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
 import {SanitizeModule} from '@jaspero/ng-helpers';
 import {ImgPreviewModule, InlineEditorModule} from '@jaspero/page-builder';
 import {TestContentComponent} from '../test-content/test-content.component';
