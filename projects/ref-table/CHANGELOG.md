@@ -1,3 +1,10 @@
+## @jaspero/fb-ref-table [2.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.6.1...@jaspero/fb-ref-table@2.6.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* using legacy material components ([6600793](https://github.com/Jaspero/schema-forms/commit/66007937cce976eee0ae9f67d8b06e05859e5203))
+
 ## @jaspero/fb-ref-table [2.6.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.6.0...@jaspero/fb-ref-table@2.6.1) (2023-01-09)
 
 
