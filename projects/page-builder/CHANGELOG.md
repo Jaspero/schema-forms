@@ -1,3 +1,18 @@
+## @jaspero/fb-page-builder [3.31.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.31.0...@jaspero/fb-page-builder@3.31.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* using legacy material components ([6600793](https://github.com/Jaspero/schema-forms/commit/66007937cce976eee0ae9f67d8b06e05859e5203))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.10.1
+
 # @jaspero/fb-page-builder [3.31.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.30.2...@jaspero/fb-page-builder@3.31.0) (2023-01-09)
 
 

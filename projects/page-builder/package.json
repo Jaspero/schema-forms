@@ -1,7 +1,7 @@
 {
   "name": "@jaspero/fb-page-builder",
   "description": "Page builder plugin for @jaspero/form-builder",
-  "version": "3.31.0",
+  "version": "3.31.1",
   "author": {
     "name": "Jaspero Ltd",
     "email": "info@jaspero.co"
@@ -18,7 +18,7 @@
     }
   ],
   "peerDependencies": {
-    "@jaspero/form-builder": "^5.10.0",
+    "@jaspero/form-builder": "^5.10.1",
     "@ngneat/until-destroy": "*"
   },
   "dependencies": {
