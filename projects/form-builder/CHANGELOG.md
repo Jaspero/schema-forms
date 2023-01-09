@@ -1,3 +1,10 @@
+## @jaspero/form-builder [5.10.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.10.0...@jaspero/form-builder@5.10.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* using legacy material components ([6600793](https://github.com/Jaspero/schema-forms/commit/66007937cce976eee0ae9f67d8b06e05859e5203))
+
 # @jaspero/form-builder [5.10.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.9.1...@jaspero/form-builder@5.10.0) (2023-01-09)
 
 
