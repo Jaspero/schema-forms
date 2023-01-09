@@ -1,3 +1,19 @@
+## @jaspero/fb-form-ui [2.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.8.0...@jaspero/fb-form-ui@2.8.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* using legacy material components ([6600793](https://github.com/Jaspero/schema-forms/commit/66007937cce976eee0ae9f67d8b06e05859e5203))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.10.1
+* **@jaspero/fb-tinymce:** upgraded to 2.13.1
+
 # @jaspero/fb-form-ui [2.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-form-ui@2.7.15...@jaspero/fb-form-ui@2.8.0) (2023-01-09)
 
 
