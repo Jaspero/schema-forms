@@ -1,3 +1,25 @@
+# @jaspero/fb-fields-mat [1.17.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.16.1...@jaspero/fb-fields-mat@1.17.0) (2023-01-09)
+
+
+### Bug Fixes
+
+* image component snackbar ([f3a3257](https://github.com/Jaspero/schema-forms/commit/f3a325743eea9b89ffb45d05de81ff271f2d6167))
+
+
+### Features
+
+* fixes for angular v15 ([8d6552d](https://github.com/Jaspero/schema-forms/commit/8d6552d7bfb46a1a24a358308e6927a53651554e))
+* update to angular v15 ([ec167db](https://github.com/Jaspero/schema-forms/commit/ec167dbd8de65d90444fc818f19e7b13b3f1b8fe))
+* updated to v14 ([eb6b5e4](https://github.com/Jaspero/schema-forms/commit/eb6b5e4cef767663894e4b885bbaefc3b517ffa5))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.10.0
+
 ## @jaspero/fb-fields-mat [1.16.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.16.0...@jaspero/fb-fields-mat@1.16.1) (2022-10-16)
 
 
