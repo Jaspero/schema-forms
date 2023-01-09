@@ -1,6 +1,6 @@
 import {formatDate} from '@angular/common';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {cloneAbstractControl, COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
 import {merge, Subscription} from 'rxjs';
@@ -35,11 +35,11 @@ export class DateFieldComponent extends FieldComponent<DateData>
     super(cData);
   }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   startDate: Date;
-  entryControl: FormControl;
-  hoursControl: FormControl;
-  minutesControl: FormControl;
+  entryControl: UntypedFormControl;
+  hoursControl: UntypedFormControl;
+  minutesControl: UntypedFormControl;
   listener: Subscription;
 
   ngOnInit() {
@@ -80,11 +80,11 @@ export class DateFieldComponent extends FieldComponent<DateData>
 
     if (this.cData.includeTime) {
 
-      this.hoursControl = new FormControl(
+      this.hoursControl = new UntypedFormControl(
         {value: date?.getHours() || 0, disabled: this.cData.control.disabled},
         [Validators.min(0), Validators.max(23)]
       );
-      this.minutesControl = new FormControl(
+      this.minutesControl = new UntypedFormControl(
         {value: date?.getMinutes() || 0, disabled: this.cData.control.disabled},
         [Validators.min(0), Validators.max(59)]
       );

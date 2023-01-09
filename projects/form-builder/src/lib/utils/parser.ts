@@ -1,7 +1,7 @@
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {Injector} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {safeEval, toLabel} from '@jaspero/utils';
 import {get, has} from 'json-pointer';
 import {SchemaType} from '../enums/schema-type.enum';
@@ -111,7 +111,7 @@ export class Parser {
     };
   }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   pointers: Pointers = {};
   customFields: CustomFields = {};
   parent: Parser;
@@ -160,7 +160,7 @@ export class Parser {
     }
 
     return {
-      control: new FormControl(definition.default || '', controlValidation),
+      control: new UntypedFormControl(definition.default || '', controlValidation),
       validation
     };
   }
@@ -199,7 +199,7 @@ export class Parser {
     }
 
     return {
-      control: new FormControl(definition.default || null, controlValidation),
+      control: new UntypedFormControl(definition.default || null, controlValidation),
       validation
     };
   }
@@ -217,7 +217,7 @@ export class Parser {
     }
 
     return {
-      control: new FormControl(definition.hasOwnProperty('default') ? definition.default : false, controlValidation),
+      control: new UntypedFormControl(definition.hasOwnProperty('default') ? definition.default : false, controlValidation),
       validation
     };
   }
@@ -372,7 +372,7 @@ export class Parser {
 
     return {
       pointers,
-      form: new FormGroup(form)
+      form: new UntypedFormGroup(form)
     };
   }
 
@@ -502,7 +502,7 @@ export class Parser {
     reverse = true
   ) {
     const operation = reverse ? 'unshift' : 'push';
-    const control = target.control as FormArray;
+    const control = target.control as UntypedFormArray;
 
     if (
       target.arrayType === SchemaType.Array ||
@@ -529,9 +529,9 @@ export class Parser {
 
       return properties.pointers;
     } else {
-      const cont = new FormControl('');
+      const cont = new UntypedFormControl('');
 
-      if (control instanceof FormArray) {
+      if (control instanceof UntypedFormArray) {
         if (reverse) {
           control.insert(0, cont);
         } else {
@@ -555,7 +555,7 @@ export class Parser {
       );
     }
 
-    const control = target.control as FormArray;
+    const control = target.control as UntypedFormArray;
     const currentGroup = control.at(fromIndex);
 
     control.removeAt(fromIndex);
@@ -564,7 +564,7 @@ export class Parser {
 
   removeArrayItem(target: Pointer, index: number) {
     target.arrayPointers.splice(index, 1);
-    (target.control as FormArray).removeAt(index);
+    (target.control as UntypedFormArray).removeAt(index);
   }
 
   loadHooks(pointers = this.pointers) {
@@ -575,7 +575,7 @@ export class Parser {
        * only supported on FormControls.
        * We might want to expand on this later on.
        */
-      if (entry.control instanceof FormControl && entry.formatOnLoad) {
+      if (entry.control instanceof UntypedFormControl && entry.formatOnLoad) {
         const adjustedValue = entry.formatOnLoad(entry.control.value);
 
         if (adjustedValue !== entry.control.value) {
@@ -600,7 +600,7 @@ export class Parser {
        * only supported on FormControls.
        * We might want to expand on this later on.
        */
-      if (entry.control instanceof FormControl) {
+      if (entry.control instanceof UntypedFormControl) {
         let value = entry.control.value;
 
         if (entry.formatOnSave) {
@@ -647,12 +647,12 @@ export class Parser {
         properties: definition.items.properties,
         required: definition.items.required,
         validation: {},
-        control: new FormArray([]),
+        control: new UntypedFormArray([]),
         arrayPointers: []
       };
     } else {
       return {
-        control: new FormControl([]),
+        control: new UntypedFormControl([]),
         arrayType: SchemaType.String,
         validation: {}
       };
@@ -714,7 +714,7 @@ export class Parser {
       role: string;
       definitions: Definitions;
       customFields: CustomFields;
-      form: FormGroup;
+      form: UntypedFormGroup;
       pointers: Pointers;
     }> = {}
   ) {

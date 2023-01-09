@@ -31,17 +31,17 @@
     "Angular"
   ],
   "dependencies": {
-    "@angular/animations": "13.3.11",
+    "@angular/animations": "14.2.12",
     "@angular/cdk": "13.3.8",
-    "@angular/common": "13.3.11",
-    "@angular/compiler": "13.3.11",
-    "@angular/core": "13.3.11",
-    "@angular/elements": "13.3.11",
-    "@angular/forms": "13.3.11",
+    "@angular/common": "14.2.12",
+    "@angular/compiler": "14.2.12",
+    "@angular/core": "14.2.12",
+    "@angular/elements": "14.2.12",
+    "@angular/forms": "14.2.12",
     "@angular/material": "13.3.8",
-    "@angular/platform-browser": "13.3.11",
-    "@angular/platform-browser-dynamic": "13.3.11",
-    "@angular/router": "13.3.11",
+    "@angular/platform-browser": "14.2.12",
+    "@angular/platform-browser-dynamic": "14.2.12",
+    "@angular/router": "14.2.12",
     "@jaspero/fb-fields-mat": "file:projects/fields-mat",
     "@jaspero/fb-form-ui": "2.4.7",
     "@jaspero/fb-page-builder": "file:projects/page-builder",
@@ -61,10 +61,10 @@
     "zone.js": "0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "13.3.9",
-    "@angular/cli": "13.3.7",
-    "@angular/compiler-cli": "13.3.11",
-    "@angular/language-service": "13.3.11",
+    "@angular-devkit/build-angular": "14.2.10",
+    "@angular/cli": "14.2.10",
+    "@angular/compiler-cli": "14.2.12",
+    "@angular/language-service": "14.2.12",
     "@qiwi/multi-semantic-release": "6.5.1",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/commit-analyzer": "9.0.2",
@@ -86,12 +86,12 @@
     "karma-coverage-istanbul-reporter": "2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "13.0.8",
+    "ng-packagr": "14.2.2",
     "protractor": "^7.0.0",
     "semantic-release": "19.0.3",
     "ts-node": "8.10.2",
     "tslint": "6.1.3",
-    "typescript": "4.4.4"
+    "typescript": "4.8.4"
   },
   "workspaces": [
     "projects/*"

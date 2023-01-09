@@ -1,5 +1,5 @@
 import {InjectionToken} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 
 export interface CustomComponentData {
   id?: string;
@@ -7,7 +7,7 @@ export interface CustomComponentData {
   columnsTablet?: number;
   columnsMobile?: number;
   class?: string;
-  form: FormGroup;
+  form: UntypedFormGroup;
 }
 
 export const CUSTOM_COMPONENT_DATA = new InjectionToken<CustomComponentData>('CUSTOM_COMPONENT_DATA');

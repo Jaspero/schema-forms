@@ -6,7 +6,7 @@ import {
   OnInit,
   Optional
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -64,7 +64,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
     super(cData);
   }
 
-  imageUrl: FormControl;
+  imageUrl: UntypedFormControl;
   disInput = false;
 
   allowedImageTypes: string[];
@@ -83,7 +83,7 @@ export class ImageComponent extends FieldComponent<ImageData> implements OnInit 
   }
 
   ngOnInit() {
-    this.imageUrl = new FormControl(this.cValue);
+    this.imageUrl = new UntypedFormControl(this.cValue);
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];

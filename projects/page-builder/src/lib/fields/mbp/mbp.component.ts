@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {Subscription} from 'rxjs';
@@ -99,7 +99,7 @@ export type MbpData = MbpConfiguration & FieldData;
 export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: MbpData,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private cdr: ChangeDetectorRef
   ) {
     super(cData);
@@ -111,7 +111,7 @@ export class MbpComponent extends FieldComponent<MbpData> implements OnInit {
   Type = Type;
   BorderStyle = BorderStyle;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   selected: {type: Type; side: Side;};
   units: Unit[];
   item: Item;

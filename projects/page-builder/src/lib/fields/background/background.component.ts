@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
@@ -48,15 +48,15 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
     public domSanitizer: DomSanitizer,
     public http: HttpClient,
     public dialog: MatDialog,
-    public fb: FormBuilder
+    public fb: UntypedFormBuilder
   ) {
     super(cData, storage, cdr, formBuilderService, transloco, snackBar, domSanitizer, http, dialog);
   }
 
   @ViewChild('advanced', {static: true})
   advancedDialog: TemplateRef<any>;
-  color: FormControl;
-  form: FormGroup;
+  color: UntypedFormControl;
+  form: UntypedFormGroup;
   props = [
     {
       key: 'backgroundPosition',
@@ -94,14 +94,14 @@ export class BackgroundComponent extends ImageComponent implements OnInit {
 
     const controlString = this.parseSafeUrl(this.cData.control.value);
 
-    this.imageUrl = new FormControl(controlString);
+    this.imageUrl = new UntypedFormControl(controlString);
 
     this.allowedImageTypes = this.cData.allowedImageTypes || [];
     this.forbiddenImageTypes = this.cData.forbiddenImageTypes || [];
     this.minSizeBytes = (this.cData.minSize || 0) as number;
     this.maxSizeBytes = (this.cData.maxSize || 0) as number;
 
-    this.color = new FormControl(controlString.startsWith('#'));
+    this.color = new UntypedFormControl(controlString.startsWith('#'));
     this.form = this.fb.group(this.props.reduce((acc, cur) => {
       const setting = this.cData[cur.cKey];
 

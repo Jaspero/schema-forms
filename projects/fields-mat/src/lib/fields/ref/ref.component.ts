@@ -1,6 +1,6 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {
   ADDITIONAL_CONTEXT,
@@ -146,7 +146,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   data$: Observable<any>;
   display$: Observable<any>;
   displayedColumns: string[] = [];
-  searchControl: FormControl;
+  searchControl: UntypedFormControl;
   cursor = null;
   loadMore$ = new BehaviorSubject(true);
   lastSearch: string;
@@ -178,7 +178,7 @@ export class RefComponent extends FieldComponent<RefData> implements OnInit, OnD
   }
 
   ngOnInit() {
-    this.searchControl = new FormControl('');
+    this.searchControl = new UntypedFormControl('');
 
     this.cData = {
       ...this.cData,

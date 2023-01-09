@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {COMPONENT_DATA, FieldComponent, FieldData} from '@jaspero/form-builder';
 import {TemplateEditorSegment} from './interfaces/template-editor-segment.interface';
 import {TemplateEditorTemplate} from './interfaces/template-editor-template.interface';
@@ -30,7 +30,7 @@ export class TemplateEditorComponent extends FieldComponent<TemplateEditorData> 
   innerComponent: TemplateEditorInnerComponent;
 
   templates: TemplateEditorTemplate[];
-  templateControl: FormControl;
+  templateControl: UntypedFormControl;
   template: TemplateEditorTemplate;
   segments: TemplateEditorSegment[];
   segmentSelect: {
@@ -53,10 +53,10 @@ export class TemplateEditorComponent extends FieldComponent<TemplateEditorData> 
 
     if (template) {
       this.template = this.templates.find(it => it.id === template) as TemplateEditorTemplate;
-      this.templateControl = new FormControl(template);
+      this.templateControl = new UntypedFormControl(template);
     } else {
       this.template = this.templates.find(it => it.id === this.cData.defaultTemplate) as TemplateEditorTemplate;
-      this.templateControl = new FormControl(this.template.id);
+      this.templateControl = new UntypedFormControl(this.template.id);
     }
 
     this.segments = (

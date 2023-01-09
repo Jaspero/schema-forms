@@ -1,5 +1,5 @@
 import {Component, HostBinding, Inject} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {COMPONENT_DATA} from '../injection-tokens/component-data.token';
 import {FieldData} from '../interfaces/field-data.interface';
 
@@ -8,7 +8,7 @@ import {FieldData} from '../interfaces/field-data.interface';
   selector: 'fb-field',
   template: ''
 })
-export class FieldComponent<T extends FieldData<C>, C = FormControl> {
+export class FieldComponent<T extends FieldData<C>, C = UntypedFormControl> {
   constructor(
     @Inject(COMPONENT_DATA) public cData: T
   ) {

@@ -11,7 +11,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
@@ -60,7 +60,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
   implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     @Inject(COMPONENT_DATA) public cData: TinyData,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     @Optional() private storage: StorageService,
     private zone: NgZone
@@ -75,7 +75,7 @@ export class TinymceComponent extends FieldComponent<TinyData>
   @ViewChild('textarea', {static: true}) textarea: ElementRef;
   @ViewChild('youTubeDialog', {static: true}) youTubeDialogTemplate: TemplateRef<any>;
 
-  ytForm: FormGroup;
+  ytForm: UntypedFormGroup;
   ytDefault = {
     fullWidth: true,
     showPlayerControls: true,

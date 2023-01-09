@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
@@ -10,12 +10,12 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class ImageDialogComponent implements OnInit {
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA)
     private url: string
   ) { }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   ngOnInit() {
     this.form = this.fb.group({

@@ -7,7 +7,7 @@ import {
   Inject,
   ViewChild
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {
   COMPONENT_DATA,
   FieldComponent,
@@ -42,7 +42,7 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
     super(cData);
   }
 
-  code: FormControl;
+  code: UntypedFormControl;
   monaco: Monaco;
 
   @ViewChild('editor')
@@ -51,7 +51,7 @@ export class MonacoComponent extends FieldComponent<MonacoData> implements After
   editor;
 
   ngAfterViewInit(): void {
-    this.code = new FormControl(this.cData.value || '');
+    this.code = new UntypedFormControl(this.cData.value || '');
 
     loader.init().then(monaco => {
       this.monaco = monaco;

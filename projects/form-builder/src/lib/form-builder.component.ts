@@ -13,7 +13,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {get} from 'json-pointer';
 import {of, Subscription} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators'
@@ -73,7 +73,7 @@ export class FormBuilderComponent implements OnChanges, OnDestroy {
   @Output() validityChanges = new EventEmitter<boolean>();
   @Output() rendered = new EventEmitter();
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   segments: CompiledSegment[];
   innerParser: Parser;
 

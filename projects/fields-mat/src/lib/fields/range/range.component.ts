@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import {
   cloneAbstractControl,
   COMPONENT_DATA,
@@ -30,9 +30,9 @@ export class RangeComponent extends FieldComponent<RangeData> implements OnInit 
     super(cData);
   }
 
-  entryControl: FormControl;
-  start: FormControl;
-  end: FormControl;
+  entryControl: UntypedFormControl;
+  start: UntypedFormControl;
+  end: UntypedFormControl;
   min: Date;
   max: Date;
 
@@ -41,12 +41,12 @@ export class RangeComponent extends FieldComponent<RangeData> implements OnInit 
     this.max = new Date(this.cData.max || Date.now() * 2);
     this.entryControl = cloneAbstractControl(this.cData.control);
 
-    this.start = new FormControl(
+    this.start = new UntypedFormControl(
       {value: this.entryControl.value.start || '', disabled: this.cData.control.disabled},
       [Validators.min(this.cData.min || 0)]
     );
 
-    this.end = new FormControl(
+    this.end = new UntypedFormControl(
       {value: this.entryControl.value.end || '', disabled: this.cData.control.disabled},
       [Validators.max(this.cData.max || Date.now() * 2)]
     );

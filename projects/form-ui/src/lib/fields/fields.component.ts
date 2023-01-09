@@ -11,7 +11,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {
   COMPONENT_DATA,
@@ -73,7 +73,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     @Optional()
     @Inject(FB_FORM_UI_OPTIONS)
     private gOptions: FbFormUiOptions,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private viewportRuler: ViewportRuler,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef
@@ -98,7 +98,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   @ViewChild('organizeDialog', {static: true}) organizeDialogTemp: TemplateRef<any>;
   @ViewChild('conditionDialog', {static: true}) conditionDialogTemp: TemplateRef<any>;
 
-  fields: FormArray;
+  fields: UntypedFormArray;
   types: {
     [key: string]: {
       value: string;
@@ -115,8 +115,8 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }>;
   sizes: number[] = [];
 
-  selectedForm: FormGroup | FormArray;
-  sizeForm: FormGroup;
+  selectedForm: UntypedFormGroup | UntypedFormArray;
+  sizeForm: UntypedFormGroup;
   selectedFormData: FormBuilderData;
   subscription: Subscription;
   additionalTypeOptions: {
@@ -166,7 +166,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     this.subscription.unsubscribe();
   }
 
-  fieldSize(group: FormGroup) {
+  fieldSize(group: UntypedFormGroup) {
     const {columnsDesktop, columnsTablet, columnsMobile} = group.getRawValue();
 
     return [
@@ -200,10 +200,10 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
 
   addField(type: string) {
     this.fields.push(this.createField(undefined, type));
-    this.edit(this.fields.at(this.fields.length - 1) as FormGroup);
+    this.edit(this.fields.at(this.fields.length - 1) as UntypedFormGroup);
   }
 
-  edit(group: FormGroup) {
+  edit(group: UntypedFormGroup) {
     const type = group.get('type')?.value;
     this.selectedForm = group;
     this.selectedFormData = {
@@ -219,7 +219,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
-  options(group: FormGroup) {
+  options(group: UntypedFormGroup) {
 
     const type = group.get('type')?.value;
     const formData = this.loseRef(this.types[type].added as FormBuilderData);
@@ -268,7 +268,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
-  openSizes(group: FormGroup) {
+  openSizes(group: UntypedFormGroup) {
     const {
       columnsDesktop,
       columnsMobile,
@@ -290,7 +290,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     )
   }
 
-  conditions(group: FormGroup) {
+  conditions(group: UntypedFormGroup) {
 
     const value = group.getRawValue();
 
@@ -409,7 +409,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
     this.cdr.markForCheck();
   }
 
-  updateType(group: FormGroup, type: string) {
+  updateType(group: UntypedFormGroup, type: string) {
     group.get('added')?.setValue({...this.types[type].default?.added || {}});
     group.get('type')?.setValue(type);
   }
@@ -430,7 +430,7 @@ export class FieldsComponent extends FieldComponent<FieldsData> implements OnIni
   }
 
   buildFields(value = this.cData.control.value) {
-    return new FormArray(
+    return new UntypedFormArray(
       (value || [])
         .map(it => this.createField(it))
     )

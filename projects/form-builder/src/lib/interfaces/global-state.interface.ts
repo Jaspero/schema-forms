@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Parser} from '../utils/parser';
 import {FieldData} from './field-data.interface';
@@ -34,7 +34,7 @@ export interface Operation<T = FieldData> {
 };
 
 export interface GlobalState {
-  forms: {[id: string]: FormGroup};
+  forms: {[id: string]: UntypedFormGroup};
   parsers: {[id: string]: Parser};
 
   /**

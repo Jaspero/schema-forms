@@ -1,7 +1,7 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {Pointers} from '../utils/parser';
 
-export interface FieldData <T = FormControl> {
+export interface FieldData <T = UntypedFormControl> {
   pointer: string;
   formId?: string;
   parentForm?: {
@@ -14,7 +14,7 @@ export interface FieldData <T = FormControl> {
    */
   single: boolean;
   pointers: Pointers;
-  form: FormGroup;
+  form: UntypedFormGroup;
   control: T;
   label: string;
   columnsDesktop?: number;
