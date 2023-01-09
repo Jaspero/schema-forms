@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/fb-segments-mat",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0",
@@ -10,7 +10,7 @@
     "@jaspero/ng-helpers": "^5.9.0",
     "@ngneat/transloco": "^4.0.0",
     "@jaspero/utils": "^1.7.1",
-    "@jaspero/form-builder": "^5.10.0"
+    "@jaspero/form-builder": "^5.10.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"
