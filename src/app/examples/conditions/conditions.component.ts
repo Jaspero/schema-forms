@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {FormBuilderComponent} from '@jaspero/form-builder';
 import {CONDITIONS_EXAMPLE} from './forms/conditions-example';
 
