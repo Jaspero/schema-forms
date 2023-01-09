@@ -1,3 +1,18 @@
+## @jaspero/fb-tinymce [2.13.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.13.0...@jaspero/fb-tinymce@2.13.1) (2023-01-09)
+
+
+### Bug Fixes
+
+* using legacy material components ([6600793](https://github.com/Jaspero/schema-forms/commit/66007937cce976eee0ae9f67d8b06e05859e5203))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.10.1
+
 # @jaspero/fb-tinymce [2.13.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-tinymce@2.12.5...@jaspero/fb-tinymce@2.13.0) (2023-01-09)
 
 

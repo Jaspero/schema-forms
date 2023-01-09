@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/fb-tinymce",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "description": "TinyMCE plugin for @jaspero/form-builderxwsdxwd",
   "author": {
     "name": "Jaspero Ltd",
@@ -18,7 +18,7 @@
     }
   ],
   "peerDependencies": {
-    "@jaspero/form-builder": "^5.10.0",
+    "@jaspero/form-builder": "^5.10.1",
     "tinymce": "^5.4.2"
   },
   "release": {
