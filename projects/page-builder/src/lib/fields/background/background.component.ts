@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, Optional, TemplateRef, ViewChild} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
-import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ImageComponent, ImageConfiguration} from '@jaspero/fb-fields-mat';
 import {COMPONENT_DATA, FieldData, formatGeneratedImages, FormBuilderService, ProcessConfig, StorageService} from '@jaspero/form-builder';

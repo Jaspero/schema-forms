@@ -23,15 +23,15 @@
   <div class="option-set" *ngIf="presets[selected.type]?.length">
     <div class="option-set-label">Presets</div>
 
-    <mat-chip-list>
-      <mat-chip
+    <mat-chip-listbox>
+      <mat-chip-option
         class="preset"
         *ngFor="let preset of presets[selected.type]"
         [selected]="form.get('preset').value === preset.name"
         (click)="selectPreset(preset)">
         {{preset.name}}
-      </mat-chip>
-    </mat-chip-list>
+      </mat-chip-option>
+    </mat-chip-listbox>
   </div>
 
   <div class="option-set">

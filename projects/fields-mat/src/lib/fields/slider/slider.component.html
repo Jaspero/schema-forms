@@ -3,8 +3,8 @@
   <mat-slider
     (change)="changed($event)"
     (input)="changed($event)"
-    [thumbLabel]="cData.thumbLabel"
-    [tickInterval]="cData.tickInterval"
+    [displayWith]="cData.displayWith"
+    [step]="cData.step"
     [min]="startAt"
     [max]="endAt">
   </mat-slider>

@@ -6,8 +6,8 @@ export interface SliderConfiguration {
     minimum: number;
     maximum: number;
   };
-  thumbLabel: boolean;
-  tickInterval: number;
+  displayWith?: (num: number) => any;
+  step?: number;
   starAt: number;
   endAt: number;
 }
@@ -26,6 +26,8 @@ export class SliderComponent extends FieldComponent<SliderData>
   endAt: number;
 
   ngOnInit() {
+    this.cData.displayWith = this.cData.displayWith || (value => value);
+    this.cData.step = this.cData.step || 1;
     this.startAt = this.cData.starAt
       ? this.cData.starAt
       : this.cData.validation.minimum
