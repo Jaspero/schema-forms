@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.17.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.1...@jaspero/fb-fields-mat@1.17.2) (2023-01-13)
+
+
+### Bug Fixes
+
+* **fields-mat:** chips not working ([a9644a3](https://github.com/Jaspero/schema-forms/commit/a9644a393d3f3e55aa6ee364b9a04687f99cbf0d))
+
 ## @jaspero/fb-fields-mat [1.17.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.0...@jaspero/fb-fields-mat@1.17.1) (2023-01-09)
 
 
