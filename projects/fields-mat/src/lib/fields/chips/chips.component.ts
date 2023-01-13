@@ -52,7 +52,7 @@ export class ChipsComponent extends FieldComponent<ChipsData>
 
   remove(chip: string) {
     const index = this.cData.control.value.indexOf(chip);
-
+    
     if (index >= 0) {
       this.data.splice(index, 1);
       this.cData.control.setValue(this.data);

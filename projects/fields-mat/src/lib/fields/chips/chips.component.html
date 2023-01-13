@@ -1,21 +1,22 @@
 <mat-form-field class="w-full" appearance="outline">
   <mat-label>{{(cData.label || '') | transloco}}</mat-label>
-  <mat-chip-listbox #chipList>
-    <mat-chip-option
+  <mat-chip-grid #chipList>
+    <mat-chip-row
       *ngFor="let chip of data"
-      [selectable]="cData.selectable"
       [removable]="removable"
       (removed)="remove(chip)">
       {{chip}}
-      <mat-icon *ngIf="removable" matChipRemove>cancel</mat-icon>
-    </mat-chip-option>
+      <button *ngIf="removable" matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
     <input
       matInput
       [attr.autocomplete]="cData.autocomplete || 'on'"
       [placeholder]="(cData.placeholder || '') | transloco"
       (matChipInputTokenEnd)="add($event)"
       [matChipInputFor]="chipList">
-  </mat-chip-listbox>
+  </mat-chip-grid>
   <span *ngIf="cData.suffix" matSuffix [innerHTML]="((suffix$ | async) || '') | jpSanitize"></span>
   <span *ngIf="cData.prefix" matPrefix [innerHTML]="((prefix$ | async) || '') | jpSanitize"></span>
   <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | transloco | jpSanitize"></mat-hint>

@@ -3,7 +3,7 @@ import {COMMON_OPTIONS} from './common-options.const';
 export const SCHEMA = {
   segments: [
     {
-      fields: ['/title']
+      fields: ['/title', '/tags']
     },
     {
       type: 'empty',
@@ -15,7 +15,8 @@ export const SCHEMA = {
   schema: {
     properties: {
       title: {type: 'string'},
-      blocks: {type: 'array'}
+      blocks: {type: 'array'},
+      tags: {type: 'array'}
     }
   },
   definitions: {
