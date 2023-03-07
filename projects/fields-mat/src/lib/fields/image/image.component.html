@@ -25,8 +25,8 @@
       <mat-icon>perm_media</mat-icon>
     </button>
 
-    <button mat-icon-button *ngIf="imageUrl.value">
-      <mat-icon (click)="remove()">highlight_off</mat-icon>
+    <button mat-icon-button *ngIf="imageUrl.value" (click)="remove()">
+      <mat-icon>highlight_off</mat-icon>
     </button>
   </div>
   <mat-hint *ngIf="cData.hint" [innerHTML]="cData.hint | transloco | jpSanitize"></mat-hint>

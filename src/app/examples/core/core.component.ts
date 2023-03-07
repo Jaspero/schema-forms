@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren} from '@angular/core';
 import {FormBuilderComponent} from '@jaspero/form-builder';
-import {REF_TABLE_EXAMPLE} from './forms/ref-table-example';
+import {FILE_UPLOAD_EXAMPLE} from './forms/file-upload-example';
 
 @Component({
   selector: 'sc-core',
@@ -13,7 +13,7 @@ export class CoreComponent implements AfterViewInit {
   @ViewChildren(FormBuilderComponent)
   formComponents: QueryList<FormBuilderComponent>;
 
-  form = REF_TABLE_EXAMPLE;
+  form = FILE_UPLOAD_EXAMPLE;
 
   ngAfterViewInit() {
     this.formComponents.forEach(log => {
