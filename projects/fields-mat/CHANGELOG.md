@@ -1,3 +1,10 @@
+## @jaspero/fb-fields-mat [1.17.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.2...@jaspero/fb-fields-mat@1.17.3) (2023-03-07)
+
+
+### Bug Fixes
+
+* **fields-mat:** removing image working ([b754053](https://github.com/Jaspero/schema-forms/commit/b754053f20b3edc2a77400f3734a48d21ecb6e00))
+
 ## @jaspero/fb-fields-mat [1.17.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.1...@jaspero/fb-fields-mat@1.17.2) (2023-01-13)
 
 
