@@ -56,7 +56,7 @@
     "json-pointer": "0.6.2",
     "monaco-editor": "*",
     "rxjs": "7.5.5",
-    "tinymce": "5.10.8",
+    "tinymce": "5.10.9",
     "tslib": "2.3.1",
     "zone.js": "0.11.5"
   },
