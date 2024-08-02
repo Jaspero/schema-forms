@@ -1,3 +1,10 @@
+# @jaspero/fb-ref-table [2.7.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.6.2...@jaspero/fb-ref-table@2.7.0) (2024-08-02)
+
+
+### Features
+
+* bump angular version ([a699d95](https://github.com/Jaspero/schema-forms/commit/a699d9590c3007bd99f0220d939180910ed250df))
+
 ## @jaspero/fb-ref-table [2.6.2](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-ref-table@2.6.1...@jaspero/fb-ref-table@2.6.2) (2023-01-09)
 
 
