@@ -9,7 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService, ShowFieldModule} from '@jaspero/form-builder';
-import {TranslocoModule} from '@ngneat/transloco';
+import {TranslocoModule} from '@jsverse/transloco';
 import {AccordionComponent} from './segments/accordion/accordion.component';
 import {CardComponent} from './segments/card/card.component';
 import {EmptyComponent} from './segments/empty/empty.component';

@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 

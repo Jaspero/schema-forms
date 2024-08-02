@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
-import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@jsverse/transloco';
 import {TemplateEditorInnerComponent} from './template-editor-inner/template-editor-inner.component';
 import {TemplateEditorComponent} from './template-editor.component';
 import {SanitizeModule} from '@jaspero/ng-helpers';

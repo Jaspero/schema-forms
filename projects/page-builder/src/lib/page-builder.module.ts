@@ -17,10 +17,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
-import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
+import {TRANSLOCO_SCOPE, TranslocoModule} from '@jsverse/transloco';
 import {BlockFormComponent} from './block-form/block-form.component';
 import {BlockComponent} from './block/block.component';
-import {BackgroundComponent} from './fields/background/background.component';
 import {MbpComponent} from './fields/mbp/mbp.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {PageBuilderCtxService} from './page-builder-ctx.service';
@@ -33,8 +32,7 @@ import {ToolbarService} from './toolbar.service';
     BlockFormComponent,
     NavigationComponent,
     BlockComponent,
-    MbpComponent,
-    BackgroundComponent
+    MbpComponent
   ],
   imports: [
     CommonModule,
@@ -78,8 +76,7 @@ export class PageBuilderModule {
     [
       ['blocks', PageBuilderComponent],
       ['block', BlockFormComponent],
-      ['mbp', MbpComponent],
-      ['background', BackgroundComponent]
+      ['mbp', MbpComponent]
     ]
       .forEach(([key, component]) =>
         this.ctx.registerField('pb-' + key, component)

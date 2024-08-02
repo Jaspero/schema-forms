@@ -26,7 +26,7 @@ import {
   ProcessConfig
 } from '@jaspero/form-builder';
 import {random, sizeToBytes} from '@jaspero/utils';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {set} from 'json-pointer';
 import {forkJoin, from, of, throwError} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';

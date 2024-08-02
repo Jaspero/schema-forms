@@ -20,7 +20,7 @@ import {
   ProcessConfig
 } from '@jaspero/form-builder';
 import {sizeToBytes, random} from '@jaspero/utils';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {set} from 'json-pointer';
 import {from, of, throwError} from 'rxjs';
 import {switchMap, take, tap} from 'rxjs/operators';

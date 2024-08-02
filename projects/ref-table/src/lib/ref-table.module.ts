@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
-import {TranslocoModule} from '@ngneat/transloco';
+import {TranslocoModule} from '@jsverse/transloco';
 import {RefTableComponent} from './ref-table/ref-table.component';
 
 @NgModule({

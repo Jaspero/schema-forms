@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 

@@ -19,7 +19,7 @@ import {
   UploadMethod
 } from '@jaspero/form-builder';
 import {random, sizeToBytes} from '@jaspero/utils';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {set} from 'json-pointer';
 import {from, Observable, of, throwError} from 'rxjs';
 import {map, startWith, switchMap, take, tap} from 'rxjs/operators';

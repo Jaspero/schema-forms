@@ -6,7 +6,9 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  Inject, Injector, OnDestroy,
+  Inject,
+  Injector,
+  OnDestroy,
   OnInit,
   Optional,
   QueryList,
@@ -15,16 +17,17 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import {DomSanitizer, ɵDomSharedStylesHost} from '@angular/platform-browser';
+import {DomSanitizer, ɵSharedStylesHost} from '@angular/platform-browser';
 import {
   COMPONENT_DATA,
   FieldComponent,
   FieldData,
   FormBuilderContextService,
-  FormBuilderData, Segment
+  FormBuilderData,
+  Segment
 } from '@jaspero/form-builder';
 import {safeEval} from '@jaspero/utils';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {UntilDestroy} from '@ngneat/until-destroy';
 import {set} from 'json-pointer';
 import {Observable, of} from 'rxjs';
@@ -142,7 +145,7 @@ export class PageBuilderComponent extends FieldComponent<BlocksData> implements 
     private renderer: Renderer2,
     private ctx: PageBuilderCtxService,
     private injector: Injector,
-    private domSharedStyleHost: ɵDomSharedStylesHost
+    private domSharedStyleHost: ɵSharedStylesHost
   ) {
     super(cData);
   }

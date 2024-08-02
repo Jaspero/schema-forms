@@ -2,7 +2,7 @@ import {PortalModule} from '@angular/cdk/portal';
 import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {TranslocoModule} from '@ngneat/transloco';
+import {TranslocoModule} from '@jsverse/transloco';
 import {CustomComponent} from './custom/custom.component';
 import {FieldComponent} from './field/field.component';
 import {FormBuilderContextService} from './form-builder-context.service';

@@ -8,7 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
-import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@jsverse/transloco';
 import {TinymceComponent} from './tinymce.component';
 
 @NgModule({

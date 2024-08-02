@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService, FormBuilderModule} from '@jaspero/form-builder';
 import {LoadClickModule, StopPropagationModule} from '@jaspero/ng-helpers';
-import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@jsverse/transloco';
 import {FieldsComponent} from './fields/fields.component';
 
 @NgModule({

@@ -26,7 +26,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormBuilderContextService} from '@jaspero/form-builder';
 import {DropZoneModule, SanitizeModule, StopPropagationModule} from '@jaspero/ng-helpers';
-import {TranslocoModule, TRANSLOCO_SCOPE} from '@ngneat/transloco';
+import {TranslocoModule, TRANSLOCO_SCOPE} from '@jsverse/transloco';
 import {FileSelectComponent} from './components/file-select/file-select.component';
 import {AutocompleteComponent} from './fields/autocomplete/autocomplete.component';
 import {CheckboxComponent} from './fields/checkbox/checkbox.component';
