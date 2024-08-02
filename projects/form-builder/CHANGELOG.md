@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.10.1...@jaspero/form-builder@5.11.0) (2024-08-02)
+
+
+### Features
+
+* bump angular version ([a699d95](https://github.com/Jaspero/schema-forms/commit/a699d9590c3007bd99f0220d939180910ed250df))
+
 ## @jaspero/form-builder [5.10.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.10.0...@jaspero/form-builder@5.10.1) (2023-01-09)
 
 
