@@ -1,3 +1,18 @@
+# @jaspero/fb-page-builder [3.32.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.31.1...@jaspero/fb-page-builder@3.32.0) (2024-08-02)
+
+
+### Features
+
+* bump angular version ([a699d95](https://github.com/Jaspero/schema-forms/commit/a699d9590c3007bd99f0220d939180910ed250df))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.11.0
+
 ## @jaspero/fb-page-builder [3.31.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-page-builder@3.31.0...@jaspero/fb-page-builder@3.31.1) (2023-01-09)
 
 
