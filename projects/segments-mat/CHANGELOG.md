@@ -1,3 +1,18 @@
+# @jaspero/fb-segments-mat [1.6.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.5.1...@jaspero/fb-segments-mat@1.6.0) (2024-08-02)
+
+
+### Features
+
+* bump angular version ([a699d95](https://github.com/Jaspero/schema-forms/commit/a699d9590c3007bd99f0220d939180910ed250df))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.11.0
+
 ## @jaspero/fb-segments-mat [1.5.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-segments-mat@1.5.0...@jaspero/fb-segments-mat@1.5.1) (2023-01-09)
 
 
