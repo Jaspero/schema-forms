@@ -1,3 +1,18 @@
+# @jaspero/fb-fields-mat [1.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.3...@jaspero/fb-fields-mat@1.18.0) (2024-08-02)
+
+
+### Features
+
+* bump angular version ([a699d95](https://github.com/Jaspero/schema-forms/commit/a699d9590c3007bd99f0220d939180910ed250df))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.11.0
+
 ## @jaspero/fb-fields-mat [1.17.3](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.2...@jaspero/fb-fields-mat@1.17.3) (2023-03-07)
 
 

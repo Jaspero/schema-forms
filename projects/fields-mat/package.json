@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/fb-fields-mat",
-  "version": "1.17.1",
+  "version": "1.18.0",
   "i18n": [
     {
       "scope": "fb-fields-mat",
@@ -16,7 +16,7 @@
     "@jaspero/ng-helpers": "^6.0.0",
     "@jsverse/transloco": "^7.4.3",
     "@jaspero/utils": "^1.15.3",
-    "@jaspero/form-builder": "^5.10.1"
+    "@jaspero/form-builder": "^5.11.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
