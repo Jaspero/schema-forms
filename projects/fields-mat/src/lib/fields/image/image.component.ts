@@ -52,6 +52,8 @@ export type ImageData = ImageConfiguration & FieldData;
 export class ImageComponent extends FieldComponent<ImageData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: ImageData,
+    // todo: finish
+    // refactor storage service in schema forms
     @Optional() public storage: StorageService,
     public cdr: ChangeDetectorRef,
     public formBuilderService: FormBuilderService,

@@ -66,6 +66,8 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
+    // todo: finish
+    // refactor storage service in schema forms
     @Optional() private storage: StorageService,
     private formBuilderService: FormBuilderService,
     private transloco: TranslocoService,

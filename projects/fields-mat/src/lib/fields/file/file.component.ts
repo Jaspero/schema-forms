@@ -52,6 +52,8 @@ export type FileData = FileConfiguration & FieldData;
 export class FileComponent extends FieldComponent<FileData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: FileData,
+    // todo: finish
+    // refactor storage service in schema forms
     @Optional() private storage: StorageService,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService,
