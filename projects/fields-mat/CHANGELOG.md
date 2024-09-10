@@ -1,3 +1,10 @@
+# @jaspero/fb-fields-mat [1.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.18.0...@jaspero/fb-fields-mat@1.19.0) (2024-09-06)
+
+
+### Features
+
+* bump transloco ([b053566](https://github.com/Jaspero/schema-forms/commit/b05356695e583eca3c9ab21e9c863bb6c92a80ba))
+
 # @jaspero/fb-fields-mat [1.18.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.17.3...@jaspero/fb-fields-mat@1.18.0) (2024-08-02)
 
 
