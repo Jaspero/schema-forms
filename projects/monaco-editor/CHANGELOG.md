@@ -1,3 +1,13 @@
+## @jaspero/fb-monaco-editor [2.8.1](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.8.0...@jaspero/fb-monaco-editor@2.8.1) (2024-09-10)
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.12.0
+
 # @jaspero/fb-monaco-editor [2.8.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-monaco-editor@2.7.1...@jaspero/fb-monaco-editor@2.8.0) (2024-08-02)
 
 
