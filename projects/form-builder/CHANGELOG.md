@@ -1,3 +1,10 @@
+# @jaspero/form-builder [5.12.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.11.0...@jaspero/form-builder@5.12.0) (2024-09-10)
+
+
+### Features
+
+* gallery delete object ([007de54](https://github.com/Jaspero/schema-forms/commit/007de54eb10b21dce0dcd9d7592c55972549ae01))
+
 # @jaspero/form-builder [5.11.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/form-builder@5.10.1...@jaspero/form-builder@5.11.0) (2024-08-02)
 
 
