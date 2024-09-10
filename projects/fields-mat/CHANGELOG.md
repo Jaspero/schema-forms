@@ -1,3 +1,18 @@
+# @jaspero/fb-fields-mat [1.20.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.19.0...@jaspero/fb-fields-mat@1.20.0) (2024-09-10)
+
+
+### Features
+
+* gallery delete object ([007de54](https://github.com/Jaspero/schema-forms/commit/007de54eb10b21dce0dcd9d7592c55972549ae01))
+
+
+
+
+
+### Dependencies
+
+* **@jaspero/form-builder:** upgraded to 5.12.0
+
 # @jaspero/fb-fields-mat [1.19.0](https://github.com/Jaspero/schema-forms/compare/@jaspero/fb-fields-mat@1.18.0...@jaspero/fb-fields-mat@1.19.0) (2024-09-06)
 
 
