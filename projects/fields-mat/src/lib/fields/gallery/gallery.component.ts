@@ -135,7 +135,7 @@ export class GalleryComponent extends FieldComponent<GalleryData> implements OnI
 
         return forkJoin([
           ...data.cData.toRemove.map(file =>
-            from(this.storage.storage.refFromURL(file).delete()).pipe(
+            this.storage.deleteObject(file).pipe(
               /**
                * Dont' fail if files didn't delete
                */

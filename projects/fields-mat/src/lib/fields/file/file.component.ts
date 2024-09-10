@@ -52,8 +52,6 @@ export type FileData = FileConfiguration & FieldData;
 export class FileComponent extends FieldComponent<FileData> implements OnInit {
   constructor(
     @Inject(COMPONENT_DATA) public cData: FileData,
-    // todo: finish
-    // refactor storage service in schema forms
     @Optional() private storage: StorageService,
     private cdr: ChangeDetectorRef,
     private transloco: TranslocoService,
@@ -114,7 +112,7 @@ export class FileComponent extends FieldComponent<FileData> implements OnInit {
              * Maybe we should put a type extension based on type
              * instead of taking from the name
              */
-            name += '.' + (current.value.name.split('.')[1]);;
+            name += '.' + (current.value.name.split('.')[1]);
           }
 
           return from(
